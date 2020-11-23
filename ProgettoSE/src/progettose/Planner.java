@@ -33,18 +33,11 @@ public class Planner {
     public boolean createActivity(Activity a) {
         try {
             Statement stm = connection.createStatement();
-            int type;
-            if (a instanceof PlannedActivity)
-                type = 0;
-            else if (a instanceof EwoActivity)
-                type =1;           
-            else
-                type = 2;
             
             String query = "insert into Activity(id_,factorySite,area,typology,description,estimatedTime,week,workSpaceNotes,activityType)"
                     + " values("+a.getId()+",'"+a.getFactorySite()+"','"+a.getArea()+"','"+a.getTypology()+"','"
                     +a.getActivityDescription()+"',"+a.getEstimatedTime()+","+a.getWeek()+",'"+a.getWorkSpaceNote()
-                    +"',"+type+");";
+                    +"',"+a.getType()+");";
             stm.executeUpdate(query);
             return true;
         } catch (SQLException ex) {

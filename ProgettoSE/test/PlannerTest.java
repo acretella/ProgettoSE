@@ -16,6 +16,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import progettose.Activity;
+import progettose.EwoActivity;
+import progettose.PlannedActivity;
 import progettose.Planner;
 
 /**
@@ -39,7 +41,7 @@ public class PlannerTest {
     public void testPosCreateActivity(){
         List <String> l = new ArrayList<>();
         
-        Activity activity = new Activity(0,
+        Activity activity = new PlannedActivity(0,
                 "branch office",
                 "departement",
                 "electrical",
@@ -56,7 +58,7 @@ public class PlannerTest {
     public void testNegCreateActivity(){
         List <String> l = new ArrayList<>();
         
-        Activity activity = new Activity(1,
+        Activity activity = new EwoActivity(1,
                 "branch office",
                 "departement",
                 "electrical",
