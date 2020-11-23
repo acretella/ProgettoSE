@@ -5,7 +5,11 @@
  */
 package progettose;
 
+import java.awt.List;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.ERROR_MESSAGE;
 
 /**
  *
@@ -13,10 +17,14 @@ import javax.swing.JOptionPane;
  */
 public class InterfacciaGrafica extends javax.swing.JFrame {
 
+    ArrayList<String> materiali = new ArrayList<>();
+    DefaultListModel listModel = new DefaultListModel();
+
     /**
      * Creates new form InterfacciaGrafica
      */
     public InterfacciaGrafica() {
+
         initComponents();
     }
 
@@ -31,6 +39,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         GestioneAttività = new javax.swing.JFrame();
         buttonCreaAttività = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         creazioneAttività = new javax.swing.JFrame();
         tendinaTipoAttività = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
@@ -47,7 +58,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         fieldID = new javax.swing.JTextField();
         fieldFactorySite = new javax.swing.JTextField();
         fieldArea = new javax.swing.JTextField();
-        fieldTypology = new javax.swing.JTextField();
         fieldTime = new javax.swing.JTextField();
         fieldWeek = new javax.swing.JTextField();
         tendinaInterrompibile = new javax.swing.JComboBox<>();
@@ -60,6 +70,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         textAreaMateriali = new javax.swing.JTextArea();
         jScrollPane6 = new javax.swing.JScrollPane();
         textAreaDescrizioneAttività = new javax.swing.JTextArea();
+        tendinaTipologia = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listaMateriali = new javax.swing.JList<>();
         buttonGestManut = new javax.swing.JButton();
 
         GestioneAttività.setTitle("MENU' GESTIONE ATTIVITA'");
@@ -72,13 +85,23 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("jButton1");
+
+        jButton2.setText("jButton2");
+
+        jButton3.setText("jButton3");
+
         javax.swing.GroupLayout GestioneAttivitàLayout = new javax.swing.GroupLayout(GestioneAttività.getContentPane());
         GestioneAttività.getContentPane().setLayout(GestioneAttivitàLayout);
         GestioneAttivitàLayout.setHorizontalGroup(
             GestioneAttivitàLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(GestioneAttivitàLayout.createSequentialGroup()
                 .addGap(51, 51, 51)
-                .addComponent(buttonCreaAttività)
+                .addGroup(GestioneAttivitàLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(buttonCreaAttività, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(890, Short.MAX_VALUE))
         );
         GestioneAttivitàLayout.setVerticalGroup(
@@ -86,7 +109,13 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             .addGroup(GestioneAttivitàLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(buttonCreaAttività)
-                .addContainerGap(389, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addGap(18, 18, 18)
+                .addComponent(jButton3)
+                .addContainerGap(266, Short.MAX_VALUE))
         );
 
         creazioneAttività.setMinimumSize(new java.awt.Dimension(1100, 500));
@@ -146,8 +175,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         fieldFactorySite.setBounds(90, 120, 90, 30);
         creazioneAttività.getContentPane().add(fieldArea);
         fieldArea.setBounds(90, 160, 90, 30);
-        creazioneAttività.getContentPane().add(fieldTypology);
-        fieldTypology.setBounds(90, 200, 90, 30);
 
         fieldTime.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,6 +193,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         fieldMateriale.setBounds(90, 390, 90, 30);
 
         buttonAggiungiMateriale.setText("Aggiungi");
+        buttonAggiungiMateriale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAggiungiMaterialeActionPerformed(evt);
+            }
+        });
         creazioneAttività.getContentPane().add(buttonAggiungiMateriale);
         buttonAggiungiMateriale.setBounds(200, 390, 82, 30);
 
@@ -177,6 +209,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jScrollPane2.setBounds(740, 70, 250, 140);
 
         buttonCrea.setText("CREA ATTIVITA'");
+        buttonCrea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCreaActionPerformed(evt);
+            }
+        });
         creazioneAttività.getContentPane().add(buttonCrea);
         buttonCrea.setBounds(750, 350, 250, 81);
 
@@ -185,7 +222,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jScrollPane5.setViewportView(textAreaMateriali);
 
         creazioneAttività.getContentPane().add(jScrollPane5);
-        jScrollPane5.setBounds(430, 310, 250, 140);
+        jScrollPane5.setBounds(780, 160, 250, 140);
 
         textAreaDescrizioneAttività.setColumns(20);
         textAreaDescrizioneAttività.setRows(5);
@@ -193,6 +230,15 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         creazioneAttività.getContentPane().add(jScrollPane6);
         jScrollPane6.setBounds(425, 69, 250, 140);
+
+        tendinaTipologia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Electrical", "Electronic", "Hydraulic", "Mechanical", " " }));
+        creazioneAttività.getContentPane().add(tendinaTipologia);
+        tendinaTipologia.setBounds(90, 200, 90, 30);
+
+        jScrollPane1.setViewportView(listaMateriali);
+
+        creazioneAttività.getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(440, 300, 140, 130);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MENU' PRINCIPALE");
@@ -226,18 +272,18 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
     private void buttonGestManutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGestManutActionPerformed
 
-      GestioneAttività.setVisible(true);
+        GestioneAttività.setVisible(true);
 
 
-    
     }//GEN-LAST:event_buttonGestManutActionPerformed
 
     private void buttonCreaAttivitàActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreaAttivitàActionPerformed
-       creazioneAttività.setVisible(true);
-    //*String[] opzioni ={"Planned","EWO","Extra"};
-   //* JOptionPane.showOptionDialog(null, "Scegli il tipo di attività da creare","Selezione tipo di attività", WIDTH, HEIGHT, null, opzioni, EXIT_ON_CLOSE);
-   //* creazioneAttività.setVisible(true);
-    
+        materiali.clear();
+
+        creazioneAttività.setVisible(true);
+        //*String[] opzioni ={"Planned","EWO","Extra"};
+        //* JOptionPane.showOptionDialog(null, "Scegli il tipo di attività da creare","Selezione tipo di attività", WIDTH, HEIGHT, null, opzioni, EXIT_ON_CLOSE);
+        //* creazioneAttività.setVisible(true);
 
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonCreaAttivitàActionPerformed
@@ -245,6 +291,26 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private void fieldTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldTimeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_fieldTimeActionPerformed
+
+    private void buttonCreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreaActionPerformed
+
+
+    }//GEN-LAST:event_buttonCreaActionPerformed
+
+    private void buttonAggiungiMaterialeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAggiungiMaterialeActionPerformed
+        String materiale = fieldMateriale.getText();
+        materiale=materiale.substring(0,1).toUpperCase() + materiale.substring(1,materiale.length()).toLowerCase();
+        if (materiale.equals("")) {
+            JOptionPane.showMessageDialog(null, "INSERISCI UN MATERIALE DA AGGIUNGERE", "ERRORE", ERROR_MESSAGE);
+        } else {
+            materiali.add(materiale);
+            listaMateriali.setModel(listModel);
+            listModel.addElement(materiale);
+            fieldMateriale.setText("");
+        }
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonAggiungiMaterialeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -293,8 +359,10 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JTextField fieldID;
     private javax.swing.JTextField fieldMateriale;
     private javax.swing.JTextField fieldTime;
-    private javax.swing.JTextField fieldTypology;
     private javax.swing.JTextField fieldWeek;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -306,11 +374,14 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JList<String> listaMateriali;
     private javax.swing.JComboBox<String> tendinaInterrompibile;
     private javax.swing.JComboBox<String> tendinaTipoAttività;
+    private javax.swing.JComboBox<String> tendinaTipologia;
     private javax.swing.JTextArea textAreaDescrizioneAttività;
     private javax.swing.JTextArea textAreaMateriali;
     private javax.swing.JTextArea textAreaWorkspace;
