@@ -66,8 +66,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         textAreaWorkspace = new javax.swing.JTextArea();
         buttonCrea = new javax.swing.JButton();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        textAreaMateriali = new javax.swing.JTextArea();
         jScrollPane6 = new javax.swing.JScrollPane();
         textAreaDescrizioneAttività = new javax.swing.JTextArea();
         tendinaTipologia = new javax.swing.JComboBox<>();
@@ -186,7 +184,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         creazioneAttività.getContentPane().add(fieldWeek);
         fieldWeek.setBounds(90, 290, 90, 30);
 
-        tendinaInterrompibile.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Si", "No", " " }));
+        tendinaInterrompibile.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Si", "No" }));
         creazioneAttività.getContentPane().add(tendinaInterrompibile);
         tendinaInterrompibile.setBounds(90, 340, 90, 30);
         creazioneAttività.getContentPane().add(fieldMateriale);
@@ -215,14 +213,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         creazioneAttività.getContentPane().add(buttonCrea);
-        buttonCrea.setBounds(750, 350, 250, 81);
-
-        textAreaMateriali.setColumns(20);
-        textAreaMateriali.setRows(5);
-        jScrollPane5.setViewportView(textAreaMateriali);
-
-        creazioneAttività.getContentPane().add(jScrollPane5);
-        jScrollPane5.setBounds(780, 160, 250, 140);
+        buttonCrea.setBounds(750, 320, 250, 81);
 
         textAreaDescrizioneAttività.setColumns(20);
         textAreaDescrizioneAttività.setRows(5);
@@ -231,14 +222,14 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         creazioneAttività.getContentPane().add(jScrollPane6);
         jScrollPane6.setBounds(425, 69, 250, 140);
 
-        tendinaTipologia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Electrical", "Electronic", "Hydraulic", "Mechanical", " " }));
+        tendinaTipologia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Electrical", "Electronic", "Hydraulic", "Mechanical" }));
         creazioneAttività.getContentPane().add(tendinaTipologia);
         tendinaTipologia.setBounds(90, 200, 90, 30);
 
         jScrollPane1.setViewportView(listaMateriali);
 
         creazioneAttività.getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(440, 300, 140, 130);
+        jScrollPane1.setBounds(430, 300, 240, 130);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MENU' PRINCIPALE");
@@ -376,14 +367,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JList<String> listaMateriali;
     private javax.swing.JComboBox<String> tendinaInterrompibile;
     private javax.swing.JComboBox<String> tendinaTipoAttività;
     private javax.swing.JComboBox<String> tendinaTipologia;
     private javax.swing.JTextArea textAreaDescrizioneAttività;
-    private javax.swing.JTextArea textAreaMateriali;
     private javax.swing.JTextArea textAreaWorkspace;
     // End of variables declaration//GEN-END:variables
 }
