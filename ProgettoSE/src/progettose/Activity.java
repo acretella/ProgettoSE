@@ -9,15 +9,6 @@ package progettose;
  *
  * @author Altro
  */
-public class ProgettoSE {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        //prvaaa
- 
-    }
+public class Activity {
     
 }
