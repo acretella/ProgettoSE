@@ -29,7 +29,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
      */
     public InterfacciaGrafica() {
         try {
-            Planner p = new Planner("alessio", "12345");
+            p = new Planner("alessio", "12345");
         } catch (SQLException ex) {
             Logger.getLogger(InterfacciaGrafica.class.getName()).log(Level.SEVERE, null, ex);
         }
