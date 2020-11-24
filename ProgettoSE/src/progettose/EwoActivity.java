@@ -15,8 +15,6 @@ public class EwoActivity extends UnPlannedActivity{
 
     public EwoActivity(int id, String factorySite, String area, String typology, String activityDescription, int estimatedTime, int week, List<String> materials, String workSpaceNote) {
         super(id, factorySite, area, typology, activityDescription, estimatedTime, week, materials, workSpaceNote);
-        super.setType(1);
-
     }
     
 }
