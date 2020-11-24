@@ -52,6 +52,9 @@ public class Planner {
         }
         
     }
+    public String getPassword(){
+        return password;
+    }
 
     
     
