@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Daniele
  */
 public class InterfacciaGrafica extends javax.swing.JFrame {
-    
+
     private final DefaultTableModel tb = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int row, int column) {
@@ -28,10 +28,10 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             return false;
         }
     };
-    
+
     DefaultListModel listModel = new DefaultListModel();
     Planner p;
-    List<String> materiali=new ArrayList<>();
+    List<String> materiali = new ArrayList<>();
 
     /**
      * Creates new form InterfacciaGrafica
@@ -43,12 +43,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             Logger.getLogger(InterfacciaGrafica.class.getName()).log(Level.SEVERE, null, ex);
         }
         initComponents();
-        
+
         for (String m : p.getAllMaterials()) {
             tendinaMateriali.addItem(m);
-            
+
         }
-        
+
     }
 
     /**
@@ -110,6 +110,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         });
 
         buttonMostraAttività.setText("Mostra elenco attività");
+        buttonMostraAttività.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonMostraAttivitàActionPerformed(evt);
+            }
+        });
 
         buttonCancellaAttività.setText("Cancella attività");
         buttonCancellaAttività.addActionListener(new java.awt.event.ActionListener() {
@@ -321,14 +326,14 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonGestManutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGestManutActionPerformed
-        
+
         GestioneAttività.setVisible(true);
-        
+
 
     }//GEN-LAST:event_buttonGestManutActionPerformed
 
     private void buttonCreaAttivitàActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreaAttivitàActionPerformed
-        
+
         creazioneAttività.setVisible(true);
         //*String[] opzioni ={"Planned","EWO","Extra"};
         //* JOptionPane.showOptionDialog(null, "Scegli il tipo di attività da creare","Selezione tipo di attività", WIDTH, HEIGHT, null, opzioni, EXIT_ON_CLOSE);
@@ -350,14 +355,14 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 textAreaDescrizioneAttività.getText(), Integer.parseInt(fieldTime.getText()),
                 Integer.parseInt(fieldWeek.getText()), materiali, textAreaWorkspace.getText());
         p.createActivity(a);
-        
+
 
     }//GEN-LAST:event_buttonCreaActionPerformed
 
     private void buttonAggiungiMaterialeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAggiungiMaterialeActionPerformed
-        
+
         String materiale = tendinaMateriali.getSelectedItem().toString();
-        
+
         materiali.add(materiale);
         listaMateriali.setModel(listModel);
         listModel.addElement(materiale);
@@ -380,10 +385,27 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldFactorySiteActionPerformed
 
     private void buttonCancellaAttivitàActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancellaAttivitàActionPerformed
-        
-        int id = Integer.parseInt(JOptionPane.showInputDialog(null, "Inserisci l'ID da cancellare"));
+
+        String s = JOptionPane.showInputDialog(null, "Inserisci l'ID da cancellare");
+        if (s.equals("")) {
+            JOptionPane.showMessageDialog(null, "Campo ID vuoto", "ERRORE", ERROR_MESSAGE);
+        } else {
+            int id = Integer.parseInt(s);
+            //p.deleteActivity(s); METODO ALESSIO
+        }
+
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonCancellaAttivitàActionPerformed
+
+    private void buttonMostraAttivitàActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMostraAttivitàActionPerformed
+        while (tb.getRowCount() > 0) {
+            tb.removeRow(0);
+        }
+        String [] nomi = {"ID","Factory Site","Area","Typology","Estimated Time","Week"};
+        tb.setColumnIdentifiers(nomi);
+        
+
+    }//GEN-LAST:event_buttonMostraAttivitàActionPerformed
 
     /**
      * @param args the command line arguments
