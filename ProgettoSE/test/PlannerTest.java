@@ -83,15 +83,39 @@ public class PlannerTest {
         assertTrue(p.createActivity(activity2) == false);
     }
 
+    @Test
+    public void testPosDeleteActivity(){
+        List <String> l = new ArrayList<>();
+           
+        Activity activity = new Activity(55,
+                "branch office",
+                "departement",
+                "electrical",
+                "aaaaaaaa",
+                100,
+                1,
+                l,
+                "lllllll");
         
+        p.createActivity(activity);
+                
+        assertTrue(p.deleteActivity(55)== true);
+    }
     
+    public void testGetAllActivities(){
+        List<Activity> list = p.getAllActivities();
+        assertTrue(! list.isEmpty());
+        String str = "";
+        for (Activity a : list)
+            str += a.getId() + " ";
+        System.out.println(str);
+    }
+     
+    @Test 
+    public void testNegDeleteActivity(){
 
-    
-    
+        assertTrue(p.deleteActivity(0)== false);
+    }
+        
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
 }

@@ -21,25 +21,19 @@ public class ProgettoSE {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Planner p = null;
-        try {
-            p = new Planner("alessio","12345");
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-        List <String> l = new ArrayList<>();
-        
-        Activity activity = new Activity(0,
-                "branch office",
-                "departement",
-                "electrical",
-                "aaaaaaaa",
-                100,
-                1,
-                l,
-                "lllllll");
-        
-        boolean createActivity = p.createActivity(activity);
+//        Planner p = null;
+//        try {
+//            p = new Planner("alessio","12345");
+//        } catch (SQLException ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//        
+//        
+//        List<Activity> list = p.getAllActivities();
+//        String str = "";
+//        for (Activity a : list)
+//            str += a.getId() + " ";
+//        System.out.println(str);
     }
     
 }
