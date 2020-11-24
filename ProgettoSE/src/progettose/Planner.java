@@ -8,6 +8,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -33,19 +36,23 @@ public class Planner {
     public boolean createActivity(Activity a) {
         try {
             Statement stm = connection.createStatement();
-            int type;
-            if (a instanceof PlannedActivity)
-                type = 0;
-            else if (a instanceof EwoActivity)
-                type =1;           
-            else
-                type = 2;
             
             String query = "insert into Activity(id_,factorySite,area,typology,description,estimatedTime,week,workSpaceNotes,activityType)"
                     + " values("+a.getId()+",'"+a.getFactorySite()+"','"+a.getArea()+"','"+a.getTypology()+"','"
                     +a.getActivityDescription()+"',"+a.getEstimatedTime()+","+a.getWeek()+",'"+a.getWorkSpaceNote()
-                    +"',"+type+");";
+                    +"',"+a.getType()+");";
             stm.executeUpdate(query);
+            
+            if (! a.getMaterials().isEmpty()){
+                
+                for (String material : a.getMaterials()){
+                    query = "insert into Material_for_Activity(activity,material) values("
+                        + a.getId() + ",'" + material + "');";
+                    
+                    stm.executeUpdate(query);
+                }
+                
+            }
             return true;
         } catch (SQLException ex) {
             return false;
@@ -53,6 +60,27 @@ public class Planner {
         
     }
 
+    public List<String> getAllMaterials(){
+        try {
+            Statement stm = connection.createStatement();
+            
+            String query = "Select * from Material";
+            
+            ResultSet rst = stm.executeQuery(query);
+            
+            List<String> l = new ArrayList<>();
+            
+            while (rst.next()){
+                l.add(rst.getString("materialName"));
+            }
+            
+            return l;
+            
+        } catch (SQLException ex) {
+            return new ArrayList<>();
+        }
+        
+    }
     
     
 }
