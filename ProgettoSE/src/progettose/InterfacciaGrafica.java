@@ -33,7 +33,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(InterfacciaGrafica.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         initComponents();
     }
 
@@ -301,13 +300,13 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private void buttonCreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreaActionPerformed
         //*System.out.println(Integer.parseInt(fieldID.getText())+fieldFactorySite.getText()+fieldArea.getText()+tendinaTipologia.getSelectedItem().toString()+textAreaDescrizioneAttività.getText()
         //*+Integer.parseInt(fieldTime.getText())+Integer.parseInt(fieldWeek.getText())+ materiali+ textAreaWorkspace.getText());
+
         Activity a = new PlannedActivity(Integer.parseInt(fieldID.getText()), fieldFactorySite.getText(), fieldArea.getText(),
                 tendinaTipologia.getSelectedItem().toString(),
                 textAreaDescrizioneAttività.getText(), Integer.parseInt(fieldTime.getText()),
                 Integer.parseInt(fieldWeek.getText()), materiali, textAreaWorkspace.getText());
-
         p.createActivity(a);
-        
+
 
     }//GEN-LAST:event_buttonCreaActionPerformed
 
