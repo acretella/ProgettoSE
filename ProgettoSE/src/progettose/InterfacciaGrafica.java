@@ -5,7 +5,7 @@
  */
 package progettose;
 
-import java.awt.List;
+import java.util.List;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Daniele
  */
 public class InterfacciaGrafica extends javax.swing.JFrame {
-
+    
     private final DefaultTableModel tb = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int row, int column) {
@@ -28,9 +28,10 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             return false;
         }
     };
-    ArrayList<String> materiali = new ArrayList<>();
+    
     DefaultListModel listModel = new DefaultListModel();
     Planner p;
+    List<String> materiali=new ArrayList<>();
 
     /**
      * Creates new form InterfacciaGrafica
@@ -42,6 +43,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             Logger.getLogger(InterfacciaGrafica.class.getName()).log(Level.SEVERE, null, ex);
         }
         initComponents();
+        
+        for (String m : p.getAllMaterials()) {
+            tendinaMateriali.addItem(m);
+            
+        }
+        
     }
 
     /**
@@ -314,15 +321,14 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonGestManutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGestManutActionPerformed
-
+        
         GestioneAttività.setVisible(true);
-
+        
 
     }//GEN-LAST:event_buttonGestManutActionPerformed
 
     private void buttonCreaAttivitàActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreaAttivitàActionPerformed
-        materiali.clear();
-
+        
         creazioneAttività.setVisible(true);
         //*String[] opzioni ={"Planned","EWO","Extra"};
         //* JOptionPane.showOptionDialog(null, "Scegli il tipo di attività da creare","Selezione tipo di attività", WIDTH, HEIGHT, null, opzioni, EXIT_ON_CLOSE);
@@ -344,11 +350,18 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 textAreaDescrizioneAttività.getText(), Integer.parseInt(fieldTime.getText()),
                 Integer.parseInt(fieldWeek.getText()), materiali, textAreaWorkspace.getText());
         p.createActivity(a);
-
+        
 
     }//GEN-LAST:event_buttonCreaActionPerformed
 
     private void buttonAggiungiMaterialeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAggiungiMaterialeActionPerformed
+        
+        String materiale = tendinaMateriali.getSelectedItem().toString();
+        
+        materiali.add(materiale);
+        listaMateriali.setModel(listModel);
+        listModel.addElement(materiale);
+
         /*String materiale = fieldMateriale.getText();
         materiale = materiale.substring(0, 1).toUpperCase() + materiale.substring(1, materiale.length()).toLowerCase();
         if (materiale.equals("")) {
@@ -360,7 +373,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             fieldMateriale.setText("");
         }*/
 
-        // TODO add your handling code here:
     }//GEN-LAST:event_buttonAggiungiMaterialeActionPerformed
 
     private void fieldFactorySiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldFactorySiteActionPerformed
@@ -368,9 +380,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldFactorySiteActionPerformed
 
     private void buttonCancellaAttivitàActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancellaAttivitàActionPerformed
-
         
-           int id=Integer.parseInt(JOptionPane.showInputDialog(null,"Inserisci l'ID da cancellare"));
+        int id = Integer.parseInt(JOptionPane.showInputDialog(null, "Inserisci l'ID da cancellare"));
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonCancellaAttivitàActionPerformed
 
