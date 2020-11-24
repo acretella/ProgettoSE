@@ -83,15 +83,16 @@ public class PlannerTest {
         assertTrue(p.createActivity(activity2) == false);
     }
 
+    @Test
+    public void testGetAllActivities(){
+        List<Activity> list = p.getAllActivities();
+        assertTrue(! list.isEmpty());
+        String str = "";
+        for (Activity a : list)
+            str += a.getId() + " ";
+        System.out.println(str);
+    }
         
     
 
-    
-    
-
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
 }

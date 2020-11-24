@@ -59,9 +59,6 @@ public class Planner {
         }
         
     }
-    public String getPassword(){
-        return password;
-    }
 
     public List<String> getAllMaterials(){
         try {
@@ -83,6 +80,77 @@ public class Planner {
             return new ArrayList<>();
         }
         
+    }
+    
+
+    public List<Activity> getAllActivities(){
+           try {
+            Statement stm = connection.createStatement();
+            
+            String query = "Select * from Activity";
+            
+            ResultSet rst = stm.executeQuery(query);
+            
+            List<Activity> l = new ArrayList<>();
+            
+            while (rst.next()){
+                List<String> materials = new ArrayList<>(); //creo la lista di materiali dell'attività
+                int id = rst.getInt("id_");
+                query = "Select * from Material_for_Activity where activity = "+ id;
+                Statement stm2 = connection.createStatement();
+                ResultSet rst2 = stm2.executeQuery(query);
+                while(rst2.next()){
+                    materials.add(rst2.getString("material"));
+                }
+                this.createActivityList(l, rst, materials,id);
+            }
+            return l;
+                        
+        } catch (SQLException ex) {
+            return new ArrayList<>();
+        }
+     
+    }
+    
+    public void createActivityList(List<Activity> l,ResultSet rst, List<String> materials,int id) throws SQLException{
+        switch (rst.getInt("activityType")) {
+            case 0:
+                l.add(new PlannedActivity(id,
+                        rst.getString("factorySite"),
+                        rst.getString("area"),
+                        rst.getString("typology"),
+                        rst.getString("description"),
+                        rst.getInt("estimatedTime"),
+                        rst.getInt("week"),
+                        materials,
+                        rst.getString("workSpaceNotes")
+                ));
+                break;
+            case 1:
+                l.add(new EwoActivity(id,
+                        rst.getString("factorySite"),
+                        rst.getString("area"),
+                        rst.getString("typology"),
+                        rst.getString("description"),
+                        rst.getInt("estimatedTime"),
+                        rst.getInt("week"),
+                        materials,
+                        rst.getString("workSpaceNotes")
+                ));
+                break;
+            case 2:
+                l.add(new ExtraActivity(id,
+                        rst.getString("factorySite"),
+                        rst.getString("area"),
+                        rst.getString("typology"),
+                        rst.getString("description"),
+                        rst.getInt("estimatedTime"),
+                        rst.getInt("week"),
+                        materials,
+                        rst.getString("workSpaceNotes")
+                ));
+                break;
+        }
     }
     
     
