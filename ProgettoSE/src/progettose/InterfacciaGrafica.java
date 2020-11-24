@@ -33,7 +33,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(InterfacciaGrafica.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         initComponents();
     }
 
@@ -131,35 +130,35 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         tendinaTipoAttività.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Planned", "EWO", "Extra" }));
         tendinaTipoAttività.setToolTipText("");
         creazioneAttività.getContentPane().add(tendinaTipoAttività);
-        tendinaTipoAttività.setBounds(164, 31, 89, 20);
+        tendinaTipoAttività.setBounds(164, 31, 89, 19);
 
         jLabel1.setText("Tipo di attività da creare");
         creazioneAttività.getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 34, 144, 14);
+        jLabel1.setBounds(10, 34, 144, 13);
 
         jLabel2.setText("Activity ID");
         creazioneAttività.getContentPane().add(jLabel2);
-        jLabel2.setBounds(10, 90, 70, 14);
+        jLabel2.setBounds(10, 90, 70, 13);
 
         jLabel3.setText("Factory site");
         creazioneAttività.getContentPane().add(jLabel3);
-        jLabel3.setBounds(10, 130, 80, 14);
+        jLabel3.setBounds(10, 130, 80, 13);
 
         jLabel4.setText("Area");
         creazioneAttività.getContentPane().add(jLabel4);
-        jLabel4.setBounds(10, 170, 60, 14);
+        jLabel4.setBounds(10, 170, 60, 13);
 
         jLabel5.setText("Typology");
         creazioneAttività.getContentPane().add(jLabel5);
-        jLabel5.setBounds(10, 210, 70, 14);
+        jLabel5.setBounds(10, 210, 70, 13);
 
         jLabel6.setText("Activity Description");
         creazioneAttività.getContentPane().add(jLabel6);
-        jLabel6.setBounds(500, 40, 140, 14);
+        jLabel6.setBounds(500, 40, 140, 13);
 
         jLabel7.setText("Time");
         creazioneAttività.getContentPane().add(jLabel7);
-        jLabel7.setBounds(10, 260, 50, 14);
+        jLabel7.setBounds(10, 260, 50, 13);
 
         jLabel8.setText("Interruptible");
         creazioneAttività.getContentPane().add(jLabel8);
@@ -171,11 +170,17 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel10.setText("Week");
         creazioneAttività.getContentPane().add(jLabel10);
-        jLabel10.setBounds(10, 300, 50, 14);
+        jLabel10.setBounds(10, 300, 50, 13);
 
         jLabel11.setText("Workspace notes");
         creazioneAttività.getContentPane().add(jLabel11);
-        jLabel11.setBounds(820, 40, 140, 14);
+        jLabel11.setBounds(820, 40, 140, 13);
+
+        fieldID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldIDActionPerformed(evt);
+            }
+        });
         creazioneAttività.getContentPane().add(fieldID);
         fieldID.setBounds(90, 80, 90, 30);
 
@@ -301,13 +306,18 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private void buttonCreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreaActionPerformed
         //*System.out.println(Integer.parseInt(fieldID.getText())+fieldFactorySite.getText()+fieldArea.getText()+tendinaTipologia.getSelectedItem().toString()+textAreaDescrizioneAttività.getText()
         //*+Integer.parseInt(fieldTime.getText())+Integer.parseInt(fieldWeek.getText())+ materiali+ textAreaWorkspace.getText());
-        Activity a = new PlannedActivity(Integer.parseInt(fieldID.getText()), fieldFactorySite.getText(), fieldArea.getText(),
+        
+        if(fieldID.getText().equals("") || fieldFactorySite.getText().equals("") || fieldArea.getText().equals("") ||
+                textAreaDescrizioneAttività.getText().equals("") ||
+                fieldTime.getText().equals("") || fieldWeek.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "ALCUNI CAMPI OBBLIGATORI NON SONO STATI COMPILATI", "ERRORE", ERROR_MESSAGE);
+        }else{ 
+            Activity a = new PlannedActivity(Integer.parseInt(fieldID.getText()), fieldFactorySite.getText(), fieldArea.getText(),
                 tendinaTipologia.getSelectedItem().toString(),
                 textAreaDescrizioneAttività.getText(), Integer.parseInt(fieldTime.getText()),
                 Integer.parseInt(fieldWeek.getText()), materiali, textAreaWorkspace.getText());
-
-        p.createActivity(a);
-        
+                p.createActivity(a);
+             }
 
     }//GEN-LAST:event_buttonCreaActionPerformed
 
@@ -329,6 +339,10 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private void fieldFactorySiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldFactorySiteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_fieldFactorySiteActionPerformed
+
+    private void fieldIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldIDActionPerformed
 
     /**
      * @param args the command line arguments
