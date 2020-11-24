@@ -6,7 +6,10 @@
 package progettose;
 
 import java.awt.List;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
@@ -19,11 +22,17 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
     ArrayList<String> materiali = new ArrayList<>();
     DefaultListModel listModel = new DefaultListModel();
+    Planner p;
 
     /**
      * Creates new form InterfacciaGrafica
      */
     public InterfacciaGrafica() {
+        try {
+            Planner p = new Planner("alessio", "12345");
+        } catch (SQLException ex) {
+            Logger.getLogger(InterfacciaGrafica.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         initComponents();
     }
@@ -169,6 +178,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jLabel11.setBounds(820, 40, 140, 14);
         creazioneAttività.getContentPane().add(fieldID);
         fieldID.setBounds(90, 80, 90, 30);
+
+        fieldFactorySite.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldFactorySiteActionPerformed(evt);
+            }
+        });
         creazioneAttività.getContentPane().add(fieldFactorySite);
         fieldFactorySite.setBounds(90, 120, 90, 30);
         creazioneAttività.getContentPane().add(fieldArea);
@@ -284,13 +299,21 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldTimeActionPerformed
 
     private void buttonCreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreaActionPerformed
+        //*System.out.println(Integer.parseInt(fieldID.getText())+fieldFactorySite.getText()+fieldArea.getText()+tendinaTipologia.getSelectedItem().toString()+textAreaDescrizioneAttività.getText()
+        //*+Integer.parseInt(fieldTime.getText())+Integer.parseInt(fieldWeek.getText())+ materiali+ textAreaWorkspace.getText());
+        Activity a = new PlannedActivity(Integer.parseInt(fieldID.getText()), fieldFactorySite.getText(), fieldArea.getText(),
+                tendinaTipologia.getSelectedItem().toString(),
+                textAreaDescrizioneAttività.getText(), Integer.parseInt(fieldTime.getText()),
+                Integer.parseInt(fieldWeek.getText()), materiali, textAreaWorkspace.getText());
 
+        p.createActivity(a);
+        
 
     }//GEN-LAST:event_buttonCreaActionPerformed
 
     private void buttonAggiungiMaterialeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAggiungiMaterialeActionPerformed
         String materiale = fieldMateriale.getText();
-        materiale=materiale.substring(0,1).toUpperCase() + materiale.substring(1,materiale.length()).toLowerCase();
+        materiale = materiale.substring(0, 1).toUpperCase() + materiale.substring(1, materiale.length()).toLowerCase();
         if (materiale.equals("")) {
             JOptionPane.showMessageDialog(null, "INSERISCI UN MATERIALE DA AGGIUNGERE", "ERRORE", ERROR_MESSAGE);
         } else {
@@ -302,6 +325,10 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonAggiungiMaterialeActionPerformed
+
+    private void fieldFactorySiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldFactorySiteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldFactorySiteActionPerformed
 
     /**
      * @param args the command line arguments
