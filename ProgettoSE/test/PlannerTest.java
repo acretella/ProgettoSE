@@ -83,8 +83,29 @@ public class PlannerTest {
         assertTrue(p.createActivity(activity2) == false);
     }
 
+    @Test
+    public void testPosDeleteActivity(){
+        List <String> l = new ArrayList<>();
         
+        Activity activity = new Activity(0,
+                "branch office",
+                "departement",
+                "electrical",
+                "aaaaaaaa",
+                100,
+                1,
+                l,
+                "lllllll");
+        
+        assertTrue(p.deleteActivity(0)== true);
+    }
     
+    @Test 
+    public void testNegDeleteActivity(){
+
+        assertTrue(p.deleteActivity(0)== false);
+    }
+        
 
     
     

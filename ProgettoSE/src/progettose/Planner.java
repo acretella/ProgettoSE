@@ -85,5 +85,13 @@ public class Planner {
         
     }
     
-    
+    public boolean deleteActivity(int id){
+        try {
+            Statement stm = connection.createStatement();
+            String query = "delete from Activity where id_ =" + id;
+            return stm.executeUpdate(query) != 0;
+        } catch (SQLException ex) {
+            return false;
+        }      
+    }
 }
