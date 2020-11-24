@@ -21,6 +21,7 @@ public class Activity {
     private int week;
     private List<String> materials;
     private String workSpaceNote;
+    private int type = 0;
 
 
     public Activity(int id, String factorySite, String area, String typology, String activityDescription, int estimatedTime, int week, List<String> materials, String workSpaceNote) {
@@ -69,6 +70,14 @@ public class Activity {
 
     public String getWorkSpaceNote() {
         return workSpaceNote;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int trype) {
+        this.type = trype;
     }
     
     

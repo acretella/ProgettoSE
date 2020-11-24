@@ -37,7 +37,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
      */
     public InterfacciaGrafica() {
         try {
-            System.out.println("1");
             p = new Planner("alessio", "12345");
         } catch (SQLException ex) {
             Logger.getLogger(InterfacciaGrafica.class.getName()).log(Level.SEVERE, null, ex);
