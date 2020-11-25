@@ -189,4 +189,10 @@ public class Planner {
         }
     }
         
+    public boolean modifyActivity(Activity a) {
+        if(this.deleteActivity(a.getId()))
+            return this.createActivity(a);
+        else
+            return false;  
+    }
 }

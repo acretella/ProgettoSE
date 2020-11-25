@@ -150,6 +150,41 @@ public class PlannerTest {
     public void testNegGetActivity(){
         assertEquals(p.getActivity(300), null);
     }
+    
+    @Test
+    public void testPosModifyActivity(){
+        List <String> l = new ArrayList<>();
         
-
+        Activity a = new Activity(2,
+                "branch office",
+                "departement",
+                "electrical",
+                "aaaaaaaa",
+                100,
+                1,
+                l,
+                "lllllll");
+        
+        p.createActivity(a);
+        a.setType(2);
+        assertTrue(p.modifyActivity(a) == true);
+        p.deleteActivity(a.getId());
+    }
+    
+    @Test
+    public void TestNegModifyActivity(){
+        //modifico attività non presente nel DB
+        List <String> l = new ArrayList<>();
+        
+        Activity activity = new Activity(5,
+                "branch office",
+                "departement",
+                "electrical",
+                "aaaaaaaa",
+                100,
+                1,
+                l,
+                "lllllll");
+        assertTrue(p.modifyActivity(activity) == false);
+    }
 }
