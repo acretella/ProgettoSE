@@ -62,7 +62,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="50" y="190" width="160" height="40"/>
+              <AbsoluteConstraints x="970" y="230" width="160" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -106,7 +106,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="717" y="237" width="242" height="30"/>
+              <AbsoluteConstraints x="530" y="230" width="242" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -570,31 +570,31 @@
         </Component>
         <Component class="javax.swing.JLabel" name="labelAttivit&#xe0;Ora">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Now is"/>
+            <Property name="text" type="java.lang.String" value="(Now is"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="210" y="30" width="90" height="30"/>
+              <AbsoluteConstraints x="210" y="30" width="170" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="labelTipologiaOra">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Now is"/>
+            <Property name="text" type="java.lang.String" value="(Now is"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="210" y="200" width="80" height="30"/>
+              <AbsoluteConstraints x="210" y="200" width="170" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="labelInterrompibileOra">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Now is"/>
+            <Property name="text" type="java.lang.String" value="(Now is"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="210" y="340" width="140" height="30"/>
+              <AbsoluteConstraints x="210" y="340" width="170" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
