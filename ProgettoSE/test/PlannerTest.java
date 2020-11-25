@@ -16,6 +16,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import progettose.Activity;
+import progettose.PlannedActivity;
 import progettose.Planner;
 
 /**
@@ -50,6 +51,7 @@ public class PlannerTest {
                 "lllllll");
         
         assertTrue(p.createActivity(activity) == true);
+        p.deleteActivity(activity.getId());
     }
     
    @Test
@@ -103,18 +105,50 @@ public class PlannerTest {
     }
     
     public void testGetAllActivities(){
+        Activity a = new PlannedActivity(18,
+                "branch office",
+                "departement",
+                "electrical",
+                "aaaaaaaa",
+                100,
+                1,
+                new ArrayList<>(),
+                "lllllll");
+        p.createActivity(a);
+        
         List<Activity> list = p.getAllActivities();
         assertTrue(! list.isEmpty());
         String str = "";
-        for (Activity a : list)
-            str += a.getId() + " ";
+        for (Activity act : list)
+            str += act.getId() + " ";
         System.out.println(str);
     }
      
     @Test 
     public void testNegDeleteActivity(){
 
-        assertTrue(p.deleteActivity(0)== false);
+        assertTrue(p.deleteActivity(200)== false);
+    }
+    
+    @Test
+    public void testPosGetActivity(){
+        Activity a = new PlannedActivity(12,
+                "branch office",
+                "departement",
+                "electrical",
+                "aaaaaaaa",
+                100,
+                1,
+                new ArrayList<>(),
+                "lllllll");
+        p.createActivity(a);
+        assertEquals(p.getActivity(a.getId()).getId() , a.getId());
+        p.deleteActivity(a.getId());
+    }
+    
+    @Test
+    public void testNegGetActivity(){
+        assertEquals(p.getActivity(300), null);
     }
         
 
