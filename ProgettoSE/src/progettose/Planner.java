@@ -102,7 +102,8 @@ public class Planner {
                 while(rst2.next()){
                     materials.add(rst2.getString("material"));
                 }
-                this.createActivityList(l, rst, materials,id);
+                l.add(this.createActivity(rst, materials,id));
+                
             }
             return l;
                         
@@ -112,10 +113,11 @@ public class Planner {
      
     }
     
-    public void createActivityList(List<Activity> l,ResultSet rst, List<String> materials,int id) throws SQLException{
+    protected Activity createActivity(ResultSet rst, List<String> materials,int id) throws SQLException{
+        Activity a = null;
         switch (rst.getInt("activityType")) {
             case 0:
-                l.add(new PlannedActivity(id,
+                a = new PlannedActivity(id,
                         rst.getString("factorySite"),
                         rst.getString("area"),
                         rst.getString("typology"),
@@ -124,10 +126,10 @@ public class Planner {
                         rst.getInt("week"),
                         materials,
                         rst.getString("workSpaceNotes")
-                ));
+                );
                 break;
             case 1:
-                l.add(new EwoActivity(id,
+                a = new EwoActivity(id,
                         rst.getString("factorySite"),
                         rst.getString("area"),
                         rst.getString("typology"),
@@ -136,10 +138,10 @@ public class Planner {
                         rst.getInt("week"),
                         materials,
                         rst.getString("workSpaceNotes")
-                ));
+                );
                 break;
             case 2:
-                l.add(new ExtraActivity(id,
+                a = new ExtraActivity(id,
                         rst.getString("factorySite"),
                         rst.getString("area"),
                         rst.getString("typology"),
@@ -148,9 +150,10 @@ public class Planner {
                         rst.getInt("week"),
                         materials,
                         rst.getString("workSpaceNotes")
-                ));
+                );
                 break;
         }
+        return a;
     }
     
     
@@ -162,5 +165,34 @@ public class Planner {
         } catch (SQLException ex) {
             return false;
         }      
+    }
+    
+    public Activity getActivity(int id){
+        try {
+            Statement stm = connection.createStatement();
+            String query = "Select * from Activity where id_ = "+id;
+            ResultSet rst = stm.executeQuery(query);
+            
+            query = "Select * from Material_for_Activity where activity = "+ id;
+            Statement stm2 = connection.createStatement();
+            ResultSet rst2 = stm2.executeQuery(query);
+            
+            List <String> materials = new ArrayList<>(); 
+            while(rst2.next()){
+                materials.add(rst2.getString("material"));
+            }
+            rst.next();
+            return createActivity(rst, materials, id);
+            
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+        
+    public boolean modifyActivity(Activity a) {
+        if(this.deleteActivity(a.getId()))
+            return this.createActivity(a);
+        else
+            return false;  
     }
 }
