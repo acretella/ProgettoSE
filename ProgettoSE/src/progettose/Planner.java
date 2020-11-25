@@ -163,4 +163,11 @@ public class Planner {
             return false;
         }      
     }
+    
+    public boolean modifyActivity(Activity a) {
+        if(this.deleteActivity(a.getId()))
+            return this.createActivity(a);
+        else
+            return false;  
+    }
 }
