@@ -20,11 +20,12 @@ public class Activity {
     private int estimatedTime;
     private int week;
     private List<String> materials;
+    private boolean interruptable;
     private String workSpaceNote;
     private int type = 0;
 
 
-    public Activity(int id, String factorySite, String area, String typology, String activityDescription, int estimatedTime, int week, List<String> materials, String workSpaceNote) {
+    public Activity(int id, String factorySite, String area, String typology, String activityDescription, int estimatedTime, int week, List<String> materials,boolean interruptable, String workSpaceNote) {
         this.id = id;
         this.factorySite = factorySite;
         this.area = area;
@@ -33,6 +34,7 @@ public class Activity {
         this.estimatedTime = estimatedTime;
         this.week = week;
         this.materials = materials;
+        this.interruptable = interruptable;
         this.workSpaceNote = workSpaceNote;
     }
 
@@ -75,6 +77,10 @@ public class Activity {
     public int getType() {
         return type;
     }
+
+    public boolean isInterruptable() {
+        return interruptable;
+    }   
 
     public void setType(int trype) {
         this.type = trype;

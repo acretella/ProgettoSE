@@ -13,8 +13,8 @@ import java.util.List;
  */
 public class UnPlannedActivity extends Activity{
 
-    public UnPlannedActivity(int id, String factorySite, String area, String typology, String activityDescription, int estimatedTime, int week, List<String> materials, String workSpaceNote) {
-        super(id, factorySite, area, typology, activityDescription, estimatedTime, week, materials, workSpaceNote);
+    public UnPlannedActivity(int id, String factorySite, String area, String typology, String activityDescription, int estimatedTime, int week, List<String> materials,boolean interruptable, String workSpaceNote) {
+        super(id, factorySite, area, typology, activityDescription, estimatedTime, week, materials, interruptable, workSpaceNote);
     }
     
 }

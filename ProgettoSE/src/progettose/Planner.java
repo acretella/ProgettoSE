@@ -37,9 +37,9 @@ public class Planner {
         try {
             Statement stm = connection.createStatement();
             
-            String query = "insert into Activity(id_,factorySite,area,typology,description,estimatedTime,week,workSpaceNotes,activityType)"
+            String query = "insert into Activity(id_,factorySite,area,typology,description,estimatedTime,week,interruptable,workSpaceNotes,activityType)"
                     + " values("+a.getId()+",'"+a.getFactorySite()+"','"+a.getArea()+"','"+a.getTypology()+"','"
-                    +a.getActivityDescription()+"',"+a.getEstimatedTime()+","+a.getWeek()+",'"+a.getWorkSpaceNote()
+                    +a.getActivityDescription()+"',"+a.getEstimatedTime()+","+a.getWeek()+","+a.isInterruptable()+",'"+a.getWorkSpaceNote()
                     +"',"+a.getType()+");";
             stm.executeUpdate(query);
             
@@ -125,6 +125,7 @@ public class Planner {
                         rst.getInt("estimatedTime"),
                         rst.getInt("week"),
                         materials,
+                        rst.getBoolean("interruptable"),
                         rst.getString("workSpaceNotes")
                 );
                 break;
@@ -137,6 +138,7 @@ public class Planner {
                         rst.getInt("estimatedTime"),
                         rst.getInt("week"),
                         materials,
+                        rst.getBoolean("interruptable"),
                         rst.getString("workSpaceNotes")
                 );
                 break;
@@ -149,6 +151,7 @@ public class Planner {
                         rst.getInt("estimatedTime"),
                         rst.getInt("week"),
                         materials,
+                        rst.getBoolean("interruptable"),
                         rst.getString("workSpaceNotes")
                 );
                 break;
