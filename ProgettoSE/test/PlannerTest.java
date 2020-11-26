@@ -48,6 +48,7 @@ public class PlannerTest {
                 100,
                 1,
                 l,
+                true,
                 "lllllll");
         
         assertTrue(p.createActivity(activity) == true);
@@ -66,6 +67,7 @@ public class PlannerTest {
                 100,
                 1,
                 l,
+                true,
                 "lllllll");
         
         p.createActivity(activity);
@@ -78,6 +80,7 @@ public class PlannerTest {
                 100,
                 1,
                 l,
+                true,
                 "lllllll");
         
         
@@ -97,6 +100,7 @@ public class PlannerTest {
                 100,
                 1,
                 l,
+                true,
                 "lllllll");
         
         p.createActivity(activity);
@@ -113,6 +117,7 @@ public class PlannerTest {
                 100,
                 1,
                 new ArrayList<>(),
+                true,
                 "lllllll");
         p.createActivity(a);
         
@@ -140,6 +145,7 @@ public class PlannerTest {
                 100,
                 1,
                 new ArrayList<>(),
+                true,
                 "lllllll");
         p.createActivity(a);
         assertEquals(p.getActivity(a.getId()).getId() , a.getId());
@@ -163,6 +169,7 @@ public class PlannerTest {
                 100,
                 1,
                 l,
+                true,
                 "lllllll");
         
         p.createActivity(a);
@@ -184,6 +191,7 @@ public class PlannerTest {
                 100,
                 1,
                 l,
+                true,
                 "lllllll");
         assertTrue(p.modifyActivity(activity) == false);
     }
