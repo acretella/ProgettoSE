@@ -87,7 +87,7 @@ public class Planner {
            try {
             Statement stm = connection.createStatement();
             
-            String query = "Select * from Activity orider by week";
+            String query = "Select * from Activity order by week";
             
             ResultSet rst = stm.executeQuery(query);
             
@@ -102,8 +102,7 @@ public class Planner {
                 while(rst2.next()){
                     materials.add(rst2.getString("material"));
                 }
-                l.add(this.createActivity(rst, materials,id));
-                
+                l.add(this.createActivity(rst, materials,id)); 
             }
             return l;
                         

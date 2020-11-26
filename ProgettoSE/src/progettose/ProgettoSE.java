@@ -5,6 +5,9 @@
  */
 package progettose;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +23,7 @@ public class ProgettoSE {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 //        Planner p = null;
 //        try {
 //            p = new Planner("alessio","12345");
@@ -34,6 +37,9 @@ public class ProgettoSE {
 //        for (Activity a : list)
 //            str += a.getId() + " ";
 //        System.out.println(str);
+
+        File file = new File("C:\\Users\\lenovo\\Desktop\\PM SRS Part I - Planner.pdf");
+        Desktop.getDesktop().open(file);
     }
     
 }
