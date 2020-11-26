@@ -87,7 +87,7 @@ public class Planner {
            try {
             Statement stm = connection.createStatement();
             
-            String query = "Select * from Activity";
+            String query = "Select * from Activity orider by week";
             
             ResultSet rst = stm.executeQuery(query);
             
