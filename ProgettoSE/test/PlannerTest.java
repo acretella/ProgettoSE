@@ -48,7 +48,7 @@ public class PlannerTest {
                 100,
                 1,
                 l,
-                true,
+                false,
                 "lllllll");
         
         assertTrue(p.createActivity(activity) == true);
