@@ -30,7 +30,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             return false;
         }
     };
-
+    String tipo = "";
+    String interrompibile = "";
     DefaultListModel listModel = new DefaultListModel();
     DefaultListModel listModelVis = new DefaultListModel();
     Planner p;
@@ -513,35 +514,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         while (tb.getRowCount() > 0) {
             tb.removeRow(0);
         }
-        String tipo = "";
-        String interrompibile = "";
-        String[] nomi = {"ID", "Factory Site", "Area", "Typology", "Estimated Time", "Week", "Tipo", "Interrompibile"};
-        tb.setColumnIdentifiers(nomi);
-        tabellaAttività.setModel(tb);
-        List<Activity> a;
-        a = p.getAllActivities();
-        for (Activity x : a) {
-            switch (x.getType()) {
-                case 0:
-                    tipo = "Planned";
-                    break;
-                case 1:
-                    tipo = "EWO";
-                    break;
-                default:
-                    tipo = "Extra";
-                    break;
-            }
-            if (x.isInterruptable() == true) {
-                interrompibile = "Si";
-            } else {
-                interrompibile = "No";
-            }
-
-            String[] inserimento = {String.valueOf(x.getId()), x.getFactorySite(), x.getArea(), x.getTypology(),
-                String.valueOf(x.getEstimatedTime()), String.valueOf(x.getWeek()), tipo, interrompibile};
-            tb.addRow(inserimento);
-        }
+        riempiTabella();
         if (tb.getRowCount() == 0) {
             JOptionPane.showMessageDialog(null, "Nessuna attività trovata", "ERRORE", ERROR_MESSAGE);
         }
@@ -644,6 +617,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         buttonModificaAttività.setEnabled(true);
         buttonCrea.setText("ATTIVITA'");
         buttonCreaAttività.setEnabled(true);
+        riempiTabella();
         svuota();
         // TODO add your handling code here:
     }//GEN-LAST:event_creazioneAttivitàWindowClosing
@@ -748,6 +722,38 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
     }
 
+    private void riempiTabella() {
+        while (tb.getRowCount() > 0) {
+            tb.removeRow(0);
+        }
+        String[] nomi = {"ID", "Factory Site", "Area", "Typology", "Estimated Time", "Week", "Tipo", "Interrompibile"};
+        tb.setColumnIdentifiers(nomi);
+        tabellaAttività.setModel(tb);
+        List<Activity> a;
+        a = p.getAllActivities();
+        for (Activity x : a) {
+            switch (x.getType()) {
+                case 0:
+                    tipo = "Planned";
+                    break;
+                case 1:
+                    tipo = "EWO";
+                    break;
+                default:
+                    tipo = "Extra";
+                    break;
+            }
+            if (x.isInterruptable() == true) {
+                interrompibile = "Si";
+            } else {
+                interrompibile = "No";
+            }
+
+            String[] inserimento = {String.valueOf(x.getId()), x.getFactorySite(), x.getArea(), x.getTypology(),
+                String.valueOf(x.getEstimatedTime()), String.valueOf(x.getWeek()), tipo, interrompibile};
+            tb.addRow(inserimento);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFrame GestioneAttività;
