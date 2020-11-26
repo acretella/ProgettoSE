@@ -423,7 +423,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelTipologiaOra.setEnabled(false);
         labelAttivitàOra.setEnabled(false);
         labelInterrompibileOra.setEnabled(false);
-        buttonCrea.setText("CREA " + buttonCrea.getText());
+        buttonCrea.setText("CREA ATTIVITA'");
         //*String[] opzioni ={"Planned","EWO","Extra"};
         //* JOptionPane.showOptionDialog(null, "Scegli il tipo di attività da creare","Selezione tipo di attività", WIDTH, HEIGHT, null, opzioni, EXIT_ON_CLOSE);
         //* creazioneAttività.setVisible(true);
@@ -442,8 +442,10 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 || fieldTime.getText().equals("") || fieldWeek.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "ALCUNI CAMPI OBBLIGATORI NON SONO STATI COMPILATI", "ERRORE", ERROR_MESSAGE);
         } else {
-            if (buttonCrea.getText().equals("CREA ATTIVITA'")) {
-                Activity a = buildActivity(tendinaTipoAttività.getSelectedItem().toString());
+            Activity a = buildActivity(tendinaTipoAttività.getSelectedItem().toString());
+            if (a == null) {
+                JOptionPane.showMessageDialog(null, "Input non corretti!", "ERRORE", ERROR_MESSAGE);
+            } else if (buttonCrea.getText().equals("CREA ATTIVITA'")) {
                 if (!p.createActivity(a)) {
                     JOptionPane.showMessageDialog(null, "ATTIVITA' NON CREATA CORRETTAMENTE", "ERRORE", ERROR_MESSAGE);
                 } else {
@@ -453,7 +455,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 }
 
             } else {
-                Activity a = buildActivity(tendinaTipoAttività.getSelectedItem().toString());
                 if (!p.modifyActivity(a)) {
                     JOptionPane.showMessageDialog(null, "ATTIVITA' NON MODIFICATA", "ERRORE", ERROR_MESSAGE);
 
@@ -496,8 +497,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 int id = Integer.parseInt(s);
                 if (!p.deleteActivity(id)) {
                     JOptionPane.showMessageDialog(null, "Non è stato possibile cancellare l'attività", "ERRORE", ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Attività cancellata con successo!", "CANCELLAZIONE EFFETTUATA", INFORMATION_MESSAGE);
                 }
-                JOptionPane.showMessageDialog(null, "Attività cancellata con successo!", "CANCELLAZIONE EFFETTUATA", INFORMATION_MESSAGE);
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Inserisci un ID valido", "ERRORE", ERROR_MESSAGE);
             }
@@ -512,8 +514,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             tb.removeRow(0);
         }
         String tipo = "";
-        String interrompibile="";
-        String[] nomi = {"ID", "Factory Site", "Area", "Typology", "Estimated Time", "Week", "Tipo","Interrompibile"};
+        String interrompibile = "";
+        String[] nomi = {"ID", "Factory Site", "Area", "Typology", "Estimated Time", "Week", "Tipo", "Interrompibile"};
         tb.setColumnIdentifiers(nomi);
         tabellaAttività.setModel(tb);
         List<Activity> a;
@@ -530,13 +532,14 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                     tipo = "Extra";
                     break;
             }
-            if(x.isInterruptable==true)
-                interrompibile="Si";
-            else
-                interrompibile="No";
-            
+            if (x.isInterruptable() == true) {
+                interrompibile = "Si";
+            } else {
+                interrompibile = "No";
+            }
+
             String[] inserimento = {String.valueOf(x.getId()), x.getFactorySite(), x.getArea(), x.getTypology(),
-                String.valueOf(x.getEstimatedTime()), String.valueOf(x.getWeek()), tipo,interrompibile};
+                String.valueOf(x.getEstimatedTime()), String.valueOf(x.getWeek()), tipo, interrompibile};
             tb.addRow(inserimento);
         }
         if (tb.getRowCount() == 0) {
@@ -585,6 +588,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelAttivitàOra.setText(("(Now is"));
         labelTipologiaOra.setText(("(Now is"));
         labelInterrompibileOra.setText(("(Now is"));
+        labelInterrompibileOra.setVisible(true);
+        labelAttivitàOra.setVisible(true);
+        labelTipologiaOra.setVisible(true);
         int indice = tabellaAttività.getSelectedRow();
         listModel.clear();
         if (indice == -1) {
@@ -597,7 +603,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             labelInterrompibileOra.setEnabled(true);
             fieldID.setEnabled(false);
             labelID.setEnabled(false);
-            buttonCrea.setText("MODIFICA " + buttonCrea.getText());
+            buttonCrea.setText("MODIFICA ATTIVITA'");
             buttonCreaAttività.setEnabled(false);
             Object temp = tb.getValueAt(indice, 0);
             String s = temp.toString();
@@ -623,7 +629,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             labelTipologiaOra.setText((labelTipologiaOra.getText()) + " " + a.getTypology().toLowerCase() + ")");
             fieldTime.setText(String.valueOf(a.getEstimatedTime()));
             fieldWeek.setText(String.valueOf(a.getWeek()));
-            labelInterrompibileOra.setText(labelInterrompibileOra.getText()+" "+a.isInterromptable+")");
+            labelInterrompibileOra.setText(labelInterrompibileOra.getText() + " " + a.isInterruptable() + ")");
             textAreaDescrizioneAttività.setText(a.getActivityDescription());
             textAreaWorkspace.setText(a.getWorkSpaceNote());
             for (String m : a.getMaterials()) {
@@ -698,25 +704,36 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
     private Activity buildActivity(String tipoAttività) {
         Activity a;
-        switch (tipoAttività) {
-            case "Planned":
-                a = new PlannedActivity(Integer.parseInt(fieldID.getText()), fieldFactorySite.getText(), fieldArea.getText(),
-                        tendinaTipologia.getSelectedItem().toString(),
-                        textAreaDescrizioneAttività.getText(), Integer.parseInt(fieldTime.getText()),
-                        Integer.parseInt(fieldWeek.getText()), materiali,tendinaInterrompibile.getSelectedItem().toString(), textAreaWorkspace.getText());
-                break;
-            case "EWO":
-                a = new EwoActivity(Integer.parseInt(fieldID.getText()), fieldFactorySite.getText(), fieldArea.getText(),
-                        tendinaTipologia.getSelectedItem().toString(),
-                        textAreaDescrizioneAttività.getText(), Integer.parseInt(fieldTime.getText()),
-                        Integer.parseInt(fieldWeek.getText()), materiali,tendinaInterrompibile.getSelectedItem().toString(), textAreaWorkspace.getText());
-                break;
-            default:
-                a = new ExtraActivity(Integer.parseInt(fieldID.getText()), fieldFactorySite.getText(), fieldArea.getText(),
-                        tendinaTipologia.getSelectedItem().toString(),
-                        textAreaDescrizioneAttività.getText(), Integer.parseInt(fieldTime.getText()),
-                        Integer.parseInt(fieldWeek.getText()), materiali,tendinaInterrompibile.getSelectedItem().toString(), textAreaWorkspace.getText());
-                break;
+        boolean b;
+        if (tendinaInterrompibile.getSelectedItem().toString().equals("Si")) {
+            b = true;
+        } else {
+            b = false;
+        }
+        try {
+            switch (tipoAttività) {
+                case "Planned":
+                    a = new PlannedActivity(Integer.parseInt(fieldID.getText()), fieldFactorySite.getText(), fieldArea.getText(),
+                            tendinaTipologia.getSelectedItem().toString(),
+                            textAreaDescrizioneAttività.getText(), Integer.parseInt(fieldTime.getText()),
+                            Integer.parseInt(fieldWeek.getText()), materiali, b, textAreaWorkspace.getText());
+                    break;
+                case "EWO":
+                    a = new EwoActivity(Integer.parseInt(fieldID.getText()), fieldFactorySite.getText(), fieldArea.getText(),
+                            tendinaTipologia.getSelectedItem().toString(),
+                            textAreaDescrizioneAttività.getText(), Integer.parseInt(fieldTime.getText()),
+                            Integer.parseInt(fieldWeek.getText()), materiali, b, textAreaWorkspace.getText());
+                    break;
+                default:
+                    a = new ExtraActivity(Integer.parseInt(fieldID.getText()), fieldFactorySite.getText(), fieldArea.getText(),
+                            tendinaTipologia.getSelectedItem().toString(),
+                            textAreaDescrizioneAttività.getText(), Integer.parseInt(fieldTime.getText()),
+                            Integer.parseInt(fieldWeek.getText()), materiali, b, textAreaWorkspace.getText());
+                    break;
+            }
+        } catch (NumberFormatException e) {
+
+            return null;
         }
         return a;
     }
