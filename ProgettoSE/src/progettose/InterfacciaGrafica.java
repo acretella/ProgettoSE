@@ -51,7 +51,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         }
         initComponents();
         togliBordi();
-        
+
         for (String m : p.getAllMaterials()) {
             tendinaMateriali.addItem(m);
 
@@ -605,10 +605,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 listModelVis.addElement(m);
             }
             listaMaterialiVis.setModel(listModelVis);
-            //List<String> competenze=a.getCompetencies();
-            //for(String c: competenze){
-            //    listModelComp.addElement("·"+c);
-            //}
+            if (a.getProcedure() != null) {
+                List<String> competenze = a.getProcedure().getCompetences();
+                for (String c : competenze) {
+                    listModelComp.addElement("·" + c);
+                }
+            }
         }
     }//GEN-LAST:event_buttonVisualizzaInfoActionPerformed
 
