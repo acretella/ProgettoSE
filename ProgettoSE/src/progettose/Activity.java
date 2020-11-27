@@ -22,10 +22,12 @@ public class Activity {
     private List<String> materials;
     private boolean interruptable;
     private String workSpaceNote;
+    private Procedure procedure;
     private int type = 0;
 
 
-    public Activity(int id, String factorySite, String area, String typology, String activityDescription, int estimatedTime, int week, List<String> materials,boolean interruptable, String workSpaceNote) {
+    public Activity(int id, String factorySite, String area, String typology, String activityDescription, int estimatedTime, 
+            int week, List<String> materials,boolean interruptable, String workSpaceNote, Procedure procedure) {
         this.id = id;
         this.factorySite = factorySite;
         this.area = area;
@@ -36,6 +38,7 @@ public class Activity {
         this.materials = materials;
         this.interruptable = interruptable;
         this.workSpaceNote = workSpaceNote;
+        this.procedure = procedure;
     }
 
     public int getId() {
@@ -85,6 +88,9 @@ public class Activity {
     public void setType(int trype) {
         this.type = trype;
     }
-    
+
+    public Procedure getProcedure() {
+        return procedure;
+    }
     
 }

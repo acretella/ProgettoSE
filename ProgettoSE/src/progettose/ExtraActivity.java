@@ -13,8 +13,9 @@ import java.util.List;
  */
 public class ExtraActivity extends UnPlannedActivity{
 
-    public ExtraActivity(int id, String factorySite, String area, String typology, String activityDescription, int estimatedTime, int week, List<String> materials,boolean interruptable, String workSpaceNote) {
-        super(id, factorySite, area, typology, activityDescription, estimatedTime, week, materials,interruptable, workSpaceNote);
+    public ExtraActivity(int id, String factorySite, String area, String typology, String activityDescription, 
+            int estimatedTime, int week, List<String> materials,boolean interruptable, String workSpaceNote, Procedure procedure) {
+        super(id, factorySite, area, typology, activityDescription, estimatedTime, week, materials,interruptable, workSpaceNote, procedure);
         super.setType(2);
 
     }

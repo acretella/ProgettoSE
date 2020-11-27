@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package progettose;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -112,9 +113,32 @@ public class Planner {
         }
      
     }
+    protected Procedure createProcedure(int id){
+        try {
+            Statement stm = connection.createStatement();
+            String query = "select * from procedura where id_ =" + id;
+            
+            ResultSet rst = stm.executeQuery(query);
+            rst.next();
+            String path = rst.getString("smp_path");
+            
+            query = "select * from competence_for_procedure where procedura = "+ id; 
+            rst = stm.executeQuery(query);
+            List<String> competences = new ArrayList<>();
+            while(rst.next()){
+                competences.add(rst.getString("competence"));
+            }
+            return new Procedure(new File(path), competences);
+            
+        } catch (SQLException ex) {
+            return null;
+        }
+        
+    }
     
     protected Activity createActivity(ResultSet rst, List<String> materials,int id) throws SQLException{
         Activity a = null;
+        Procedure p = null;
         switch (rst.getInt("activityType")) {
             case 0:
                 a = new PlannedActivity(id,
@@ -126,7 +150,8 @@ public class Planner {
                         rst.getInt("week"),
                         materials,
                         rst.getBoolean("interruptable"),
-                        rst.getString("workSpaceNotes")
+                        rst.getString("workSpaceNotes"),
+                        p = createProcedure(rst.getInt("procedura"))
                 );
                 break;
             case 1:
@@ -139,7 +164,8 @@ public class Planner {
                         rst.getInt("week"),
                         materials,
                         rst.getBoolean("interruptable"),
-                        rst.getString("workSpaceNotes")
+                        rst.getString("workSpaceNotes"),
+                        p = createProcedure(rst.getInt("procedura"))
                 );
                 break;
             case 2:
@@ -152,7 +178,8 @@ public class Planner {
                         rst.getInt("week"),
                         materials,
                         rst.getBoolean("interruptable"),
-                        rst.getString("workSpaceNotes")
+                        rst.getString("workSpaceNotes"),
+                        p = createProcedure(rst.getInt("procedura"))
                 );
                 break;
         }
