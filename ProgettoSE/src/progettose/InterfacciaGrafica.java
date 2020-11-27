@@ -5,12 +5,14 @@
  */
 package progettose;
 
+import static java.awt.Color.black;
 import java.awt.event.WindowEvent;
 import java.util.List;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
@@ -34,6 +36,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     String interrompibile = "";
     DefaultListModel listModel = new DefaultListModel();
     DefaultListModel listModelVis = new DefaultListModel();
+    DefaultListModel listModelComp = new DefaultListModel();
     Planner p;
     List<String> materiali = new ArrayList<>();
 
@@ -47,7 +50,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             Logger.getLogger(InterfacciaGrafica.class.getName()).log(Level.SEVERE, null, ex);
         }
         initComponents();
-
+        togliBordi();
+        
         for (String m : p.getAllMaterials()) {
             tendinaMateriali.addItem(m);
 
@@ -72,15 +76,20 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tabellaAttività = new javax.swing.JTable();
         buttonVisualizzaInfo = new javax.swing.JButton();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        textAreaDescrizioneAttivitàVis = new javax.swing.JTextArea();
         jScrollPane7 = new javax.swing.JScrollPane();
         textAreaWorkspaceNotesVis = new javax.swing.JTextArea();
-        labelLM = new javax.swing.JLabel();
         labelDE = new javax.swing.JLabel();
-        labelWO = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
         listaMaterialiVis = new javax.swing.JList<>();
+        labelML = new javax.swing.JLabel();
+        buttonSMP = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        listaCompetenze = new javax.swing.JList<>();
+        labelCO = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        textAreaDescrizioneAttivitàVis = new javax.swing.JTextArea();
+        labelWO = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         creazioneAttività = new javax.swing.JFrame();
         tendinaTipoAttività = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
@@ -116,10 +125,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelTipologiaOra = new javax.swing.JLabel();
         labelInterrompibileOra = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        infoAggiuntiveAttività = new javax.swing.JFrame();
         buttonGestManut = new javax.swing.JButton();
 
         GestioneAttività.setTitle("MENU' GESTIONE ATTIVITA'");
-        GestioneAttività.setMinimumSize(new java.awt.Dimension(1400, 600));
+        GestioneAttività.setMinimumSize(new java.awt.Dimension(1246, 650));
         GestioneAttività.getContentPane().setLayout(null);
 
         buttonCreaAttività.setText("Crea attività");
@@ -129,7 +139,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         GestioneAttività.getContentPane().add(buttonCreaAttività);
-        buttonCreaAttività.setBounds(50, 40, 160, 40);
+        buttonCreaAttività.setBounds(50, 40, 240, 40);
 
         buttonMostraAttività.setText("Mostra elenco attività");
         buttonMostraAttività.addActionListener(new java.awt.event.ActionListener() {
@@ -138,7 +148,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         GestioneAttività.getContentPane().add(buttonMostraAttività);
-        buttonMostraAttività.setBounds(50, 90, 160, 40);
+        buttonMostraAttività.setBounds(50, 90, 240, 40);
 
         buttonCancellaAttività.setText("Cancella attività");
         buttonCancellaAttività.addActionListener(new java.awt.event.ActionListener() {
@@ -147,7 +157,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         GestioneAttività.getContentPane().add(buttonCancellaAttività);
-        buttonCancellaAttività.setBounds(50, 140, 160, 40);
+        buttonCancellaAttività.setBounds(50, 140, 240, 40);
 
         buttonModificaAttività.setText("Modifica attività");
         buttonModificaAttività.addActionListener(new java.awt.event.ActionListener() {
@@ -156,8 +166,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         GestioneAttività.getContentPane().add(buttonModificaAttività);
-        buttonModificaAttività.setBounds(970, 230, 160, 30);
+        buttonModificaAttività.setBounds(50, 240, 240, 40);
 
+        tabellaAttività.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         tabellaAttività.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -171,7 +182,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jScrollPane3.setViewportView(tabellaAttività);
 
         GestioneAttività.getContentPane().add(jScrollPane3);
-        jScrollPane3.setBounds(524, 31, 610, 188);
+        jScrollPane3.setBounds(400, 30, 760, 250);
 
         buttonVisualizzaInfo.setText("Visualizza informazioni aggiuntive");
         buttonVisualizzaInfo.addActionListener(new java.awt.event.ActionListener() {
@@ -180,16 +191,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         GestioneAttività.getContentPane().add(buttonVisualizzaInfo);
-        buttonVisualizzaInfo.setBounds(530, 230, 242, 30);
-
-        textAreaDescrizioneAttivitàVis.setEditable(false);
-        textAreaDescrizioneAttivitàVis.setColumns(20);
-        textAreaDescrizioneAttivitàVis.setRows(5);
-        textAreaDescrizioneAttivitàVis.setBorder(null);
-        jScrollPane5.setViewportView(textAreaDescrizioneAttivitàVis);
-
-        GestioneAttività.getContentPane().add(jScrollPane5);
-        jScrollPane5.setBounds(580, 330, 260, 150);
+        buttonVisualizzaInfo.setBounds(50, 190, 242, 40);
 
         textAreaWorkspaceNotesVis.setEditable(false);
         textAreaWorkspaceNotesVis.setColumns(20);
@@ -198,24 +200,67 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jScrollPane7.setViewportView(textAreaWorkspaceNotesVis);
 
         GestioneAttività.getContentPane().add(jScrollPane7);
-        jScrollPane7.setBounds(870, 330, 270, 150);
+        jScrollPane7.setBounds(280, 450, 270, 150);
 
-        labelLM.setText("LISTA MATERIALI");
-        GestioneAttività.getContentPane().add(labelLM);
-        labelLM.setBounds(370, 300, 166, 30);
-
+        labelDE.setFont(new java.awt.Font("Britannic Bold", 0, 12)); // NOI18N
+        labelDE.setForeground(new java.awt.Color(102, 204, 255));
         labelDE.setText("DESCRIPTION");
         GestioneAttività.getContentPane().add(labelDE);
-        labelDE.setBounds(670, 300, 166, 30);
-
-        labelWO.setText("WORKSPACE NOTES");
-        GestioneAttività.getContentPane().add(labelWO);
-        labelWO.setBounds(940, 300, 166, 30);
+        labelDE.setBounds(90, 420, 166, 30);
 
         jScrollPane8.setViewportView(listaMaterialiVis);
 
         GestioneAttività.getContentPane().add(jScrollPane8);
-        jScrollPane8.setBounds(290, 330, 250, 150);
+        jScrollPane8.setBounds(560, 450, 240, 150);
+
+        labelML.setFont(new java.awt.Font("Britannic Bold", 0, 12)); // NOI18N
+        labelML.setForeground(new java.awt.Color(102, 204, 255));
+        labelML.setText("LISTA MATERIALI");
+        GestioneAttività.getContentPane().add(labelML);
+        labelML.setBounds(640, 420, 130, 30);
+
+        buttonSMP.setText("Mostra SMP");
+        buttonSMP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSMPActionPerformed(evt);
+            }
+        });
+        GestioneAttività.getContentPane().add(buttonSMP);
+        buttonSMP.setBounds(70, 390, 120, 30);
+
+        jScrollPane4.setViewportView(listaCompetenze);
+
+        GestioneAttività.getContentPane().add(jScrollPane4);
+        jScrollPane4.setBounds(810, 450, 240, 150);
+
+        labelCO.setFont(new java.awt.Font("Britannic Bold", 0, 12)); // NOI18N
+        labelCO.setForeground(new java.awt.Color(153, 204, 255));
+        labelCO.setText("COMPETENZE NECESSARIE");
+        GestioneAttività.getContentPane().add(labelCO);
+        labelCO.setBounds(860, 420, 170, 30);
+
+        textAreaDescrizioneAttivitàVis.setEditable(false);
+        textAreaDescrizioneAttivitàVis.setColumns(20);
+        textAreaDescrizioneAttivitàVis.setRows(5);
+        textAreaDescrizioneAttivitàVis.setBorder(null);
+        textAreaDescrizioneAttivitàVis.setDisabledTextColor(new java.awt.Color(102, 102, 255));
+        textAreaDescrizioneAttivitàVis.setSelectionColor(new java.awt.Color(153, 153, 153));
+        jScrollPane5.setViewportView(textAreaDescrizioneAttivitàVis);
+
+        GestioneAttività.getContentPane().add(jScrollPane5);
+        jScrollPane5.setBounds(0, 450, 270, 150);
+
+        labelWO.setFont(new java.awt.Font("Britannic Bold", 0, 12)); // NOI18N
+        labelWO.setForeground(new java.awt.Color(102, 204, 255));
+        labelWO.setText("WORKSPACE NOTES");
+        GestioneAttività.getContentPane().add(labelWO);
+        labelWO.setBounds(360, 420, 166, 30);
+
+        jPanel1.setBackground(new java.awt.Color(0, 102, 102));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1400, 650));
+        jPanel1.setLayout(null);
+        GestioneAttività.getContentPane().add(jPanel1);
+        jPanel1.setBounds(0, 0, 1230, 610);
 
         creazioneAttività.setMinimumSize(new java.awt.Dimension(1100, 600));
         creazioneAttività.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -377,6 +422,17 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel14.setText("jLabel14");
 
+        javax.swing.GroupLayout infoAggiuntiveAttivitàLayout = new javax.swing.GroupLayout(infoAggiuntiveAttività.getContentPane());
+        infoAggiuntiveAttività.getContentPane().setLayout(infoAggiuntiveAttivitàLayout);
+        infoAggiuntiveAttivitàLayout.setHorizontalGroup(
+            infoAggiuntiveAttivitàLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1132, Short.MAX_VALUE)
+        );
+        infoAggiuntiveAttivitàLayout.setVerticalGroup(
+            infoAggiuntiveAttivitàLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 516, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MENU' PRINCIPALE");
 
@@ -410,6 +466,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private void buttonGestManutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGestManutActionPerformed
 
         GestioneAttività.setVisible(true);
+        buttonModificaAttività.setVisible(false);
         disattivaVis();
     }//GEN-LAST:event_buttonGestManutActionPerformed
 
@@ -511,6 +568,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
     private void buttonMostraAttivitàActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMostraAttivitàActionPerformed
         buttonVisualizzaInfo.setVisible(true);
+        buttonModificaAttività.setVisible(true);
         while (tb.getRowCount() > 0) {
             tb.removeRow(0);
         }
@@ -527,6 +585,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private void buttonVisualizzaInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVisualizzaInfoActionPerformed
         listModelVis.clear();
         DefaultTableModel tb = (DefaultTableModel) tabellaAttività.getModel();
+        listaCompetenze.setModel(listModelComp);
         listaMaterialiVis.setModel(listModel);
         int indice = tabellaAttività.getSelectedRow();
         if (indice == -1) {
@@ -537,13 +596,19 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             String s = temp.toString();
             int id = Integer.parseInt(s);
             Activity a = p.getActivity(id);
+
             textAreaDescrizioneAttivitàVis.setText(a.getActivityDescription());
+
             textAreaWorkspaceNotesVis.setText(a.getWorkSpaceNote());
             List<String> materiali = a.getMaterials();
             for (String m : materiali) {
                 listModelVis.addElement(m);
             }
             listaMaterialiVis.setModel(listModelVis);
+            //List<String> competenze=a.getCompetencies();
+            //for(String c: competenze){
+            //    listModelComp.addElement("·"+c);
+            //}
         }
     }//GEN-LAST:event_buttonVisualizzaInfoActionPerformed
 
@@ -624,6 +689,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_creazioneAttivitàWindowClosing
 
+    private void buttonSMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSMPActionPerformed
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonSMPActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -669,12 +739,16 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }
 
     private void disattivaVis() {
+        togliBordi();
+        buttonSMP.setVisible(false);
         labelWO.setVisible(false);
         labelDE.setVisible(false);
-        labelLM.setVisible(false);
+        labelML.setVisible(false);
+        labelCO.setVisible(false);
         textAreaDescrizioneAttivitàVis.setVisible(false);
         textAreaWorkspaceNotesVis.setVisible(false);
         listaMaterialiVis.setVisible(false);
+        listaCompetenze.setVisible(false);
         buttonVisualizzaInfo.setVisible(false);
     }
 
@@ -715,12 +789,16 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }
 
     private void abilitaVis() {
+        aggiungiBordi();
+        buttonSMP.setVisible(true);
         labelWO.setVisible(true);
         labelDE.setVisible(true);
-        labelLM.setVisible(true);
+        labelML.setVisible(true);
+        labelCO.setVisible(true);
         textAreaDescrizioneAttivitàVis.setVisible(true);
         textAreaWorkspaceNotesVis.setVisible(true);
         listaMaterialiVis.setVisible(true);
+        listaCompetenze.setVisible(true);
 
     }
 
@@ -757,6 +835,23 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         }
     }
 
+    private void aggiungiBordi() {
+        jScrollPane8.setBorder(BorderFactory.createLineBorder(black));
+        jScrollPane7.setBorder(BorderFactory.createLineBorder(black));
+        jScrollPane5.setBorder(BorderFactory.createLineBorder(black));
+        jScrollPane4.setBorder(BorderFactory.createLineBorder(black));
+        jScrollPane3.setBorder(BorderFactory.createLineBorder(black));
+    }
+
+    private void togliBordi() {
+        jScrollPane8.setBorder(null);
+        jScrollPane7.setBorder(null);
+        jScrollPane5.setBorder(null);
+        jScrollPane4.setBorder(null);
+        jScrollPane3.setBorder(null);
+
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFrame GestioneAttività;
     private javax.swing.JButton buttonAggiungiMateriale;
@@ -767,6 +862,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JButton buttonModificaAttività;
     private javax.swing.JButton buttonMostraAttività;
     private javax.swing.JButton buttonRimuoviMateriale;
+    private javax.swing.JButton buttonSMP;
     private javax.swing.JButton buttonVisualizzaInfo;
     private javax.swing.JFrame creazioneAttività;
     private javax.swing.JTextField fieldArea;
@@ -774,6 +870,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JTextField fieldID;
     private javax.swing.JTextField fieldTime;
     private javax.swing.JTextField fieldWeek;
+    private javax.swing.JFrame infoAggiuntiveAttività;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -786,20 +883,24 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JLabel labelAttivitàOra;
+    private javax.swing.JLabel labelCO;
     private javax.swing.JLabel labelDE;
     private javax.swing.JLabel labelID;
     private javax.swing.JLabel labelInterrompibileOra;
-    private javax.swing.JLabel labelLM;
+    private javax.swing.JLabel labelML;
     private javax.swing.JLabel labelTipologiaOra;
     private javax.swing.JLabel labelWO;
+    private javax.swing.JList<String> listaCompetenze;
     private javax.swing.JList<String> listaMateriali;
     private javax.swing.JList<String> listaMaterialiVis;
     private javax.swing.JTable tabellaAttività;
