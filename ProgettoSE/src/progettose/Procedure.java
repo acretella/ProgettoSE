@@ -14,12 +14,12 @@ import java.util.*;
 public class Procedure {
     int id;
     private File smp;
-    private List<String> competences;
+    private List<String> competencies;
 
     public Procedure(int id, File smp, List<String> competencies) {
         this.id = id;
         this.smp = smp;
-        this.competences = competencies;
+        this.competencies = competencies;
     }
 
     public int getId() {
@@ -31,7 +31,7 @@ public class Procedure {
     }
 
     public List<String> getCompetencies() {
-        return competences;
+        return competencies;
     }
         
 }
