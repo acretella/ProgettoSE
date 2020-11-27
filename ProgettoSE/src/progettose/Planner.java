@@ -113,7 +113,7 @@ public class Planner {
     }
     
     protected Activity createActivity(ResultSet rst, List<String> materials,int id) throws SQLException{
-        Activity a = null;
+        Activity a = null; 
         switch (rst.getInt("activityType")) {
             case 0:
                 a = new PlannedActivity(id,
