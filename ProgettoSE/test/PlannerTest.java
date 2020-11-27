@@ -4,9 +4,14 @@
  * and open the template in the editor.
  */
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +23,7 @@ import org.junit.Test;
 import progettose.Activity;
 import progettose.PlannedActivity;
 import progettose.Planner;
+import progettose.Procedure;
 
 /**
  *
@@ -39,7 +45,7 @@ public class PlannerTest {
     @Test
     public void testPosCreateActivity(){
         List <String> l = new ArrayList<>();
-        
+        Procedure proc = null;
         Activity activity = new Activity(0,
                 "branch office",
                 "departement",
@@ -49,7 +55,8 @@ public class PlannerTest {
                 1,
                 l,
                 false,
-                "lllllll");
+                "lllllll",
+                proc);
         
         assertTrue(p.createActivity(activity) == true);
         p.deleteActivity(activity.getId());
@@ -58,7 +65,7 @@ public class PlannerTest {
    @Test
     public void testNegCreateActivity(){
         List <String> l = new ArrayList<>();
-        
+        Procedure proc = null;
         Activity activity = new Activity(1,
                 "branch office",
                 "departement",
@@ -68,7 +75,8 @@ public class PlannerTest {
                 1,
                 l,
                 true,
-                "lllllll");
+                "lllllll",
+                proc);
         
         p.createActivity(activity);
         
@@ -81,17 +89,19 @@ public class PlannerTest {
                 1,
                 l,
                 true,
-                "lllllll");
+                "lllllll",
+                proc);
         
         
         
         assertTrue(p.createActivity(activity2) == false);
+        p.deleteActivity(1);
     }
 
     @Test
     public void testPosDeleteActivity(){
         List <String> l = new ArrayList<>();
-           
+        Procedure proc = null;   
         Activity activity = new Activity(55,
                 "branch office",
                 "departement",
@@ -101,7 +111,8 @@ public class PlannerTest {
                 1,
                 l,
                 true,
-                "lllllll");
+                "lllllll",
+                proc);
         
         p.createActivity(activity);
                 
@@ -109,6 +120,7 @@ public class PlannerTest {
     }
     
     public void testGetAllActivities(){
+        Procedure proc = null;
         Activity a = new PlannedActivity(18,
                 "branch office",
                 "departement",
@@ -118,7 +130,8 @@ public class PlannerTest {
                 1,
                 new ArrayList<>(),
                 true,
-                "lllllll");
+                "lllllll",
+                proc);
         p.createActivity(a);
         
         List<Activity> list = p.getAllActivities();
@@ -137,6 +150,7 @@ public class PlannerTest {
     
     @Test
     public void testPosGetActivity(){
+        Procedure proc = null;
         Activity a = new PlannedActivity(12,
                 "branch office",
                 "departement",
@@ -146,7 +160,8 @@ public class PlannerTest {
                 1,
                 new ArrayList<>(),
                 true,
-                "lllllll");
+                "lllllll",
+                proc);
         p.createActivity(a);
         assertEquals(p.getActivity(a.getId()).getId() , a.getId());
         p.deleteActivity(a.getId());
@@ -160,7 +175,7 @@ public class PlannerTest {
     @Test
     public void testPosModifyActivity(){
         List <String> l = new ArrayList<>();
-        
+        Procedure proc = null;
         Activity a = new Activity(2,
                 "branch office",
                 "departement",
@@ -170,7 +185,8 @@ public class PlannerTest {
                 1,
                 l,
                 true,
-                "lllllll");
+                "lllllll",
+                proc);
         
         p.createActivity(a);
         a.setType(2);
@@ -182,7 +198,7 @@ public class PlannerTest {
     public void TestNegModifyActivity(){
         //modifico attività non presente nel DB
         List <String> l = new ArrayList<>();
-        
+        Procedure proc = null;
         Activity activity = new Activity(5,
                 "branch office",
                 "departement",
@@ -192,7 +208,35 @@ public class PlannerTest {
                 1,
                 l,
                 true,
-                "lllllll");
+                "lllllll",
+                proc);
         assertTrue(p.modifyActivity(activity) == false);
+    }
+    
+    @Test
+    public void isThereAFile(){
+        List<String> competences = new ArrayList<>();
+        competences.add("Knoledge of cable types");   
+        competences.add("PAV certification");
+        Procedure proc= new Procedure(1,null,null);
+        Activity activity = new Activity(46,
+                "branch office",
+                "departement",
+                "electrical",
+                "aaaaaaaa",
+                100,
+                1,
+                new ArrayList<>(),
+                true,
+                "lllllll",
+                proc);
+        p.createActivity(activity);
+        activity = p.getActivity(46);
+        System.out.println(activity.getProcedure());
+        assertNotNull(activity.getProcedure());
+        try {
+            Desktop.getDesktop().open(activity.getProcedure().getSmp());
+        } catch (IOException ex) {}
+        p.deleteActivity(46);
     }
 }

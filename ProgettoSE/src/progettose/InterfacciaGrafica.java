@@ -348,7 +348,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         Activity a = new PlannedActivity(Integer.parseInt(fieldID.getText()), fieldFactorySite.getText(), fieldArea.getText(),
                 tendinaTipologia.getSelectedItem().toString(),
                 textAreaDescrizioneAttività.getText(), Integer.parseInt(fieldTime.getText()),
-                Integer.parseInt(fieldWeek.getText()), materiali, textAreaWorkspace.getText());
+                Integer.parseInt(fieldWeek.getText()), materiali,false, textAreaWorkspace.getText(),new Procedure(null,null));
         p.createActivity(a);
         
 

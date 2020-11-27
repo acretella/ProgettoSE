@@ -23,7 +23,7 @@ public class ProgettoSE {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, SQLException {
 //        Planner p = null;
 //        try {
 //            p = new Planner("alessio","12345");
@@ -38,8 +38,9 @@ public class ProgettoSE {
 //            str += a.getId() + " ";
 //        System.out.println(str);
 
-        File file = new File("C:\\Users\\lenovo\\Desktop\\PM SRS Part I - Planner.pdf");
-        Desktop.getDesktop().open(file);
+       // File file = new File("C:\\Users\\lenovo\\Desktop\\PM SRS Part I - Planner.pdf");
+       // Desktop.getDesktop().open(file);
+
     }
     
 }
