@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package progettose;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -36,11 +37,17 @@ public class Planner {
     public boolean createActivity(Activity a) {
         try {
             Statement stm = connection.createStatement();
-            
-            String query = "insert into Activity(id_,factorySite,area,typology,description,estimatedTime,week,interruptable,workSpaceNotes,activityType)"
-                    + " values("+a.getId()+",'"+a.getFactorySite()+"','"+a.getArea()+"','"+a.getTypology()+"','"
-                    +a.getActivityDescription()+"',"+a.getEstimatedTime()+","+a.getWeek()+","+a.isInterruptable()+",'"+a.getWorkSpaceNote()
-                    +"',"+a.getType()+");";
+            String query;
+            if(a.getProcedure() == null)            
+                query = "insert into Activity(id_,factorySite,area,typology,description,estimatedTime,week,interruptable,workSpaceNotes,activityType,procedura)"
+                        + " values("+a.getId()+",'"+a.getFactorySite()+"','"+a.getArea()+"','"+a.getTypology()+"','"
+                        +a.getActivityDescription()+"',"+a.getEstimatedTime()+","+a.getWeek()+","+a.isInterruptable()+",'"+a.getWorkSpaceNote()
+                        +"',"+a.getType()+",null"+");";
+            else
+                query = "insert into Activity(id_,factorySite,area,typology,description,estimatedTime,week,interruptable,workSpaceNotes,activityType,procedura)"
+                        + " values("+a.getId()+",'"+a.getFactorySite()+"','"+a.getArea()+"','"+a.getTypology()+"','"
+                        +a.getActivityDescription()+"',"+a.getEstimatedTime()+","+a.getWeek()+","+a.isInterruptable()+",'"+a.getWorkSpaceNote()
+                        +"',"+a.getType()+","+a.getProcedure().getId()+");";
             stm.executeUpdate(query);
             
             if (! a.getMaterials().isEmpty()){
@@ -102,8 +109,7 @@ public class Planner {
                 while(rst2.next()){
                     materials.add(rst2.getString("material"));
                 }
-                l.add(this.createActivity(rst, materials,id));
-                
+                l.add(this.createActivity(rst, materials,id)); 
             }
             return l;
                         
@@ -112,9 +118,30 @@ public class Planner {
         }
      
     }
+    protected Procedure createProcedure(int id){
+        try {
+            Statement stm = connection.createStatement();
+            String query = "select * from procedura where id_ = " + id;
+            ResultSet rst = stm.executeQuery(query);
+            rst.next();
+            String path = rst.getString("smp_path");
+            query = "select * from competence_for_procedure where procedura = "+ id; 
+            rst = stm.executeQuery(query);
+            List<String> competences = new ArrayList<>();
+            while(rst.next()){
+                competences.add(rst.getString("competence"));
+            }
+            return new Procedure(id,new File(path), competences);
+            
+        } catch (SQLException ex) {
+            return null;
+        }
+        
+    }
     
     protected Activity createActivity(ResultSet rst, List<String> materials,int id) throws SQLException{
         Activity a = null;
+        Procedure p = null;
         switch (rst.getInt("activityType")) {
             case 0:
                 a = new PlannedActivity(id,
@@ -126,7 +153,8 @@ public class Planner {
                         rst.getInt("week"),
                         materials,
                         rst.getBoolean("interruptable"),
-                        rst.getString("workSpaceNotes")
+                        rst.getString("workSpaceNotes"),
+                        p = createProcedure(rst.getInt("procedura"))
                 );
                 break;
             case 1:
@@ -139,7 +167,8 @@ public class Planner {
                         rst.getInt("week"),
                         materials,
                         rst.getBoolean("interruptable"),
-                        rst.getString("workSpaceNotes")
+                        rst.getString("workSpaceNotes"),
+                        p = createProcedure(rst.getInt("procedura"))
                 );
                 break;
             case 2:
@@ -152,7 +181,8 @@ public class Planner {
                         rst.getInt("week"),
                         materials,
                         rst.getBoolean("interruptable"),
-                        rst.getString("workSpaceNotes")
+                        rst.getString("workSpaceNotes"),
+                        p = createProcedure(rst.getInt("procedura"))
                 );
                 break;
         }

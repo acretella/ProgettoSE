@@ -6,7 +6,9 @@
 package progettose;
 
 import static java.awt.Color.black;
+import java.awt.Desktop;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.util.List;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -179,6 +181,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         ));
         tabellaAttività.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tabellaAttività.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tabellaAttività.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabellaAttivitàMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tabellaAttività);
 
         GestioneAttività.getContentPane().add(jScrollPane3);
@@ -606,7 +613,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
             listaMaterialiVis.setModel(listModelVis);
             if (a.getProcedure() != null) {
-                List<String> competenze = a.getProcedure().getCompetences();
+                List<String> competenze = a.getProcedure().getCompetencies();
                 for (String c : competenze) {
                     listModelComp.addElement("·" + c);
                 }
@@ -692,9 +699,29 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_creazioneAttivitàWindowClosing
 
     private void buttonSMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSMPActionPerformed
+        
+        int id = Integer.parseInt(tb.getValueAt(tabellaAttività.getSelectedRow(), 0).toString());
+        Activity a = p.getActivity(id);
+        if(a.getProcedure()==null){
+            JOptionPane.showMessageDialog(null, "Nessun SMP associato alla procedura", "ERROR", ERROR_MESSAGE);
+        }
+        else{
+            try {
+                Desktop.getDesktop().open(a.getProcedure().getSmp());
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "File non trovato", "ERROR", ERROR_MESSAGE);
+            }
+
+        }
 
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonSMPActionPerformed
+
+    private void tabellaAttivitàMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabellaAttivitàMouseClicked
+        System.out.println("a");
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabellaAttivitàMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -768,19 +795,19 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                     a = new PlannedActivity(Integer.parseInt(fieldID.getText()), fieldFactorySite.getText(), fieldArea.getText(),
                             tendinaTipologia.getSelectedItem().toString(),
                             textAreaDescrizioneAttività.getText(), Integer.parseInt(fieldTime.getText()),
-                            Integer.parseInt(fieldWeek.getText()), materiali, b, textAreaWorkspace.getText());
+                            Integer.parseInt(fieldWeek.getText()), materiali, b, textAreaWorkspace.getText(), null);
                     break;
                 case "EWO":
                     a = new EwoActivity(Integer.parseInt(fieldID.getText()), fieldFactorySite.getText(), fieldArea.getText(),
                             tendinaTipologia.getSelectedItem().toString(),
                             textAreaDescrizioneAttività.getText(), Integer.parseInt(fieldTime.getText()),
-                            Integer.parseInt(fieldWeek.getText()), materiali, b, textAreaWorkspace.getText());
+                            Integer.parseInt(fieldWeek.getText()), materiali, b, textAreaWorkspace.getText(), null);
                     break;
                 default:
                     a = new ExtraActivity(Integer.parseInt(fieldID.getText()), fieldFactorySite.getText(), fieldArea.getText(),
                             tendinaTipologia.getSelectedItem().toString(),
                             textAreaDescrizioneAttività.getText(), Integer.parseInt(fieldTime.getText()),
-                            Integer.parseInt(fieldWeek.getText()), materiali, b, textAreaWorkspace.getText());
+                            Integer.parseInt(fieldWeek.getText()), materiali, b, textAreaWorkspace.getText(), null);
                     break;
             }
         } catch (NumberFormatException e) {
