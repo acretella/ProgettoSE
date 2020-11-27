@@ -615,9 +615,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
     private void creazioneAttivitàWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_creazioneAttivitàWindowClosing
         buttonModificaAttività.setEnabled(true);
+        if (buttonCrea.getText().equals(("MODIFICA ATTIVITA'"))) {
+            riempiTabella();
+        }
         buttonCrea.setText("ATTIVITA'");
         buttonCreaAttività.setEnabled(true);
-        riempiTabella();
         svuota();
         // TODO add your handling code here:
     }//GEN-LAST:event_creazioneAttivitàWindowClosing
