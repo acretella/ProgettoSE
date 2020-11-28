@@ -249,7 +249,7 @@ public class Planner {
                 query = "select * from DISPONIBILITA_MANUTENTORE as dm,Availability as a where dm.ID_DISPONIBILITA = a.ID_DISPONIBILITA and dm.ID_MAN = " + id + " order by Settimana";
                 rst2 = stm.executeQuery(query);
                 Integer key;
-                int value[][] = new int [6][6];
+                int value[][] = new int [6][6]; //matrice valore della entry
                 boolean flag = true;
                 int temp = 0;
                 while(rst2.next()){ //Aggiungo le disponibilità al Maintainer
