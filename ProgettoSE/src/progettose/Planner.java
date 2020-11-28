@@ -254,19 +254,19 @@ public class Planner {
                 int temp = 0;
                 while(rst2.next()){ //Aggiungo le disponibilità al Maintainer
                     key = rst2.getInt("Settimana");
-                    if (flag){
+                    if (flag){ //utilizzo la flag poiché non posso utilizzare due volte un resultset sulla stessa colonna
                         temp= key;
                         flag = false;
                     }
                     if (temp != key){ //quando cambia la settimana
-                        avaibilities.put(temp, value);
+                        avaibilities.put(temp, value); //inserisco nella map
                         temp = key;
                         value = new int[6][6];
                     }
-                    else
+                    else //altrimenti se non cambia la settima continuo a riempire la matrice
                         value[rst.getInt("Giorno")][rst.getInt("Ora")] = rst.getInt("Minuti");                  
                 }
-                avaibilities.put(temp, value); //per non perdere l'ultima settimana di dispnibilità
+                avaibilities.put(temp, value); //per non perdere l'ultima settimana di disponibilità
                 l.add(new Maintainer(name,competencies,avaibilities));
             }
             return l;
