@@ -7,6 +7,7 @@ package progettose;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -15,9 +16,9 @@ import java.util.List;
 public class Maintainer {
     private String name;
     private List<String> competencies;
-    private HashMap<Integer, Integer[][]> availability;
+    private Map<Integer, Integer[][]> availability;
 
-    public Maintainer(String name, List<String> competencies, HashMap<Integer, Integer[][]> availability) {
+    public Maintainer(String name, List<String> competencies, Map<Integer, Integer[][]> availability) {
         this.name = name;
         this.competencies = competencies;
         this.availability = availability;
@@ -31,7 +32,7 @@ public class Maintainer {
         return competencies;
     }
 
-    public HashMap<Integer, Integer[][]> getAvailability() {
+    public Map<Integer, Integer[][]> getAvailability() {
         return availability;
     }
     
