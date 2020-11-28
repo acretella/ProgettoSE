@@ -283,23 +283,23 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel3.setText("Factory site");
         creazioneAttività.getContentPane().add(jLabel3);
-        jLabel3.setBounds(10, 130, 80, 14);
+        jLabel3.setBounds(10, 130, 80, 13);
 
         jLabel4.setText("Area");
         creazioneAttività.getContentPane().add(jLabel4);
-        jLabel4.setBounds(10, 170, 60, 14);
+        jLabel4.setBounds(10, 170, 60, 13);
 
         jLabel5.setText("Typology");
         creazioneAttività.getContentPane().add(jLabel5);
-        jLabel5.setBounds(10, 210, 70, 14);
+        jLabel5.setBounds(10, 210, 70, 13);
 
         jLabel6.setText("Activity description");
         creazioneAttività.getContentPane().add(jLabel6);
-        jLabel6.setBounds(500, 40, 140, 14);
+        jLabel6.setBounds(500, 40, 140, 13);
 
         jLabel7.setText("Time");
         creazioneAttività.getContentPane().add(jLabel7);
-        jLabel7.setBounds(10, 260, 50, 14);
+        jLabel7.setBounds(10, 260, 50, 13);
 
         jLabel8.setText("Interruptible");
         creazioneAttività.getContentPane().add(jLabel8);
@@ -311,11 +311,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel10.setText("Week");
         creazioneAttività.getContentPane().add(jLabel10);
-        jLabel10.setBounds(10, 300, 50, 14);
+        jLabel10.setBounds(10, 300, 50, 13);
 
         jLabel11.setText("Workspace notes");
         creazioneAttività.getContentPane().add(jLabel11);
-        jLabel11.setBounds(820, 40, 140, 14);
+        jLabel11.setBounds(820, 40, 140, 13);
 
         fieldID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
