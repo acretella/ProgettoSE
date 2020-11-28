@@ -11,7 +11,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -228,4 +230,50 @@ public class Planner {
         else
             return false;  
     }
+    
+    public List<Maintainer> getAllMaintainers(){
+        List <Maintainer> l = null;
+        int id;
+        List<String> competencies = new ArrayList<>();
+        Map<Integer,int[][]> avaibilities = new HashMap<>();
+        try {
+            Statement stm = connection.createStatement();
+            String query = "select * from Maintainer";
+            ResultSet rst = stm.executeQuery(query);
+            while(rst.next()){
+                String name = rst.getString("nome");
+                id = rst.getInt("ID_MAN");
+                ResultSet rst2 = stm.executeQuery("select * from Competence_for_Maintainer where id = " + id);
+                while(rst2.next()) //Aggiungo le competenze al Maintainer
+                    competencies.add(rst2.getString("NOMECOMPETENZA"));
+                query = "select * from DISPONIBILITA_MANUTENTORE as dm,Availability as a where dm.ID_DISPONIBILITA = a.ID_DISPONIBILITA and dm.ID_MAN = " + id + " order by Settimana";
+                rst2 = stm.executeQuery(query);
+                Integer key;
+                int value[][] = new int [6][6];
+                boolean flag = true;
+                int temp = 0;
+                while(rst2.next()){ //Aggiungo le disponibilità al Maintainer
+                    key = rst2.getInt("Settimana");
+                    if (flag){
+                        temp= key;
+                        flag = false;
+                    }
+                    if (temp != key){ //quando cambia la settimana
+                        avaibilities.put(temp, value);
+                        temp = key;
+                        value = new int[6][6];
+                    }
+                    else
+                        value[rst.getInt("Giorno")][rst.getInt("Ora")] = rst.getInt("Minuti");                  
+                }
+                avaibilities.put(temp, value); //per non perdere l'ultima settimana di dispnibilità
+                l.add(new Maintainer(name,competencies,avaibilities));
+            }
+            return l;
+        } catch (SQLException ex) {
+            return null;
+        }
+        
+    }
+  
 }
