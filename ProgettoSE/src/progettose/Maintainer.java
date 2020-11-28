@@ -16,9 +16,9 @@ import java.util.Map;
 public class Maintainer {
     private String name;
     private List<String> competencies;
-    private Map<Integer, Integer[][]> availability;
+    private Map<Integer, int[][]> availability;
 
-    public Maintainer(String name, List<String> competencies, Map<Integer, Integer[][]> availability) {
+    public Maintainer(String name, List<String> competencies, Map<Integer, int[][]> availability) {
         this.name = name;
         this.competencies = competencies;
         this.availability = availability;
@@ -32,7 +32,7 @@ public class Maintainer {
         return competencies;
     }
 
-    public Map<Integer, Integer[][]> getAvailability() {
+    public Map<Integer, int[][]> getAvailability() {
         return availability;
     }
     
