@@ -91,6 +91,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelWO = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         buttonModificaAttività = new javax.swing.JButton();
+        jButtonAssegnaMaintainer = new javax.swing.JButton();
         creazioneAttività = new javax.swing.JFrame();
         tendinaTipoAttività = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
@@ -127,6 +128,18 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelInterrompibileOra = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         infoAggiuntiveAttività = new javax.swing.JFrame();
+        assegnaMaintainer = new javax.swing.JFrame();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jTextFieldViewWeek = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jTextFieldActivityToAssign = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        jTextAreaSkillsNeeded = new javax.swing.JTextArea();
+        jLabel16 = new javax.swing.JLabel();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         buttonGestManut = new javax.swing.JButton();
 
         GestioneAttività.setTitle("MENU' GESTIONE ATTIVITA'");
@@ -160,7 +173,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         GestioneAttività.getContentPane().add(buttonCancellaAttività);
         buttonCancellaAttività.setBounds(50, 140, 240, 40);
 
-        tabellaAttività.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tabellaAttività.setBorder(javax.swing.BorderFactory.createLineBorder(null));
         tabellaAttività.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -257,6 +270,15 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jPanel1.add(buttonModificaAttività);
         buttonModificaAttività.setBounds(50, 190, 240, 40);
 
+        jButtonAssegnaMaintainer.setText("Assegna Maintainer");
+        jButtonAssegnaMaintainer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAssegnaMaintainerActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonAssegnaMaintainer);
+        jButtonAssegnaMaintainer.setBounds(50, 240, 240, 40);
+
         GestioneAttività.getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 1230, 610);
 
@@ -275,11 +297,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel1.setText("Tipo di attività");
         creazioneAttività.getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 40, 144, 14);
+        jLabel1.setBounds(10, 40, 144, 13);
 
         labelID.setText("Activity ID");
         creazioneAttività.getContentPane().add(labelID);
-        labelID.setBounds(10, 90, 70, 14);
+        labelID.setBounds(10, 90, 70, 13);
 
         jLabel3.setText("Factory site");
         creazioneAttività.getContentPane().add(jLabel3);
@@ -429,6 +451,107 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         infoAggiuntiveAttivitàLayout.setVerticalGroup(
             infoAggiuntiveAttivitàLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 516, Short.MAX_VALUE)
+        );
+
+        assegnaMaintainer.setMinimumSize(new java.awt.Dimension(790, 301));
+        assegnaMaintainer.setPreferredSize(new java.awt.Dimension(800, 321));
+
+        jPanel2.setBackground(new java.awt.Color(204, 102, 0));
+
+        jLabel2.setText("Week");
+
+        jTextFieldViewWeek.setEditable(false);
+        jTextFieldViewWeek.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldViewWeekActionPerformed(evt);
+            }
+        });
+
+        jLabel13.setText("Activity to assign");
+
+        jTextFieldActivityToAssign.setEditable(false);
+        jTextFieldActivityToAssign.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldActivityToAssignActionPerformed(evt);
+            }
+        });
+
+        jLabel15.setText("Skills needed");
+
+        jTextAreaSkillsNeeded.setEditable(false);
+        jTextAreaSkillsNeeded.setColumns(20);
+        jTextAreaSkillsNeeded.setRows(5);
+        jScrollPane9.setViewportView(jTextAreaSkillsNeeded);
+
+        jLabel16.setText("Maintainer AVAILABILITY");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane10.setViewportView(jTable1);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextFieldViewWeek, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(44, 44, 44)
+                                .addComponent(jLabel13)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextFieldActivityToAssign, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(208, 208, 208)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldViewWeek, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldActivityToAssign, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel16))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                    .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout assegnaMaintainerLayout = new javax.swing.GroupLayout(assegnaMaintainer.getContentPane());
+        assegnaMaintainer.getContentPane().setLayout(assegnaMaintainerLayout);
+        assegnaMaintainerLayout.setHorizontalGroup(
+            assegnaMaintainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        assegnaMaintainerLayout.setVerticalGroup(
+            assegnaMaintainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -710,6 +833,18 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tabellaAttivitàMouseClicked
 
+    private void jButtonAssegnaMaintainerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAssegnaMaintainerActionPerformed
+        assegnaMaintainer.setVisible(true);
+    }//GEN-LAST:event_jButtonAssegnaMaintainerActionPerformed
+
+    private void jTextFieldViewWeekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldViewWeekActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldViewWeekActionPerformed
+
+    private void jTextFieldActivityToAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldActivityToAssignActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldActivityToAssignActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -871,6 +1006,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFrame GestioneAttività;
+    private javax.swing.JFrame assegnaMaintainer;
     private javax.swing.JButton buttonAggiungiMateriale;
     private javax.swing.JButton buttonCancellaAttività;
     private javax.swing.JButton buttonCrea;
@@ -887,11 +1023,16 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JTextField fieldTime;
     private javax.swing.JTextField fieldWeek;
     private javax.swing.JFrame infoAggiuntiveAttività;
+    private javax.swing.JButton jButtonAssegnaMaintainer;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -900,7 +1041,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -908,6 +1051,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextArea jTextAreaSkillsNeeded;
+    private javax.swing.JTextField jTextFieldActivityToAssign;
+    private javax.swing.JTextField jTextFieldViewWeek;
     private javax.swing.JLabel labelAttivitàOra;
     private javax.swing.JLabel labelCO;
     private javax.swing.JLabel labelDE;
