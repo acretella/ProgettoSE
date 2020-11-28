@@ -74,10 +74,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         buttonCreaAttività = new javax.swing.JButton();
         buttonMostraAttività = new javax.swing.JButton();
         buttonCancellaAttività = new javax.swing.JButton();
-        buttonModificaAttività = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabellaAttività = new javax.swing.JTable();
-        buttonVisualizzaInfo = new javax.swing.JButton();
         jScrollPane7 = new javax.swing.JScrollPane();
         textAreaWorkspaceNotesVis = new javax.swing.JTextArea();
         labelDE = new javax.swing.JLabel();
@@ -92,6 +90,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         textAreaDescrizioneAttivitàVis = new javax.swing.JTextArea();
         labelWO = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        buttonModificaAttività = new javax.swing.JButton();
         creazioneAttività = new javax.swing.JFrame();
         tendinaTipoAttività = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
@@ -161,15 +160,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         GestioneAttività.getContentPane().add(buttonCancellaAttività);
         buttonCancellaAttività.setBounds(50, 140, 240, 40);
 
-        buttonModificaAttività.setText("Modifica attività");
-        buttonModificaAttività.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonModificaAttivitàActionPerformed(evt);
-            }
-        });
-        GestioneAttività.getContentPane().add(buttonModificaAttività);
-        buttonModificaAttività.setBounds(50, 240, 240, 40);
-
         tabellaAttività.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         tabellaAttività.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -190,15 +180,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         GestioneAttività.getContentPane().add(jScrollPane3);
         jScrollPane3.setBounds(400, 30, 760, 250);
-
-        buttonVisualizzaInfo.setText("Visualizza informazioni aggiuntive");
-        buttonVisualizzaInfo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonVisualizzaInfoActionPerformed(evt);
-            }
-        });
-        GestioneAttività.getContentPane().add(buttonVisualizzaInfo);
-        buttonVisualizzaInfo.setBounds(50, 190, 242, 40);
 
         textAreaWorkspaceNotesVis.setEditable(false);
         textAreaWorkspaceNotesVis.setColumns(20);
@@ -266,6 +247,16 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 102, 102));
         jPanel1.setMinimumSize(new java.awt.Dimension(1400, 650));
         jPanel1.setLayout(null);
+
+        buttonModificaAttività.setText("Modifica attività");
+        buttonModificaAttività.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonModificaAttivitàActionPerformed(evt);
+            }
+        });
+        jPanel1.add(buttonModificaAttività);
+        buttonModificaAttività.setBounds(50, 190, 240, 40);
+
         GestioneAttività.getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 1230, 610);
 
@@ -574,7 +565,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
 
     private void buttonMostraAttivitàActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMostraAttivitàActionPerformed
-        buttonVisualizzaInfo.setVisible(true);
+        
         buttonModificaAttività.setVisible(true);
         while (tb.getRowCount() > 0) {
             tb.removeRow(0);
@@ -588,38 +579,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private void fieldIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_fieldIDActionPerformed
-
-    private void buttonVisualizzaInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVisualizzaInfoActionPerformed
-        listModelVis.clear();
-        DefaultTableModel tb = (DefaultTableModel) tabellaAttività.getModel();
-        listaCompetenze.setModel(listModelComp);
-        listaMaterialiVis.setModel(listModel);
-        int indice = tabellaAttività.getSelectedRow();
-        if (indice == -1) {
-            JOptionPane.showMessageDialog(null, "SELEZIONA UNA RIGA DELLA TABELLA!", "ERROR", ERROR_MESSAGE);
-        } else {
-            abilitaVis();
-            Object temp = tb.getValueAt(indice, 0);
-            String s = temp.toString();
-            int id = Integer.parseInt(s);
-            Activity a = p.getActivity(id);
-
-            textAreaDescrizioneAttivitàVis.setText(a.getActivityDescription());
-
-            textAreaWorkspaceNotesVis.setText(a.getWorkSpaceNote());
-            List<String> materiali = a.getMaterials();
-            for (String m : materiali) {
-                listModelVis.addElement(m);
-            }
-            listaMaterialiVis.setModel(listModelVis);
-            if (a.getProcedure() != null) {
-                List<String> competenze = a.getProcedure().getCompetencies();
-                for (String c : competenze) {
-                    listModelComp.addElement("·" + c);
-                }
-            }
-        }
-    }//GEN-LAST:event_buttonVisualizzaInfoActionPerformed
 
     private void buttonRimuoviMaterialeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRimuoviMaterialeActionPerformed
         if (listaMateriali.getSelectedIndex() == -1) {
@@ -699,13 +658,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_creazioneAttivitàWindowClosing
 
     private void buttonSMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSMPActionPerformed
-        
+
         int id = Integer.parseInt(tb.getValueAt(tabellaAttività.getSelectedRow(), 0).toString());
         Activity a = p.getActivity(id);
-        if(a.getProcedure()==null){
+        if (a.getProcedure() == null) {
             JOptionPane.showMessageDialog(null, "Nessun SMP associato alla procedura", "ERROR", ERROR_MESSAGE);
-        }
-        else{
+        } else {
             try {
                 Desktop.getDesktop().open(a.getProcedure().getSmp());
             } catch (IOException ex) {
@@ -718,8 +676,37 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonSMPActionPerformed
 
     private void tabellaAttivitàMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabellaAttivitàMouseClicked
-        System.out.println("a");
-        
+        listModelVis.clear();
+        listModelComp.clear();
+        DefaultTableModel tb = (DefaultTableModel) tabellaAttività.getModel();
+        listaCompetenze.setModel(listModelComp);
+        listaMaterialiVis.setModel(listModel);
+        int indice = tabellaAttività.getSelectedRow();
+        if (indice == -1) {
+            JOptionPane.showMessageDialog(null, "SELEZIONA UNA RIGA DELLA TABELLA!", "ERROR", ERROR_MESSAGE);
+        } else {
+            abilitaVis();
+            Object temp = tb.getValueAt(indice, 0);
+            String s = temp.toString();
+            int id = Integer.parseInt(s);
+            Activity a = p.getActivity(id);
+
+            textAreaDescrizioneAttivitàVis.setText(a.getActivityDescription());
+
+            textAreaWorkspaceNotesVis.setText(a.getWorkSpaceNote());
+            List<String> materiali = a.getMaterials();
+            for (String m : materiali) {
+                listModelVis.addElement(m);
+            }
+            listaMaterialiVis.setModel(listModelVis);
+            if (a.getProcedure() != null) {
+                List<String> competenze = a.getProcedure().getCompetencies();
+                for (String c : competenze) {
+                    listModelComp.addElement("·" + c);
+                }
+            }
+        }
+
         // TODO add your handling code here:
     }//GEN-LAST:event_tabellaAttivitàMouseClicked
 
@@ -764,6 +751,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         textAreaDescrizioneAttività.setText("");
         textAreaWorkspace.setText("");
         listModel.clear();
+        
         fieldArea.setText("");
     }
 
@@ -778,7 +766,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         textAreaWorkspaceNotesVis.setVisible(false);
         listaMaterialiVis.setVisible(false);
         listaCompetenze.setVisible(false);
-        buttonVisualizzaInfo.setVisible(false);
+        
     }
 
     private Activity buildActivity(String tipoAttività) {
@@ -892,7 +880,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JButton buttonMostraAttività;
     private javax.swing.JButton buttonRimuoviMateriale;
     private javax.swing.JButton buttonSMP;
-    private javax.swing.JButton buttonVisualizzaInfo;
     private javax.swing.JFrame creazioneAttività;
     private javax.swing.JTextField fieldArea;
     private javax.swing.JTextField fieldFactorySite;
