@@ -864,8 +864,13 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             List <Maintainer> maintainers = p.getAllMaintainers();
             for (Maintainer m : maintainers){
                 int matrice[][]= m.getAvailability().get(a.getWeek());
+                int competenze;
+                if (a.getProcedure() != null)
+                    competenze = contaCompetenze(a.getProcedure().getCompetencies(),m.getCompetencies());
+                else
+                    competenze = 0;
                 String [] percentuali = calcolaPercentuale(matrice);
-                String[] inserimento = {m.getName(),String.valueOf(contaCompetenze(a.getProcedure().getCompetencies(),m.getCompetencies())),percentuali[0],percentuali[1],percentuali[2],percentuali[3],percentuali[4],percentuali[5],percentuali[6]};
+                String[] inserimento = {m.getName(),String.valueOf(competenze),percentuali[0],percentuali[1],percentuali[2],percentuali[3],percentuali[4],percentuali[5],percentuali[6]};             
                 tb2.addRow(inserimento);   
             }
             
@@ -1029,13 +1034,15 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }
     
     private String [] calcolaPercentuale(int m[][]){
-        String [] percentuali = new String[6];
-        int sum = 0;
+        String [] percentuali = new String[7];
+        float sum = 0;
         for(int i = 0; i<=6; i++){
-        for(int j=0; j<=6;j++){
-            sum+= m[i][j];
-        }
-        percentuali[i]=String.valueOf(sum/420*100);    
+            for(int j=0; j<=6;j++){
+                sum+= m[i][j];
+            }
+            percentuali[i]=Float.toString(sum/420*100)+"%"; 
+            sum=0;
+             
         }
         
          return percentuali;
