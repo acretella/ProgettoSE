@@ -857,10 +857,10 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             while (tb2.getRowCount() > 0) {
                 tb2.removeRow(0);
             }
-            String[] nomi = {"Maintainer", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+            String[] nomi = {"Maintainer", "Skills","Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
             tb2.setColumnIdentifiers(nomi);
             tabellaDisponibilità.setModel(tb2);
-            String[] inserimento = {"a", "b", "a", "b", "a", "b", "a", "b", "a"};
+            String[] inserimento = {"a", "b","a", "a", "b", "a", "b", "a", "b", "a"};
             tb2.addRow(inserimento);
             
         }
