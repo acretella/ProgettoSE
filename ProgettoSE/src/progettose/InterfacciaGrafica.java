@@ -307,31 +307,31 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel1.setText("Tipo di attività");
         creazioneAttività.getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 40, 144, 14);
+        jLabel1.setBounds(10, 40, 144, 13);
 
         labelID.setText("Activity ID");
         creazioneAttività.getContentPane().add(labelID);
-        labelID.setBounds(10, 90, 70, 14);
+        labelID.setBounds(10, 90, 70, 13);
 
         jLabel3.setText("Factory site");
         creazioneAttività.getContentPane().add(jLabel3);
-        jLabel3.setBounds(10, 130, 80, 14);
+        jLabel3.setBounds(10, 130, 80, 13);
 
         jLabel4.setText("Area");
         creazioneAttività.getContentPane().add(jLabel4);
-        jLabel4.setBounds(10, 170, 60, 14);
+        jLabel4.setBounds(10, 170, 60, 13);
 
         jLabel5.setText("Typology");
         creazioneAttività.getContentPane().add(jLabel5);
-        jLabel5.setBounds(10, 210, 70, 14);
+        jLabel5.setBounds(10, 210, 70, 13);
 
         jLabel6.setText("Activity description");
         creazioneAttività.getContentPane().add(jLabel6);
-        jLabel6.setBounds(500, 40, 140, 14);
+        jLabel6.setBounds(500, 40, 140, 13);
 
         jLabel7.setText("Time");
         creazioneAttività.getContentPane().add(jLabel7);
-        jLabel7.setBounds(10, 260, 50, 14);
+        jLabel7.setBounds(10, 260, 50, 13);
 
         jLabel8.setText("Interruptible");
         creazioneAttività.getContentPane().add(jLabel8);
@@ -343,11 +343,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel10.setText("Week");
         creazioneAttività.getContentPane().add(jLabel10);
-        jLabel10.setBounds(10, 300, 50, 14);
+        jLabel10.setBounds(10, 300, 50, 13);
 
         jLabel11.setText("Workspace notes");
         creazioneAttività.getContentPane().add(jLabel11);
-        jLabel11.setBounds(820, 40, 140, 14);
+        jLabel11.setBounds(820, 40, 140, 13);
 
         fieldID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -519,7 +519,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(171, 171, 171)
                         .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(53, 53, 53)
                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -545,7 +545,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -842,10 +842,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         Activity a = p.getActivity(id);
         if (a.getProcedure() != null) {
             List<String> competenze = a.getProcedure().getCompetencies();
-            for (String c : competenze) {
+            competenze.forEach(c -> {
                 listModelSkills.addElement("·" + c);
-            }
+            });
         }
+        
         listaSkills.setModel(listModelSkills);
         textWeekAssegnata.setText(String.valueOf(a.getWeek()));
         textAttivitàDaAssegnare.setText(id + " - " + a.getFactorySite() + " - " + a.getArea() + " - " + a.getTypology() + " - " + a.getEstimatedTime() + " mins");
@@ -857,11 +858,16 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             while (tb2.getRowCount() > 0) {
                 tb2.removeRow(0);
             }
-            String[] nomi = {"Maintainer", "Skills","Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+            String[] nomi = {"Maintainer", "Skills","Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
             tb2.setColumnIdentifiers(nomi);
             tabellaDisponibilità.setModel(tb2);
-            String[] inserimento = {"a", "b","a", "a", "b", "a", "b", "a", "b", "a"};
-            tb2.addRow(inserimento);
+            List <Maintainer> maintainers = p.getAllMaintainers();
+            for (Maintainer m : maintainers){
+                int matrice[][]= m.getAvailability().get(a.getWeek());
+                String [] percentuali = calcolaPercentuale(matrice);
+                String[] inserimento = {m.getName(),String.valueOf(contaCompetenze(a.getProcedure().getCompetencies(),m.getCompetencies())),percentuali[0],percentuali[1],percentuali[2],percentuali[3],percentuali[4],percentuali[5],percentuali[6]};
+                tb2.addRow(inserimento);   
+            }
             
         }
     }//GEN-LAST:event_buttonAssegnaActionPerformed
@@ -1021,6 +1027,28 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             tb.addRow(inserimento);
         }
     }
+    
+    private String [] calcolaPercentuale(int m[][]){
+        String [] percentuali = new String[6];
+        int sum = 0;
+        for(int i = 0; i<=6; i++){
+        for(int j=0; j<=6;j++){
+            sum+= m[i][j];
+        }
+        percentuali[i]=String.valueOf(sum/420*100);    
+        }
+        
+         return percentuali;
+        }
+    
+    private int contaCompetenze(List<String> competenzeAttività , List<String> competenzeMaintainer){
+        int count=0;
+        for(String c : competenzeAttività){
+         if(competenzeMaintainer.contains(c))
+             count++;
+        }
+        return count;
+        }
     
     private void aggiungiBordi() {
         jScrollPane8.setBorder(BorderFactory.createLineBorder(black));
