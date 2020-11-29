@@ -11,7 +11,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -43,7 +45,7 @@ public class Planner {
                         + " values("+a.getId()+",'"+a.getFactorySite()+"','"+a.getArea()+"','"+a.getTypology()+"','"
                         +a.getActivityDescription()+"',"+a.getEstimatedTime()+","+a.getWeek()+","+a.isInterruptable()+",'"+a.getWorkSpaceNote()
                         +"',"+a.getType()+",null"+");";
-            else
+            else // se all'attività è associata una procedura
                 query = "insert into Activity(id_,factorySite,area,typology,description,estimatedTime,week,interruptable,workSpaceNotes,activityType,procedura)"
                         + " values("+a.getId()+",'"+a.getFactorySite()+"','"+a.getArea()+"','"+a.getTypology()+"','"
                         +a.getActivityDescription()+"',"+a.getEstimatedTime()+","+a.getWeek()+","+a.isInterruptable()+",'"+a.getWorkSpaceNote()
@@ -228,4 +230,52 @@ public class Planner {
         else
             return false;  
     }
+    
+    public List<Maintainer> getAllMaintainers(){
+        List <Maintainer> l = new ArrayList<>();
+        int id;
+        List<String> competencies = new ArrayList<>();
+        Map<Integer,int[][]> avaibilities = new HashMap<>();
+        try {
+            Statement stm = connection.createStatement();
+            Statement stm2 = connection.createStatement();
+            String query = "select * from Maintainer";
+            ResultSet rst = stm.executeQuery(query);
+            while(rst.next()){
+                System.out.println("aa");
+                String name = rst.getString("nome");
+                id = rst.getInt("ID_MAN");
+                ResultSet rst2 = stm2.executeQuery("select * from Competence_for_Maintainer where id_man = " + id);
+                while(rst2.next()) //Aggiungo le competenze al Maintainer
+                    competencies.add(rst2.getString("NOMECOMPETENZA"));
+                query = "select * from DISPONIBILITA_MANUTENTORE as dm,Availability as a where dm.ID_DISPONIBILITA = a.ID_DISPONIBILITA and dm.ID_MAN = " + id + " order by Settimana";
+                rst2 = stm2.executeQuery(query);
+                Integer key;
+                int value[][] = new int [7][7]; //matrice valore della entry
+                boolean flag = true;
+                int temp = 0;
+                while(rst2.next()){ //Aggiungo le disponibilità al Maintainer
+                    key = rst2.getInt("Settimana");
+                    if (flag){ //utilizzo la flag poiché non posso utilizzare due volte un resultset sulla stessa colonna
+                        temp= key;
+                        flag = false;
+                    }
+                    if (temp != key){ //quando cambia la settimana
+                        avaibilities.put(temp, value); //inserisco nella map
+                        temp = key;
+                        value = new int[7][7];
+                    }
+                    value[rst2.getInt("Giorno")][rst2.getInt("Ora")] = rst2.getInt("Minuti");  //riempio la matrice                
+                }
+                avaibilities.put(temp, value); //per non perdere l'ultima settimana di disponibilità
+                l.add(new Maintainer(name,competencies,avaibilities));
+            }
+            return l;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+        
+    }
+  
 }
