@@ -19,6 +19,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,7 +27,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Daniele
  */
 public class InterfacciaGrafica extends javax.swing.JFrame {
-
+    
     private final DefaultTableModel tb = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int row, int column) {
@@ -34,13 +35,24 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             return false;
         }
     };
+    
+    private final DefaultTableModel tb2 = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+    
     String tipo = "";
     String interrompibile = "";
     DefaultListModel listModel = new DefaultListModel();
     DefaultListModel listModelVis = new DefaultListModel();
     DefaultListModel listModelComp = new DefaultListModel();
+    DefaultListModel listModelSkills = new DefaultListModel();
+    
     Planner p;
     List<String> materiali = new ArrayList<>();
+    int id;
 
     /**
      * Creates new form InterfacciaGrafica
@@ -53,12 +65,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         }
         initComponents();
         togliBordi();
-
+        
         for (String m : p.getAllMaterials()) {
             tendinaMateriali.addItem(m);
-
+            
         }
-
+        
     }
 
     /**
@@ -91,6 +103,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelWO = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         buttonModificaAttività = new javax.swing.JButton();
+        buttonAssegna = new javax.swing.JButton();
         creazioneAttività = new javax.swing.JFrame();
         tendinaTipoAttività = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
@@ -125,8 +138,18 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelAttivitàOra = new javax.swing.JLabel();
         labelTipologiaOra = new javax.swing.JLabel();
         labelInterrompibileOra = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        infoAggiuntiveAttività = new javax.swing.JFrame();
+        assegnaAttività = new javax.swing.JFrame();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        textWeekAssegnata = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        textAttivitàDaAssegnare = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        tabellaDisponibilità = new javax.swing.JTable();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        listaSkills = new javax.swing.JList<>();
         buttonGestManut = new javax.swing.JButton();
 
         GestioneAttività.setTitle("MENU' GESTIONE ATTIVITA'");
@@ -256,6 +279,15 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         });
         jPanel1.add(buttonModificaAttività);
         buttonModificaAttività.setBounds(50, 190, 240, 40);
+
+        buttonAssegna.setText("Assegna attività");
+        buttonAssegna.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAssegnaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(buttonAssegna);
+        buttonAssegna.setBounds(50, 240, 240, 40);
 
         GestioneAttività.getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 1230, 610);
@@ -418,17 +450,117 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         creazioneAttività.getContentPane().add(labelInterrompibileOra);
         labelInterrompibileOra.setBounds(210, 340, 170, 30);
 
-        jLabel14.setText("jLabel14");
+        assegnaAttività.setMinimumSize(new java.awt.Dimension(1160, 370));
+        assegnaAttività.setPreferredSize(new java.awt.Dimension(800, 321));
 
-        javax.swing.GroupLayout infoAggiuntiveAttivitàLayout = new javax.swing.GroupLayout(infoAggiuntiveAttività.getContentPane());
-        infoAggiuntiveAttività.getContentPane().setLayout(infoAggiuntiveAttivitàLayout);
-        infoAggiuntiveAttivitàLayout.setHorizontalGroup(
-            infoAggiuntiveAttivitàLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1132, Short.MAX_VALUE)
+        jPanel2.setBackground(new java.awt.Color(204, 102, 0));
+        jPanel2.setMinimumSize(new java.awt.Dimension(1176, 321));
+
+        jLabel2.setText("Week");
+
+        textWeekAssegnata.setEditable(false);
+        textWeekAssegnata.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textWeekAssegnataActionPerformed(evt);
+            }
+        });
+
+        jLabel13.setText("Activity to assign");
+
+        textAttivitàDaAssegnare.setEditable(false);
+        textAttivitàDaAssegnare.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textAttivitàDaAssegnareActionPerformed(evt);
+            }
+        });
+
+        jLabel15.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
+        jLabel15.setText("SKILLS NEEDED");
+
+        jLabel16.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
+        jLabel16.setText("MAINTAINER AVAILABILITY");
+
+        tabellaDisponibilità.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        tabellaDisponibilità.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabellaDisponibilitàMouseClicked(evt);
+            }
+        });
+        jScrollPane10.setViewportView(tabellaDisponibilità);
+
+        jScrollPane11.setViewportView(listaSkills);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(textWeekAssegnata, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(49, 49, 49)
+                        .addComponent(jLabel13)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(textAttivitàDaAssegnare, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(171, 171, 171)
+                        .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(52, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(147, 147, 147))
         );
-        infoAggiuntiveAttivitàLayout.setVerticalGroup(
-            infoAggiuntiveAttivitàLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 516, Short.MAX_VALUE)
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textWeekAssegnata, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textAttivitàDaAssegnare, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(55, 55, 55)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout assegnaAttivitàLayout = new javax.swing.GroupLayout(assegnaAttività.getContentPane());
+        assegnaAttività.getContentPane().setLayout(assegnaAttivitàLayout);
+        assegnaAttivitàLayout.setHorizontalGroup(
+            assegnaAttivitàLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, assegnaAttivitàLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        assegnaAttivitàLayout.setVerticalGroup(
+            assegnaAttivitàLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -462,9 +594,10 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonGestManutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGestManutActionPerformed
-
+        
         GestioneAttività.setVisible(true);
         buttonModificaAttività.setVisible(false);
+        buttonAssegna.setVisible(false);
         disattivaVis();
     }//GEN-LAST:event_buttonGestManutActionPerformed
 
@@ -492,31 +625,31 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldTimeActionPerformed
 
     private void buttonCreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreaActionPerformed
-
+        
         if (fieldID.getText().equals("") || fieldFactorySite.getText().equals("") || fieldArea.getText().equals("")
                 || textAreaDescrizioneAttività.getText().equals("")
                 || fieldTime.getText().equals("") || fieldWeek.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "ALCUNI CAMPI OBBLIGATORI NON SONO STATI COMPILATI", "ERRORE", ERROR_MESSAGE);
+            mostraErrore("ERRORE", "ALCUNI CAMPI OBBLIGATORI NON SONO STATI COMPILATI");
+            
         } else {
             Activity a = buildActivity(tendinaTipoAttività.getSelectedItem().toString());
             if (a == null) {
-                JOptionPane.showMessageDialog(null, "Input non corretti!", "ERRORE", ERROR_MESSAGE);
+                mostraErrore("ERRORE", "Input non corretti!");
             } else if (buttonCrea.getText().equals("CREA ATTIVITA'")) {
                 if (!p.createActivity(a)) {
-                    JOptionPane.showMessageDialog(null, "ATTIVITA' NON CREATA CORRETTAMENTE", "ERRORE", ERROR_MESSAGE);
+                    mostraErrore("ERRORE", "ATTIVITA' NON CREATA CORRETTAMENTE");
                 } else {
                     svuota();
-                    JOptionPane.showMessageDialog(null, "Hai creato l'attività correttamente!", "ATTIVITA' CREATA", INFORMATION_MESSAGE);
-
+                    mostraSuccesso("ATTIVITA' CREATA", "Hai creato l'attività correttamente!");
+                    
                 }
-
+                
             } else {
                 if (!p.modifyActivity(a)) {
-                    JOptionPane.showMessageDialog(null, "ATTIVITA' NON MODIFICATA", "ERRORE", ERROR_MESSAGE);
-
+                    mostraErrore("ERRORE", "ATTIVITA' NON MODIFICATA");
                 } else {
                     svuota();
-                    JOptionPane.showMessageDialog(null, "Hai modificato l'attività correttamente!", "ATTIVITA' MODIFICATA", INFORMATION_MESSAGE);
+                    mostraSuccesso("ATTIVITA' MODIFICATA", "Hai modificato l'attività correttamente");
                     creazioneAttività.dispatchEvent(new WindowEvent(creazioneAttività, WindowEvent.WINDOW_CLOSING));
                 }
             }
@@ -524,17 +657,17 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonCreaActionPerformed
 
     private void buttonAggiungiMaterialeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAggiungiMaterialeActionPerformed
-
+        
         String materiale = tendinaMateriali.getSelectedItem().toString();
         materiali.add(materiale);
         if (listModel.contains(materiale) == false) {
             listModel.addElement(materiale);
         } else {
-            JOptionPane.showMessageDialog(null, "Materiale già inserito", "ERRORE", ERROR_MESSAGE);
+            mostraErrore("ERRORE", "Materiale già inserito");
         }
-
+        
         listaMateriali.setModel(listModel);
-
+        
 
     }//GEN-LAST:event_buttonAggiungiMaterialeActionPerformed
 
@@ -543,7 +676,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldFactorySiteActionPerformed
 
     private void buttonCancellaAttivitàActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancellaAttivitàActionPerformed
-
+        
         String s = JOptionPane.showInputDialog(null, "Inserisci l'ID da cancellare");
         if (s == null) {
         } else if (s.isBlank()) {
@@ -552,9 +685,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             try {
                 int id = Integer.parseInt(s);
                 if (!p.deleteActivity(id)) {
-                    JOptionPane.showMessageDialog(null, "Non è stato possibile cancellare l'attività", "ERRORE", ERROR_MESSAGE);
+                    mostraErrore("ERRORE", "Non è stato possibile cancellare l'attività");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Attività cancellata con successo!", "CANCELLAZIONE EFFETTUATA", INFORMATION_MESSAGE);
+                    mostraSuccesso("CANCELLAZIONE EFFETTUATA", "Attività cancellata con successo!");
                 }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Inserisci un ID valido", "ERRORE", ERROR_MESSAGE);
@@ -562,17 +695,18 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_buttonCancellaAttivitàActionPerformed
-
+    
 
     private void buttonMostraAttivitàActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMostraAttivitàActionPerformed
         
         buttonModificaAttività.setVisible(true);
+        buttonAssegna.setVisible(true);
         while (tb.getRowCount() > 0) {
             tb.removeRow(0);
         }
         riempiTabella();
         if (tb.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(null, "Nessuna attività trovata", "ERRORE", ERROR_MESSAGE);
+            mostraErrore("ERRORE", "Nessuna attività trovata");
         }
     }//GEN-LAST:event_buttonMostraAttivitàActionPerformed
 
@@ -582,7 +716,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
     private void buttonRimuoviMaterialeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRimuoviMaterialeActionPerformed
         if (listaMateriali.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(null, "Selezione un materiale dalla lista dei materiali da rimuovere", "ERROR", ERROR_MESSAGE);
+            mostraErrore("ERROR", "Seleziona un materiale dalla lista dei materiali da rimuovere");
         } else {
             materiali.remove(listaMateriali.getSelectedValue());
             listModel.removeElement(listaMateriali.getSelectedValue());
@@ -600,7 +734,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         int indice = tabellaAttività.getSelectedRow();
         listModel.clear();
         if (indice == -1) {
-            JOptionPane.showMessageDialog(null, "SELEZIONA UNA RIGA DELLA TABELLA!", "ERROR", ERROR_MESSAGE);
+            mostraErrore("ERRORE", "Seleziona una riga dalla tabella!");
         } else {
             creazioneAttività.setVisible(true);
             buttonModificaAttività.setEnabled(true);
@@ -611,9 +745,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             labelID.setEnabled(false);
             buttonCrea.setText("MODIFICA ATTIVITA'");
             buttonCreaAttività.setEnabled(false);
-            Object temp = tb.getValueAt(indice, 0);
-            String s = temp.toString();
-            int id = Integer.parseInt(s);
+            id = Integer.parseInt(tb.getValueAt(tabellaAttività.getSelectedRow(), 0).toString());
             Activity a = p.getActivity(id);
             materiali = a.getMaterials();
             String tipo = "";
@@ -654,22 +786,21 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         buttonCrea.setText("ATTIVITA'");
         buttonCreaAttività.setEnabled(true);
         svuota();
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_creazioneAttivitàWindowClosing
 
     private void buttonSMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSMPActionPerformed
-
-        int id = Integer.parseInt(tb.getValueAt(tabellaAttività.getSelectedRow(), 0).toString());
+        id = Integer.parseInt(tb.getValueAt(tabellaAttività.getSelectedRow(), 0).toString());
         Activity a = p.getActivity(id);
         if (a.getProcedure() == null) {
-            JOptionPane.showMessageDialog(null, "Nessun SMP associato alla procedura", "ERROR", ERROR_MESSAGE);
+            mostraErrore("ERRORE", "Nessun SMP associato alla procedura");
         } else {
             try {
                 Desktop.getDesktop().open(a.getProcedure().getSmp());
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "File non trovato", "ERROR", ERROR_MESSAGE);
+                mostraErrore("ERRORE", "File non trovato");
             }
-
+            
         }
 
         // TODO add your handling code here:
@@ -683,16 +814,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         listaMaterialiVis.setModel(listModel);
         int indice = tabellaAttività.getSelectedRow();
         if (indice == -1) {
-            JOptionPane.showMessageDialog(null, "SELEZIONA UNA RIGA DELLA TABELLA!", "ERROR", ERROR_MESSAGE);
+            mostraErrore("ERRORE", "Seleziona una riga dalla tabella!");
         } else {
             abilitaVis();
-            Object temp = tb.getValueAt(indice, 0);
-            String s = temp.toString();
-            int id = Integer.parseInt(s);
+            id = Integer.parseInt(tb.getValueAt(tabellaAttività.getSelectedRow(), 0).toString());
             Activity a = p.getActivity(id);
-
             textAreaDescrizioneAttivitàVis.setText(a.getActivityDescription());
-
             textAreaWorkspaceNotesVis.setText(a.getWorkSpaceNote());
             List<String> materiali = a.getMaterials();
             for (String m : materiali) {
@@ -710,6 +837,49 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tabellaAttivitàMouseClicked
 
+    private void buttonAssegnaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAssegnaActionPerformed
+        tabellaDisponibilità.setCellSelectionEnabled(true);
+        Activity a = p.getActivity(id);
+        if (a.getProcedure() != null) {
+            List<String> competenze = a.getProcedure().getCompetencies();
+            for (String c : competenze) {
+                listModelSkills.addElement("·" + c);
+            }
+        }
+        listaSkills.setModel(listModelSkills);
+        textWeekAssegnata.setText(String.valueOf(a.getWeek()));
+        textAttivitàDaAssegnare.setText(id + " - " + a.getFactorySite() + " - " + a.getArea() + " - " + a.getTypology() + " - " + a.getEstimatedTime() + " mins");
+        int indice = tabellaAttività.getSelectedRow();
+        if (indice == -1) {
+            mostraErrore("ERRORE", "Seleziona un'attività dalla tabella!");
+        } else {
+            assegnaAttività.setVisible(true);
+            while (tb2.getRowCount() > 0) {
+                tb2.removeRow(0);
+            }
+            String[] nomi = {"Maintainer", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+            tb2.setColumnIdentifiers(nomi);
+            tabellaDisponibilità.setModel(tb2);
+            String[] inserimento = {"a", "b", "a", "b", "a", "b", "a", "b", "a"};
+            tb2.addRow(inserimento);
+            
+        }
+    }//GEN-LAST:event_buttonAssegnaActionPerformed
+
+    private void textWeekAssegnataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textWeekAssegnataActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textWeekAssegnataActionPerformed
+
+    private void textAttivitàDaAssegnareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textAttivitàDaAssegnareActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textAttivitàDaAssegnareActionPerformed
+
+    private void tabellaDisponibilitàMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabellaDisponibilitàMouseClicked
+        System.out.println(tb2.getValueAt(tabellaDisponibilità.getSelectedRow(), tabellaDisponibilità.getSelectedColumn()));
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabellaDisponibilitàMouseClicked
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -741,7 +911,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
     }
-
+    
     private void svuota() {
         materiali.clear();
         fieldID.setText("");
@@ -754,7 +924,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         
         fieldArea.setText("");
     }
-
+    
     private void disattivaVis() {
         togliBordi();
         buttonSMP.setVisible(false);
@@ -768,7 +938,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         listaCompetenze.setVisible(false);
         
     }
-
+    
     private Activity buildActivity(String tipoAttività) {
         Activity a;
         boolean b;
@@ -799,12 +969,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                     break;
             }
         } catch (NumberFormatException e) {
-
+            
             return null;
         }
         return a;
     }
-
+    
     private void abilitaVis() {
         aggiungiBordi();
         buttonSMP.setVisible(true);
@@ -816,9 +986,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         textAreaWorkspaceNotesVis.setVisible(true);
         listaMaterialiVis.setVisible(true);
         listaCompetenze.setVisible(true);
-
+        
     }
-
+    
     private void riempiTabella() {
         while (tb.getRowCount() > 0) {
             tb.removeRow(0);
@@ -845,13 +1015,13 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             } else {
                 interrompibile = "No";
             }
-
+            
             String[] inserimento = {String.valueOf(x.getId()), x.getFactorySite(), x.getArea(), x.getTypology(),
                 String.valueOf(x.getEstimatedTime()), String.valueOf(x.getWeek()), tipo, interrompibile};
             tb.addRow(inserimento);
         }
     }
-
+    
     private void aggiungiBordi() {
         jScrollPane8.setBorder(BorderFactory.createLineBorder(black));
         jScrollPane7.setBorder(BorderFactory.createLineBorder(black));
@@ -859,19 +1029,28 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jScrollPane4.setBorder(BorderFactory.createLineBorder(black));
         jScrollPane3.setBorder(BorderFactory.createLineBorder(black));
     }
-
+    
     private void togliBordi() {
         jScrollPane8.setBorder(null);
         jScrollPane7.setBorder(null);
         jScrollPane5.setBorder(null);
         jScrollPane4.setBorder(null);
         jScrollPane3.setBorder(null);
-
+        
     }
-
+    
+    private void mostraErrore(String titolo, String messaggio) {
+        JOptionPane.showMessageDialog(null, messaggio, titolo, ERROR_MESSAGE);
+    }
+    
+    private void mostraSuccesso(String titolo, String messaggio) {
+        JOptionPane.showMessageDialog(null, messaggio, titolo, INFORMATION_MESSAGE);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFrame GestioneAttività;
+    private javax.swing.JFrame assegnaAttività;
     private javax.swing.JButton buttonAggiungiMateriale;
+    private javax.swing.JButton buttonAssegna;
     private javax.swing.JButton buttonCancellaAttività;
     private javax.swing.JButton buttonCrea;
     private javax.swing.JButton buttonCreaAttività;
@@ -886,12 +1065,14 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JTextField fieldID;
     private javax.swing.JTextField fieldTime;
     private javax.swing.JTextField fieldWeek;
-    private javax.swing.JFrame infoAggiuntiveAttività;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -900,7 +1081,10 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -919,7 +1103,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JList<String> listaCompetenze;
     private javax.swing.JList<String> listaMateriali;
     private javax.swing.JList<String> listaMaterialiVis;
+    private javax.swing.JList<String> listaSkills;
     private javax.swing.JTable tabellaAttività;
+    private javax.swing.JTable tabellaDisponibilità;
     private javax.swing.JComboBox<String> tendinaInterrompibile;
     private javax.swing.JComboBox<String> tendinaMateriali;
     private javax.swing.JComboBox<String> tendinaTipoAttività;
@@ -928,5 +1114,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JTextArea textAreaDescrizioneAttivitàVis;
     private javax.swing.JTextArea textAreaWorkspace;
     private javax.swing.JTextArea textAreaWorkspaceNotesVis;
+    private javax.swing.JTextField textAttivitàDaAssegnare;
+    private javax.swing.JTextField textWeekAssegnata;
     // End of variables declaration//GEN-END:variables
 }
