@@ -858,12 +858,16 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             while (tb2.getRowCount() > 0) {
                 tb2.removeRow(0);
             }
-            String[] nomi = {"Maintainer", "Skills","Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+            String[] nomi = {"Maintainer", "Skills","Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
             tb2.setColumnIdentifiers(nomi);
             tabellaDisponibilità.setModel(tb2);
-            List <Maintainer> maintainers = p.
-            String[] inserimento = {"a", "b","a", "a", "b", "a", "b", "a", "b", "a"};
-            tb2.addRow(inserimento);
+            List <Maintainer> maintainers = p.getAllMaintainers();
+            for (Maintainer m : maintainers){
+                int matrice[][]= m.getAvailability().get(a.getWeek());
+                String [] percentuali = calcolaPercentuale(matrice);
+                String[] inserimento = {m.getName(),String.valueOf(contaCompetenze(a.getProcedure().getCompetencies(),m.getCompetencies())),percentuali[0],percentuali[1],percentuali[2],percentuali[3],percentuali[4],percentuali[5],percentuali[6]};
+                tb2.addRow(inserimento);   
+            }
             
         }
     }//GEN-LAST:event_buttonAssegnaActionPerformed
@@ -1023,6 +1027,28 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             tb.addRow(inserimento);
         }
     }
+    
+    private String [] calcolaPercentuale(int m[][]){
+        String [] percentuali = new String[6];
+        int sum = 0;
+        for(int i = 0; i<=6; i++){
+        for(int j=0; j<=6;j++){
+            sum+= m[i][j];
+        }
+        percentuali[i]=String.valueOf(sum/420*100);    
+        }
+        
+         return percentuali;
+        }
+    
+    private int contaCompetenze(List<String> competenzeAttività , List<String> competenzeMaintainer){
+        int count=0;
+        for(String c : competenzeAttività){
+         if(competenzeMaintainer.contains(c))
+             count++;
+        }
+        return count;
+        }
     
     private void aggiungiBordi() {
         jScrollPane8.setBorder(BorderFactory.createLineBorder(black));
