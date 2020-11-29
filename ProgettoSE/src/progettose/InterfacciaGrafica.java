@@ -867,7 +867,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 int competenze;
                 if (a.getProcedure() != null)
                     competenze = contaCompetenze(a.getProcedure().getCompetencies(),m.getCompetencies());
-                else
+                else // Se non è associata una procedura all'attività
                     competenze = 0;
                 String [] percentuali = calcolaPercentuale(matrice);
                 String[] inserimento = {m.getName(),String.valueOf(competenze),percentuali[0],percentuali[1],percentuali[2],percentuali[3],percentuali[4],percentuali[5],percentuali[6]};             
