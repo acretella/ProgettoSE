@@ -242,7 +242,6 @@ public class Planner {
             String query = "select * from Maintainer";
             ResultSet rst = stm.executeQuery(query);
             while(rst.next()){
-                System.out.println("aa");
                 String name = rst.getString("nome");
                 id = rst.getInt("ID_MAN");
                 ResultSet rst2 = stm2.executeQuery("select * from Competence_for_Maintainer where id_man = " + id);
@@ -276,6 +275,50 @@ public class Planner {
             return null;
         }
         
+    }
+    
+    public boolean assignedActivityToMaintainer(Maintainer m, Activity a, int giorno, int ore[]){
+        int avaibility[][] = m.getAvailability().get(a.getWeek()); 
+        int daily [] = avaibility[giorno];
+        int timeLeft = a.getEstimatedTime();
+        for (int i=0; i<ore.length; i++){
+            if (daily[ore[i]] < timeLeft){
+                timeLeft -= daily[ore[i]];
+                daily[ore[i]] = 0;
+            }
+            else{ 
+                daily[ore[i]] -= timeLeft;
+                //Aggiorno il db
+                int id = 0;
+                try {
+                    Statement stm = connection.createStatement();
+                    ResultSet rst = stm.executeQuery("select ID_MAN from Maintainer where nome = " + m.getName());
+                    rst.next();
+                    id= rst.getInt(0);
+                            } catch (SQLException ex) { return false;}
+                for (int j=0; j<=6; j++)
+                    for (int k=0; k<=6; k++){
+                    try {
+                        Statement stm2 = connection.createStatement();
+                        String query = "update Availability set minuti = " + avaibility[j][k] +
+                                        " where ID_DISPONIBILITA in (select ID_DISPONIBILITA"+   
+                                            " from DISPONIBILITA_MANUTENTORE where ID_MAN = " + id + ")"+
+                                                  "and (settimana = " + a.getWeek()+ ")" +
+                                                  "and (giorno = " + j + ")"+
+                                                  "and (ora = " + k + ")";
+                        stm2.executeUpdate(query);
+                        
+                        Statement stm3 = connection.createStatement();
+                        query = "insert into Maintainer_for_Activity(maintainer,activity) values("+id+","+a.getId()+");";
+                        stm3.executeUpdate(query);
+                    } catch (SQLException ex) {return false;}
+                        
+                    }
+                
+                return true;
+            }           
+        } 
+            return false;
     }
   
 }

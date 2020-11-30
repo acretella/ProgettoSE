@@ -307,31 +307,31 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel1.setText("Tipo di attività");
         creazioneAttività.getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 40, 144, 13);
+        jLabel1.setBounds(10, 40, 144, 14);
 
         labelID.setText("Activity ID");
         creazioneAttività.getContentPane().add(labelID);
-        labelID.setBounds(10, 90, 70, 13);
+        labelID.setBounds(10, 90, 70, 14);
 
         jLabel3.setText("Factory site");
         creazioneAttività.getContentPane().add(jLabel3);
-        jLabel3.setBounds(10, 130, 80, 13);
+        jLabel3.setBounds(10, 130, 80, 14);
 
         jLabel4.setText("Area");
         creazioneAttività.getContentPane().add(jLabel4);
-        jLabel4.setBounds(10, 170, 60, 13);
+        jLabel4.setBounds(10, 170, 60, 14);
 
         jLabel5.setText("Typology");
         creazioneAttività.getContentPane().add(jLabel5);
-        jLabel5.setBounds(10, 210, 70, 13);
+        jLabel5.setBounds(10, 210, 70, 14);
 
         jLabel6.setText("Activity description");
         creazioneAttività.getContentPane().add(jLabel6);
-        jLabel6.setBounds(500, 40, 140, 13);
+        jLabel6.setBounds(500, 40, 140, 14);
 
         jLabel7.setText("Time");
         creazioneAttività.getContentPane().add(jLabel7);
-        jLabel7.setBounds(10, 260, 50, 13);
+        jLabel7.setBounds(10, 260, 50, 14);
 
         jLabel8.setText("Interruptible");
         creazioneAttività.getContentPane().add(jLabel8);
@@ -343,11 +343,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel10.setText("Week");
         creazioneAttività.getContentPane().add(jLabel10);
-        jLabel10.setBounds(10, 300, 50, 13);
+        jLabel10.setBounds(10, 300, 50, 14);
 
         jLabel11.setText("Workspace notes");
         creazioneAttività.getContentPane().add(jLabel11);
-        jLabel11.setBounds(820, 40, 140, 13);
+        jLabel11.setBounds(820, 40, 140, 14);
 
         fieldID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -451,7 +451,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelInterrompibileOra.setBounds(210, 340, 170, 30);
 
         assegnaAttività.setMinimumSize(new java.awt.Dimension(1160, 370));
-        assegnaAttività.setPreferredSize(new java.awt.Dimension(800, 321));
+        assegnaAttività.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                assegnaAttivitàWindowClosing(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(204, 102, 0));
         jPanel2.setMinimumSize(new java.awt.Dimension(1176, 321));
@@ -840,6 +844,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private void buttonAssegnaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAssegnaActionPerformed
         tabellaDisponibilità.setCellSelectionEnabled(true);
         Activity a = p.getActivity(id);
+        listModelSkills.clear();
         if (a.getProcedure() != null) {
             List<String> competenze = a.getProcedure().getCompetencies();
             competenze.forEach(c -> {
@@ -864,13 +869,13 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             List <Maintainer> maintainers = p.getAllMaintainers();
             for (Maintainer m : maintainers){
                 int matrice[][]= m.getAvailability().get(a.getWeek());
-                int competenze;
+                String competenze;
                 if (a.getProcedure() != null)
                     competenze = contaCompetenze(a.getProcedure().getCompetencies(),m.getCompetencies());
                 else // Se non è associata una procedura all'attività
-                    competenze = 0;
+                    competenze = "0/0";
                 String [] percentuali = calcolaPercentuale(matrice);
-                String[] inserimento = {m.getName(),String.valueOf(competenze),percentuali[0],percentuali[1],percentuali[2],percentuali[3],percentuali[4],percentuali[5],percentuali[6]};             
+                String[] inserimento = {m.getName(),competenze,percentuali[0],percentuali[1],percentuali[2],percentuali[3],percentuali[4],percentuali[5],percentuali[6]};             
                 tb2.addRow(inserimento);   
             }
             
@@ -890,6 +895,10 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         // TODO add your handling code here:
     }//GEN-LAST:event_tabellaDisponibilitàMouseClicked
+
+    private void assegnaAttivitàWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_assegnaAttivitàWindowClosing
+
+    }//GEN-LAST:event_assegnaAttivitàWindowClosing
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1040,21 +1049,21 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             for(int j=0; j<=6;j++){
                 sum+= m[i][j];
             }
-            percentuali[i]=Float.toString(sum/420*100)+"%"; 
-            sum=0;
-             
+            percentuali[i]=String.valueOf((int)(sum/420*100)) + "%";
+                    
+            sum=0;           
         }
         
          return percentuali;
         }
     
-    private int contaCompetenze(List<String> competenzeAttività , List<String> competenzeMaintainer){
+    private String contaCompetenze(List<String> competenzeAttività , List<String> competenzeMaintainer){
         int count=0;
         for(String c : competenzeAttività){
          if(competenzeMaintainer.contains(c))
              count++;
         }
-        return count;
+        return count + "/" + competenzeAttività.size();
         }
     
     private void aggiungiBordi() {
