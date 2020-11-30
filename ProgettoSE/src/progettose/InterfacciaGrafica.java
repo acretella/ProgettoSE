@@ -1029,7 +1029,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }
     
     private String [] calcolaPercentuale(int m[][]){
-        String [] percentuali = new String[6];
+        String [] percentuali = new String[7];
         int sum = 0;
         for(int i = 0; i<=6; i++){
         for(int j=0; j<=6;j++){
