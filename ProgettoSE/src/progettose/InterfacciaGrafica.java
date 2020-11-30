@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
+import javax.swing.DefaultListSelectionModel;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
@@ -27,7 +28,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Daniele
  */
 public class InterfacciaGrafica extends javax.swing.JFrame {
-    
+
     private final DefaultTableModel tb = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int row, int column) {
@@ -35,21 +36,22 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             return false;
         }
     };
-    
+
     private final DefaultTableModel tb2 = new DefaultTableModel() {
+
         @Override
         public boolean isCellEditable(int row, int column) {
             return false;
         }
     };
-    
+
     String tipo = "";
     String interrompibile = "";
     DefaultListModel listModel = new DefaultListModel();
     DefaultListModel listModelVis = new DefaultListModel();
     DefaultListModel listModelComp = new DefaultListModel();
     DefaultListModel listModelSkills = new DefaultListModel();
-    
+
     Planner p;
     List<String> materiali = new ArrayList<>();
     int id;
@@ -65,12 +67,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         }
         initComponents();
         togliBordi();
-        
+
         for (String m : p.getAllMaterials()) {
             tendinaMateriali.addItem(m);
-            
+
         }
-        
+
     }
 
     /**
@@ -307,31 +309,31 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel1.setText("Tipo di attività");
         creazioneAttività.getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 40, 144, 13);
+        jLabel1.setBounds(10, 40, 144, 14);
 
         labelID.setText("Activity ID");
         creazioneAttività.getContentPane().add(labelID);
-        labelID.setBounds(10, 90, 70, 13);
+        labelID.setBounds(10, 90, 70, 14);
 
         jLabel3.setText("Factory site");
         creazioneAttività.getContentPane().add(jLabel3);
-        jLabel3.setBounds(10, 130, 80, 13);
+        jLabel3.setBounds(10, 130, 80, 14);
 
         jLabel4.setText("Area");
         creazioneAttività.getContentPane().add(jLabel4);
-        jLabel4.setBounds(10, 170, 60, 13);
+        jLabel4.setBounds(10, 170, 60, 14);
 
         jLabel5.setText("Typology");
         creazioneAttività.getContentPane().add(jLabel5);
-        jLabel5.setBounds(10, 210, 70, 13);
+        jLabel5.setBounds(10, 210, 70, 14);
 
         jLabel6.setText("Activity description");
         creazioneAttività.getContentPane().add(jLabel6);
-        jLabel6.setBounds(500, 40, 140, 13);
+        jLabel6.setBounds(500, 40, 140, 14);
 
         jLabel7.setText("Time");
         creazioneAttività.getContentPane().add(jLabel7);
-        jLabel7.setBounds(10, 260, 50, 13);
+        jLabel7.setBounds(10, 260, 50, 14);
 
         jLabel8.setText("Interruptible");
         creazioneAttività.getContentPane().add(jLabel8);
@@ -343,11 +345,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel10.setText("Week");
         creazioneAttività.getContentPane().add(jLabel10);
-        jLabel10.setBounds(10, 300, 50, 13);
+        jLabel10.setBounds(10, 300, 50, 14);
 
         jLabel11.setText("Workspace notes");
         creazioneAttività.getContentPane().add(jLabel11);
-        jLabel11.setBounds(820, 40, 140, 13);
+        jLabel11.setBounds(820, 40, 140, 14);
 
         fieldID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -451,7 +453,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelInterrompibileOra.setBounds(210, 340, 170, 30);
 
         assegnaAttività.setMinimumSize(new java.awt.Dimension(1160, 370));
-        assegnaAttività.setPreferredSize(new java.awt.Dimension(800, 321));
 
         jPanel2.setBackground(new java.awt.Color(204, 102, 0));
         jPanel2.setMinimumSize(new java.awt.Dimension(1176, 321));
@@ -594,7 +595,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonGestManutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGestManutActionPerformed
-        
+
         GestioneAttività.setVisible(true);
         buttonModificaAttività.setVisible(false);
         buttonAssegna.setVisible(false);
@@ -625,12 +626,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldTimeActionPerformed
 
     private void buttonCreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreaActionPerformed
-        
+
         if (fieldID.getText().equals("") || fieldFactorySite.getText().equals("") || fieldArea.getText().equals("")
                 || textAreaDescrizioneAttività.getText().equals("")
                 || fieldTime.getText().equals("") || fieldWeek.getText().equals("")) {
             mostraErrore("ERRORE", "ALCUNI CAMPI OBBLIGATORI NON SONO STATI COMPILATI");
-            
+
         } else {
             Activity a = buildActivity(tendinaTipoAttività.getSelectedItem().toString());
             if (a == null) {
@@ -641,9 +642,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 } else {
                     svuota();
                     mostraSuccesso("ATTIVITA' CREATA", "Hai creato l'attività correttamente!");
-                    
+
                 }
-                
+
             } else {
                 if (!p.modifyActivity(a)) {
                     mostraErrore("ERRORE", "ATTIVITA' NON MODIFICATA");
@@ -657,7 +658,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonCreaActionPerformed
 
     private void buttonAggiungiMaterialeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAggiungiMaterialeActionPerformed
-        
+
         String materiale = tendinaMateriali.getSelectedItem().toString();
         materiali.add(materiale);
         if (listModel.contains(materiale) == false) {
@@ -665,9 +666,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         } else {
             mostraErrore("ERRORE", "Materiale già inserito");
         }
-        
+
         listaMateriali.setModel(listModel);
-        
+
 
     }//GEN-LAST:event_buttonAggiungiMaterialeActionPerformed
 
@@ -676,7 +677,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldFactorySiteActionPerformed
 
     private void buttonCancellaAttivitàActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancellaAttivitàActionPerformed
-        
+
         String s = JOptionPane.showInputDialog(null, "Inserisci l'ID da cancellare");
         if (s == null) {
         } else if (s.isBlank()) {
@@ -695,10 +696,10 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_buttonCancellaAttivitàActionPerformed
-    
+
 
     private void buttonMostraAttivitàActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMostraAttivitàActionPerformed
-        
+
         buttonModificaAttività.setVisible(true);
         buttonAssegna.setVisible(true);
         while (tb.getRowCount() > 0) {
@@ -800,7 +801,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             } catch (IOException ex) {
                 mostraErrore("ERRORE", "File non trovato");
             }
-            
+
         }
 
         // TODO add your handling code here:
@@ -838,6 +839,28 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_tabellaAttivitàMouseClicked
 
     private void buttonAssegnaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAssegnaActionPerformed
+
+        tabellaDisponibilità.getColumnModel().setSelectionModel(new DefaultListSelectionModel() {
+            private boolean isSelectable(int indice) {
+                return !(indice == 1 || indice == 0);
+            }
+
+            @Override
+            public void setSelectionInterval(int indice1, int indice2) {
+                if (isSelectable(indice1) && isSelectable(indice2)) {
+                    super.setSelectionInterval(indice1, indice2);
+                }
+            }
+
+            @Override
+            public void addSelectionInterval(int indice1, int indice2) {
+                if (isSelectable(indice1) && isSelectable(indice2)) {
+                    super.addSelectionInterval(indice1, indice2);
+                }
+            }
+
+        });
+
         tabellaDisponibilità.setCellSelectionEnabled(true);
         Activity a = p.getActivity(id);
         if (a.getProcedure() != null) {
@@ -846,7 +869,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 listModelSkills.addElement("·" + c);
             });
         }
-        
+
         listaSkills.setModel(listModelSkills);
         textWeekAssegnata.setText(String.valueOf(a.getWeek()));
         textAttivitàDaAssegnare.setText(id + " - " + a.getFactorySite() + " - " + a.getArea() + " - " + a.getTypology() + " - " + a.getEstimatedTime() + " mins");
@@ -858,22 +881,24 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             while (tb2.getRowCount() > 0) {
                 tb2.removeRow(0);
             }
-            String[] nomi = {"Maintainer", "Skills","Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+            String[] nomi = {"Maintainer", "Skills", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
             tb2.setColumnIdentifiers(nomi);
             tabellaDisponibilità.setModel(tb2);
-            List <Maintainer> maintainers = p.getAllMaintainers();
-            for (Maintainer m : maintainers){
-                int matrice[][]= m.getAvailability().get(a.getWeek());
+            List<Maintainer> maintainers = p.getAllMaintainers();
+            for (Maintainer m : maintainers) {
+                int matrice[][] = m.getAvailability().get(a.getWeek());
                 int competenze;
-                if (a.getProcedure() != null)
-                    competenze = contaCompetenze(a.getProcedure().getCompetencies(),m.getCompetencies());
-                else // Se non è associata una procedura all'attività
+                if (a.getProcedure() != null) {
+                    competenze = contaCompetenze(a.getProcedure().getCompetencies(), m.getCompetencies());
+                } else // Se non è associata una procedura all'attività
+                {
                     competenze = 0;
-                String [] percentuali = calcolaPercentuale(matrice);
-                String[] inserimento = {m.getName(),String.valueOf(competenze),percentuali[0],percentuali[1],percentuali[2],percentuali[3],percentuali[4],percentuali[5],percentuali[6]};             
-                tb2.addRow(inserimento);   
+                }
+                String[] percentuali = calcolaPercentuale(matrice);
+                String[] inserimento = {m.getName(), String.valueOf(competenze), percentuali[0], percentuali[1], percentuali[2], percentuali[3], percentuali[4], percentuali[5], percentuali[6]};
+                tb2.addRow(inserimento);
             }
-            
+
         }
     }//GEN-LAST:event_buttonAssegnaActionPerformed
 
@@ -890,7 +915,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         // TODO add your handling code here:
     }//GEN-LAST:event_tabellaDisponibilitàMouseClicked
-    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -922,7 +947,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
     }
-    
+
     private void svuota() {
         materiali.clear();
         fieldID.setText("");
@@ -932,10 +957,10 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         textAreaDescrizioneAttività.setText("");
         textAreaWorkspace.setText("");
         listModel.clear();
-        
+
         fieldArea.setText("");
     }
-    
+
     private void disattivaVis() {
         togliBordi();
         buttonSMP.setVisible(false);
@@ -947,9 +972,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         textAreaWorkspaceNotesVis.setVisible(false);
         listaMaterialiVis.setVisible(false);
         listaCompetenze.setVisible(false);
-        
+
     }
-    
+
     private Activity buildActivity(String tipoAttività) {
         Activity a;
         boolean b;
@@ -980,12 +1005,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                     break;
             }
         } catch (NumberFormatException e) {
-            
+
             return null;
         }
         return a;
     }
-    
+
     private void abilitaVis() {
         aggiungiBordi();
         buttonSMP.setVisible(true);
@@ -997,9 +1022,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         textAreaWorkspaceNotesVis.setVisible(true);
         listaMaterialiVis.setVisible(true);
         listaCompetenze.setVisible(true);
-        
+
     }
-    
+
     private void riempiTabella() {
         while (tb.getRowCount() > 0) {
             tb.removeRow(0);
@@ -1026,37 +1051,38 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             } else {
                 interrompibile = "No";
             }
-            
+
             String[] inserimento = {String.valueOf(x.getId()), x.getFactorySite(), x.getArea(), x.getTypology(),
                 String.valueOf(x.getEstimatedTime()), String.valueOf(x.getWeek()), tipo, interrompibile};
             tb.addRow(inserimento);
         }
     }
-    
-    private String [] calcolaPercentuale(int m[][]){
-        String [] percentuali = new String[7];
+
+    private String[] calcolaPercentuale(int m[][]) {
+        String[] percentuali = new String[7];
         float sum = 0;
-        for(int i = 0; i<=6; i++){
-            for(int j=0; j<=6;j++){
-                sum+= m[i][j];
+        for (int i = 0; i <= 6; i++) {
+            for (int j = 0; j <= 6; j++) {
+                sum += m[i][j];
             }
-            percentuali[i]=Float.toString(sum/420*100)+"%"; 
-            sum=0;
-             
+            percentuali[i] = Float.toString(sum / 420 * 100) + "%";
+            sum = 0;
+
         }
-        
-         return percentuali;
-        }
-    
-    private int contaCompetenze(List<String> competenzeAttività , List<String> competenzeMaintainer){
-        int count=0;
-        for(String c : competenzeAttività){
-         if(competenzeMaintainer.contains(c))
-             count++;
+
+        return percentuali;
+    }
+
+    private int contaCompetenze(List<String> competenzeAttività, List<String> competenzeMaintainer) {
+        int count = 0;
+        for (String c : competenzeAttività) {
+            if (competenzeMaintainer.contains(c)) {
+                count++;
+            }
         }
         return count;
-        }
-    
+    }
+
     private void aggiungiBordi() {
         jScrollPane8.setBorder(BorderFactory.createLineBorder(black));
         jScrollPane7.setBorder(BorderFactory.createLineBorder(black));
@@ -1064,20 +1090,20 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jScrollPane4.setBorder(BorderFactory.createLineBorder(black));
         jScrollPane3.setBorder(BorderFactory.createLineBorder(black));
     }
-    
+
     private void togliBordi() {
         jScrollPane8.setBorder(null);
         jScrollPane7.setBorder(null);
         jScrollPane5.setBorder(null);
         jScrollPane4.setBorder(null);
         jScrollPane3.setBorder(null);
-        
+
     }
-    
+
     private void mostraErrore(String titolo, String messaggio) {
         JOptionPane.showMessageDialog(null, messaggio, titolo, ERROR_MESSAGE);
     }
-    
+
     private void mostraSuccesso(String titolo, String messaggio) {
         JOptionPane.showMessageDialog(null, messaggio, titolo, INFORMATION_MESSAGE);
     }
