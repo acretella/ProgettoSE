@@ -255,4 +255,24 @@ public class PlannerTest {
 //            }
 //        }
     }
+    
+    @Test
+    public void testAssignedActivity(){
+        Maintainer m = p.getAllMaintainers().get(0);
+        Activity a = new Activity(99,
+                "branch office",
+                "departement",
+                "electrical",
+                "aaaaaaaa",
+                40,
+                1,
+                new ArrayList<>(),
+                true,
+                "lllllll",
+                null);
+        p.createActivity(a);
+        int ore[] = new int[2];
+        ore[0]=1;ore[1]=2;
+        assertEquals(p.assignedActivityToMaintainer(m,a, 1,ore),true);
+    }
 }

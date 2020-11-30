@@ -292,33 +292,31 @@ public class Planner {
                 int id = 0;
                 try {
                     Statement stm = connection.createStatement();
-                    ResultSet rst = stm.executeQuery("select ID_MAN from Maintainer where nome = " + m.getName());
+                    ResultSet rst = stm.executeQuery("select * from Maintainer where nome = '" + m.getName()+"'");
                     rst.next();
-                    id= rst.getInt(0);
-                            } catch (SQLException ex) { return false;}
-                for (int j=0; j<=6; j++)
-                    for (int k=0; k<=6; k++){
-                    try {
-                        Statement stm2 = connection.createStatement();
-                        String query = "update Availability set minuti = " + avaibility[j][k] +
-                                        " where ID_DISPONIBILITA in (select ID_DISPONIBILITA"+   
-                                            " from DISPONIBILITA_MANUTENTORE where ID_MAN = " + id + ")"+
-                                                  "and (settimana = " + a.getWeek()+ ")" +
-                                                  "and (giorno = " + j + ")"+
-                                                  "and (ora = " + k + ")";
-                        stm2.executeUpdate(query);
-                        
-                        Statement stm3 = connection.createStatement();
-                        query = "insert into Maintainer_for_Activity(maintainer,activity) values("+id+","+a.getId()+");";
-                        stm3.executeUpdate(query);
-                    } catch (SQLException ex) {return false;}
-                        
+                    id= rst.getInt("ID_MAN");
+                } catch (SQLException ex) {return false;}
+                try{
+                    for (int j=0; j<=6; j++){
+                        for (int k=0; k<=6; k++){
+                            Statement stm2 = connection.createStatement();
+                            String query = "update Availability set minuti = " + avaibility[j][k] +
+                                            " where ID_DISPONIBILITA in (select ID_DISPONIBILITA"+   
+                                                " from DISPONIBILITA_MANUTENTORE where ID_MAN = " + id + ")"+
+                                                      "and (settimana = " + a.getWeek()+ ")" +
+                                                      "and (giorno = " + j + ")"+
+                                                      "and (ora = " + k + ")";
+                            stm2.executeUpdate(query);
+                        }
                     }
-                
-                return true;
+                    Statement stm3 = connection.createStatement();
+                    String query = "insert into Maintainer_for_Activity(maintainer,activity) values("+id+","+a.getId()+");";
+                    stm3.executeUpdate(query);
+                    return true;
+                    } catch (SQLException ex) {System.out.println(ex.getMessage());return false;}
             }           
-        } 
-            return false;
+        }
+        return false; //In base al tempo stimato dall'attività non c'è disponibilità per il manutentore nell'arco di tempo selezionato
     }
   
 }
