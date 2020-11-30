@@ -88,6 +88,7 @@
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tabellaAttivit&#xe0;MouseClicked"/>
+                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tabellaAttivit&#xe0;MouseReleased"/>
               </Events>
             </Component>
           </SubComponents>
@@ -712,6 +713,9 @@
           <Dimension value="[1160, 370]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="assegnaAttivit&#xe0;WindowClosing"/>
+      </Events>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -863,6 +867,7 @@
                   </Properties>
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tabellaDisponibilit&#xe0;MouseClicked"/>
+                    <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tabellaDisponibilit&#xe0;MouseReleased"/>
                   </Events>
                 </Component>
               </SubComponents>

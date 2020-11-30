@@ -200,6 +200,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabellaAttivitàMouseClicked(evt);
             }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tabellaAttivitàMouseReleased(evt);
+            }
         });
         jScrollPane3.setViewportView(tabellaAttività);
 
@@ -453,6 +456,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelInterrompibileOra.setBounds(210, 340, 170, 30);
 
         assegnaAttività.setMinimumSize(new java.awt.Dimension(1160, 370));
+        assegnaAttività.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                assegnaAttivitàWindowClosing(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(204, 102, 0));
         jPanel2.setMinimumSize(new java.awt.Dimension(1176, 321));
@@ -492,6 +500,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         tabellaDisponibilità.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabellaDisponibilitàMouseClicked(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tabellaDisponibilitàMouseReleased(evt);
             }
         });
         jScrollPane10.setViewportView(tabellaDisponibilità);
@@ -839,40 +850,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_tabellaAttivitàMouseClicked
 
     private void buttonAssegnaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAssegnaActionPerformed
-
-        tabellaDisponibilità.getColumnModel().setSelectionModel(new DefaultListSelectionModel() {
-            private boolean isSelectable(int indice) {
-                return !(indice == 1 || indice == 0);
-            }
-
-            @Override
-            public void setSelectionInterval(int indice1, int indice2) {
-                if (isSelectable(indice1) && isSelectable(indice2)) {
-                    super.setSelectionInterval(indice1, indice2);
-                }
-            }
-
-            @Override
-            public void addSelectionInterval(int indice1, int indice2) {
-                if (isSelectable(indice1) && isSelectable(indice2)) {
-                    super.addSelectionInterval(indice1, indice2);
-                }
-            }
-
-        });
-
-        tabellaDisponibilità.setCellSelectionEnabled(true);
-        Activity a = p.getActivity(id);
-        if (a.getProcedure() != null) {
-            List<String> competenze = a.getProcedure().getCompetencies();
-            competenze.forEach(c -> {
-                listModelSkills.addElement("·" + c);
-            });
-        }
-
-        listaSkills.setModel(listModelSkills);
-        textWeekAssegnata.setText(String.valueOf(a.getWeek()));
-        textAttivitàDaAssegnare.setText(id + " - " + a.getFactorySite() + " - " + a.getArea() + " - " + a.getTypology() + " - " + a.getEstimatedTime() + " mins");
         int indice = tabellaAttività.getSelectedRow();
         if (indice == -1) {
             mostraErrore("ERRORE", "Seleziona un'attività dalla tabella!");
@@ -881,21 +858,60 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             while (tb2.getRowCount() > 0) {
                 tb2.removeRow(0);
             }
+
+            tabellaDisponibilità.getColumnModel().setSelectionModel(new DefaultListSelectionModel() {
+                private boolean isSelectable(int indice) {
+                    return !(indice == 1 || indice == 0);
+                }
+
+                @Override
+                public void setSelectionInterval(int indice1, int indice2) {
+                    if (isSelectable(indice1) && isSelectable(indice2)) {
+                        super.setSelectionInterval(indice1, indice2);
+                    }
+                }
+
+                @Override
+                public void addSelectionInterval(int indice1, int indice2) {
+                    if (isSelectable(indice1) && isSelectable(indice2)) {
+                        super.addSelectionInterval(indice1, indice2);
+                    }
+                }
+
+            });
+            
+            
+                    
+                    
+            tabellaDisponibilità.setCellSelectionEnabled(true);
+            Activity a = p.getActivity(id);
+            listModelSkills.clear();
+            if (a.getProcedure() != null) {
+                List<String> competenze = a.getProcedure().getCompetencies();
+                competenze.forEach(c -> {
+                    listModelSkills.addElement("·" + c);
+                });
+            }
+
+            listaSkills.setModel(listModelSkills);
+            textWeekAssegnata.setText(String.valueOf(a.getWeek()));
+            textAttivitàDaAssegnare.setText(id + " - " + a.getFactorySite() + " - " + a.getArea() + " - " + a.getTypology() + " - " + a.getEstimatedTime() + " mins");
+
             String[] nomi = {"Maintainer", "Skills", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
             tb2.setColumnIdentifiers(nomi);
             tabellaDisponibilità.setModel(tb2);
             List<Maintainer> maintainers = p.getAllMaintainers();
             for (Maintainer m : maintainers) {
                 int matrice[][] = m.getAvailability().get(a.getWeek());
-                int competenze;
+                String competenze;
                 if (a.getProcedure() != null) {
                     competenze = contaCompetenze(a.getProcedure().getCompetencies(), m.getCompetencies());
                 } else // Se non è associata una procedura all'attività
                 {
-                    competenze = 0;
+                    competenze = "0/0";
                 }
                 String[] percentuali = calcolaPercentuale(matrice);
-                String[] inserimento = {m.getName(), String.valueOf(competenze), percentuali[0], percentuali[1], percentuali[2], percentuali[3], percentuali[4], percentuali[5], percentuali[6]};
+                String[] inserimento = {m.getName(), competenze, percentuali[0], percentuali[1], percentuali[2], percentuali[3], percentuali[4], percentuali[5], percentuali[6]};
                 tb2.addRow(inserimento);
             }
 
@@ -915,6 +931,26 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         // TODO add your handling code here:
     }//GEN-LAST:event_tabellaDisponibilitàMouseClicked
+
+    private void assegnaAttivitàWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_assegnaAttivitàWindowClosing
+
+    }//GEN-LAST:event_assegnaAttivitàWindowClosing
+
+    private void tabellaAttivitàMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabellaAttivitàMouseReleased
+
+    }//GEN-LAST:event_tabellaAttivitàMouseReleased
+
+    private void tabellaDisponibilitàMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabellaDisponibilitàMouseReleased
+//System.out.println(tabellaDisponibilità.getSelectedRow()+tabellaDisponibilità.getSelectedColumn());
+
+/*for(int i:tabellaDisponibilità.getSelectedRows()){
+    System.out.println(i);
+}
+for(int i:tabellaDisponibilità.getSelectedColumns()){
+    System.out.println(i);
+}*/
+// TODO add your handling code here:
+    }//GEN-LAST:event_tabellaDisponibilitàMouseReleased
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1065,22 +1101,22 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             for (int j = 0; j <= 6; j++) {
                 sum += m[i][j];
             }
-            percentuali[i] = Float.toString(sum / 420 * 100) + "%";
-            sum = 0;
+            percentuali[i] = String.valueOf((int) (sum / 420 * 100)) + "%";
 
+            sum = 0;
         }
 
         return percentuali;
     }
 
-    private int contaCompetenze(List<String> competenzeAttività, List<String> competenzeMaintainer) {
+    private String contaCompetenze(List<String> competenzeAttività, List<String> competenzeMaintainer) {
         int count = 0;
         for (String c : competenzeAttività) {
             if (competenzeMaintainer.contains(c)) {
                 count++;
             }
         }
-        return count;
+        return count + "/" + competenzeAttività.size();
     }
 
     private void aggiungiBordi() {
