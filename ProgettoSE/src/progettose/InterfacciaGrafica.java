@@ -862,8 +862,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
                 @Override
                 public void setSelectionInterval(int indice1, int indice2) {
-                    if (isSelectable(indice1) && isSelectable(indice2)) {
+                    if (isSelectable(indice2) && isSelectable(indice1)) {
                         super.setSelectionInterval(indice1, indice2);
+                    } else {
                     }
                 }
 
