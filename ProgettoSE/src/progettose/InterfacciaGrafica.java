@@ -856,7 +856,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             while (tb2.getRowCount() > 0) {
                 tb2.removeRow(0);
             }
-            
+
             tabellaDisponibilità.getColumnModel().setSelectionModel(new DefaultListSelectionModel() {
                 private boolean isSelectable(int indice) {
                     return !(indice == 1 || indice == 0);
@@ -878,7 +878,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 }
 
             });
-          
+
             tabellaDisponibilità.setCellSelectionEnabled(true);
             Activity a = p.getActivity(id);
             listModelSkills.clear();
@@ -939,7 +939,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private void tabellaDisponibilitàMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabellaDisponibilitàMouseReleased
 //System.out.println(tabellaDisponibilità.getSelectedRow()+tabellaDisponibilità.getSelectedColumn());
 
-/*for(int i:tabellaDisponibilità.getSelectedRows()){
+        /*for(int i:tabellaDisponibilità.getSelectedRows()){
     System.out.println(i);
 }
 for(int i:tabellaDisponibilità.getSelectedColumns()){
@@ -1054,8 +1054,6 @@ for(int i:tabellaDisponibilità.getSelectedColumns()){
         textAreaWorkspaceNotesVis.setVisible(true);
         listaMaterialiVis.setVisible(true);
         listaCompetenze.setVisible(true);
-        
-
 
     }
 
