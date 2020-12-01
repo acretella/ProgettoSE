@@ -6,6 +6,8 @@
 package progettose;
 
 import static java.awt.Color.black;
+import static java.awt.Color.red;
+import static java.awt.Color.white;
 import java.awt.Desktop;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
@@ -854,7 +856,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             while (tb2.getRowCount() > 0) {
                 tb2.removeRow(0);
             }
-
+            
             tabellaDisponibilità.getColumnModel().setSelectionModel(new DefaultListSelectionModel() {
                 private boolean isSelectable(int indice) {
                     return !(indice == 1 || indice == 0);
@@ -1052,6 +1054,8 @@ for(int i:tabellaDisponibilità.getSelectedColumns()){
         textAreaWorkspaceNotesVis.setVisible(true);
         listaMaterialiVis.setVisible(true);
         listaCompetenze.setVisible(true);
+        
+
 
     }
 
