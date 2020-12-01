@@ -168,7 +168,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jTextFieldActivityToAssign2 = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         jScrollPane9 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jTextAreaWorkspaceNotes2 = new javax.swing.JTextArea();
         jScrollPane12 = new javax.swing.JScrollPane();
         tabellaDisponibilità2 = new javax.swing.JTable();
         jTextFieldNomeMan = new javax.swing.JTextField();
@@ -179,6 +179,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         GestioneAttività.setTitle("MENU' GESTIONE ATTIVITA'");
         GestioneAttività.setMinimumSize(new java.awt.Dimension(1246, 650));
+        GestioneAttività.setPreferredSize(new java.awt.Dimension(1000, 500));
         GestioneAttività.getContentPane().setLayout(null);
 
         buttonCreaAttività.setText("Crea attività");
@@ -318,6 +319,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jPanel1.setBounds(0, 0, 1230, 610);
 
         creazioneAttività.setMinimumSize(new java.awt.Dimension(1100, 600));
+        creazioneAttività.setPreferredSize(new java.awt.Dimension(1000, 500));
         creazioneAttività.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 creazioneAttivitàWindowClosing(evt);
@@ -619,9 +621,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel18.setText("Workspace Notes");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane9.setViewportView(jTextArea1);
+        jTextAreaWorkspaceNotes2.setColumns(20);
+        jTextAreaWorkspaceNotes2.setRows(5);
+        jScrollPane9.setViewportView(jTextAreaWorkspaceNotes2);
 
         tabellaDisponibilità2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1060,16 +1062,17 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         }
         else{
             assegnaAttività2.setVisible(true);
-        }
+            Activity a = p.getActivity(id);
+            jTextAreaWorkspaceNotes2.setText(String.valueOf(a.getWorkSpaceNote()));
         tabellaDisponibilità2.setCellSelectionEnabled(true);
          while (tb3.getRowCount() > 0) {
                 tb3.removeRow(0);
             }
-            String[] nomi = {"Maintainer", "Skills","08:00 to 9:00", "09:00 to 10:00", "10:00 to 11:00", "11:00 to 12:00", "12:00 to 13:00", "13:00 to 14:00", "14:00 to 15:00"};
-            tb3.setColumnIdentifiers(nomi);
-            tabellaDisponibilità2.setModel(tb3);
+         String[] nomi = {"Maintainer", "Skills","08:00 to 9:00", "09:00 to 10:00", "10:00 to 11:00", "11:00 to 12:00", "12:00 to 13:00", "13:00 to 14:00", "14:00 to 15:00"};
+         tb3.setColumnIdentifiers(nomi);
+         tabellaDisponibilità2.setModel(tb3);
 
-        
+        }
       
     }//GEN-LAST:event_jButtonAssegnaAttività2ActionPerformed
 
@@ -1324,7 +1327,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextAreaWorkspaceNotes2;
     private javax.swing.JTextField jTextFieldActivityToAssign2;
     private javax.swing.JTextField jTextFieldNameDay;
     private javax.swing.JTextField jTextFieldNomeMan;
