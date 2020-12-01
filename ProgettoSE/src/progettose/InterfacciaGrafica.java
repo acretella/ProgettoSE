@@ -182,7 +182,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         GestioneAttività.setTitle("MENU' GESTIONE ATTIVITA'");
         GestioneAttività.setMinimumSize(new java.awt.Dimension(1246, 650));
-        GestioneAttività.setPreferredSize(new java.awt.Dimension(1000, 500));
         GestioneAttività.getContentPane().setLayout(null);
 
         buttonCreaAttività.setText("Crea attività");
@@ -322,7 +321,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jPanel1.setBounds(0, 0, 1230, 610);
 
         creazioneAttività.setMinimumSize(new java.awt.Dimension(1100, 600));
-        creazioneAttività.setPreferredSize(new java.awt.Dimension(1000, 500));
         creazioneAttività.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 creazioneAttivitàWindowClosing(evt);
@@ -667,14 +665,15 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextFieldWeek2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(jTextFieldNameDay, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jTextFieldNameDay)
+                                .addGap(18, 18, 18)
                                 .addComponent(jTextFieldNumberDay, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(76, 76, 76)
                         .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldActivityToAssign2, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextFieldActivityToAssign2, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(67, 67, 67)
@@ -687,7 +686,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel19)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldPercentuale, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jTextFieldPercentuale, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(57, 57, 57))
         );
         jPanel3Layout.setVerticalGroup(
@@ -698,7 +698,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldWeek2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldActivityToAssign2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldActivityToAssign2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldNameDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -715,7 +715,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout assegnaAttività2Layout = new javax.swing.GroupLayout(assegnaAttività2.getContentPane());
@@ -1094,12 +1094,20 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             jTextFieldWeek2.setText(String.valueOf(a.getWeek()));
             jTextFieldActivityToAssign2.setText(id + " - " + a.getFactorySite() + " - " + a.getArea() + " - " + a.getTypology() + " - " + a.getEstimatedTime() + " mins");
             tabellaDisponibilità2.setCellSelectionEnabled(true);
+            jTextFieldNameDay.setText(tabellaDisponibilità.getColumnName(tabellaDisponibilità.getSelectedColumn()));
+            jTextFieldNomeMan.setText((String) tabellaDisponibilità.getValueAt(tabellaDisponibilità.getSelectedRow(),0));
+            jTextFieldPercentuale.setText((String) tabellaDisponibilità.getValueAt(tabellaDisponibilità.getSelectedRow(),tabellaDisponibilità.getSelectedColumn()));
+            jTextFieldNumberDay.setText(tipo);
             while (tb3.getRowCount() > 0) {
                 tb3.removeRow(0);
             }
             String[] nomi = {"Maintainer", "Skills", "08:00 to 9:00", "09:00 to 10:00", "10:00 to 11:00", "11:00 to 12:00", "12:00 to 13:00", "13:00 to 14:00", "14:00 to 15:00"};
             tb3.setColumnIdentifiers(nomi);
             tabellaDisponibilità2.setModel(tb3);
+            Maintainer m = p.getAllMaintainers().get(tabellaDisponibilità.getSelectedRow());
+            m.getAvailability();
+            
+            String[] inserimento = {jTextFieldNomeMan.getText(), ""};
 
         }
 
@@ -1259,9 +1267,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             for (int j = 0; j <= 6; j++) {
                 sum += m[i][j];
             }
-            percentuali[i] = Float.toString(sum / 420 * 100) + "%";
-            sum = 0;
+            percentuali[i] = String.valueOf((int) (sum / 420 * 100)) + "%";
 
+            sum = 0;
         }
 
         return percentuali;

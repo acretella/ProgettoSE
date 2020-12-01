@@ -948,16 +948,17 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jTextFieldWeek2" min="-2" pref="54" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jTextFieldNameDay" min="-2" pref="54" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="jTextFieldNameDay" max="32767" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="jTextFieldNumberDay" min="-2" pref="54" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
                               <Component id="jLabel17" min="-2" pref="117" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jTextFieldActivityToAssign2" min="-2" pref="263" max="-2" attributes="0"/>
+                              <Component id="jTextFieldActivityToAssign2" min="-2" pref="347" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jScrollPane9" min="-2" pref="210" max="-2" attributes="0"/>
@@ -971,7 +972,8 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jTextFieldPercentuale" min="-2" pref="27" max="-2" attributes="0"/>
+                                      <Component id="jTextFieldPercentuale" min="-2" pref="59" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -988,7 +990,7 @@
                           <Component id="jLabel14" alignment="3" min="-2" pref="21" max="-2" attributes="0"/>
                           <Component id="jTextFieldWeek2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel17" alignment="3" min="-2" pref="21" max="-2" attributes="0"/>
-                          <Component id="jTextFieldActivityToAssign2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldActivityToAssign2" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -1010,7 +1012,7 @@
                           <Component id="jScrollPane12" pref="0" max="32767" attributes="0"/>
                           <Component id="jScrollPane9" pref="166" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="23" max="32767" attributes="0"/>
+                      <EmptySpace pref="15" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
