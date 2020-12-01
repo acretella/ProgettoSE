@@ -625,11 +625,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelAttivitàOra.setEnabled(false);
         labelInterrompibileOra.setEnabled(false);
         buttonCrea.setText("CREA ATTIVITA'");
-        //*String[] opzioni ={"Planned","EWO","Extra"};
-        //* JOptionPane.showOptionDialog(null, "Scegli il tipo di attività da creare","Selezione tipo di attività", WIDTH, HEIGHT, null, opzioni, EXIT_ON_CLOSE);
-        //* creazioneAttività.setVisible(true);
 
-        // TODO add your handling code here:
     }//GEN-LAST:event_buttonCreaAttivitàActionPerformed
 
     private void fieldTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldTimeActionPerformed
@@ -879,10 +875,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 }
 
             });
-            
-            
-                    
-                    
+          
             tabellaDisponibilità.setCellSelectionEnabled(true);
             Activity a = p.getActivity(id);
             listModelSkills.clear();
@@ -927,7 +920,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_textAttivitàDaAssegnareActionPerformed
 
     private void tabellaDisponibilitàMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabellaDisponibilitàMouseClicked
-        System.out.println(tb2.getValueAt(tabellaDisponibilità.getSelectedRow(), tabellaDisponibilità.getSelectedColumn()));
+        //System.out.println(tb2.getValueAt(tabellaDisponibilità.getSelectedRow(), tabellaDisponibilità.getSelectedColumn()));
 
         // TODO add your handling code here:
     }//GEN-LAST:event_tabellaDisponibilitàMouseClicked
