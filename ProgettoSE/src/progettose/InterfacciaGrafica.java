@@ -1064,6 +1064,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             assegnaAttività2.setVisible(true);
             Activity a = p.getActivity(id);
             jTextAreaWorkspaceNotes2.setText(String.valueOf(a.getWorkSpaceNote()));
+            jTextFieldWeek2.setText(String.valueOf(a.getWeek()));
+            jTextFieldActivityToAssign2.setText(id + " - " + a.getFactorySite() + " - " + a.getArea() + " - " + a.getTypology() + " - " + a.getEstimatedTime() + " mins");
         tabellaDisponibilità2.setCellSelectionEnabled(true);
          while (tb3.getRowCount() > 0) {
                 tb3.removeRow(0);
