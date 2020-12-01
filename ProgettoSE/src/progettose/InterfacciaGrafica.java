@@ -85,27 +85,27 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private void initComponents() {
 
         GestioneAttività = new javax.swing.JFrame();
-        buttonCreaAttività = new javax.swing.JButton();
-        buttonMostraAttività = new javax.swing.JButton();
-        buttonCancellaAttività = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tabellaAttività = new javax.swing.JTable();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        textAreaWorkspaceNotesVis = new javax.swing.JTextArea();
-        labelDE = new javax.swing.JLabel();
-        jScrollPane8 = new javax.swing.JScrollPane();
-        listaMaterialiVis = new javax.swing.JList<>();
-        labelML = new javax.swing.JLabel();
-        buttonSMP = new javax.swing.JButton();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        listaCompetenze = new javax.swing.JList<>();
-        labelCO = new javax.swing.JLabel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        textAreaDescrizioneAttivitàVis = new javax.swing.JTextArea();
-        labelWO = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         buttonModificaAttività = new javax.swing.JButton();
         buttonAssegna = new javax.swing.JButton();
+        labelWO = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        textAreaDescrizioneAttivitàVis = new javax.swing.JTextArea();
+        labelCO = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        listaCompetenze = new javax.swing.JList<>();
+        buttonSMP = new javax.swing.JButton();
+        labelML = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        listaMaterialiVis = new javax.swing.JList<>();
+        labelDE = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        textAreaWorkspaceNotesVis = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tabellaAttività = new javax.swing.JTable();
+        buttonCancellaAttività = new javax.swing.JButton();
+        buttonMostraAttività = new javax.swing.JButton();
+        buttonCreaAttività = new javax.swing.JButton();
         creazioneAttività = new javax.swing.JFrame();
         tendinaTipoAttività = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
@@ -158,32 +158,90 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         GestioneAttività.setMinimumSize(new java.awt.Dimension(1246, 650));
         GestioneAttività.getContentPane().setLayout(null);
 
-        buttonCreaAttività.setText("Crea attività");
-        buttonCreaAttività.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCreaAttivitàActionPerformed(evt);
-            }
-        });
-        GestioneAttività.getContentPane().add(buttonCreaAttività);
-        buttonCreaAttività.setBounds(50, 40, 240, 40);
+        jPanel1.setBackground(new java.awt.Color(0, 102, 102));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1400, 650));
+        jPanel1.setLayout(null);
 
-        buttonMostraAttività.setText("Mostra elenco attività");
-        buttonMostraAttività.addActionListener(new java.awt.event.ActionListener() {
+        buttonModificaAttività.setText("Modifica attività");
+        buttonModificaAttività.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonMostraAttivitàActionPerformed(evt);
+                buttonModificaAttivitàActionPerformed(evt);
             }
         });
-        GestioneAttività.getContentPane().add(buttonMostraAttività);
-        buttonMostraAttività.setBounds(50, 90, 240, 40);
+        jPanel1.add(buttonModificaAttività);
+        buttonModificaAttività.setBounds(50, 190, 240, 40);
 
-        buttonCancellaAttività.setText("Cancella attività");
-        buttonCancellaAttività.addActionListener(new java.awt.event.ActionListener() {
+        buttonAssegna.setText("Assegna attività");
+        buttonAssegna.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCancellaAttivitàActionPerformed(evt);
+                buttonAssegnaActionPerformed(evt);
             }
         });
-        GestioneAttività.getContentPane().add(buttonCancellaAttività);
-        buttonCancellaAttività.setBounds(50, 140, 240, 40);
+        jPanel1.add(buttonAssegna);
+        buttonAssegna.setBounds(50, 240, 240, 40);
+
+        labelWO.setFont(new java.awt.Font("Britannic Bold", 0, 12)); // NOI18N
+        labelWO.setForeground(new java.awt.Color(102, 204, 255));
+        labelWO.setText("WORKSPACE NOTES");
+        jPanel1.add(labelWO);
+        labelWO.setBounds(360, 420, 166, 30);
+
+        textAreaDescrizioneAttivitàVis.setEditable(false);
+        textAreaDescrizioneAttivitàVis.setColumns(20);
+        textAreaDescrizioneAttivitàVis.setRows(5);
+        textAreaDescrizioneAttivitàVis.setBorder(null);
+        textAreaDescrizioneAttivitàVis.setDisabledTextColor(new java.awt.Color(102, 102, 255));
+        textAreaDescrizioneAttivitàVis.setSelectionColor(new java.awt.Color(153, 153, 153));
+        jScrollPane5.setViewportView(textAreaDescrizioneAttivitàVis);
+
+        jPanel1.add(jScrollPane5);
+        jScrollPane5.setBounds(0, 450, 270, 150);
+
+        labelCO.setFont(new java.awt.Font("Britannic Bold", 0, 12)); // NOI18N
+        labelCO.setForeground(new java.awt.Color(153, 204, 255));
+        labelCO.setText("COMPETENZE NECESSARIE");
+        jPanel1.add(labelCO);
+        labelCO.setBounds(860, 420, 170, 30);
+
+        jScrollPane4.setViewportView(listaCompetenze);
+
+        jPanel1.add(jScrollPane4);
+        jScrollPane4.setBounds(810, 450, 240, 150);
+
+        buttonSMP.setText("Mostra SMP");
+        buttonSMP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSMPActionPerformed(evt);
+            }
+        });
+        jPanel1.add(buttonSMP);
+        buttonSMP.setBounds(70, 390, 120, 30);
+
+        labelML.setFont(new java.awt.Font("Britannic Bold", 0, 12)); // NOI18N
+        labelML.setForeground(new java.awt.Color(102, 204, 255));
+        labelML.setText("LISTA MATERIALI");
+        jPanel1.add(labelML);
+        labelML.setBounds(640, 420, 130, 30);
+
+        jScrollPane8.setViewportView(listaMaterialiVis);
+
+        jPanel1.add(jScrollPane8);
+        jScrollPane8.setBounds(560, 450, 240, 150);
+
+        labelDE.setFont(new java.awt.Font("Britannic Bold", 0, 12)); // NOI18N
+        labelDE.setForeground(new java.awt.Color(102, 204, 255));
+        labelDE.setText("DESCRIPTION");
+        jPanel1.add(labelDE);
+        labelDE.setBounds(90, 420, 166, 30);
+
+        textAreaWorkspaceNotesVis.setEditable(false);
+        textAreaWorkspaceNotesVis.setColumns(20);
+        textAreaWorkspaceNotesVis.setRows(5);
+        textAreaWorkspaceNotesVis.setBorder(null);
+        jScrollPane7.setViewportView(textAreaWorkspaceNotesVis);
+
+        jPanel1.add(jScrollPane7);
+        jScrollPane7.setBounds(280, 450, 270, 150);
 
         tabellaAttività.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         tabellaAttività.setModel(new javax.swing.table.DefaultTableModel(
@@ -206,93 +264,35 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(tabellaAttività);
 
-        GestioneAttività.getContentPane().add(jScrollPane3);
+        jPanel1.add(jScrollPane3);
         jScrollPane3.setBounds(400, 30, 760, 250);
 
-        textAreaWorkspaceNotesVis.setEditable(false);
-        textAreaWorkspaceNotesVis.setColumns(20);
-        textAreaWorkspaceNotesVis.setRows(5);
-        textAreaWorkspaceNotesVis.setBorder(null);
-        jScrollPane7.setViewportView(textAreaWorkspaceNotesVis);
-
-        GestioneAttività.getContentPane().add(jScrollPane7);
-        jScrollPane7.setBounds(280, 450, 270, 150);
-
-        labelDE.setFont(new java.awt.Font("Britannic Bold", 0, 12)); // NOI18N
-        labelDE.setForeground(new java.awt.Color(102, 204, 255));
-        labelDE.setText("DESCRIPTION");
-        GestioneAttività.getContentPane().add(labelDE);
-        labelDE.setBounds(90, 420, 166, 30);
-
-        jScrollPane8.setViewportView(listaMaterialiVis);
-
-        GestioneAttività.getContentPane().add(jScrollPane8);
-        jScrollPane8.setBounds(560, 450, 240, 150);
-
-        labelML.setFont(new java.awt.Font("Britannic Bold", 0, 12)); // NOI18N
-        labelML.setForeground(new java.awt.Color(102, 204, 255));
-        labelML.setText("LISTA MATERIALI");
-        GestioneAttività.getContentPane().add(labelML);
-        labelML.setBounds(640, 420, 130, 30);
-
-        buttonSMP.setText("Mostra SMP");
-        buttonSMP.addActionListener(new java.awt.event.ActionListener() {
+        buttonCancellaAttività.setText("Cancella attività");
+        buttonCancellaAttività.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSMPActionPerformed(evt);
+                buttonCancellaAttivitàActionPerformed(evt);
             }
         });
-        GestioneAttività.getContentPane().add(buttonSMP);
-        buttonSMP.setBounds(70, 390, 120, 30);
+        jPanel1.add(buttonCancellaAttività);
+        buttonCancellaAttività.setBounds(50, 140, 240, 40);
 
-        jScrollPane4.setViewportView(listaCompetenze);
-
-        GestioneAttività.getContentPane().add(jScrollPane4);
-        jScrollPane4.setBounds(810, 450, 240, 150);
-
-        labelCO.setFont(new java.awt.Font("Britannic Bold", 0, 12)); // NOI18N
-        labelCO.setForeground(new java.awt.Color(153, 204, 255));
-        labelCO.setText("COMPETENZE NECESSARIE");
-        GestioneAttività.getContentPane().add(labelCO);
-        labelCO.setBounds(860, 420, 170, 30);
-
-        textAreaDescrizioneAttivitàVis.setEditable(false);
-        textAreaDescrizioneAttivitàVis.setColumns(20);
-        textAreaDescrizioneAttivitàVis.setRows(5);
-        textAreaDescrizioneAttivitàVis.setBorder(null);
-        textAreaDescrizioneAttivitàVis.setDisabledTextColor(new java.awt.Color(102, 102, 255));
-        textAreaDescrizioneAttivitàVis.setSelectionColor(new java.awt.Color(153, 153, 153));
-        jScrollPane5.setViewportView(textAreaDescrizioneAttivitàVis);
-
-        GestioneAttività.getContentPane().add(jScrollPane5);
-        jScrollPane5.setBounds(0, 450, 270, 150);
-
-        labelWO.setFont(new java.awt.Font("Britannic Bold", 0, 12)); // NOI18N
-        labelWO.setForeground(new java.awt.Color(102, 204, 255));
-        labelWO.setText("WORKSPACE NOTES");
-        GestioneAttività.getContentPane().add(labelWO);
-        labelWO.setBounds(360, 420, 166, 30);
-
-        jPanel1.setBackground(new java.awt.Color(0, 102, 102));
-        jPanel1.setMinimumSize(new java.awt.Dimension(1400, 650));
-        jPanel1.setLayout(null);
-
-        buttonModificaAttività.setText("Modifica attività");
-        buttonModificaAttività.addActionListener(new java.awt.event.ActionListener() {
+        buttonMostraAttività.setText("Mostra elenco attività");
+        buttonMostraAttività.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonModificaAttivitàActionPerformed(evt);
+                buttonMostraAttivitàActionPerformed(evt);
             }
         });
-        jPanel1.add(buttonModificaAttività);
-        buttonModificaAttività.setBounds(50, 190, 240, 40);
+        jPanel1.add(buttonMostraAttività);
+        buttonMostraAttività.setBounds(50, 90, 240, 40);
 
-        buttonAssegna.setText("Assegna attività");
-        buttonAssegna.addActionListener(new java.awt.event.ActionListener() {
+        buttonCreaAttività.setText("Crea attività");
+        buttonCreaAttività.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonAssegnaActionPerformed(evt);
+                buttonCreaAttivitàActionPerformed(evt);
             }
         });
-        jPanel1.add(buttonAssegna);
-        buttonAssegna.setBounds(50, 240, 240, 40);
+        jPanel1.add(buttonCreaAttività);
+        buttonCreaAttività.setBounds(50, 40, 240, 40);
 
         GestioneAttività.getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 1230, 610);
