@@ -228,9 +228,20 @@ public class Planner {
     }
 
     public boolean modifyActivity(Activity a) {
-        if (this.deleteActivity(a.getId())) {
-            return this.createActivity(a);
-        } else {
+        try {
+            Statement stm = connection.createStatement();
+            String idproc;
+            if(a.getProcedure() != null)
+                idproc = String.valueOf(a.getProcedure().getId());
+            else
+                idproc=null;
+            String query ="update Activity set factorySite='"+a.getFactorySite()+
+                        "',area='"+a.getArea()+"',typology='"+a.getTypology()+"',description='"+a.getActivityDescription()+
+                        "',estimatedTime="+a.getEstimatedTime()+",week="+a.getWeek()+",interruptable="+a.isInterruptable()+
+                        ",workSpaceNotes='"+a.getWorkSpaceNote()+"',activityType="+a.getType()+
+                    ",procedura="+idproc+" where id_="+a.getId()+";";
+            return stm.executeUpdate(query) != 0;
+        } catch (SQLException ex) {
             return false;
         }
     }

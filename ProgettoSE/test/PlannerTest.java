@@ -258,6 +258,7 @@ public class PlannerTest {
     
     @Test
     public void testAssignedActivity(){
+        //Questo test può essere eseguito soltanto se il database contiente già un manutentore con disponibilità
         Maintainer m = p.getAllMaintainers().get(0);
         Activity a = new Activity(99,
                 "branch office",
