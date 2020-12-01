@@ -12,7 +12,7 @@ import java.util.*;
  * @author Rossella
  */
 public class Procedure {
-    int id;
+    private int id;
     private File smp;
     private List<String> competencies;
 
