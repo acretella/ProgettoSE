@@ -77,7 +77,10 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             tendinaMateriali.addItem(m);
 
         }
-
+        GestioneAttività.setResizable(false);
+        creazioneAttività.setResizable(false);
+        assegnaAttività.setResizable(false);
+        assegnaAttività2.setResizable(false);
     }
 
     /**
@@ -605,6 +608,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         );
 
         assegnaAttività2.setMinimumSize(new java.awt.Dimension(1233, 428));
+        assegnaAttività2.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                assegnaAttività2WindowClosing(evt);
+            }
+        });
 
         jPanel3.setBackground(new java.awt.Color(204, 102, 0));
         jPanel3.setMinimumSize(new java.awt.Dimension(1233, 428));
@@ -657,7 +665,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel18)
-                            .addComponent(labelWeekDisp, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(labelWeekDisp, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(59, 59, 59)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(17, 17, 17)
@@ -993,11 +1002,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_tabellaAttivitàMouseClicked
 
     private void buttonAssegnaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAssegnaActionPerformed
+
         int indice = tabellaAttività.getSelectedRow();
         if (indice == -1) {
             mostraErrore("ERRORE", "Seleziona un'attività dalla tabella!");
         } else {
-            assegnaAttività.setVisible(true);
+
             svuotaTabella(tb2);
 
             tabellaDisponibilità.getColumnModel().setSelectionModel(new DefaultListSelectionModel() {
@@ -1035,18 +1045,14 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             textWeekAssegnata.setText(String.valueOf(a.getWeek()));
             textAttivitàDaAssegnare.setText(id + " - " + a.getFactorySite() + " - " + a.getArea() + " - " + a.getTypology() + " - " + a.getEstimatedTime() + " mins");
 
-            String[] nomi = {"Maintainer", "Skills", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
-            tb2.setColumnIdentifiers(nomi);
-            tabellaDisponibilità.setModel(tb2);
-            List<Maintainer> maintainers = p.getAllMaintainers();
-            for (Maintainer m : maintainers) {
-                int matrice[][] = m.getAvailability().get(a.getWeek());
-                String competenze = getComp(a, m);
-                String[] percentuali = calcolaPercentuale(matrice);
-                String[] inserimento = {m.getName(), competenze, percentuali[0], percentuali[1], percentuali[2], percentuali[3], percentuali[4], percentuali[5], percentuali[6]};
-                tb2.addRow(inserimento);
-            }
+            aggiornaTabella2();
 
+            if (tb2.getRowCount() == 0) {
+                mostraErrore("ERRORE", "Nessun manutentore disponibile nella settimana " + a.getWeek());
+                assegnaAttività.setVisible(false);
+            } else {
+                assegnaAttività.setVisible(true);
+            }
         }
     }//GEN-LAST:event_buttonAssegnaActionPerformed
 
@@ -1097,11 +1103,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             });
 
             assegnaAttività2.setVisible(true);
-
+            tabellaDisponibilità.setEnabled(false);
             Activity a = p.getActivity(id);
-            Maintainer m = p.getAllMaintainers().get(riga);
-            int[][] disponibilità = m.getAvailability().get(a.getWeek());
-            int[] ore = disponibilità[colonna - 2];
 
             textAreaWorkspaceNotes2.setText(String.valueOf(a.getWorkSpaceNote()));
             labelWeekDisp.setText(labelWeekDisp.getText() + " " + String.valueOf(a.getWeek()));
@@ -1114,7 +1117,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             tabellaDisponibilità2.setCellSelectionEnabled(true);
             svuotaTabella(tb3);
             tabellaDisponibilità2.setRowHeight(50);
-            aggiornaTabella3(a, m, ore);
+            aggiornaTabella3();
 
         }
 
@@ -1136,6 +1139,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         if (p.assignedActivityToMaintainer(p.getAllMaintainers().get(riga), p.getActivity(id), tabellaDisponibilità.getSelectedColumn() - 2, oreSelezionate)) {
             mostraSuccesso("Attività assegnata!", "Attività assegnata con successo");
+            aggiornaTabella2();
+            assegnaAttività2.setVisible(false);
+            tabellaDisponibilità.setEnabled(true);
         } else {
             mostraErrore("ERRORE", "Attività non assegnata");
         }
@@ -1146,6 +1152,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private void GestioneAttivitàWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_GestioneAttivitàWindowClosing
         svuotaTabella(tb);        // TODO add your handling code here:
     }//GEN-LAST:event_GestioneAttivitàWindowClosing
+
+    private void assegnaAttività2WindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_assegnaAttività2WindowClosing
+        tabellaDisponibilità.setEnabled(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_assegnaAttività2WindowClosing
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1362,7 +1373,16 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelDisponibilità.setText("AVAILABILITY OF");
     }
 
-    private void aggiornaTabella3(Activity a, Maintainer m, int[] ore) {
+    private void aggiornaTabella3() {
+        Activity a = p.getActivity(id);
+        Maintainer m = p.getAllMaintainers().get(tabellaDisponibilità.getSelectedRow());
+        int[][] disponibilità = m.getAvailability().get(a.getWeek());
+        int[] ore;
+        if (disponibilità == null) {
+            ore = new int[7];
+        } else {
+            ore = disponibilità[tabellaDisponibilità.getSelectedColumn() - 2];
+        }
         String[] nomi = {"Maintainer", "Skills", "08:00 to 9:00", "09:00 to 10:00", "10:00 to 11:00", "11:00 to 12:00", "12:00 to 13:00", "13:00 to 14:00", "14:00 to 15:00"};
         tb3.setColumnIdentifiers(nomi);
         String competenze = getComp(a, m);
@@ -1372,6 +1392,26 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             String.valueOf(ore[5]) + " min", String.valueOf(ore[6]) + " min"};
         tb3.addRow(inserimento);
         tabellaDisponibilità2.setModel(tb3);
+
+    }
+
+    private void aggiornaTabella2() {
+        svuotaTabella(tb2);
+        Activity a = p.getActivity(id);
+        String[] nomi = {"Maintainer", "Skills", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+        tb2.setColumnIdentifiers(nomi);
+        tabellaDisponibilità.setModel(tb2);
+        List<Maintainer> maintainers = p.getAllMaintainers();
+        for (Maintainer m : maintainers) {
+            int matrice[][] = m.getAvailability().get(a.getWeek());
+            if (matrice != null) {
+                String competenze = getComp(a, m);
+                String[] percentuali = calcolaPercentuale(matrice);
+                String[] inserimento = {m.getName(), competenze, percentuali[0], percentuali[1], percentuali[2], percentuali[3], percentuali[4], percentuali[5], percentuali[6]};
+                tb2.addRow(inserimento);
+            }
+        }
+
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFrame GestioneAttività;
