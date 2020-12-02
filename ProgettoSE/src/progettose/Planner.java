@@ -15,8 +15,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -47,8 +45,7 @@ public class Planner {
                         + " values(" + a.getId() + ",'" + a.getFactorySite() + "','" + a.getArea() + "','" + a.getTypology() + "','"
                         + a.getActivityDescription() + "'," + a.getEstimatedTime() + "," + a.getWeek() + "," + a.isInterruptable() + ",'" + a.getWorkSpaceNote()
                         + "'," + a.getType() + ",null" + ");";
-            } else // se all'attività è associata una procedura
-            {
+            } else{ // se all'attività è associata una procedura
                 query = "insert into Activity(id_,factorySite,area,typology,description,estimatedTime,week,interruptable,workSpaceNotes,activityType,procedura)"
                         + " values(" + a.getId() + ",'" + a.getFactorySite() + "','" + a.getArea() + "','" + a.getTypology() + "','"
                         + a.getActivityDescription() + "'," + a.getEstimatedTime() + "," + a.getWeek() + "," + a.isInterruptable() + ",'" + a.getWorkSpaceNote()
@@ -57,14 +54,12 @@ public class Planner {
             stm.executeUpdate(query);
 
             if (!a.getMaterials().isEmpty()) {
-
                 for (String material : a.getMaterials()) {
                     query = "insert into Material_for_Activity(activity,material) values("
                             + a.getId() + ",'" + material + "');";
 
                     stm.executeUpdate(query);
                 }
-
             }
             return true;
         } catch (SQLException ex) {
@@ -250,13 +245,13 @@ public class Planner {
         List<Maintainer> l = new ArrayList<>();
         int id;
         List<String> competencies = new ArrayList<>();
-        Map<Integer, int[][]> avaibilities = new HashMap<>();
         try {
             Statement stm = connection.createStatement();
             Statement stm2 = connection.createStatement();
             String query = "select * from Maintainer";
             ResultSet rst = stm.executeQuery(query);
             while(rst.next()){
+                Map<Integer, int[][]> avaibilities = new HashMap<>();
                 String name = rst.getString("nome");
                 id = rst.getInt("ID_MAN");
                 ResultSet rst2 = stm2.executeQuery("select * from Competence_for_Maintainer where id_man = " + id);
