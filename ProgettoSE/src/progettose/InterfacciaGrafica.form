@@ -917,6 +917,9 @@
           <Dimension value="[1233, 428]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="assegnaAttivit&#xe0;2WindowClosing"/>
+      </Events>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -950,8 +953,9 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
-                                  <Component id="labelWeekDisp" min="-2" pref="240" max="-2" attributes="0"/>
+                                  <Component id="labelWeekDisp" min="-2" pref="171" max="-2" attributes="0"/>
                               </Group>
+                              <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>

@@ -245,6 +245,7 @@ public class Planner {
         List<Maintainer> l = new ArrayList<>();
         int id;
         List<String> competencies = new ArrayList<>();
+        
         try {
             Statement stm = connection.createStatement();
             Statement stm2 = connection.createStatement();
@@ -280,6 +281,7 @@ public class Planner {
                 }
                 avaibilities.put(temp, value); //per non perdere l'ultima settimana di disponibilità
                 l.add(new Maintainer(name, competencies, avaibilities));
+               
             }
             return l;
         } catch (SQLException ex) {
