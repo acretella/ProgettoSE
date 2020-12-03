@@ -236,7 +236,23 @@ public class Planner {
                         "',estimatedTime="+a.getEstimatedTime()+",week="+a.getWeek()+",interruptable="+a.isInterruptable()+
                         ",workSpaceNotes='"+a.getWorkSpaceNote()+"',activityType="+a.getType()+
                     ",procedura="+idproc+" where id_="+a.getId()+";";
-            return stm.executeUpdate(query) != 0;
+             
+                    if(stm.executeUpdate(query) == 0)
+                        return false;
+                    
+                    query = "delete from Material_for_Activity where activity= "+ a.getId();
+                    stm.executeUpdate(query);
+                    
+                    if (!a.getMaterials().isEmpty()) {
+                        for (String material : a.getMaterials()) {
+                            
+                            query = "insert into Material_for_Activity(activity,material) values("
+                                    + a.getId() + ",'" + material + "');";
+
+                               stm.executeUpdate(query);
+                        }
+                    }
+                    return true;
         } catch (SQLException ex) {
             return false;
         }
@@ -244,16 +260,15 @@ public class Planner {
 
     public List<Maintainer> getAllMaintainers() {
         List<Maintainer> l = new ArrayList<>();
-        int id;
-        List<String> competencies = new ArrayList<>();
-        
+        int id;        
         try {
             Statement stm = connection.createStatement();
             Statement stm2 = connection.createStatement();
             String query = "select * from Maintainer";
             ResultSet rst = stm.executeQuery(query);
             while(rst.next()){
-                Map<Integer, int[][]> avaibilities = new HashMap<>();
+                Map<Integer, int[][]> avaibilities = new HashMap<>();        
+                List<String> competencies = new ArrayList<>();
                 String name = rst.getString("nome");
                 id = rst.getInt("ID_MAN");
                 ResultSet rst2 = stm2.executeQuery("select * from Competence_for_Maintainer where id_man = " + id);
