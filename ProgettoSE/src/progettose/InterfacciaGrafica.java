@@ -20,7 +20,6 @@ import javax.swing.DefaultListSelectionModel;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
-import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -37,8 +36,14 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         }
     };
 
-    private final DefaultTableModel tb2 = new DefaultTableModel() {
+    private final DefaultTableModel tb3 = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
 
+    private final DefaultTableModel tb2 = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int row, int column) {
             return false;
@@ -72,7 +77,10 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             tendinaMateriali.addItem(m);
 
         }
-
+        GestioneAttività.setResizable(false);
+        creazioneAttività.setResizable(false);
+        assegnaAttività.setResizable(false);
+        assegnaAttività2.setResizable(false);
     }
 
     /**
@@ -85,27 +93,27 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private void initComponents() {
 
         GestioneAttività = new javax.swing.JFrame();
+        buttonCreaAttività = new javax.swing.JButton();
+        buttonMostraAttività = new javax.swing.JButton();
+        buttonCancellaAttività = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tabellaAttività = new javax.swing.JTable();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        textAreaWorkspaceNotesVis = new javax.swing.JTextArea();
+        labelDE = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        listaMaterialiVis = new javax.swing.JList<>();
+        labelML = new javax.swing.JLabel();
+        buttonSMP = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        listaCompetenze = new javax.swing.JList<>();
+        labelCO = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        textAreaDescrizioneAttivitàVis = new javax.swing.JTextArea();
+        labelWO = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         buttonModificaAttività = new javax.swing.JButton();
         buttonAssegna = new javax.swing.JButton();
-        labelWO = new javax.swing.JLabel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        textAreaDescrizioneAttivitàVis = new javax.swing.JTextArea();
-        labelCO = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        listaCompetenze = new javax.swing.JList<>();
-        buttonSMP = new javax.swing.JButton();
-        labelML = new javax.swing.JLabel();
-        jScrollPane8 = new javax.swing.JScrollPane();
-        listaMaterialiVis = new javax.swing.JList<>();
-        labelDE = new javax.swing.JLabel();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        textAreaWorkspaceNotesVis = new javax.swing.JTextArea();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tabellaAttività = new javax.swing.JTable();
-        buttonCancellaAttività = new javax.swing.JButton();
-        buttonMostraAttività = new javax.swing.JButton();
-        buttonCreaAttività = new javax.swing.JButton();
         creazioneAttività = new javax.swing.JFrame();
         tendinaTipoAttività = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
@@ -152,11 +160,141 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         tabellaDisponibilità = new javax.swing.JTable();
         jScrollPane11 = new javax.swing.JScrollPane();
         listaSkills = new javax.swing.JList<>();
+        jButtonAssegnaAttività2 = new javax.swing.JButton();
+        assegnaAttività2 = new javax.swing.JFrame();
+        jPanel3 = new javax.swing.JPanel();
+        labelWeekDisp = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jTextFieldActivityToAssign2 = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        textAreaWorkspaceNotes2 = new javax.swing.JTextArea();
+        jScrollPane12 = new javax.swing.JScrollPane();
+        tabellaDisponibilità2 = new javax.swing.JTable();
+        labelDisponibilità = new javax.swing.JLabel();
+        labelDayDisp = new javax.swing.JLabel();
+        buttonForward = new javax.swing.JButton();
         buttonGestManut = new javax.swing.JButton();
 
         GestioneAttività.setTitle("MENU' GESTIONE ATTIVITA'");
         GestioneAttività.setMinimumSize(new java.awt.Dimension(1246, 650));
+        GestioneAttività.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                GestioneAttivitàWindowClosing(evt);
+            }
+        });
         GestioneAttività.getContentPane().setLayout(null);
+
+        buttonCreaAttività.setText("Crea attività");
+        buttonCreaAttività.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCreaAttivitàActionPerformed(evt);
+            }
+        });
+        GestioneAttività.getContentPane().add(buttonCreaAttività);
+        buttonCreaAttività.setBounds(50, 40, 240, 40);
+
+        buttonMostraAttività.setText("Mostra elenco attività");
+        buttonMostraAttività.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonMostraAttivitàActionPerformed(evt);
+            }
+        });
+        GestioneAttività.getContentPane().add(buttonMostraAttività);
+        buttonMostraAttività.setBounds(50, 90, 240, 40);
+
+        buttonCancellaAttività.setText("Cancella attività");
+        buttonCancellaAttività.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCancellaAttivitàActionPerformed(evt);
+            }
+        });
+        GestioneAttività.getContentPane().add(buttonCancellaAttività);
+        buttonCancellaAttività.setBounds(50, 140, 240, 40);
+
+        tabellaAttività.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tabellaAttività.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        tabellaAttività.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tabellaAttività.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tabellaAttività.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabellaAttivitàMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tabellaAttività);
+
+        GestioneAttività.getContentPane().add(jScrollPane3);
+        jScrollPane3.setBounds(400, 30, 760, 250);
+
+        textAreaWorkspaceNotesVis.setEditable(false);
+        textAreaWorkspaceNotesVis.setColumns(20);
+        textAreaWorkspaceNotesVis.setRows(5);
+        textAreaWorkspaceNotesVis.setBorder(null);
+        jScrollPane7.setViewportView(textAreaWorkspaceNotesVis);
+
+        GestioneAttività.getContentPane().add(jScrollPane7);
+        jScrollPane7.setBounds(280, 450, 270, 150);
+
+        labelDE.setFont(new java.awt.Font("Britannic Bold", 0, 12)); // NOI18N
+        labelDE.setForeground(new java.awt.Color(102, 204, 255));
+        labelDE.setText("DESCRIPTION");
+        GestioneAttività.getContentPane().add(labelDE);
+        labelDE.setBounds(90, 420, 166, 30);
+
+        jScrollPane8.setViewportView(listaMaterialiVis);
+
+        GestioneAttività.getContentPane().add(jScrollPane8);
+        jScrollPane8.setBounds(560, 450, 240, 150);
+
+        labelML.setFont(new java.awt.Font("Britannic Bold", 0, 12)); // NOI18N
+        labelML.setForeground(new java.awt.Color(102, 204, 255));
+        labelML.setText("LISTA MATERIALI");
+        GestioneAttività.getContentPane().add(labelML);
+        labelML.setBounds(640, 420, 130, 30);
+
+        buttonSMP.setText("Mostra SMP");
+        buttonSMP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSMPActionPerformed(evt);
+            }
+        });
+        GestioneAttività.getContentPane().add(buttonSMP);
+        buttonSMP.setBounds(70, 390, 120, 30);
+
+        jScrollPane4.setViewportView(listaCompetenze);
+
+        GestioneAttività.getContentPane().add(jScrollPane4);
+        jScrollPane4.setBounds(810, 450, 240, 150);
+
+        labelCO.setFont(new java.awt.Font("Britannic Bold", 0, 12)); // NOI18N
+        labelCO.setForeground(new java.awt.Color(153, 204, 255));
+        labelCO.setText("COMPETENZE NECESSARIE");
+        GestioneAttività.getContentPane().add(labelCO);
+        labelCO.setBounds(860, 420, 170, 30);
+
+        textAreaDescrizioneAttivitàVis.setEditable(false);
+        textAreaDescrizioneAttivitàVis.setColumns(20);
+        textAreaDescrizioneAttivitàVis.setRows(5);
+        textAreaDescrizioneAttivitàVis.setBorder(null);
+        textAreaDescrizioneAttivitàVis.setDisabledTextColor(new java.awt.Color(102, 102, 255));
+        textAreaDescrizioneAttivitàVis.setSelectionColor(new java.awt.Color(153, 153, 153));
+        jScrollPane5.setViewportView(textAreaDescrizioneAttivitàVis);
+
+        GestioneAttività.getContentPane().add(jScrollPane5);
+        jScrollPane5.setBounds(0, 450, 270, 150);
+
+        labelWO.setFont(new java.awt.Font("Britannic Bold", 0, 12)); // NOI18N
+        labelWO.setForeground(new java.awt.Color(102, 204, 255));
+        labelWO.setText("WORKSPACE NOTES");
+        GestioneAttività.getContentPane().add(labelWO);
+        labelWO.setBounds(360, 420, 166, 30);
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 102));
         jPanel1.setMinimumSize(new java.awt.Dimension(1400, 650));
@@ -179,120 +317,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         });
         jPanel1.add(buttonAssegna);
         buttonAssegna.setBounds(50, 240, 240, 40);
-
-        labelWO.setFont(new java.awt.Font("Britannic Bold", 0, 12)); // NOI18N
-        labelWO.setForeground(new java.awt.Color(102, 204, 255));
-        labelWO.setText("WORKSPACE NOTES");
-        jPanel1.add(labelWO);
-        labelWO.setBounds(360, 420, 166, 30);
-
-        textAreaDescrizioneAttivitàVis.setEditable(false);
-        textAreaDescrizioneAttivitàVis.setColumns(20);
-        textAreaDescrizioneAttivitàVis.setRows(5);
-        textAreaDescrizioneAttivitàVis.setBorder(null);
-        textAreaDescrizioneAttivitàVis.setDisabledTextColor(new java.awt.Color(102, 102, 255));
-        textAreaDescrizioneAttivitàVis.setSelectionColor(new java.awt.Color(153, 153, 153));
-        jScrollPane5.setViewportView(textAreaDescrizioneAttivitàVis);
-
-        jPanel1.add(jScrollPane5);
-        jScrollPane5.setBounds(0, 450, 270, 150);
-
-        labelCO.setFont(new java.awt.Font("Britannic Bold", 0, 12)); // NOI18N
-        labelCO.setForeground(new java.awt.Color(153, 204, 255));
-        labelCO.setText("COMPETENZE NECESSARIE");
-        jPanel1.add(labelCO);
-        labelCO.setBounds(860, 420, 170, 30);
-
-        jScrollPane4.setViewportView(listaCompetenze);
-
-        jPanel1.add(jScrollPane4);
-        jScrollPane4.setBounds(810, 450, 240, 150);
-
-        buttonSMP.setText("Mostra SMP");
-        buttonSMP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSMPActionPerformed(evt);
-            }
-        });
-        jPanel1.add(buttonSMP);
-        buttonSMP.setBounds(70, 390, 120, 30);
-
-        labelML.setFont(new java.awt.Font("Britannic Bold", 0, 12)); // NOI18N
-        labelML.setForeground(new java.awt.Color(102, 204, 255));
-        labelML.setText("LISTA MATERIALI");
-        jPanel1.add(labelML);
-        labelML.setBounds(640, 420, 130, 30);
-
-        jScrollPane8.setViewportView(listaMaterialiVis);
-
-        jPanel1.add(jScrollPane8);
-        jScrollPane8.setBounds(560, 450, 240, 150);
-
-        labelDE.setFont(new java.awt.Font("Britannic Bold", 0, 12)); // NOI18N
-        labelDE.setForeground(new java.awt.Color(102, 204, 255));
-        labelDE.setText("DESCRIPTION");
-        jPanel1.add(labelDE);
-        labelDE.setBounds(90, 420, 166, 30);
-
-        textAreaWorkspaceNotesVis.setEditable(false);
-        textAreaWorkspaceNotesVis.setColumns(20);
-        textAreaWorkspaceNotesVis.setRows(5);
-        textAreaWorkspaceNotesVis.setBorder(null);
-        jScrollPane7.setViewportView(textAreaWorkspaceNotesVis);
-
-        jPanel1.add(jScrollPane7);
-        jScrollPane7.setBounds(280, 450, 270, 150);
-
-        tabellaAttività.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tabellaAttività.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        tabellaAttività.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tabellaAttività.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        tabellaAttività.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabellaAttivitàMouseClicked(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tabellaAttivitàMouseReleased(evt);
-            }
-        });
-        jScrollPane3.setViewportView(tabellaAttività);
-
-        jPanel1.add(jScrollPane3);
-        jScrollPane3.setBounds(400, 30, 760, 250);
-
-        buttonCancellaAttività.setText("Cancella attività");
-        buttonCancellaAttività.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCancellaAttivitàActionPerformed(evt);
-            }
-        });
-        jPanel1.add(buttonCancellaAttività);
-        buttonCancellaAttività.setBounds(50, 140, 240, 40);
-
-        buttonMostraAttività.setText("Mostra elenco attività");
-        buttonMostraAttività.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonMostraAttivitàActionPerformed(evt);
-            }
-        });
-        jPanel1.add(buttonMostraAttività);
-        buttonMostraAttività.setBounds(50, 90, 240, 40);
-
-        buttonCreaAttività.setText("Crea attività");
-        buttonCreaAttività.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCreaAttivitàActionPerformed(evt);
-            }
-        });
-        jPanel1.add(buttonCreaAttività);
-        buttonCreaAttività.setBounds(50, 40, 240, 40);
 
         GestioneAttività.getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 1230, 610);
@@ -456,16 +480,15 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelInterrompibileOra.setBounds(210, 340, 170, 30);
 
         assegnaAttività.setMinimumSize(new java.awt.Dimension(1160, 370));
-        assegnaAttività.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                assegnaAttivitàWindowClosing(evt);
-            }
-        });
+        assegnaAttività.getContentPane().setLayout(null);
 
         jPanel2.setBackground(new java.awt.Color(204, 102, 0));
         jPanel2.setMinimumSize(new java.awt.Dimension(1176, 321));
+        jPanel2.setLayout(null);
 
         jLabel2.setText("Week");
+        jPanel2.add(jLabel2);
+        jLabel2.setBounds(30, 11, 27, 22);
 
         textWeekAssegnata.setEditable(false);
         textWeekAssegnata.addActionListener(new java.awt.event.ActionListener() {
@@ -473,8 +496,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 textWeekAssegnataActionPerformed(evt);
             }
         });
+        jPanel2.add(textWeekAssegnata);
+        textWeekAssegnata.setBounds(67, 12, 54, 20);
 
         jLabel13.setText("Activity to assign");
+        jPanel2.add(jLabel13);
+        jLabel13.setBounds(170, 11, 82, 22);
 
         textAttivitàDaAssegnare.setEditable(false);
         textAttivitàDaAssegnare.addActionListener(new java.awt.event.ActionListener() {
@@ -482,12 +509,18 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 textAttivitàDaAssegnareActionPerformed(evt);
             }
         });
+        jPanel2.add(textAttivitàDaAssegnare);
+        textAttivitàDaAssegnare.setBounds(290, 12, 328, 20);
 
         jLabel15.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
         jLabel15.setText("SKILLS NEEDED");
+        jPanel2.add(jLabel15);
+        jLabel15.setBounds(53, 95, 242, 24);
 
         jLabel16.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
         jLabel16.setText("MAINTAINER AVAILABILITY");
+        jPanel2.add(jLabel16);
+        jLabel16.setBounds(502, 88, 415, 24);
 
         tabellaDisponibilità.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -507,73 +540,113 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         });
         jScrollPane10.setViewportView(tabellaDisponibilità);
 
+        jPanel2.add(jScrollPane10);
+        jScrollPane10.setBounds(306, 123, 701, 190);
+
         jScrollPane11.setViewportView(listaSkills);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(textWeekAssegnata, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(49, 49, 49)
-                        .addComponent(jLabel13)))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(textAttivitàDaAssegnare, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(171, 171, 171)
-                        .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(59, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(147, 147, 147))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textWeekAssegnata, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textAttivitàDaAssegnare, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(55, 55, 55)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel15)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel16)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
+        jPanel2.add(jScrollPane11);
+        jScrollPane11.setBounds(10, 125, 229, 188);
 
-        javax.swing.GroupLayout assegnaAttivitàLayout = new javax.swing.GroupLayout(assegnaAttività.getContentPane());
-        assegnaAttività.getContentPane().setLayout(assegnaAttivitàLayout);
-        assegnaAttivitàLayout.setHorizontalGroup(
-            assegnaAttivitàLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, assegnaAttivitàLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        assegnaAttivitàLayout.setVerticalGroup(
-            assegnaAttivitàLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        jButtonAssegnaAttività2.setText("ASSEGNA");
+        jButtonAssegnaAttività2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAssegnaAttività2ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButtonAssegnaAttività2);
+        jButtonAssegnaAttività2.setBounds(693, 11, 171, 45);
+
+        assegnaAttività.getContentPane().add(jPanel2);
+        jPanel2.setBounds(10, 0, 1183, 324);
+
+        assegnaAttività2.setMinimumSize(new java.awt.Dimension(1233, 428));
+        assegnaAttività2.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                assegnaAttività2WindowClosing(evt);
+            }
+        });
+        assegnaAttività2.getContentPane().setLayout(null);
+
+        jPanel3.setBackground(new java.awt.Color(204, 102, 0));
+        jPanel3.setMinimumSize(new java.awt.Dimension(1233, 428));
+        jPanel3.setLayout(null);
+
+        labelWeekDisp.setBackground(new java.awt.Color(255, 255, 102));
+        labelWeekDisp.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
+        labelWeekDisp.setText("WEEK:");
+        labelWeekDisp.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        labelWeekDisp.setOpaque(true);
+        jPanel3.add(labelWeekDisp);
+        labelWeekDisp.setBounds(10, 13, 220, 26);
+
+        jLabel17.setBackground(new java.awt.Color(255, 255, 102));
+        jLabel17.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
+        jLabel17.setText("Activity to assign");
+        jLabel17.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        jLabel17.setOpaque(true);
+        jPanel3.add(jLabel17);
+        jLabel17.setBounds(240, 10, 230, 30);
+
+        jTextFieldActivityToAssign2.setEditable(false);
+        jPanel3.add(jTextFieldActivityToAssign2);
+        jTextFieldActivityToAssign2.setBounds(480, 10, 334, 30);
+
+        jLabel18.setBackground(new java.awt.Color(255, 255, 102));
+        jLabel18.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
+        jLabel18.setText("Workspace Notes");
+        jLabel18.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        jLabel18.setOpaque(true);
+        jPanel3.add(jLabel18);
+        jLabel18.setBounds(10, 120, 220, 30);
+
+        textAreaWorkspaceNotes2.setColumns(20);
+        textAreaWorkspaceNotes2.setRows(5);
+        jScrollPane9.setViewportView(textAreaWorkspaceNotes2);
+
+        jPanel3.add(jScrollPane9);
+        jScrollPane9.setBounds(10, 150, 222, 166);
+
+        tabellaDisponibilità2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane12.setViewportView(tabellaDisponibilità2);
+
+        jPanel3.add(jScrollPane12);
+        jScrollPane12.setBounds(239, 150, 937, 166);
+
+        labelDisponibilità.setBackground(new java.awt.Color(255, 255, 102));
+        labelDisponibilità.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
+        labelDisponibilità.setText("                           AVAILABILITY OF ");
+        labelDisponibilità.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        labelDisponibilità.setOpaque(true);
+        jPanel3.add(labelDisponibilità);
+        labelDisponibilità.setBounds(240, 120, 937, 30);
+
+        labelDayDisp.setBackground(new java.awt.Color(255, 255, 102));
+        labelDayDisp.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
+        labelDayDisp.setText("DAY:");
+        labelDayDisp.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        labelDayDisp.setOpaque(true);
+        jPanel3.add(labelDayDisp);
+        labelDayDisp.setBounds(10, 63, 220, 30);
+
+        buttonForward.setText("FORWARD");
+        buttonForward.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonForwardActionPerformed(evt);
+            }
+        });
+        jPanel3.add(buttonForward);
+        buttonForward.setBounds(590, 50, 128, 37);
+
+        assegnaAttività2.getContentPane().add(jPanel3);
+        jPanel3.setBounds(0, 0, 1233, 428);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MENU' PRINCIPALE");
@@ -625,7 +698,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelAttivitàOra.setEnabled(false);
         labelInterrompibileOra.setEnabled(false);
         buttonCrea.setText("CREA ATTIVITA'");
+        //*String[] opzioni ={"Planned","EWO","Extra"};
+        //* JOptionPane.showOptionDialog(null, "Scegli il tipo di attività da creare","Selezione tipo di attività", WIDTH, HEIGHT, null, opzioni, EXIT_ON_CLOSE);
+        //* creazioneAttività.setVisible(true);
 
+        // TODO add your handling code here:
     }//GEN-LAST:event_buttonCreaAttivitàActionPerformed
 
     private void fieldTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldTimeActionPerformed
@@ -653,6 +730,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 }
 
             } else {
+                a.setProcedure(p.getActivity(id).getProcedure());
                 if (!p.modifyActivity(a)) {
                     mostraErrore("ERRORE", "ATTIVITA' NON MODIFICATA");
                 } else {
@@ -709,9 +787,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         buttonModificaAttività.setVisible(true);
         buttonAssegna.setVisible(true);
-        while (tb.getRowCount() > 0) {
-            tb.removeRow(0);
-        }
+        svuotaTabella(tb);
         riempiTabella();
         if (tb.getRowCount() == 0) {
             mostraErrore("ERRORE", "Nessuna attività trovata");
@@ -846,14 +922,13 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_tabellaAttivitàMouseClicked
 
     private void buttonAssegnaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAssegnaActionPerformed
+        tabellaDisponibilità.setVisible(false);
         int indice = tabellaAttività.getSelectedRow();
         if (indice == -1) {
             mostraErrore("ERRORE", "Seleziona un'attività dalla tabella!");
         } else {
-            assegnaAttività.setVisible(true);
-            while (tb2.getRowCount() > 0) {
-                tb2.removeRow(0);
-            }
+
+            svuotaTabella(tb2);
 
             tabellaDisponibilità.getColumnModel().setSelectionModel(new DefaultListSelectionModel() {
                 private boolean isSelectable(int indice) {
@@ -876,7 +951,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 }
 
             });
-          
             tabellaDisponibilità.setCellSelectionEnabled(true);
             Activity a = p.getActivity(id);
             listModelSkills.clear();
@@ -891,24 +965,14 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             textWeekAssegnata.setText(String.valueOf(a.getWeek()));
             textAttivitàDaAssegnare.setText(id + " - " + a.getFactorySite() + " - " + a.getArea() + " - " + a.getTypology() + " - " + a.getEstimatedTime() + " mins");
 
-            String[] nomi = {"Maintainer", "Skills", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
-            tb2.setColumnIdentifiers(nomi);
-            tabellaDisponibilità.setModel(tb2);
-            List<Maintainer> maintainers = p.getAllMaintainers();
-            for (Maintainer m : maintainers) {
-                int matrice[][] = m.getAvailability().get(a.getWeek());
-                String competenze;
-                if (a.getProcedure() != null) {
-                    competenze = contaCompetenze(a.getProcedure().getCompetencies(), m.getCompetencies());
-                } else // Se non è associata una procedura all'attività
-                {
-                    competenze = "0/0";
-                }
-                String[] percentuali = calcolaPercentuale(matrice);
-                String[] inserimento = {m.getName(), competenze, percentuali[0], percentuali[1], percentuali[2], percentuali[3], percentuali[4], percentuali[5], percentuali[6]};
-                tb2.addRow(inserimento);
-            }
+            aggiornaTabella2();
 
+            if (tb2.getRowCount() == 0) {
+                mostraErrore("ERRORE", "Nessun manutentore disponibile nella settimana " + a.getWeek());
+                assegnaAttività.setVisible(false);
+            } else {
+                assegnaAttività.setVisible(true);
+            }
         }
     }//GEN-LAST:event_buttonAssegnaActionPerformed
 
@@ -921,30 +985,98 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_textAttivitàDaAssegnareActionPerformed
 
     private void tabellaDisponibilitàMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabellaDisponibilitàMouseClicked
-        //System.out.println(tb2.getValueAt(tabellaDisponibilità.getSelectedRow(), tabellaDisponibilità.getSelectedColumn()));
 
         // TODO add your handling code here:
     }//GEN-LAST:event_tabellaDisponibilitàMouseClicked
 
-    private void assegnaAttivitàWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_assegnaAttivitàWindowClosing
+    private void jButtonAssegnaAttività2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAssegnaAttività2ActionPerformed
+        int indice = tabellaDisponibilità.getSelectedColumn();
+        int colonna = tabellaDisponibilità.getSelectedColumn();
+        int riga = tabellaDisponibilità.getSelectedRow();
+        if (indice == -1) {
+            mostraErrore("ERRORE", "Selezionare un giorno dalla tabella!");
+        } else if (tabellaDisponibilità.getValueAt(riga, colonna).equals("0%")) {
+            mostraErrore("ERRORE", "Il manutentore non ha disponibilità quel giorno, seleziona un altro giorno!");
+        } else {
+            resettaLabelDisp();
+            textAreaWorkspaceNotes2.setEditable(false);
+            tabellaDisponibilità2.getColumnModel().setSelectionModel(new DefaultListSelectionModel() {
+                private boolean isSelectable(int indice) {
+                    return !(indice == 1 || indice == 0);
+                }
 
-    }//GEN-LAST:event_assegnaAttivitàWindowClosing
+                @Override
+                public void setSelectionInterval(int indice1, int indice2) {
+                    if (isSelectable(indice2) && isSelectable(indice1)) {
+                        super.setSelectionInterval(indice1, indice2);
+                    } else {
+                    }
+                }
 
-    private void tabellaAttivitàMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabellaAttivitàMouseReleased
+                @Override
+                public void addSelectionInterval(int indice1, int indice2) {
+                    if (isSelectable(indice1) && isSelectable(indice2)) {
+                        super.addSelectionInterval(indice1, indice2);
+                    }
+                }
 
-    }//GEN-LAST:event_tabellaAttivitàMouseReleased
+            });
+
+            assegnaAttività2.setVisible(true);
+            tabellaDisponibilità.setEnabled(false);
+            Activity a = p.getActivity(id);
+
+            textAreaWorkspaceNotes2.setText(String.valueOf(a.getWorkSpaceNote()));
+            labelWeekDisp.setText(labelWeekDisp.getText() + " " + String.valueOf(a.getWeek()));
+            labelDayDisp.setText(labelDayDisp.getText() + " " + tabellaDisponibilità.getColumnName(colonna));
+            labelDisponibilità.setText((labelDisponibilità.getText()) + " " + tabellaDisponibilità.getValueAt(riga, 0) + " "
+                    + tabellaDisponibilità.getValueAt(riga, colonna));
+            jTextFieldActivityToAssign2.setText(id + " - " + a.getFactorySite() + " - " + a.getArea() + " - "
+                    + a.getTypology() + " - " + a.getEstimatedTime() + " mins");
+
+            tabellaDisponibilità2.setCellSelectionEnabled(true);
+            svuotaTabella(tb3);
+            tabellaDisponibilità2.setRowHeight(50);
+            aggiornaTabella3();
+
+        }
+
+    }//GEN-LAST:event_jButtonAssegnaAttività2ActionPerformed
 
     private void tabellaDisponibilitàMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabellaDisponibilitàMouseReleased
-//System.out.println(tabellaDisponibilità.getSelectedRow()+tabellaDisponibilità.getSelectedColumn());
 
-/*for(int i:tabellaDisponibilità.getSelectedRows()){
-    System.out.println(i);
-}
-for(int i:tabellaDisponibilità.getSelectedColumns()){
-    System.out.println(i);
-}*/
-// TODO add your handling code here:
     }//GEN-LAST:event_tabellaDisponibilitàMouseReleased
+
+    private void buttonForwardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonForwardActionPerformed
+
+        int riga = tabellaDisponibilità.getSelectedRow();
+        int[] oreSelezionate = tabellaDisponibilità2.getSelectedColumns();
+
+        for (int i = 0; i < oreSelezionate.length; i++) {
+            oreSelezionate[i] -= 2;
+
+        }
+
+        if (p.assignedActivityToMaintainer(p.getAllMaintainers().get(riga), p.getActivity(id), tabellaDisponibilità.getSelectedColumn() - 2, oreSelezionate)) {
+            mostraSuccesso("Attività assegnata!", "Attività assegnata con successo");
+            aggiornaTabella2();
+            assegnaAttività2.setVisible(false);
+            tabellaDisponibilità.setEnabled(true);
+        } else {
+            mostraErrore("ERRORE", "Attività non assegnata");
+        }
+
+
+    }//GEN-LAST:event_buttonForwardActionPerformed
+
+    private void GestioneAttivitàWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_GestioneAttivitàWindowClosing
+        svuotaTabella(tb);        // TODO add your handling code here:
+    }//GEN-LAST:event_GestioneAttivitàWindowClosing
+
+    private void assegnaAttività2WindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_assegnaAttività2WindowClosing
+        tabellaDisponibilità.setEnabled(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_assegnaAttività2WindowClosing
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -972,6 +1104,7 @@ for(int i:tabellaDisponibilità.getSelectedColumns()){
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new InterfacciaGrafica().setVisible(true);
             }
@@ -1056,9 +1189,7 @@ for(int i:tabellaDisponibilità.getSelectedColumns()){
     }
 
     private void riempiTabella() {
-        while (tb.getRowCount() > 0) {
-            tb.removeRow(0);
-        }
+        svuotaTabella(tb);
         String[] nomi = {"ID", "Factory Site", "Area", "Typology", "Estimated Time", "Week", "Tipo", "Interrompibile"};
         tb.setColumnIdentifiers(nomi);
         tabellaAttività.setModel(tb);
@@ -1095,9 +1226,10 @@ for(int i:tabellaDisponibilità.getSelectedColumns()){
             for (int j = 0; j <= 6; j++) {
                 sum += m[i][j];
             }
-            percentuali[i] = String.valueOf((int) (sum / 420 * 100)) + "%";
 
+            percentuali[i] = String.valueOf((int) (sum / 420 * 100)) + "%";
             sum = 0;
+
         }
 
         return percentuali;
@@ -1137,14 +1269,80 @@ for(int i:tabellaDisponibilità.getSelectedColumns()){
     private void mostraSuccesso(String titolo, String messaggio) {
         JOptionPane.showMessageDialog(null, messaggio, titolo, INFORMATION_MESSAGE);
     }
+
+    private String getComp(Activity a, Maintainer m) {
+        String competenze;
+        if (a.getProcedure() != null) {
+            competenze = contaCompetenze(a.getProcedure().getCompetencies(), m.getCompetencies());
+        } else // Se non è associata una procedura all'attività
+        {
+            competenze = "0/0";
+        }
+        return competenze;
+    }
+
+    private void svuotaTabella(DefaultTableModel tb) {
+        while (tb.getRowCount() > 0) {
+            tb.removeRow(0);
+        }
+    }
+
+    private void resettaLabelDisp() {
+        labelWeekDisp.setText("WEEK:");
+        labelDayDisp.setText("DAY:");
+        labelDisponibilità.setText("AVAILABILITY OF");
+    }
+
+    private void aggiornaTabella3() {
+        Activity a = p.getActivity(id);
+        Maintainer m = p.getAllMaintainers().get(tabellaDisponibilità.getSelectedRow());
+        int[][] disponibilità = m.getAvailability().get(a.getWeek());
+        int[] ore;
+        if (disponibilità == null) {
+            ore = new int[7];
+        } else {
+            ore = disponibilità[tabellaDisponibilità.getSelectedColumn() - 2];
+        }
+        String[] nomi = {"Maintainer", "Skills", "08:00 to 9:00", "09:00 to 10:00", "10:00 to 11:00", "11:00 to 12:00", "12:00 to 13:00", "13:00 to 14:00", "14:00 to 15:00"};
+        tb3.setColumnIdentifiers(nomi);
+        String competenze = getComp(a, m);
+        String[] inserimento = {m.getName(), competenze, String.valueOf(ore[0]) + " min",
+            String.valueOf(ore[1]) + " min", String.valueOf(ore[2]) + " min",
+            String.valueOf(ore[3]) + " min", String.valueOf(ore[4]) + " min",
+            String.valueOf(ore[5]) + " min", String.valueOf(ore[6]) + " min"};
+        tb3.addRow(inserimento);
+        tabellaDisponibilità2.setModel(tb3);
+
+    }
+
+    private void aggiornaTabella2() {
+        svuotaTabella(tb2);
+        Activity a = p.getActivity(id);
+        String[] nomi = {"Maintainer", "Skills", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+        tb2.setColumnIdentifiers(nomi);
+        tabellaDisponibilità.setModel(tb2);
+        List<Maintainer> maintainers = p.getAllMaintainers();
+        for (Maintainer m : maintainers) {
+            int matrice[][] = m.getAvailability().get(a.getWeek());
+            if (matrice != null) {
+                String competenze = getComp(a, m);
+                String[] percentuali = calcolaPercentuale(matrice);
+                String[] inserimento = {m.getName(), competenze, percentuali[0], percentuali[1], percentuali[2], percentuali[3], percentuali[4], percentuali[5], percentuali[6]};
+                tb2.addRow(inserimento);
+            }
+        }
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFrame GestioneAttività;
     private javax.swing.JFrame assegnaAttività;
+    private javax.swing.JFrame assegnaAttività2;
     private javax.swing.JButton buttonAggiungiMateriale;
     private javax.swing.JButton buttonAssegna;
     private javax.swing.JButton buttonCancellaAttività;
     private javax.swing.JButton buttonCrea;
     private javax.swing.JButton buttonCreaAttività;
+    private javax.swing.JButton buttonForward;
     private javax.swing.JButton buttonGestManut;
     private javax.swing.JButton buttonModificaAttività;
     private javax.swing.JButton buttonMostraAttività;
@@ -1156,6 +1354,7 @@ for(int i:tabellaDisponibilità.getSelectedColumns()){
     private javax.swing.JTextField fieldID;
     private javax.swing.JTextField fieldTime;
     private javax.swing.JTextField fieldWeek;
+    private javax.swing.JButton jButtonAssegnaAttività2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1163,6 +1362,8 @@ for(int i:tabellaDisponibilità.getSelectedColumns()){
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1173,9 +1374,11 @@ for(int i:tabellaDisponibilità.getSelectedColumns()){
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
+    private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -1183,20 +1386,26 @@ for(int i:tabellaDisponibilità.getSelectedColumns()){
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
+    private javax.swing.JTextField jTextFieldActivityToAssign2;
     private javax.swing.JLabel labelAttivitàOra;
     private javax.swing.JLabel labelCO;
     private javax.swing.JLabel labelDE;
+    private javax.swing.JLabel labelDayDisp;
+    private javax.swing.JLabel labelDisponibilità;
     private javax.swing.JLabel labelID;
     private javax.swing.JLabel labelInterrompibileOra;
     private javax.swing.JLabel labelML;
     private javax.swing.JLabel labelTipologiaOra;
     private javax.swing.JLabel labelWO;
+    private javax.swing.JLabel labelWeekDisp;
     private javax.swing.JList<String> listaCompetenze;
     private javax.swing.JList<String> listaMateriali;
     private javax.swing.JList<String> listaMaterialiVis;
     private javax.swing.JList<String> listaSkills;
     private javax.swing.JTable tabellaAttività;
     private javax.swing.JTable tabellaDisponibilità;
+    private javax.swing.JTable tabellaDisponibilità2;
     private javax.swing.JComboBox<String> tendinaInterrompibile;
     private javax.swing.JComboBox<String> tendinaMateriali;
     private javax.swing.JComboBox<String> tendinaTipoAttività;
@@ -1204,6 +1413,7 @@ for(int i:tabellaDisponibilità.getSelectedColumns()){
     private javax.swing.JTextArea textAreaDescrizioneAttività;
     private javax.swing.JTextArea textAreaDescrizioneAttivitàVis;
     private javax.swing.JTextArea textAreaWorkspace;
+    private javax.swing.JTextArea textAreaWorkspaceNotes2;
     private javax.swing.JTextArea textAreaWorkspaceNotesVis;
     private javax.swing.JTextField textAttivitàDaAssegnare;
     private javax.swing.JTextField textWeekAssegnata;
