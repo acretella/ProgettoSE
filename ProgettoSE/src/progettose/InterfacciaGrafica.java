@@ -6,8 +6,6 @@
 package progettose;
 
 import static java.awt.Color.black;
-import static java.awt.Color.red;
-import static java.awt.Color.white;
 import java.awt.Desktop;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
@@ -22,7 +20,6 @@ import javax.swing.DefaultListSelectionModel;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
-import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -163,25 +160,26 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jButtonAssegnaAttività2 = new javax.swing.JButton();
         assegnaAttività2 = new javax.swing.JFrame();
         jPanel3 = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
-        jTextFieldWeek2 = new javax.swing.JTextField();
-        jTextFieldNameDay = new javax.swing.JTextField();
-        jTextFieldNumberDay = new javax.swing.JTextField();
+        labelWeekDisp = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jTextFieldActivityToAssign2 = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         jScrollPane9 = new javax.swing.JScrollPane();
-        jTextAreaWorkspaceNotes2 = new javax.swing.JTextArea();
+        textAreaWorkspaceNotes2 = new javax.swing.JTextArea();
         jScrollPane12 = new javax.swing.JScrollPane();
         tabellaDisponibilità2 = new javax.swing.JTable();
-        jTextFieldNomeMan = new javax.swing.JTextField();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jTextFieldPercentuale = new javax.swing.JTextField();
+        labelDisponibilità = new javax.swing.JLabel();
+        labelDayDisp = new javax.swing.JLabel();
+        buttonForward = new javax.swing.JButton();
         buttonGestManut = new javax.swing.JButton();
 
         GestioneAttività.setTitle("MENU' GESTIONE ATTIVITA'");
         GestioneAttività.setMinimumSize(new java.awt.Dimension(1246, 650));
+        GestioneAttività.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                GestioneAttivitàWindowClosing(evt);
+            }
+        });
         GestioneAttività.getContentPane().setLayout(null);
 
         buttonCreaAttività.setText("Crea attività");
@@ -335,31 +333,31 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel1.setText("Tipo di attività");
         creazioneAttività.getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 40, 144, 13);
+        jLabel1.setBounds(10, 40, 144, 14);
 
         labelID.setText("Activity ID");
         creazioneAttività.getContentPane().add(labelID);
-        labelID.setBounds(10, 90, 70, 13);
+        labelID.setBounds(10, 90, 70, 14);
 
         jLabel3.setText("Factory site");
         creazioneAttività.getContentPane().add(jLabel3);
-        jLabel3.setBounds(10, 130, 80, 13);
+        jLabel3.setBounds(10, 130, 80, 14);
 
         jLabel4.setText("Area");
         creazioneAttività.getContentPane().add(jLabel4);
-        jLabel4.setBounds(10, 170, 60, 13);
+        jLabel4.setBounds(10, 170, 60, 14);
 
         jLabel5.setText("Typology");
         creazioneAttività.getContentPane().add(jLabel5);
-        jLabel5.setBounds(10, 210, 70, 13);
+        jLabel5.setBounds(10, 210, 70, 14);
 
         jLabel6.setText("Activity description");
         creazioneAttività.getContentPane().add(jLabel6);
-        jLabel6.setBounds(500, 40, 140, 13);
+        jLabel6.setBounds(500, 40, 140, 14);
 
         jLabel7.setText("Time");
         creazioneAttività.getContentPane().add(jLabel7);
-        jLabel7.setBounds(10, 260, 50, 13);
+        jLabel7.setBounds(10, 260, 50, 14);
 
         jLabel8.setText("Interruptible");
         creazioneAttività.getContentPane().add(jLabel8);
@@ -371,11 +369,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel10.setText("Week");
         creazioneAttività.getContentPane().add(jLabel10);
-        jLabel10.setBounds(10, 300, 50, 13);
+        jLabel10.setBounds(10, 300, 50, 14);
 
         jLabel11.setText("Workspace notes");
         creazioneAttività.getContentPane().add(jLabel11);
-        jLabel11.setBounds(820, 40, 140, 13);
+        jLabel11.setBounds(820, 40, 140, 14);
 
         fieldID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -519,6 +517,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabellaDisponibilitàMouseClicked(evt);
             }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tabellaDisponibilitàMouseReleased(evt);
+            }
         });
         jScrollPane10.setViewportView(tabellaDisponibilità);
 
@@ -603,28 +604,25 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        assegnaAttività2.setMinimumSize(new java.awt.Dimension(1000, 500));
+        assegnaAttività2.setMinimumSize(new java.awt.Dimension(1233, 428));
 
         jPanel3.setBackground(new java.awt.Color(204, 102, 0));
+        jPanel3.setMinimumSize(new java.awt.Dimension(1233, 428));
 
-        jLabel14.setText("WEEK");
+        labelWeekDisp.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
+        labelWeekDisp.setText("WEEK:");
 
-        jTextFieldWeek2.setEditable(false);
-
-        jTextFieldNameDay.setEditable(false);
-
-        jTextFieldNumberDay.setEditable(false);
-
+        jLabel17.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
         jLabel17.setText("Activity to assign");
 
         jTextFieldActivityToAssign2.setEditable(false);
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
         jLabel18.setText("Workspace Notes");
 
-        jTextAreaWorkspaceNotes2.setColumns(20);
-        jTextAreaWorkspaceNotes2.setRows(5);
-        jScrollPane9.setViewportView(jTextAreaWorkspaceNotes2);
+        textAreaWorkspaceNotes2.setColumns(20);
+        textAreaWorkspaceNotes2.setRows(5);
+        jScrollPane9.setViewportView(textAreaWorkspaceNotes2);
 
         tabellaDisponibilità2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -636,18 +634,16 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         ));
         jScrollPane12.setViewportView(tabellaDisponibilità2);
 
-        jTextFieldNomeMan.setEditable(false);
+        labelDisponibilità.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
+        labelDisponibilità.setText("AVAILABILITY OF ");
 
-        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel20.setText("AVAILABILITY OF :");
+        labelDayDisp.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
+        labelDayDisp.setText("DAY:");
 
-        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel19.setText("=");
-
-        jTextFieldPercentuale.setEditable(false);
-        jTextFieldPercentuale.addActionListener(new java.awt.event.ActionListener() {
+        buttonForward.setText("FORWARD");
+        buttonForward.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldPercentualeActionPerformed(evt);
+                buttonForwardActionPerformed(evt);
             }
         });
 
@@ -659,63 +655,58 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldWeek2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jTextFieldNameDay)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextFieldNumberDay, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(76, 76, 76)
-                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldActivityToAssign2, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(67, 67, 67)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 709, Short.MAX_VALUE)
+                            .addComponent(jLabel18)
+                            .addComponent(labelWeekDisp, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldNomeMan, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel19)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldPercentuale, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addGap(57, 57, 57))
+                                .addGap(17, 17, 17)
+                                .addComponent(jLabel17)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextFieldActivityToAssign2, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(labelDisponibilità, javax.swing.GroupLayout.PREFERRED_SIZE, 739, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(70, 70, 70))))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+                            .addComponent(labelDayDisp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 937, Short.MAX_VALUE)
+                                .addGap(57, 57, 57))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(buttonForward, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(206, 206, 206))))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldWeek2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelWeekDisp, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldActivityToAssign2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldActivityToAssign2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(labelDayDisp, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(buttonForward, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldNameDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldNumberDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextFieldNomeMan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextFieldPercentuale, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(labelDisponibilità, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout assegnaAttività2Layout = new javax.swing.GroupLayout(assegnaAttività2.getContentPane());
@@ -867,9 +858,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         buttonModificaAttività.setVisible(true);
         buttonAssegna.setVisible(true);
-        while (tb.getRowCount() > 0) {
-            tb.removeRow(0);
-        }
+        svuotaTabella(tb);
         riempiTabella();
         if (tb.getRowCount() == 0) {
             mostraErrore("ERRORE", "Nessuna attività trovata");
@@ -1009,9 +998,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             mostraErrore("ERRORE", "Seleziona un'attività dalla tabella!");
         } else {
             assegnaAttività.setVisible(true);
-            while (tb2.getRowCount() > 0) {
-                tb2.removeRow(0);
-            }
+            svuotaTabella(tb2);
 
             tabellaDisponibilità.getColumnModel().setSelectionModel(new DefaultListSelectionModel() {
                 private boolean isSelectable(int indice) {
@@ -1054,13 +1041,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             List<Maintainer> maintainers = p.getAllMaintainers();
             for (Maintainer m : maintainers) {
                 int matrice[][] = m.getAvailability().get(a.getWeek());
-                String competenze;
-                if (a.getProcedure() != null) {
-                    competenze = contaCompetenze(a.getProcedure().getCompetencies(), m.getCompetencies());
-                } else // Se non è associata una procedura all'attività
-                {
-                    competenze = "0/0";
-                }
+                String competenze = getComp(a, m);
                 String[] percentuali = calcolaPercentuale(matrice);
                 String[] inserimento = {m.getName(), competenze, percentuali[0], percentuali[1], percentuali[2], percentuali[3], percentuali[4], percentuali[5], percentuali[6]};
                 tb2.addRow(inserimento);
@@ -1078,44 +1059,93 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_textAttivitàDaAssegnareActionPerformed
 
     private void tabellaDisponibilitàMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabellaDisponibilitàMouseClicked
-        System.out.println(tb2.getValueAt(tabellaDisponibilità.getSelectedRow(), tabellaDisponibilità.getSelectedColumn()));
 
         // TODO add your handling code here:
     }//GEN-LAST:event_tabellaDisponibilitàMouseClicked
 
     private void jButtonAssegnaAttività2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAssegnaAttività2ActionPerformed
         int indice = tabellaDisponibilità.getSelectedColumn();
+        int colonna = tabellaDisponibilità.getSelectedColumn();
+        int riga = tabellaDisponibilità.getSelectedRow();
         if (indice == -1) {
             mostraErrore("ERRORE", "Selezionare un giorno dalla tabella!");
+        } else if (tabellaDisponibilità.getValueAt(riga, colonna).equals("0%")) {
+            mostraErrore("ERRORE", "Il manutentore non ha disponibilità quel giorno, seleziona un altro giorno!");
         } else {
+            resettaLabelDisp();
+            textAreaWorkspaceNotes2.setEditable(false);
+            tabellaDisponibilità2.getColumnModel().setSelectionModel(new DefaultListSelectionModel() {
+                private boolean isSelectable(int indice) {
+                    return !(indice == 1 || indice == 0);
+                }
+
+                @Override
+                public void setSelectionInterval(int indice1, int indice2) {
+                    if (isSelectable(indice2) && isSelectable(indice1)) {
+                        super.setSelectionInterval(indice1, indice2);
+                    } else {
+                    }
+                }
+
+                @Override
+                public void addSelectionInterval(int indice1, int indice2) {
+                    if (isSelectable(indice1) && isSelectable(indice2)) {
+                        super.addSelectionInterval(indice1, indice2);
+                    }
+                }
+
+            });
+
             assegnaAttività2.setVisible(true);
+
             Activity a = p.getActivity(id);
-            jTextAreaWorkspaceNotes2.setText(String.valueOf(a.getWorkSpaceNote()));
-            jTextFieldWeek2.setText(String.valueOf(a.getWeek()));
-            jTextFieldActivityToAssign2.setText(id + " - " + a.getFactorySite() + " - " + a.getArea() + " - " + a.getTypology() + " - " + a.getEstimatedTime() + " mins");
+            Maintainer m = p.getAllMaintainers().get(riga);
+            int[][] disponibilità = m.getAvailability().get(a.getWeek());
+            int[] ore = disponibilità[colonna - 2];
+
+            textAreaWorkspaceNotes2.setText(String.valueOf(a.getWorkSpaceNote()));
+            labelWeekDisp.setText(labelWeekDisp.getText() + " " + String.valueOf(a.getWeek()));
+            labelDayDisp.setText(labelDayDisp.getText() + " " + tabellaDisponibilità.getColumnName(colonna));
+            labelDisponibilità.setText((labelDisponibilità.getText()) + " " + tabellaDisponibilità.getValueAt(riga, 0) + " "
+                    + tabellaDisponibilità.getValueAt(riga, colonna));
+            jTextFieldActivityToAssign2.setText(id + " - " + a.getFactorySite() + " - " + a.getArea() + " - "
+                    + a.getTypology() + " - " + a.getEstimatedTime() + " mins");
+
             tabellaDisponibilità2.setCellSelectionEnabled(true);
-            jTextFieldNameDay.setText(tabellaDisponibilità.getColumnName(tabellaDisponibilità.getSelectedColumn()));
-            jTextFieldNomeMan.setText((String) tabellaDisponibilità.getValueAt(tabellaDisponibilità.getSelectedRow(),0));
-            jTextFieldPercentuale.setText((String) tabellaDisponibilità.getValueAt(tabellaDisponibilità.getSelectedRow(),tabellaDisponibilità.getSelectedColumn()));
-            jTextFieldNumberDay.setText(tipo);
-            while (tb3.getRowCount() > 0) {
-                tb3.removeRow(0);
-            }
-            String[] nomi = {"Maintainer", "Skills", "08:00 to 9:00", "09:00 to 10:00", "10:00 to 11:00", "11:00 to 12:00", "12:00 to 13:00", "13:00 to 14:00", "14:00 to 15:00"};
-            tb3.setColumnIdentifiers(nomi);
-            tabellaDisponibilità2.setModel(tb3);
-            Maintainer m = p.getAllMaintainers().get(tabellaDisponibilità.getSelectedRow());
-            m.getAvailability();
-            
-            String[] inserimento = {jTextFieldNomeMan.getText(), ""};
+            svuotaTabella(tb3);
+            tabellaDisponibilità2.setRowHeight(50);
+            aggiornaTabella3(a, m, ore);
 
         }
 
     }//GEN-LAST:event_jButtonAssegnaAttività2ActionPerformed
 
-    private void jTextFieldPercentualeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPercentualeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldPercentualeActionPerformed
+    private void tabellaDisponibilitàMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabellaDisponibilitàMouseReleased
+
+    }//GEN-LAST:event_tabellaDisponibilitàMouseReleased
+
+    private void buttonForwardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonForwardActionPerformed
+
+        int riga = tabellaDisponibilità.getSelectedRow();
+        int[] oreSelezionate = tabellaDisponibilità2.getSelectedColumns();
+
+        for (int i = 0; i < oreSelezionate.length; i++) {
+            oreSelezionate[i] -= 2;
+
+        }
+
+        if (p.assignedActivityToMaintainer(p.getAllMaintainers().get(riga), p.getActivity(id), tabellaDisponibilità.getSelectedColumn() - 2, oreSelezionate)) {
+            mostraSuccesso("Attività assegnata!", "Attività assegnata con successo");
+        } else {
+            mostraErrore("ERRORE", "Attività non assegnata");
+        }
+
+
+    }//GEN-LAST:event_buttonForwardActionPerformed
+
+    private void GestioneAttivitàWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_GestioneAttivitàWindowClosing
+        svuotaTabella(tb);        // TODO add your handling code here:
+    }//GEN-LAST:event_GestioneAttivitàWindowClosing
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1228,9 +1258,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }
 
     private void riempiTabella() {
-        while (tb.getRowCount() > 0) {
-            tb.removeRow(0);
-        }
+        svuotaTabella(tb);
         String[] nomi = {"ID", "Factory Site", "Area", "Typology", "Estimated Time", "Week", "Tipo", "Interrompibile"};
         tb.setColumnIdentifiers(nomi);
         tabellaAttività.setModel(tb);
@@ -1267,7 +1295,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             for (int j = 0; j <= 6; j++) {
                 sum += m[i][j];
             }
+
             percentuali[i] = String.valueOf((int) (sum / 420 * 100)) + "%";
+            sum = 0;
 
             sum = 0;
         }
@@ -1309,6 +1339,41 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private void mostraSuccesso(String titolo, String messaggio) {
         JOptionPane.showMessageDialog(null, messaggio, titolo, INFORMATION_MESSAGE);
     }
+
+    private String getComp(Activity a, Maintainer m) {
+        String competenze;
+        if (a.getProcedure() != null) {
+            competenze = contaCompetenze(a.getProcedure().getCompetencies(), m.getCompetencies());
+        } else // Se non è associata una procedura all'attività
+        {
+            competenze = "0/0";
+        }
+        return competenze;
+    }
+
+    private void svuotaTabella(DefaultTableModel tb) {
+        while (tb.getRowCount() > 0) {
+            tb.removeRow(0);
+        }
+    }
+
+    private void resettaLabelDisp() {
+        labelWeekDisp.setText("WEEK:");
+        labelDayDisp.setText("DAY:");
+        labelDisponibilità.setText("AVAILABILITY OF");
+    }
+
+    private void aggiornaTabella3(Activity a, Maintainer m, int[] ore) {
+        String[] nomi = {"Maintainer", "Skills", "08:00 to 9:00", "09:00 to 10:00", "10:00 to 11:00", "11:00 to 12:00", "12:00 to 13:00", "13:00 to 14:00", "14:00 to 15:00"};
+        tb3.setColumnIdentifiers(nomi);
+        String competenze = getComp(a, m);
+        String[] inserimento = {m.getName(), competenze, String.valueOf(ore[0]) + " min",
+            String.valueOf(ore[1]) + " min", String.valueOf(ore[2]) + " min",
+            String.valueOf(ore[3]) + " min", String.valueOf(ore[4]) + " min",
+            String.valueOf(ore[5]) + " min", String.valueOf(ore[6]) + " min"};
+        tb3.addRow(inserimento);
+        tabellaDisponibilità2.setModel(tb3);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFrame GestioneAttività;
     private javax.swing.JFrame assegnaAttività;
@@ -1318,6 +1383,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JButton buttonCancellaAttività;
     private javax.swing.JButton buttonCrea;
     private javax.swing.JButton buttonCreaAttività;
+    private javax.swing.JButton buttonForward;
     private javax.swing.JButton buttonGestManut;
     private javax.swing.JButton buttonModificaAttività;
     private javax.swing.JButton buttonMostraAttività;
@@ -1335,14 +1401,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1365,21 +1428,18 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JTextArea jTextAreaWorkspaceNotes2;
     private javax.swing.JTextField jTextFieldActivityToAssign2;
-    private javax.swing.JTextField jTextFieldNameDay;
-    private javax.swing.JTextField jTextFieldNomeMan;
-    private javax.swing.JTextField jTextFieldNumberDay;
-    private javax.swing.JTextField jTextFieldPercentuale;
-    private javax.swing.JTextField jTextFieldWeek2;
     private javax.swing.JLabel labelAttivitàOra;
     private javax.swing.JLabel labelCO;
     private javax.swing.JLabel labelDE;
+    private javax.swing.JLabel labelDayDisp;
+    private javax.swing.JLabel labelDisponibilità;
     private javax.swing.JLabel labelID;
     private javax.swing.JLabel labelInterrompibileOra;
     private javax.swing.JLabel labelML;
     private javax.swing.JLabel labelTipologiaOra;
     private javax.swing.JLabel labelWO;
+    private javax.swing.JLabel labelWeekDisp;
     private javax.swing.JList<String> listaCompetenze;
     private javax.swing.JList<String> listaMateriali;
     private javax.swing.JList<String> listaMaterialiVis;
@@ -1394,6 +1454,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JTextArea textAreaDescrizioneAttività;
     private javax.swing.JTextArea textAreaDescrizioneAttivitàVis;
     private javax.swing.JTextArea textAreaWorkspace;
+    private javax.swing.JTextArea textAreaWorkspaceNotes2;
     private javax.swing.JTextArea textAreaWorkspaceNotesVis;
     private javax.swing.JTextField textAttivitàDaAssegnare;
     private javax.swing.JTextField textWeekAssegnata;
