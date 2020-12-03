@@ -61,6 +61,7 @@ public class Planner {
                     stm.executeUpdate(query);
                 }
             }
+            
             return true;
         } catch (SQLException ex) {
             return false;

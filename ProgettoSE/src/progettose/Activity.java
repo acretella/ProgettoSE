@@ -73,6 +73,10 @@ public class Activity {
         return materials;
     }
 
+    public void setProcedure(Procedure procedure) {
+        this.procedure = procedure;
+    }
+
     public String getWorkSpaceNote() {
         return workSpaceNote;
     }
