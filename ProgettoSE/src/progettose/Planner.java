@@ -53,14 +53,7 @@ public class Planner {
             }
             stm.executeUpdate(query);
 
-            if (!a.getMaterials().isEmpty()) {
-                for (String material : a.getMaterials()) {
-                    query = "insert into Material_for_Activity(activity,material) values("
-                            + a.getId() + ",'" + material + "');";
-
-                    stm.executeUpdate(query);
-                }
-            }
+            updateMaterials(a);
             
             return true;
         } catch (SQLException ex) {
@@ -243,18 +236,24 @@ public class Planner {
                     query = "delete from Material_for_Activity where activity= "+ a.getId();
                     stm.executeUpdate(query);
                     
-                    if (!a.getMaterials().isEmpty()) {
-                        for (String material : a.getMaterials()) {
-                            
-                            query = "insert into Material_for_Activity(activity,material) values("
-                                    + a.getId() + ",'" + material + "');";
-
-                               stm.executeUpdate(query);
-                        }
-                    }
+                    updateMaterials(a);
                     return true;
         } catch (SQLException ex) {
             return false;
+        }
+    }
+    
+    private void updateMaterials(Activity a) throws SQLException{
+        String query=  " ";
+        Statement stm = connection.createStatement();
+        if (!a.getMaterials().isEmpty()) {
+            for (String material : a.getMaterials()) {
+
+                query = "insert into Material_for_Activity(activity,material) values("
+                        + a.getId() + ",'" + material + "');";
+
+                   stm.executeUpdate(query);
+            }
         }
     }
 
