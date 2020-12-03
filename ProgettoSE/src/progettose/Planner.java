@@ -250,13 +250,14 @@ public class Planner {
         List<Maintainer> l = new ArrayList<>();
         int id;
         List<String> competencies = new ArrayList<>();
-        Map<Integer, int[][]> avaibilities = new HashMap<>();
+        
         try {
             Statement stm = connection.createStatement();
             Statement stm2 = connection.createStatement();
             String query = "select * from Maintainer";
             ResultSet rst = stm.executeQuery(query);
             while(rst.next()){
+                Map<Integer, int[][]> avaibilities = new HashMap<>();
                 String name = rst.getString("nome");
                 id = rst.getInt("ID_MAN");
                 ResultSet rst2 = stm2.executeQuery("select * from Competence_for_Maintainer where id_man = " + id);
@@ -285,6 +286,7 @@ public class Planner {
                 }
                 avaibilities.put(temp, value); //per non perdere l'ultima settimana di disponibilità
                 l.add(new Maintainer(name, competencies, avaibilities));
+               
             }
             return l;
         } catch (SQLException ex) {
