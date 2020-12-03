@@ -15,8 +15,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -47,8 +45,7 @@ public class Planner {
                         + " values(" + a.getId() + ",'" + a.getFactorySite() + "','" + a.getArea() + "','" + a.getTypology() + "','"
                         + a.getActivityDescription() + "'," + a.getEstimatedTime() + "," + a.getWeek() + "," + a.isInterruptable() + ",'" + a.getWorkSpaceNote()
                         + "'," + a.getType() + ",null" + ");";
-            } else // se all'attività è associata una procedura
-            {
+            } else{ // se all'attività è associata una procedura
                 query = "insert into Activity(id_,factorySite,area,typology,description,estimatedTime,week,interruptable,workSpaceNotes,activityType,procedura)"
                         + " values(" + a.getId() + ",'" + a.getFactorySite() + "','" + a.getArea() + "','" + a.getTypology() + "','"
                         + a.getActivityDescription() + "'," + a.getEstimatedTime() + "," + a.getWeek() + "," + a.isInterruptable() + ",'" + a.getWorkSpaceNote()
@@ -57,15 +54,14 @@ public class Planner {
             stm.executeUpdate(query);
 
             if (!a.getMaterials().isEmpty()) {
-
                 for (String material : a.getMaterials()) {
                     query = "insert into Material_for_Activity(activity,material) values("
                             + a.getId() + ",'" + material + "');";
 
                     stm.executeUpdate(query);
                 }
-
             }
+            
             return true;
         } catch (SQLException ex) {
             return false;
