@@ -236,7 +236,23 @@ public class Planner {
                         "',estimatedTime="+a.getEstimatedTime()+",week="+a.getWeek()+",interruptable="+a.isInterruptable()+
                         ",workSpaceNotes='"+a.getWorkSpaceNote()+"',activityType="+a.getType()+
                     ",procedura="+idproc+" where id_="+a.getId()+";";
-            return stm.executeUpdate(query) != 0;
+             
+                    if(stm.executeUpdate(query) == 0)
+                        return false;
+                    
+                    query = "delete from Material_for_Activity where activity= "+ a.getId();
+                    stm.executeUpdate(query);
+                    
+                    if (!a.getMaterials().isEmpty()) {
+                        for (String material : a.getMaterials()) {
+                            
+                            query = "insert into Material_for_Activity(activity,material) values("
+                                    + a.getId() + ",'" + material + "');";
+
+                               stm.executeUpdate(query);
+                        }
+                    }
+                    return true;
         } catch (SQLException ex) {
             return false;
         }
