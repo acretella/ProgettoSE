@@ -480,11 +480,15 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelInterrompibileOra.setBounds(210, 340, 170, 30);
 
         assegnaAttività.setMinimumSize(new java.awt.Dimension(1160, 370));
+        assegnaAttività.getContentPane().setLayout(null);
 
         jPanel2.setBackground(new java.awt.Color(204, 102, 0));
         jPanel2.setMinimumSize(new java.awt.Dimension(1176, 321));
+        jPanel2.setLayout(null);
 
         jLabel2.setText("Week");
+        jPanel2.add(jLabel2);
+        jLabel2.setBounds(30, 11, 27, 22);
 
         textWeekAssegnata.setEditable(false);
         textWeekAssegnata.addActionListener(new java.awt.event.ActionListener() {
@@ -492,8 +496,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 textWeekAssegnataActionPerformed(evt);
             }
         });
+        jPanel2.add(textWeekAssegnata);
+        textWeekAssegnata.setBounds(67, 12, 54, 20);
 
         jLabel13.setText("Activity to assign");
+        jPanel2.add(jLabel13);
+        jLabel13.setBounds(170, 11, 82, 22);
 
         textAttivitàDaAssegnare.setEditable(false);
         textAttivitàDaAssegnare.addActionListener(new java.awt.event.ActionListener() {
@@ -501,12 +509,18 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 textAttivitàDaAssegnareActionPerformed(evt);
             }
         });
+        jPanel2.add(textAttivitàDaAssegnare);
+        textAttivitàDaAssegnare.setBounds(290, 12, 328, 20);
 
         jLabel15.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
         jLabel15.setText("SKILLS NEEDED");
+        jPanel2.add(jLabel15);
+        jLabel15.setBounds(53, 95, 242, 24);
 
         jLabel16.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
         jLabel16.setText("MAINTAINER AVAILABILITY");
+        jPanel2.add(jLabel16);
+        jLabel16.setBounds(502, 88, 415, 24);
 
         tabellaDisponibilità.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -526,7 +540,13 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         });
         jScrollPane10.setViewportView(tabellaDisponibilità);
 
+        jPanel2.add(jScrollPane10);
+        jScrollPane10.setBounds(306, 123, 701, 190);
+
         jScrollPane11.setViewportView(listaSkills);
+
+        jPanel2.add(jScrollPane11);
+        jScrollPane11.setBounds(10, 125, 229, 188);
 
         jButtonAssegnaAttività2.setText("ASSEGNA");
         jButtonAssegnaAttività2.addActionListener(new java.awt.event.ActionListener() {
@@ -534,78 +554,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 jButtonAssegnaAttività2ActionPerformed(evt);
             }
         });
+        jPanel2.add(jButtonAssegnaAttività2);
+        jButtonAssegnaAttività2.setBounds(693, 11, 171, 45);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(textWeekAssegnata, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(49, 49, 49)
-                                .addComponent(jLabel13)))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(38, 38, 38)
-                                .addComponent(textAttivitàDaAssegnare, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(75, 75, 75)
-                                .addComponent(jButtonAssegnaAttività2, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(54, 54, 54)
-                                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(207, 207, 207)
-                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(176, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(textWeekAssegnata, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(textAttivitàDaAssegnare, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButtonAssegnaAttività2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel16)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel15)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout assegnaAttivitàLayout = new javax.swing.GroupLayout(assegnaAttività.getContentPane());
-        assegnaAttività.getContentPane().setLayout(assegnaAttivitàLayout);
-        assegnaAttivitàLayout.setHorizontalGroup(
-            assegnaAttivitàLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, assegnaAttivitàLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        assegnaAttivitàLayout.setVerticalGroup(
-            assegnaAttivitàLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        assegnaAttività.getContentPane().add(jPanel2);
+        jPanel2.setBounds(10, 0, 1183, 324);
 
         assegnaAttività2.setMinimumSize(new java.awt.Dimension(1233, 428));
         assegnaAttività2.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -613,24 +566,46 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 assegnaAttività2WindowClosing(evt);
             }
         });
+        assegnaAttività2.getContentPane().setLayout(null);
 
         jPanel3.setBackground(new java.awt.Color(204, 102, 0));
         jPanel3.setMinimumSize(new java.awt.Dimension(1233, 428));
+        jPanel3.setLayout(null);
 
+        labelWeekDisp.setBackground(new java.awt.Color(255, 255, 102));
         labelWeekDisp.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
         labelWeekDisp.setText("WEEK:");
+        labelWeekDisp.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        labelWeekDisp.setOpaque(true);
+        jPanel3.add(labelWeekDisp);
+        labelWeekDisp.setBounds(10, 13, 220, 26);
 
+        jLabel17.setBackground(new java.awt.Color(255, 255, 102));
         jLabel17.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
         jLabel17.setText("Activity to assign");
+        jLabel17.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        jLabel17.setOpaque(true);
+        jPanel3.add(jLabel17);
+        jLabel17.setBounds(240, 10, 230, 30);
 
         jTextFieldActivityToAssign2.setEditable(false);
+        jPanel3.add(jTextFieldActivityToAssign2);
+        jTextFieldActivityToAssign2.setBounds(480, 10, 334, 30);
 
+        jLabel18.setBackground(new java.awt.Color(255, 255, 102));
         jLabel18.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
         jLabel18.setText("Workspace Notes");
+        jLabel18.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        jLabel18.setOpaque(true);
+        jPanel3.add(jLabel18);
+        jLabel18.setBounds(10, 120, 220, 30);
 
         textAreaWorkspaceNotes2.setColumns(20);
         textAreaWorkspaceNotes2.setRows(5);
         jScrollPane9.setViewportView(textAreaWorkspaceNotes2);
+
+        jPanel3.add(jScrollPane9);
+        jScrollPane9.setBounds(10, 150, 222, 166);
 
         tabellaDisponibilità2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -642,11 +617,24 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         ));
         jScrollPane12.setViewportView(tabellaDisponibilità2);
 
-        labelDisponibilità.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
-        labelDisponibilità.setText("AVAILABILITY OF ");
+        jPanel3.add(jScrollPane12);
+        jScrollPane12.setBounds(239, 150, 937, 166);
 
+        labelDisponibilità.setBackground(new java.awt.Color(255, 255, 102));
+        labelDisponibilità.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
+        labelDisponibilità.setText("                           AVAILABILITY OF ");
+        labelDisponibilità.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        labelDisponibilità.setOpaque(true);
+        jPanel3.add(labelDisponibilità);
+        labelDisponibilità.setBounds(240, 120, 937, 30);
+
+        labelDayDisp.setBackground(new java.awt.Color(255, 255, 102));
         labelDayDisp.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
         labelDayDisp.setText("DAY:");
+        labelDayDisp.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        labelDayDisp.setOpaque(true);
+        jPanel3.add(labelDayDisp);
+        labelDayDisp.setBounds(10, 63, 220, 30);
 
         buttonForward.setText("FORWARD");
         buttonForward.addActionListener(new java.awt.event.ActionListener() {
@@ -654,80 +642,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 buttonForwardActionPerformed(evt);
             }
         });
+        jPanel3.add(buttonForward);
+        buttonForward.setBounds(590, 50, 128, 37);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel18)
-                            .addComponent(labelWeekDisp, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(59, 59, 59)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(jLabel17)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextFieldActivityToAssign2, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(labelDisponibilità, javax.swing.GroupLayout.PREFERRED_SIZE, 739, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(70, 70, 70))))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
-                            .addComponent(labelDayDisp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 937, Short.MAX_VALUE)
-                                .addGap(57, 57, 57))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(buttonForward, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(206, 206, 206))))))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelWeekDisp, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldActivityToAssign2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(labelDayDisp, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(buttonForward, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelDisponibilità, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE))
-                .addContainerGap(116, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout assegnaAttività2Layout = new javax.swing.GroupLayout(assegnaAttività2.getContentPane());
-        assegnaAttività2.getContentPane().setLayout(assegnaAttività2Layout);
-        assegnaAttività2Layout.setHorizontalGroup(
-            assegnaAttività2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        assegnaAttività2Layout.setVerticalGroup(
-            assegnaAttività2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        assegnaAttività2.getContentPane().add(jPanel3);
+        jPanel3.setBounds(0, 0, 1233, 428);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MENU' PRINCIPALE");
@@ -1002,7 +921,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_tabellaAttivitàMouseClicked
 
     private void buttonAssegnaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAssegnaActionPerformed
-
+        tabellaDisponibilità.setVisible(false);
         int indice = tabellaAttività.getSelectedRow();
         if (indice == -1) {
             mostraErrore("ERRORE", "Seleziona un'attività dalla tabella!");
