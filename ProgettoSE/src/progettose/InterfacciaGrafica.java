@@ -103,7 +103,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jScrollPane8 = new javax.swing.JScrollPane();
         listaMaterialiVis = new javax.swing.JList<>();
         labelML = new javax.swing.JLabel();
-        buttonSMP = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         listaCompetenze = new javax.swing.JList<>();
         labelCO = new javax.swing.JLabel();
@@ -114,6 +113,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         buttonAssegna = new javax.swing.JButton();
         labelWO = new javax.swing.JLabel();
         labelDE = new javax.swing.JLabel();
+        buttonSMP = new javax.swing.JButton();
         creazioneAttività = new javax.swing.JFrame();
         tendinaTipoAttività = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
@@ -254,15 +254,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         GestioneAttività.getContentPane().add(labelML);
         labelML.setBounds(560, 420, 240, 30);
 
-        buttonSMP.setText("Mostra SMP");
-        buttonSMP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSMPActionPerformed(evt);
-            }
-        });
-        GestioneAttività.getContentPane().add(buttonSMP);
-        buttonSMP.setBounds(70, 390, 120, 30);
-
         jScrollPane4.setViewportView(listaCompetenze);
 
         GestioneAttività.getContentPane().add(jScrollPane4);
@@ -315,11 +306,21 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         labelDE.setBackground(new java.awt.Color(0, 204, 204));
         labelDE.setFont(new java.awt.Font("Britannic Bold", 0, 12)); // NOI18N
-        labelDE.setForeground(new java.awt.Color(102, 204, 255));
+        labelDE.setForeground(new java.awt.Color(153, 255, 153));
         labelDE.setText("                       DESCRIPTION");
+        labelDE.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 255, 51), 2));
         labelDE.setOpaque(true);
         jPanel1.add(labelDE);
         labelDE.setBounds(0, 420, 270, 30);
+
+        buttonSMP.setText("Mostra SMP");
+        buttonSMP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSMPActionPerformed(evt);
+            }
+        });
+        jPanel1.add(buttonSMP);
+        buttonSMP.setBounds(70, 380, 120, 30);
 
         GestioneAttività.getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 1230, 610);
@@ -482,11 +483,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         creazioneAttività.getContentPane().add(labelInterrompibileOra);
         labelInterrompibileOra.setBounds(210, 340, 170, 30);
 
-        assegnaAttività.setMinimumSize(new java.awt.Dimension(1160, 370));
+        assegnaAttività.setMinimumSize(new java.awt.Dimension(1058, 350));
         assegnaAttività.getContentPane().setLayout(null);
 
         jPanel2.setBackground(new java.awt.Color(204, 102, 0));
-        jPanel2.setMinimumSize(new java.awt.Dimension(1176, 321));
+        jPanel2.setMinimumSize(new java.awt.Dimension(1058, 350));
         jPanel2.setLayout(null);
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 102));
@@ -575,7 +576,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jButtonAssegnaAttività2.setBounds(40, 50, 171, 40);
 
         assegnaAttività.getContentPane().add(jPanel2);
-        jPanel2.setBounds(10, 0, 1176, 321);
+        jPanel2.setBounds(-4, 0, 1060, 350);
 
         assegnaAttività2.setMinimumSize(new java.awt.Dimension(1233, 428));
         assegnaAttività2.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -793,6 +794,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                     mostraErrore("ERRORE", "Non è stato possibile cancellare l'attività");
                 } else {
                     mostraSuccesso("CANCELLAZIONE EFFETTUATA", "Attività cancellata con successo!");
+                    riempiTabella();
                 }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Inserisci un ID valido", "ERRORE", ERROR_MESSAGE);
@@ -941,6 +943,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_tabellaAttivitàMouseClicked
 
     private void buttonAssegnaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAssegnaActionPerformed
+
         
         int indice = tabellaAttività.getSelectedRow();
         if (indice == -1) {
