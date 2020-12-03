@@ -730,6 +730,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 }
 
             } else {
+                a.setProcedure(p.getActivity(id).getProcedure());
                 if (!p.modifyActivity(a)) {
                     mostraErrore("ERRORE", "ATTIVITA' NON MODIFICATA");
                 } else {
