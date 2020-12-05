@@ -36,7 +36,7 @@ public class Planner {
 
     }
 
-    public boolean createActivity(Activity a) {
+    public void createActivity(Activity a) throws Exception {
         try {
             Statement stm = connection.createStatement();
             String query;
@@ -55,9 +55,11 @@ public class Planner {
 
             updateMaterials(a);
             
-            return true;
         } catch (SQLException ex) {
-            return false;
+            if(ex.getMessage().contains("check_id"))
+                throw new Exception("Errore sull'id dell'attività");
+            else if (ex.getMessage().contains("check_week"))
+                throw new Exception("La settimana deve essere compresa fra 1 e 52");
         }
 
     }
