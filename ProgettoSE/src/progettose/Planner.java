@@ -349,11 +349,13 @@ public class Planner {
                     stm3.executeUpdate(query);
                     } catch (SQLException ex) {
                         if(ex.getMessage().contains("maintainer_for_activity_pkey"))
-                            throw new Exception("L'aativita è gia stata assegnata a "+ m.getName());
+                            throw new Exception("L'attività è gia stata assegnata a "+ m.getName());
+                        else
+                            throw new Exception("L'attività non può essere assegnata");
                     }
             }           
         }
-        throw new Exception("non c'è disponibilità per il manutentore nell'arco di tempo selezionato");
+        throw new Exception("Non c'è disponibilità per il manutentore nell'arco di tempo selezionato");
     }
   
 }
