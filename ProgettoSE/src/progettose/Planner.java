@@ -242,8 +242,8 @@ public class Planner {
                     
                     updateMaterials(a);
         } catch (SQLException ex) {
-            if(ex.getMessage().contains("check_id"))
-                throw new Exception("Esiste già un attività con id = "+a.getId());
+            if(ex.getMessage().contains("check_week"))
+                throw new Exception("La settimana deve essere compresa fra 1 e 52");
             else
                 throw new Exception("L'attività non può essere modificata");
         }
