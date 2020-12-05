@@ -336,31 +336,31 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel1.setText("Tipo di attività");
         creazioneAttività.getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 40, 144, 14);
+        jLabel1.setBounds(10, 40, 144, 13);
 
         labelID.setText("Activity ID");
         creazioneAttività.getContentPane().add(labelID);
-        labelID.setBounds(10, 90, 70, 14);
+        labelID.setBounds(10, 90, 70, 13);
 
         jLabel3.setText("Factory site");
         creazioneAttività.getContentPane().add(jLabel3);
-        jLabel3.setBounds(10, 130, 80, 14);
+        jLabel3.setBounds(10, 130, 80, 13);
 
         jLabel4.setText("Area");
         creazioneAttività.getContentPane().add(jLabel4);
-        jLabel4.setBounds(10, 170, 60, 14);
+        jLabel4.setBounds(10, 170, 60, 13);
 
         jLabel5.setText("Typology");
         creazioneAttività.getContentPane().add(jLabel5);
-        jLabel5.setBounds(10, 210, 70, 14);
+        jLabel5.setBounds(10, 210, 70, 13);
 
         jLabel6.setText("Activity description");
         creazioneAttività.getContentPane().add(jLabel6);
-        jLabel6.setBounds(500, 40, 140, 14);
+        jLabel6.setBounds(500, 40, 140, 13);
 
         jLabel7.setText("Time");
         creazioneAttività.getContentPane().add(jLabel7);
-        jLabel7.setBounds(10, 260, 50, 14);
+        jLabel7.setBounds(10, 260, 50, 13);
 
         jLabel8.setText("Interruptible");
         creazioneAttività.getContentPane().add(jLabel8);
@@ -372,11 +372,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel10.setText("Week");
         creazioneAttività.getContentPane().add(jLabel10);
-        jLabel10.setBounds(10, 300, 50, 14);
+        jLabel10.setBounds(10, 300, 50, 13);
 
         jLabel11.setText("Workspace notes");
         creazioneAttività.getContentPane().add(jLabel11);
-        jLabel11.setBounds(820, 40, 140, 14);
+        jLabel11.setBounds(820, 40, 140, 13);
 
         fieldID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -488,7 +488,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel2.setText("Week");
         jPanel2.add(jLabel2);
-        jLabel2.setBounds(30, 11, 27, 22);
+        jLabel2.setBounds(20, 10, 40, 22);
 
         textWeekAssegnata.setEditable(false);
         textWeekAssegnata.addActionListener(new java.awt.event.ActionListener() {
@@ -497,11 +497,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         jPanel2.add(textWeekAssegnata);
-        textWeekAssegnata.setBounds(67, 12, 54, 20);
+        textWeekAssegnata.setBounds(67, 12, 54, 19);
 
         jLabel13.setText("Activity to assign");
         jPanel2.add(jLabel13);
-        jLabel13.setBounds(170, 11, 82, 22);
+        jLabel13.setBounds(170, 11, 76, 22);
 
         textAttivitàDaAssegnare.setEditable(false);
         textAttivitàDaAssegnare.addActionListener(new java.awt.event.ActionListener() {
@@ -510,7 +510,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         jPanel2.add(textAttivitàDaAssegnare);
-        textAttivitàDaAssegnare.setBounds(290, 12, 328, 20);
+        textAttivitàDaAssegnare.setBounds(290, 12, 328, 19);
 
         jLabel15.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
         jLabel15.setText("SKILLS NEEDED");
@@ -558,7 +558,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jButtonAssegnaAttività2.setBounds(693, 11, 171, 45);
 
         assegnaAttività.getContentPane().add(jPanel2);
-        jPanel2.setBounds(10, 0, 1183, 324);
+        jPanel2.setBounds(10, 0, 1176, 321);
 
         assegnaAttività2.setMinimumSize(new java.awt.Dimension(1233, 428));
         assegnaAttività2.addWindowListener(new java.awt.event.WindowAdapter() {
