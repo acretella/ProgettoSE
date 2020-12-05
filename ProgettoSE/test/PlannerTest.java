@@ -251,8 +251,7 @@ public class PlannerTest {
     
     @Test(expected=Exception.class)
     public void TestNeg2ModifyActivity() throws Exception{
-        try {
-            Activity activity = new Activity(42,
+        Activity activity = new Activity(42,
                     "branch office",
                     "departement",
                     "electrical",
@@ -263,13 +262,16 @@ public class PlannerTest {
                     true,
                     "lllllll",
                     null);
+        try {
             p.createActivity(activity);
             activity.setWeek(53);
             p.modifyActivity(activity);
-            p.deleteActivity(activity.getId());
         } catch (Exception ex) {
             assertTrue(ex.getMessage().equals("La settimana deve essere compresa fra 1 e 52"));
             throw new Exception();
+        }
+        finally{
+            p.deleteActivity(activity.getId());
         }
     }
     
@@ -329,10 +331,17 @@ public class PlannerTest {
                 true,
                 "lllllll",
                 null);
+        
         p.createActivity(a);
         int ore[] = new int[2];
         ore[0]=1;ore[1]=2;
-        assertEquals(p.assignedActivityToMaintainer(m,a, 1,ore),true);
-        p.deleteActivity(a.getId());
+        try {
+            p.assignedActivityToMaintainer(m,a, 1,ore);
+        } catch (Exception ex) {
+            assertEquals(true,false);
+        }
+        finally{
+            p.deleteActivity(a.getId());
+        }
     }
 }
