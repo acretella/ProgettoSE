@@ -41,6 +41,10 @@ public class Activity {
         this.procedure = procedure;
     }
 
+    public void setWeek(int week) {
+        this.week = week;
+    }
+
     public int getId() {
         return id;
     }

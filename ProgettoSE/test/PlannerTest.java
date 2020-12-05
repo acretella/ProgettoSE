@@ -57,17 +57,20 @@ public class PlannerTest {
                 l,
                 false,
                 "lllllll",
-                proc);
-        
-        assertTrue(p.createActivity(activity) == true);
+                proc);        
+        try {
+            p.createActivity(activity);
+        } catch (Exception ex) {
+            assertEquals(true,false);
+        }
         p.deleteActivity(activity.getId());
     }
     
    @Test(expected=Exception.class)
-    public void testNegCreateActivity(){
+    public void testNegCreateActivity() throws Exception{
         List <String> l = new ArrayList<>();
         Procedure proc = null;
-        Activity activity = new Activity(1,
+        Activity activity = new Activity(2,
                 "branch office",
                 "departement",
                 "electrical",
@@ -79,9 +82,7 @@ public class PlannerTest {
                 "lllllll",
                 proc);
         
-        p.createActivity(activity);
-        
-        Activity activity2 = new Activity(1,
+        Activity activity2 = new Activity(2,
                 "branch office",
                 "departement",
                 "electrical",
@@ -91,16 +92,45 @@ public class PlannerTest {
                 l,
                 true,
                 "lllllll",
-                proc);
+                proc);            
+        try {
+            p.createActivity(activity);        
+            p.createActivity(activity2);
+        } catch (Exception ex) {
+            assertTrue(ex.getMessage().equals("Esiste già un attività con id = "+ activity.getId()));
+            throw ex;
+        }
+        finally{
+            p.deleteActivity(activity.getId());
+    
+        }
+    }
+    
+    @Test(expected=Exception.class)
+    public void TestNeg2CreateActivity() throws Exception{
+        Activity activity = new Activity(47,
+                "branch office",
+                "departement",
+                "electrical",
+                "aaaaaaaa",
+                100,
+                53,
+                new ArrayList<String>(),
+                true,
+                "lllllll",
+                null);
         
+        try {
+            p.createActivity(activity);
+        } catch (Exception ex) {
+            assertTrue(ex.getMessage().equals("La settimana deve essere compresa fra 1 e 52"));
+            throw ex;
+        }
         
-        
-        assertTrue(p.createActivity(activity2) == false);
-        p.deleteActivity(1);
     }
 
     @Test
-    public void testPosDeleteActivity(){
+    public void testPosDeleteActivity() throws Exception{
         List <String> l = new ArrayList<>();
         Procedure proc = null;   
         Activity activity = new Activity(55,
@@ -115,13 +145,15 @@ public class PlannerTest {
                 "lllllll",
                 proc);
         
+        
         p.createActivity(activity);
+
                 
         assertTrue(p.deleteActivity(55)== true);
     }
     
     @Test
-    public void testGetAllActivities(){
+    public void testGetAllActivities() throws Exception{
         Procedure proc = null;
         Activity a = new PlannedActivity(18,
                 "branch office",
@@ -142,6 +174,7 @@ public class PlannerTest {
         for (Activity act : list)
             str += act.getId() + " ";
         System.out.println(str);
+        p.deleteActivity(a.getId());
     }
      
     @Test 
@@ -151,7 +184,7 @@ public class PlannerTest {
     }
     
     @Test
-    public void testPosGetActivity(){
+    public void testPosGetActivity() throws Exception{
         Procedure proc = null;
         Activity a = new PlannedActivity(12,
                 "branch office",
@@ -175,7 +208,7 @@ public class PlannerTest {
     }
     
     @Test
-    public void testPosModifyActivity(){
+    public void testPosModifyActivity() throws Exception{
         List <String> l = new ArrayList<>();
         Procedure proc = null;
         Activity a = new Activity(2,
@@ -192,12 +225,12 @@ public class PlannerTest {
         
         p.createActivity(a);
         a.setType(2);
-        assertTrue(p.modifyActivity(a) == true);
+        p.modifyActivity(a);
         p.deleteActivity(a.getId());
     }
     
-    @Test
-    public void TestNegModifyActivity(){
+    @Test(expected=Exception.class)
+    public void TestNegModifyActivity() throws Exception {
         //modifico attività non presente nel DB
         List <String> l = new ArrayList<>();
         Procedure proc = null;
@@ -212,11 +245,36 @@ public class PlannerTest {
                 true,
                 "lllllll",
                 proc);
-        assertTrue(p.modifyActivity(activity) == false);
+        
+        p.modifyActivity(activity);
+    }
+    
+    @Test(expected=Exception.class)
+    public void TestNeg2ModifyActivity() throws Exception{
+        try {
+            Activity activity = new Activity(42,
+                    "branch office",
+                    "departement",
+                    "electrical",
+                    "aaaaaaaa",
+                    100,
+                    1,
+                    new ArrayList<>(),
+                    true,
+                    "lllllll",
+                    null);
+            p.createActivity(activity);
+            activity.setWeek(53);
+            p.modifyActivity(activity);
+            p.deleteActivity(activity.getId());
+        } catch (Exception ex) {
+            assertTrue(ex.getMessage().equals("La settimana deve essere compresa fra 1 e 52"));
+            throw new Exception();
+        }
     }
     
     @Test
-    public void isThereAFile(){
+    public void isThereAFile() throws Exception{
         //Questo test può essere eseguito soltanto se il database contiente già una procedura con id=1
         Procedure proc= new Procedure(1,null,null);
         Activity activity = new Activity(46,
@@ -257,7 +315,7 @@ public class PlannerTest {
     }
     
     @Test
-    public void testAssignedActivity(){
+    public void testAssignedActivity() throws Exception{
         //Questo test può essere eseguito soltanto se il database contiente già un manutentore con disponibilità
         Maintainer m = p.getAllMaintainers().get(0);
         Activity a = new Activity(99,
@@ -275,5 +333,6 @@ public class PlannerTest {
         int ore[] = new int[2];
         ore[0]=1;ore[1]=2;
         assertEquals(p.assignedActivityToMaintainer(m,a, 1,ore),true);
+        p.deleteActivity(a.getId());
     }
 }

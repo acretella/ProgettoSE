@@ -235,7 +235,7 @@ public class Planner {
                     ",procedura="+idproc+" where id_="+a.getId()+";";
              
                     if(stm.executeUpdate(query) == 0)
-                        return;
+                        throw new Exception("Nessuna modifica effettuata");
                     
                     query = "delete from Material_for_Activity where activity= "+ a.getId();
                     stm.executeUpdate(query);
@@ -312,7 +312,7 @@ public class Planner {
 
     }
     
-    public boolean assignedActivityToMaintainer(Maintainer m, Activity a, int giorno, int ore[]){
+    public void assignedActivityToMaintainer(Maintainer m, Activity a, int giorno, int ore[]) throws Exception{
         int avaibility[][] = m.getAvailability().get(a.getWeek()); 
         int daily [] = avaibility[giorno];
         int timeLeft = a.getEstimatedTime();
@@ -325,12 +325,12 @@ public class Planner {
                 daily[ore[i]] -= timeLeft;
                 //Aggiorno il db
                 int id = 0;
-                try {
-                    Statement stm = connection.createStatement();
-                    ResultSet rst = stm.executeQuery("select * from Maintainer where nome = '" + m.getName()+"'");
-                    rst.next();
-                    id= rst.getInt("ID_MAN");
-                } catch (SQLException ex) {return false;}
+                
+                Statement stm = connection.createStatement();
+                ResultSet rst = stm.executeQuery("select * from Maintainer where nome = '" + m.getName()+"'");
+                rst.next();
+                id= rst.getInt("ID_MAN");
+                
                 try{
                     for (int j=0; j<=6; j++){
                         for (int k=0; k<=6; k++){
@@ -347,11 +347,13 @@ public class Planner {
                     Statement stm3 = connection.createStatement();
                     String query = "insert into Maintainer_for_Activity(maintainer,activity) values("+id+","+a.getId()+");";
                     stm3.executeUpdate(query);
-                    return true;
-                    } catch (SQLException ex) {System.out.println(ex.getMessage());return false;}
+                    } catch (SQLException ex) {
+                        if(ex.getMessage().contains("maintainer_for_activity_pkey"))
+                            throw new Exception("L'aativita è gia stata assegnata a "+ m.getName());
+                    }
             }           
         }
-        return false; //In base al tempo stimato dall'attività non c'è disponibilità per il manutentore nell'arco di tempo selezionato
+        throw new Exception("non c'è disponibilità per il manutentore nell'arco di tempo selezionato");
     }
   
 }
