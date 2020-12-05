@@ -123,12 +123,10 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         fieldID = new javax.swing.JTextField();
         fieldFactorySite = new javax.swing.JTextField();
         fieldArea = new javax.swing.JTextField();
@@ -145,12 +143,15 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         listaMateriali = new javax.swing.JList<>();
         tendinaInterrompibile = new javax.swing.JComboBox<>();
-        jLabel12 = new javax.swing.JLabel();
         buttonRimuoviMateriale = new javax.swing.JButton();
         labelAttivitàOra = new javax.swing.JLabel();
         labelTipologiaOra = new javax.swing.JLabel();
         labelInterrompibileOra = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
         assegnaAttività = new javax.swing.JFrame();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -177,6 +178,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelDisponibilità = new javax.swing.JLabel();
         labelDayDisp = new javax.swing.JLabel();
         buttonForward = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         buttonGestManut = new javax.swing.JButton();
 
@@ -403,10 +405,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         creazioneAttività.getContentPane().add(jLabel5);
         jLabel5.setBounds(10, 210, 70, 14);
 
-        jLabel6.setText("Activity description");
-        creazioneAttività.getContentPane().add(jLabel6);
-        jLabel6.setBounds(500, 40, 140, 14);
-
         jLabel7.setText("Time");
         creazioneAttività.getContentPane().add(jLabel7);
         jLabel7.setBounds(10, 260, 50, 14);
@@ -422,10 +420,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jLabel10.setText("Week");
         creazioneAttività.getContentPane().add(jLabel10);
         jLabel10.setBounds(10, 300, 50, 14);
-
-        jLabel11.setText("Workspace notes");
-        creazioneAttività.getContentPane().add(jLabel11);
-        jLabel11.setBounds(820, 40, 140, 14);
 
         fieldID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -488,7 +482,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jScrollPane6.setViewportView(textAreaDescrizioneAttività);
 
         creazioneAttività.getContentPane().add(jScrollPane6);
-        jScrollPane6.setBounds(425, 69, 250, 140);
+        jScrollPane6.setBounds(425, 69, 260, 140);
 
         tendinaTipologia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Electrical", "Electronic", "Hydraulic", "Mechanical" }));
         creazioneAttività.getContentPane().add(tendinaTipologia);
@@ -502,10 +496,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         tendinaInterrompibile.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Si", "No" }));
         creazioneAttività.getContentPane().add(tendinaInterrompibile);
         tendinaInterrompibile.setBounds(90, 340, 90, 30);
-
-        jLabel12.setText("Material list");
-        creazioneAttività.getContentPane().add(jLabel12);
-        jLabel12.setBounds(520, 270, 100, 30);
 
         buttonRimuoviMateriale.setText("Rimuovi");
         buttonRimuoviMateriale.addActionListener(new java.awt.event.ActionListener() {
@@ -528,19 +518,37 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         creazioneAttività.getContentPane().add(labelInterrompibileOra);
         labelInterrompibileOra.setBounds(210, 340, 170, 30);
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1240, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 550, Short.MAX_VALUE)
-        );
+        jPanel6.setBackground(new java.awt.Color(204, 153, 255));
+        jPanel6.setLayout(null);
+        creazioneAttività.getContentPane().add(jPanel6);
+        jPanel6.setBounds(10, 0, 350, 570);
+
+        jPanel5.setBackground(new java.awt.Color(0, 0, 204));
+        jPanel5.setLayout(null);
+
+        jLabel12.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
+        jLabel12.setText("ACTIVITY DESCRIPTION");
+        jLabel12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jLabel12.setOpaque(true);
+        jPanel5.add(jLabel12);
+        jLabel12.setBounds(80, 40, 260, 30);
+
+        jLabel19.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
+        jLabel19.setText("      MATERIAL LIST");
+        jLabel19.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jLabel19.setOpaque(true);
+        jPanel5.add(jLabel19);
+        jLabel19.setBounds(80, 270, 240, 30);
+
+        jLabel20.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
+        jLabel20.setText("  WORKSPACE NOTES");
+        jLabel20.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jLabel20.setOpaque(true);
+        jPanel5.add(jLabel20);
+        jLabel20.setBounds(390, 40, 250, 30);
 
         creazioneAttività.getContentPane().add(jPanel5);
-        jPanel5.setBounds(0, 0, 1240, 550);
+        jPanel5.setBounds(350, 0, 880, 570);
 
         assegnaAttività.setMinimumSize(new java.awt.Dimension(1058, 350));
         assegnaAttività.getContentPane().setLayout(null);
@@ -725,6 +733,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         assegnaAttività2.getContentPane().add(jPanel3);
         jPanel3.setBounds(0, 0, 1233, 428);
 
+        jLabel14.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
+        jLabel14.setText("      MATERIAL LIST");
+        jLabel14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jLabel14.setOpaque(true);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MENU' PRINCIPALE");
         setMinimumSize(new java.awt.Dimension(410, 210));
@@ -826,7 +839,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                     mostraSuccesso("ATTIVITA' MODIFICATA", "Hai modificato l'attività correttamente");
                     creazioneAttività.dispatchEvent(new WindowEvent(creazioneAttività, WindowEvent.WINDOW_CLOSING));
                 } catch (Exception ex) {
-                    mostraErrore("ERRORE",ex.getMessage());
+                    mostraErrore("ERRORE", ex.getMessage());
                 }
 
             }
@@ -1152,13 +1165,14 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         }
 
-        if (p.assignedActivityToMaintainer(p.getAllMaintainers().get(riga), p.getActivity(id), tabellaDisponibilità.getSelectedColumn() - 2, oreSelezionate)) {
+        try {
+            p.assignedActivityToMaintainer(p.getAllMaintainers().get(riga), p.getActivity(id), tabellaDisponibilità.getSelectedColumn() - 2, oreSelezionate);
             mostraSuccesso("Attività assegnata!", "Attività assegnata con successo");
             aggiornaTabella2();
             assegnaAttività2.setVisible(false);
             tabellaDisponibilità.setEnabled(true);
-        } else {
-            mostraErrore("ERRORE", "Attività non assegnata");
+        } catch (Exception ex) {
+            mostraErrore("ERRORE", ex.getMessage());
         }
 
 
@@ -1453,18 +1467,19 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAssegnaAttività2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -1473,6 +1488,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;

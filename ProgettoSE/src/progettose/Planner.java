@@ -347,6 +347,7 @@ public class Planner {
                     Statement stm3 = connection.createStatement();
                     String query = "insert into Maintainer_for_Activity(maintainer,activity) values("+id+","+a.getId()+");";
                     stm3.executeUpdate(query);
+                    return;
                     } catch (SQLException ex) {
                         if(ex.getMessage().contains("maintainer_for_activity_pkey"))
                             throw new Exception("L'attività è gia stata assegnata a "+ m.getName());
