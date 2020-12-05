@@ -815,19 +815,23 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                     mostraErrore("ERRORE", ex.getMessage());
                 }
 
-
             } else {
                 a.setProcedure(p.getActivity(id).getProcedure());
 
-                if (!p.modifyActivity(a)) {
+                try {
+                    p.modifyActivity(a);
                     mostraErrore("ERRORE", "ATTIVITA' NON MODIFICATA");
-                } else {
+
                     svuota();
                     mostraSuccesso("ATTIVITA' MODIFICATA", "Hai modificato l'attività correttamente");
                     creazioneAttività.dispatchEvent(new WindowEvent(creazioneAttività, WindowEvent.WINDOW_CLOSING));
+                } catch (Exception ex) {
+                    mostraErrore("ERRORE",ex.getMessage());
                 }
+
             }
         }
+
     }//GEN-LAST:event_buttonCreaActionPerformed
 
     private void buttonAggiungiMaterialeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAggiungiMaterialeActionPerformed
