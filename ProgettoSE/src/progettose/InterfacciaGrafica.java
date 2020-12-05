@@ -220,7 +220,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         );
 
         GestioneAttività.getContentPane().add(panelCopertura2);
-        panelCopertura2.setBounds(0, 370, 1060, 240);
+        panelCopertura2.setBounds(0, 370, 0, 0);
 
         buttonCreaAttività.setText("Crea attività");
         buttonCreaAttività.addActionListener(new java.awt.event.ActionListener() {
@@ -807,17 +807,18 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             if (a == null) {
                 mostraErrore("ERRORE", "Input non corretti!");
             } else if (buttonCrea.getText().equals("CREA ATTIVITA'")) {
-                if (!p.createActivity(a)) {
-                    mostraErrore("ERRORE", "ATTIVITA' NON CREATA CORRETTAMENTE");
-                } else {
+                try {
+                    p.createActivity(a);
                     svuota();
                     mostraSuccesso("ATTIVITA' CREATA", "Hai creato l'attività correttamente!");
-
+                } catch (Exception ex) {
+                    mostraErrore("ERRORE", ex.getMessage());
                 }
+
 
             } else {
                 a.setProcedure(p.getActivity(id).getProcedure());
-             
+
                 if (!p.modifyActivity(a)) {
                     mostraErrore("ERRORE", "ATTIVITA' NON MODIFICATA");
                 } else {
@@ -873,7 +874,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
     private void buttonMostraAttivitàActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMostraAttivitàActionPerformed
         panelCopertura.setVisible(false);
-        
+
         buttonModificaAttività.setVisible(true);
         buttonAssegna.setVisible(true);
         svuotaTabella(tb);
@@ -980,7 +981,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonSMPActionPerformed
 
     private void tabellaAttivitàMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabellaAttivitàMouseClicked
-       panelCopertura2.setVisible(false);
+        panelCopertura2.setVisible(false);
         listModelVis.clear();
         listModelComp.clear();
         DefaultTableModel tb = (DefaultTableModel) tabellaAttività.getModel();
@@ -1013,7 +1014,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
     private void buttonAssegnaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAssegnaActionPerformed
 
-        
         int indice = tabellaAttività.getSelectedRow();
         if (indice == -1) {
             mostraErrore("ERRORE", "Seleziona un'attività dalla tabella!");
