@@ -93,6 +93,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private void initComponents() {
 
         GestioneAttività = new javax.swing.JFrame();
+        panelCopertura = new javax.swing.JPanel();
+        panelCopertura2 = new javax.swing.JPanel();
         buttonCreaAttività = new javax.swing.JButton();
         buttonMostraAttività = new javax.swing.JButton();
         buttonCancellaAttività = new javax.swing.JButton();
@@ -100,20 +102,20 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         tabellaAttività = new javax.swing.JTable();
         jScrollPane7 = new javax.swing.JScrollPane();
         textAreaWorkspaceNotesVis = new javax.swing.JTextArea();
-        labelDE = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
         listaMaterialiVis = new javax.swing.JList<>();
-        labelML = new javax.swing.JLabel();
-        buttonSMP = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         listaCompetenze = new javax.swing.JList<>();
-        labelCO = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         textAreaDescrizioneAttivitàVis = new javax.swing.JTextArea();
-        labelWO = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         buttonModificaAttività = new javax.swing.JButton();
         buttonAssegna = new javax.swing.JButton();
+        labelDE = new javax.swing.JLabel();
+        buttonSMP = new javax.swing.JButton();
+        labelCO = new javax.swing.JLabel();
+        labelWO = new javax.swing.JLabel();
+        labelML = new javax.swing.JLabel();
         creazioneAttività = new javax.swing.JFrame();
         tendinaTipoAttività = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
@@ -148,6 +150,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelAttivitàOra = new javax.swing.JLabel();
         labelTipologiaOra = new javax.swing.JLabel();
         labelInterrompibileOra = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
         assegnaAttività = new javax.swing.JFrame();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -174,16 +177,50 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelDisponibilità = new javax.swing.JLabel();
         labelDayDisp = new javax.swing.JLabel();
         buttonForward = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
         buttonGestManut = new javax.swing.JButton();
 
         GestioneAttività.setTitle("MENU' GESTIONE ATTIVITA'");
         GestioneAttività.setMinimumSize(new java.awt.Dimension(1246, 650));
+        GestioneAttività.setResizable(false);
         GestioneAttività.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 GestioneAttivitàWindowClosing(evt);
             }
         });
         GestioneAttività.getContentPane().setLayout(null);
+
+        panelCopertura.setBackground(new java.awt.Color(0, 102, 102));
+
+        javax.swing.GroupLayout panelCoperturaLayout = new javax.swing.GroupLayout(panelCopertura);
+        panelCopertura.setLayout(panelCoperturaLayout);
+        panelCoperturaLayout.setHorizontalGroup(
+            panelCoperturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 850, Short.MAX_VALUE)
+        );
+        panelCoperturaLayout.setVerticalGroup(
+            panelCoperturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 280, Short.MAX_VALUE)
+        );
+
+        GestioneAttività.getContentPane().add(panelCopertura);
+        panelCopertura.setBounds(340, 20, 850, 280);
+
+        panelCopertura2.setBackground(new java.awt.Color(0, 102, 102));
+
+        javax.swing.GroupLayout panelCopertura2Layout = new javax.swing.GroupLayout(panelCopertura2);
+        panelCopertura2.setLayout(panelCopertura2Layout);
+        panelCopertura2Layout.setHorizontalGroup(
+            panelCopertura2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1060, Short.MAX_VALUE)
+        );
+        panelCopertura2Layout.setVerticalGroup(
+            panelCopertura2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 240, Short.MAX_VALUE)
+        );
+
+        GestioneAttività.getContentPane().add(panelCopertura2);
+        panelCopertura2.setBounds(0, 370, 1060, 240);
 
         buttonCreaAttività.setText("Crea attività");
         buttonCreaAttività.addActionListener(new java.awt.event.ActionListener() {
@@ -242,42 +279,15 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         GestioneAttività.getContentPane().add(jScrollPane7);
         jScrollPane7.setBounds(280, 450, 270, 150);
 
-        labelDE.setFont(new java.awt.Font("Britannic Bold", 0, 12)); // NOI18N
-        labelDE.setForeground(new java.awt.Color(102, 204, 255));
-        labelDE.setText("DESCRIPTION");
-        GestioneAttività.getContentPane().add(labelDE);
-        labelDE.setBounds(90, 420, 166, 30);
-
         jScrollPane8.setViewportView(listaMaterialiVis);
 
         GestioneAttività.getContentPane().add(jScrollPane8);
         jScrollPane8.setBounds(560, 450, 240, 150);
 
-        labelML.setFont(new java.awt.Font("Britannic Bold", 0, 12)); // NOI18N
-        labelML.setForeground(new java.awt.Color(102, 204, 255));
-        labelML.setText("LISTA MATERIALI");
-        GestioneAttività.getContentPane().add(labelML);
-        labelML.setBounds(640, 420, 130, 30);
-
-        buttonSMP.setText("Mostra SMP");
-        buttonSMP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSMPActionPerformed(evt);
-            }
-        });
-        GestioneAttività.getContentPane().add(buttonSMP);
-        buttonSMP.setBounds(70, 390, 120, 30);
-
         jScrollPane4.setViewportView(listaCompetenze);
 
         GestioneAttività.getContentPane().add(jScrollPane4);
         jScrollPane4.setBounds(810, 450, 240, 150);
-
-        labelCO.setFont(new java.awt.Font("Britannic Bold", 0, 12)); // NOI18N
-        labelCO.setForeground(new java.awt.Color(153, 204, 255));
-        labelCO.setText("COMPETENZE NECESSARIE");
-        GestioneAttività.getContentPane().add(labelCO);
-        labelCO.setBounds(860, 420, 170, 30);
 
         textAreaDescrizioneAttivitàVis.setEditable(false);
         textAreaDescrizioneAttivitàVis.setColumns(20);
@@ -289,12 +299,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         GestioneAttività.getContentPane().add(jScrollPane5);
         jScrollPane5.setBounds(0, 450, 270, 150);
-
-        labelWO.setFont(new java.awt.Font("Britannic Bold", 0, 12)); // NOI18N
-        labelWO.setForeground(new java.awt.Color(102, 204, 255));
-        labelWO.setText("WORKSPACE NOTES");
-        GestioneAttività.getContentPane().add(labelWO);
-        labelWO.setBounds(360, 420, 166, 30);
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 102));
         jPanel1.setMinimumSize(new java.awt.Dimension(1400, 650));
@@ -317,6 +321,51 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         });
         jPanel1.add(buttonAssegna);
         buttonAssegna.setBounds(50, 240, 240, 40);
+
+        labelDE.setBackground(new java.awt.Color(0, 204, 204));
+        labelDE.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
+        labelDE.setForeground(new java.awt.Color(153, 255, 153));
+        labelDE.setText("         DESCRIPTION");
+        labelDE.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 255, 51), 2));
+        labelDE.setOpaque(true);
+        jPanel1.add(labelDE);
+        labelDE.setBounds(0, 420, 270, 30);
+
+        buttonSMP.setText("Mostra SMP");
+        buttonSMP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSMPActionPerformed(evt);
+            }
+        });
+        jPanel1.add(buttonSMP);
+        buttonSMP.setBounds(70, 380, 120, 30);
+
+        labelCO.setBackground(new java.awt.Color(0, 204, 204));
+        labelCO.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
+        labelCO.setForeground(new java.awt.Color(153, 255, 153));
+        labelCO.setText("     NEEDED SKILLS");
+        labelCO.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 255, 51), 2));
+        labelCO.setOpaque(true);
+        jPanel1.add(labelCO);
+        labelCO.setBounds(810, 420, 240, 30);
+
+        labelWO.setBackground(new java.awt.Color(0, 204, 204));
+        labelWO.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
+        labelWO.setForeground(new java.awt.Color(153, 255, 153));
+        labelWO.setText("    WORKSPACE NOTES ");
+        labelWO.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 255, 51), 2));
+        labelWO.setOpaque(true);
+        jPanel1.add(labelWO);
+        labelWO.setBounds(280, 420, 270, 30);
+
+        labelML.setBackground(new java.awt.Color(0, 204, 204));
+        labelML.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
+        labelML.setForeground(new java.awt.Color(153, 255, 153));
+        labelML.setText("      MATERIALI LIST");
+        labelML.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 255, 51), 2));
+        labelML.setOpaque(true);
+        jPanel1.add(labelML);
+        labelML.setBounds(560, 420, 240, 30);
 
         GestioneAttività.getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 1230, 610);
@@ -479,16 +528,34 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         creazioneAttività.getContentPane().add(labelInterrompibileOra);
         labelInterrompibileOra.setBounds(210, 340, 170, 30);
 
-        assegnaAttività.setMinimumSize(new java.awt.Dimension(1160, 370));
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1240, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 550, Short.MAX_VALUE)
+        );
+
+        creazioneAttività.getContentPane().add(jPanel5);
+        jPanel5.setBounds(0, 0, 1240, 550);
+
+        assegnaAttività.setMinimumSize(new java.awt.Dimension(1058, 350));
         assegnaAttività.getContentPane().setLayout(null);
 
         jPanel2.setBackground(new java.awt.Color(204, 102, 0));
-        jPanel2.setMinimumSize(new java.awt.Dimension(1176, 321));
+        jPanel2.setMinimumSize(new java.awt.Dimension(1058, 350));
         jPanel2.setLayout(null);
 
-        jLabel2.setText("Week");
+        jLabel2.setBackground(new java.awt.Color(255, 255, 102));
+        jLabel2.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
+        jLabel2.setText("WEEK");
+        jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jLabel2.setOpaque(true);
         jPanel2.add(jLabel2);
-        jLabel2.setBounds(30, 11, 27, 22);
+        jLabel2.setBounds(40, 10, 80, 30);
 
         textWeekAssegnata.setEditable(false);
         textWeekAssegnata.addActionListener(new java.awt.event.ActionListener() {
@@ -497,11 +564,15 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         jPanel2.add(textWeekAssegnata);
-        textWeekAssegnata.setBounds(67, 12, 54, 20);
+        textWeekAssegnata.setBounds(130, 10, 54, 30);
 
-        jLabel13.setText("Activity to assign");
+        jLabel13.setBackground(new java.awt.Color(255, 255, 102));
+        jLabel13.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
+        jLabel13.setText("ACTIVITY TO ASSIGN");
+        jLabel13.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jLabel13.setOpaque(true);
         jPanel2.add(jLabel13);
-        jLabel13.setBounds(170, 11, 82, 22);
+        jLabel13.setBounds(310, 10, 270, 40);
 
         textAttivitàDaAssegnare.setEditable(false);
         textAttivitàDaAssegnare.addActionListener(new java.awt.event.ActionListener() {
@@ -510,17 +581,23 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         jPanel2.add(textAttivitàDaAssegnare);
-        textAttivitàDaAssegnare.setBounds(290, 12, 328, 20);
+        textAttivitàDaAssegnare.setBounds(590, 10, 420, 40);
 
+        jLabel15.setBackground(new java.awt.Color(255, 255, 102));
         jLabel15.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
-        jLabel15.setText("SKILLS NEEDED");
+        jLabel15.setText("   SKILLS NEEDED");
+        jLabel15.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jLabel15.setOpaque(true);
         jPanel2.add(jLabel15);
-        jLabel15.setBounds(53, 95, 242, 24);
+        jLabel15.setBounds(10, 100, 230, 28);
 
+        jLabel16.setBackground(new java.awt.Color(255, 255, 102));
         jLabel16.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
-        jLabel16.setText("MAINTAINER AVAILABILITY");
+        jLabel16.setText("                               MAINTAINER AVAILABILITY");
+        jLabel16.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jLabel16.setOpaque(true);
         jPanel2.add(jLabel16);
-        jLabel16.setBounds(502, 88, 415, 24);
+        jLabel16.setBounds(310, 90, 700, 30);
 
         tabellaDisponibilità.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -541,7 +618,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jScrollPane10.setViewportView(tabellaDisponibilità);
 
         jPanel2.add(jScrollPane10);
-        jScrollPane10.setBounds(306, 123, 701, 190);
+        jScrollPane10.setBounds(307, 123, 700, 190);
 
         jScrollPane11.setViewportView(listaSkills);
 
@@ -555,10 +632,10 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButtonAssegnaAttività2);
-        jButtonAssegnaAttività2.setBounds(693, 11, 171, 45);
+        jButtonAssegnaAttività2.setBounds(40, 50, 171, 40);
 
         assegnaAttività.getContentPane().add(jPanel2);
-        jPanel2.setBounds(10, 0, 1183, 324);
+        jPanel2.setBounds(-4, 0, 1060, 350);
 
         assegnaAttività2.setMinimumSize(new java.awt.Dimension(1233, 428));
         assegnaAttività2.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -650,30 +727,39 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MENU' PRINCIPALE");
+        setMinimumSize(new java.awt.Dimension(410, 210));
+        setResizable(false);
+        getContentPane().setLayout(null);
+
+        jPanel4.setBackground(new java.awt.Color(102, 102, 255));
 
         buttonGestManut.setText("Gestione Manutenzione");
+        buttonGestManut.setName(""); // NOI18N
         buttonGestManut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonGestManutActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(140, 140, 140)
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(113, 113, 113)
                 .addComponent(buttonGestManut)
-                .addContainerGap(132, Short.MAX_VALUE))
+                .addContainerGap(152, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(buttonGestManut)
-                .addContainerGap(223, Short.MAX_VALUE))
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(71, 71, 71)
+                .addComponent(buttonGestManut, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(109, Short.MAX_VALUE))
         );
+
+        getContentPane().add(jPanel4);
+        jPanel4.setBounds(0, 0, 410, 210);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -731,6 +817,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
             } else {
                 a.setProcedure(p.getActivity(id).getProcedure());
+             
                 if (!p.modifyActivity(a)) {
                     mostraErrore("ERRORE", "ATTIVITA' NON MODIFICATA");
                 } else {
@@ -774,6 +861,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                     mostraErrore("ERRORE", "Non è stato possibile cancellare l'attività");
                 } else {
                     mostraSuccesso("CANCELLAZIONE EFFETTUATA", "Attività cancellata con successo!");
+                    riempiTabella();
                 }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Inserisci un ID valido", "ERRORE", ERROR_MESSAGE);
@@ -784,7 +872,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
 
     private void buttonMostraAttivitàActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMostraAttivitàActionPerformed
-
+        panelCopertura.setVisible(false);
+        
         buttonModificaAttività.setVisible(true);
         buttonAssegna.setVisible(true);
         svuotaTabella(tb);
@@ -891,6 +980,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonSMPActionPerformed
 
     private void tabellaAttivitàMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabellaAttivitàMouseClicked
+       panelCopertura2.setVisible(false);
         listModelVis.clear();
         listModelComp.clear();
         DefaultTableModel tb = (DefaultTableModel) tabellaAttività.getModel();
@@ -923,6 +1013,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
     private void buttonAssegnaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAssegnaActionPerformed
 
+        
         int indice = tabellaAttività.getSelectedRow();
         if (indice == -1) {
             mostraErrore("ERRORE", "Seleziona un'attività dalla tabella!");
@@ -1147,6 +1238,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             b = false;
         }
         try {
+
             switch (tipoAttività) {
                 case "Planned":
                     a = new PlannedActivity(Integer.parseInt(fieldID.getText()), fieldFactorySite.getText(), fieldArea.getText(),
@@ -1375,6 +1467,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
@@ -1403,6 +1497,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JList<String> listaMateriali;
     private javax.swing.JList<String> listaMaterialiVis;
     private javax.swing.JList<String> listaSkills;
+    private javax.swing.JPanel panelCopertura;
+    private javax.swing.JPanel panelCopertura2;
     private javax.swing.JTable tabellaAttività;
     private javax.swing.JTable tabellaDisponibilità;
     private javax.swing.JTable tabellaDisponibilità2;

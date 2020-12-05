@@ -63,7 +63,7 @@ public class PlannerTest {
         p.deleteActivity(activity.getId());
     }
     
-   @Test
+   @Test(expected=Exception.class)
     public void testNegCreateActivity(){
         List <String> l = new ArrayList<>();
         Procedure proc = null;

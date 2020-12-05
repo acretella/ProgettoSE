@@ -36,7 +36,7 @@ public class Planner {
 
     }
 
-    public boolean createActivity(Activity a) {
+    public void createActivity(Activity a) throws Exception {
         try {
             Statement stm = connection.createStatement();
             String query;
@@ -53,18 +53,15 @@ public class Planner {
             }
             stm.executeUpdate(query);
 
-            if (!a.getMaterials().isEmpty()) {
-                for (String material : a.getMaterials()) {
-                    query = "insert into Material_for_Activity(activity,material) values("
-                            + a.getId() + ",'" + material + "');";
-
-                    stm.executeUpdate(query);
-                }
-            }
+            updateMaterials(a);
             
-            return true;
         } catch (SQLException ex) {
-            return false;
+            if(ex.getMessage().contains("check_id"))
+                throw new Exception("Esiste già un attività con id = "+a.getId());
+            else if (ex.getMessage().contains("check_week"))
+                throw new Exception("La settimana deve essere compresa fra 1 e 52");
+            else
+                throw new Exception("L'attività non può essere creata");
         }
 
     }
@@ -223,7 +220,7 @@ public class Planner {
         }
     }
 
-    public boolean modifyActivity(Activity a) {
+    public void modifyActivity(Activity a) throws Exception {
         try {
             Statement stm = connection.createStatement();
             String idproc;
@@ -238,23 +235,31 @@ public class Planner {
                     ",procedura="+idproc+" where id_="+a.getId()+";";
              
                     if(stm.executeUpdate(query) == 0)
-                        return false;
+                        return;
                     
                     query = "delete from Material_for_Activity where activity= "+ a.getId();
                     stm.executeUpdate(query);
                     
-                    if (!a.getMaterials().isEmpty()) {
-                        for (String material : a.getMaterials()) {
-                            
-                            query = "insert into Material_for_Activity(activity,material) values("
-                                    + a.getId() + ",'" + material + "');";
-
-                               stm.executeUpdate(query);
-                        }
-                    }
-                    return true;
+                    updateMaterials(a);
         } catch (SQLException ex) {
-            return false;
+            if(ex.getMessage().contains("check_week"))
+                throw new Exception("La settimana deve essere compresa fra 1 e 52");
+            else
+                throw new Exception("L'attività non può essere modificata");
+        }
+    }
+    
+    private void updateMaterials(Activity a) throws SQLException{
+        String query=  " ";
+        Statement stm = connection.createStatement();
+        if (!a.getMaterials().isEmpty()) {
+            for (String material : a.getMaterials()) {
+
+                query = "insert into Material_for_Activity(activity,material) values("
+                        + a.getId() + ",'" + material + "');";
+
+                   stm.executeUpdate(query);
+            }
         }
     }
 
