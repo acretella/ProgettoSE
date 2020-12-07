@@ -11,11 +11,14 @@ import java.util.List;
  *
  * @author Altro
  */
-public class UnPlannedActivity extends Activity{
+public abstract class UnPlannedActivity extends Activity{
 
     public UnPlannedActivity(int id, String factorySite, String area, String typology, String activityDescription,
             int estimatedTime, int week, List<String> materials,boolean interruptable, String workSpaceNote, Procedure procedure) {
         super(id, factorySite, area, typology, activityDescription, estimatedTime, week, materials, interruptable, workSpaceNote, procedure);
     }
+    
+    @Override
+    public abstract int getDay();
     
 }
