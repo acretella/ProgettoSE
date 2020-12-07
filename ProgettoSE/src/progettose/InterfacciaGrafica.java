@@ -64,8 +64,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     DefaultListModel listModelVis = new DefaultListModel();
     DefaultListModel listModelComp = new DefaultListModel();
     DefaultListModel listModelSkills = new DefaultListModel();
-                LocalDate date = LocalDate.now();
-            String giorno = String.valueOf(date.getDayOfWeek());
+    LocalDate date = LocalDate.now();
+    String giorno = String.valueOf(date.getDayOfWeek());
 
     Planner p;
     List<String> materiali = new ArrayList<>();
@@ -87,10 +87,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             tendinaMateriali.addItem(m);
 
         }
-        GestioneAttività.setResizable(false);
-        creazioneAttività.setResizable(false);
-        assegnaAttività.setResizable(false);
-        assegnaAttività2.setResizable(false);
+
     }
 
     /**
@@ -385,6 +382,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jPanel1.setBounds(0, 0, 1230, 610);
 
         creazioneAttività.setMinimumSize(new java.awt.Dimension(1248, 573));
+        creazioneAttività.setResizable(false);
         creazioneAttività.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 creazioneAttivitàWindowClosing(evt);
@@ -609,6 +607,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         panelSX.setBounds(-30, 0, 530, 580);
 
         assegnaAttività.setMinimumSize(new java.awt.Dimension(1058, 350));
+        assegnaAttività.setResizable(false);
         assegnaAttività.getContentPane().setLayout(null);
 
         jPanel2.setBackground(new java.awt.Color(204, 102, 0));
@@ -704,6 +703,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jPanel2.setBounds(-4, 0, 1060, 350);
 
         assegnaAttività2.setMinimumSize(new java.awt.Dimension(1233, 428));
+        assegnaAttività2.setResizable(false);
         assegnaAttività2.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 assegnaAttività2WindowClosing(evt);
@@ -860,11 +860,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelInterrompibileOra.setEnabled(false);
         buttonCrea.setText("CREA ATTIVITA'");
         creazioneAttività.setTitle("Creazione Attività");
-        //*String[] opzioni ={"Planned","EWO","Extra"};
-        //* JOptionPane.showOptionDialog(null, "Scegli il tipo di attività da creare","Selezione tipo di attività", WIDTH, HEIGHT, null, opzioni, EXIT_ON_CLOSE);
-        //* creazioneAttività.setVisible(true);
 
-        // TODO add your handling code here:
     }//GEN-LAST:event_buttonCreaAttivitàActionPerformed
 
     private void fieldTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldTimeActionPerformed
@@ -896,8 +892,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
                 try {
                     p.modifyActivity(a);
-                    mostraErrore("ERRORE", "ATTIVITA' NON MODIFICATA");
-
                     svuota();
                     mostraSuccesso("ATTIVITA' MODIFICATA", "Hai modificato l'attività correttamente");
                     creazioneAttività.dispatchEvent(new WindowEvent(creazioneAttività, WindowEvent.WINDOW_CLOSING));
