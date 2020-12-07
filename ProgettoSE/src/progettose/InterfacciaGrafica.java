@@ -64,6 +64,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     DefaultListModel listModelVis = new DefaultListModel();
     DefaultListModel listModelComp = new DefaultListModel();
     DefaultListModel listModelSkills = new DefaultListModel();
+                LocalDate date = LocalDate.now();
+            String giorno = String.valueOf(date.getDayOfWeek());
 
     Planner p;
     List<String> materiali = new ArrayList<>();
@@ -839,11 +841,13 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         buttonModificaAttività.setVisible(false);
         buttonAssegna.setVisible(false);
         disattivaVis();
+        fieldDay.setText(giorno);
     }//GEN-LAST:event_buttonGestManutActionPerformed
 
     private void buttonCreaAttivitàActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreaAttivitàActionPerformed
 
         disabilitaDay();
+        fieldWeek.setEnabled(true);
         labelTipologiaOra.setVisible(false);
         labelAttivitàOra.setVisible(false);
         labelInterrompibileOra.setVisible(false);
@@ -992,6 +996,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 fieldWeek.setEnabled(true);
             } else {
                 fieldWeek.setEnabled(false);
+                fieldDay.setVisible(true);
+                labelDay.setVisible(true);
             }
             creazioneAttività.setVisible(true);
             buttonModificaAttività.setEnabled(true);
@@ -1262,8 +1268,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             fieldDay.setVisible(true);
             labelDay.setVisible(true);
             Calendar cal = Calendar.getInstance();
-            LocalDate date = LocalDate.now();
-            String giorno = String.valueOf(date.getDayOfWeek());
+
             fieldDay.setText(giorno);
             fieldWeek.setText(String.valueOf(52 - Calendar.WEEK_OF_YEAR));
 
