@@ -344,4 +344,15 @@ public class PlannerTest {
             p.deleteActivity(a.getId());
         }
     }
+    
+    @Test
+    public void testGetAllSkill(){
+        //questo test dà esito positivo solo se esistono delle skill nel DB
+        List<String> l;
+        l = p.getAllSkills();
+        assertTrue(!l.isEmpty());
+        for(String s: l)
+            System.out.println(s);
+    }
+        
 }
