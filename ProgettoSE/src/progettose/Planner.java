@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -378,6 +380,36 @@ public class Planner {
             return skills;
         } catch (SQLException ex) {
             return new ArrayList<>();
+        }
+    }
+    
+    public boolean setEwoActivity(EwoActivity a){
+        try {
+            Statement stm = connection.createStatement();
+            
+            String query = "select max(id_) from Procedura";
+            ResultSet rst = stm.executeQuery(query);
+            rst.next();
+            int id = rst.getInt("max");
+            if(rst.wasNull()) //Se non ci sono procedure nel database
+                id = 0; 
+            else
+                id += 1;
+            //Creo una procedura e mi assicuro che l'id sia univoco
+            query = "insert into Procedura(id_,smp_path) values ("+id+",null);";
+            stm.executeUpdate(query);
+            //Associo la procedura all'attività nel database ed aggiorno la descrizione ed il tempo stimato
+            query = "update Activity set description = '" + a.getActivityDescription() + 
+                    "',estimatedTime = "+a.getEstimatedTime()+",procedura= "+ id +" where id_ =" + a.getId();
+            stm.executeUpdate(query);
+            //Associo le competenze alla procedura appena creata 
+            for (String c : a.getProcedure().getCompetencies()){
+                query = "insert into Competence_for_Procedure (procedura,competence) values ("+id+",'"+c+"');";
+                stm.executeUpdate(query);
+            }
+            return true;
+        } catch (SQLException ex) {
+            return false;
         }
     }
   

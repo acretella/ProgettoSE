@@ -22,7 +22,7 @@ public abstract class Activity {
     private List<String> materials;
     private boolean interruptable;
     private String workSpaceNote;
-    private Procedure procedure;
+    Procedure procedure;
     private int type = 0;
 
 
@@ -102,5 +102,13 @@ public abstract class Activity {
     }
     
     public abstract int getDay();
+
+    public void setActivityDescription(String activityDescription) {
+        this.activityDescription = activityDescription;
+    }
+
+    public void setEstimatedTime(int estimatedTime) {
+        this.estimatedTime = estimatedTime;
+    }
     
 }
