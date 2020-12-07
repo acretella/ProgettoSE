@@ -363,5 +363,22 @@ public class Planner {
         }
         throw new Exception("Non c'è disponibilità per il manutentore nell'arco di tempo selezionato");
     }
+       
+    /**
+     * This method returns a list that contains all the skills in the DB
+     * @return a list of strings or a list empty
+     */
+    public List<String> getAllSkills(){
+        try {
+            Statement stm = connection.createStatement();
+            ResultSet rst = stm.executeQuery("select * from Competence");
+            List<String> skills = new ArrayList<>();
+            while(rst.next())
+                skills.add(rst.getString("skill"));
+            return skills;
+        } catch (SQLException ex) {
+            return new ArrayList<>();
+        }
+    }
   
 }
