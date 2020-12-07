@@ -17,12 +17,16 @@ public class EwoActivity extends UnPlannedActivity{
     public EwoActivity(int id, String factorySite, String area, String typology, String activityDescription, int estimatedTime, int week, List<String> materials,boolean interruptable, String workSpaceNote,int day) {
         super(id, factorySite, area, typology, activityDescription, estimatedTime, week, materials,interruptable, workSpaceNote, null);
         super.setType(1);
-        this.day = day; 
+        this.day = day;
     }
 
     @Override
     public int getDay() {
         return day;
+    }
+    
+    public void setSkills(List<String> skills){
+        this.procedure = new Procedure(0,null,skills);      
     }
     
     

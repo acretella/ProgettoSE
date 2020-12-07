@@ -151,8 +151,7 @@ public class PlannerTest {
         } catch (Exception ex) {
             assertTrue(ex.getMessage().equals("La settimana deve essere compresa fra 1 e 52")); //controllo che l'eccezione lanciata sia giusta
             throw ex;
-        }
-        
+        }     
     }
 
     @Test
@@ -379,6 +378,19 @@ public class PlannerTest {
         assertTrue(!l.isEmpty());
         for(String s: l)
             System.out.println(s);
+    }
+    
+    @Test 
+    public void testSetEwo() throws Exception{
+        EwoActivity a = new EwoActivity(47,"a","b","f","dd",20,1,new ArrayList<>(),true,"d",11);
+        p.createActivity(a);
+        a.setEstimatedTime(10);
+        a.setActivityDescription("ccc");
+        List<String> l = new ArrayList<>();
+        l.add("skilltest1");
+        l.add("skilltest2");
+        a.setSkills(l);
+        assertEquals(p.setEwoActivity(a),true);
     }
         
 }
