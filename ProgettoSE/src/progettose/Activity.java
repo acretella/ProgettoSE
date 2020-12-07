@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Altro
  */
-public class Activity {
+public abstract class Activity {
     private int id;
     private String factorySite;
     private String area;
@@ -100,5 +100,7 @@ public class Activity {
     public Procedure getProcedure() {
         return procedure;
     }
+    
+    public abstract int getDay();
     
 }

@@ -41,6 +41,11 @@ public class Planner {
             Statement stm = connection.createStatement();
             String query;
             if (a.getProcedure() == null) {
+                if(a.getType() == 1) //se è una EWO activity allora devo aggiungere il giorno 
+                    query = "insert into Activity(id_,factorySite,area,typology,description,estimatedTime,week,interruptable,workSpaceNotes,activityType,procedura,giorno)"
+                        + " values(" + a.getId() + ",'" + a.getFactorySite() + "','" + a.getArea() + "','" + a.getTypology() + "','"
+                        + a.getActivityDescription() + "'," + a.getEstimatedTime() + "," + a.getWeek() + "," + a.isInterruptable() + ",'" + a.getWorkSpaceNote()
+                        + "'," + a.getType() + ",null" +","+ a.getDay()+");";
                 query = "insert into Activity(id_,factorySite,area,typology,description,estimatedTime,week,interruptable,workSpaceNotes,activityType,procedura)"
                         + " values(" + a.getId() + ",'" + a.getFactorySite() + "','" + a.getArea() + "','" + a.getTypology() + "','"
                         + a.getActivityDescription() + "'," + a.getEstimatedTime() + "," + a.getWeek() + "," + a.isInterruptable() + ",'" + a.getWorkSpaceNote()
@@ -167,7 +172,7 @@ public class Planner {
                         materials,
                         rst.getBoolean("interruptable"),
                         rst.getString("workSpaceNotes"),
-                        p = createProcedure(rst.getInt("procedura"))
+                        rst.getInt("giorno")
                 );
                 break;
             case 2:
@@ -357,6 +362,23 @@ public class Planner {
             }           
         }
         throw new Exception("Non c'è disponibilità per il manutentore nell'arco di tempo selezionato");
+    }
+       
+    /**
+     * This method returns a list that contains all the skills in the DB
+     * @return a list of strings or a list empty
+     */
+    public List<String> getAllSkills(){
+        try {
+            Statement stm = connection.createStatement();
+            ResultSet rst = stm.executeQuery("select * from Competence");
+            List<String> skills = new ArrayList<>();
+            while(rst.next())
+                skills.add(rst.getString("skill"));
+            return skills;
+        } catch (SQLException ex) {
+            return new ArrayList<>();
+        }
     }
   
 }

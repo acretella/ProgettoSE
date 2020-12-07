@@ -21,6 +21,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import progettose.Activity;
+import progettose.EwoActivity;
 import progettose.Maintainer;
 import progettose.PlannedActivity;
 import progettose.Planner;
@@ -47,7 +48,7 @@ public class PlannerTest {
     public void testPosCreateActivity(){
         List <String> l = new ArrayList<>();
         Procedure proc = null;
-        Activity activity = new Activity(0,
+        Activity activity = new PlannedActivity(0,
                 "branch office",
                 "departement",
                 "electrical",
@@ -63,14 +64,39 @@ public class PlannerTest {
         } catch (Exception ex) {
             assertEquals(true,false);
         }
-        p.deleteActivity(activity.getId());
+        finally{
+            p.deleteActivity(activity.getId());
+        }
     }
+    
+   @Test
+   public void testPosCreateEwoActivity(){
+       Activity a = new EwoActivity(210,
+                        "branch office", 
+                        "departement",
+                        "electrical", 
+                        "aaaaaaaaaaa", 
+                        20, 
+                        1, 
+                        new ArrayList<>(), 
+                        true, 
+                        "dscas", 
+                        15);
+       try {
+            p.createActivity(a);
+        } catch (Exception ex) {
+            assertEquals(true,false);
+        }
+       finally{
+        p.deleteActivity(a.getId());
+       }
+   } 
     
    @Test(expected=Exception.class)
     public void testNegCreateActivity() throws Exception{
         List <String> l = new ArrayList<>();
         Procedure proc = null;
-        Activity activity = new Activity(2,
+        Activity activity = new PlannedActivity(2,
                 "branch office",
                 "departement",
                 "electrical",
@@ -82,7 +108,7 @@ public class PlannerTest {
                 "lllllll",
                 proc);
         
-        Activity activity2 = new Activity(2,
+        Activity activity2 = new PlannedActivity(2,
                 "branch office",
                 "departement",
                 "electrical",
@@ -108,7 +134,7 @@ public class PlannerTest {
     
     @Test(expected=Exception.class)
     public void TestNeg2CreateActivity() throws Exception{
-        Activity activity = new Activity(47,
+        Activity activity = new PlannedActivity(47,
                 "branch office",
                 "departement",
                 "electrical",
@@ -123,7 +149,7 @@ public class PlannerTest {
         try {
             p.createActivity(activity);
         } catch (Exception ex) {
-            assertTrue(ex.getMessage().equals("La settimana deve essere compresa fra 1 e 52"));
+            assertTrue(ex.getMessage().equals("La settimana deve essere compresa fra 1 e 52")); //controllo che l'eccezione lanciata sia giusta
             throw ex;
         }
         
@@ -133,7 +159,7 @@ public class PlannerTest {
     public void testPosDeleteActivity() throws Exception{
         List <String> l = new ArrayList<>();
         Procedure proc = null;   
-        Activity activity = new Activity(55,
+        Activity activity = new PlannedActivity(55,
                 "branch office",
                 "departement",
                 "electrical",
@@ -211,7 +237,7 @@ public class PlannerTest {
     public void testPosModifyActivity() throws Exception{
         List <String> l = new ArrayList<>();
         Procedure proc = null;
-        Activity a = new Activity(2,
+        Activity a = new PlannedActivity(2,
                 "branch office",
                 "departement",
                 "electrical",
@@ -234,7 +260,7 @@ public class PlannerTest {
         //modifico attività non presente nel DB
         List <String> l = new ArrayList<>();
         Procedure proc = null;
-        Activity activity = new Activity(5,
+        Activity activity = new PlannedActivity(5,
                 "branch office",
                 "departement",
                 "electrical",
@@ -251,7 +277,7 @@ public class PlannerTest {
     
     @Test(expected=Exception.class)
     public void TestNeg2ModifyActivity() throws Exception{
-        Activity activity = new Activity(42,
+        Activity activity = new PlannedActivity(42,
                     "branch office",
                     "departement",
                     "electrical",
@@ -279,7 +305,7 @@ public class PlannerTest {
     public void isThereAFile() throws Exception{
         //Questo test può essere eseguito soltanto se il database contiente già una procedura con id=1
         Procedure proc= new Procedure(1,null,null);
-        Activity activity = new Activity(46,
+        Activity activity = new PlannedActivity(46,
                 "branch office",
                 "departement",
                 "electrical",
@@ -320,7 +346,7 @@ public class PlannerTest {
     public void testAssignedActivity() throws Exception{
         //Questo test può essere eseguito soltanto se il database contiente già un manutentore con disponibilità
         Maintainer m = p.getAllMaintainers().get(0);
-        Activity a = new Activity(99,
+        Activity a = new PlannedActivity(99,
                 "branch office",
                 "departement",
                 "electrical",
@@ -344,4 +370,15 @@ public class PlannerTest {
             p.deleteActivity(a.getId());
         }
     }
+    
+    @Test
+    public void testGetAllSkill(){
+        //questo test dà esito positivo solo se esistono delle skill nel DB
+        List<String> l;
+        l = p.getAllSkills();
+        assertTrue(!l.isEmpty());
+        for(String s: l)
+            System.out.println(s);
+    }
+        
 }
