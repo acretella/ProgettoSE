@@ -21,6 +21,14 @@ import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import javax.swing.table.DefaultTableModel;
+import java.util.Calendar;
+import java.util.TimeZone;
+import java.util.Date;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.time.temporal.IsoFields;
+import java.time.temporal.TemporalField;
 
 /**
  *
@@ -59,6 +67,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     DefaultListModel listModelComp = new DefaultListModel();
     DefaultListModel listModelSkills = new DefaultListModel();
     DefaultListModel listModelSkillsEwo = new DefaultListModel();
+                LocalDate date = LocalDate.now();
+            String giorno = String.valueOf(date.getDayOfWeek());
+
     Planner p;
     List<String> materiali = new ArrayList<>();
     int id;
@@ -143,7 +154,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelTipologiaOra = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         fieldTime = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
+        labelWeek = new javax.swing.JLabel();
         fieldWeek = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         tendinaInterrompibile = new javax.swing.JComboBox<>();
@@ -154,6 +165,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelAttivitàOra = new javax.swing.JLabel();
         tendinaTipoAttività = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        labelDay = new javax.swing.JLabel();
+        fieldDay = new javax.swing.JTextField();
         assegnaAttività = new javax.swing.JFrame();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -539,10 +552,10 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         panelSX.add(fieldTime);
         fieldTime.setBounds(180, 240, 90, 30);
 
-        jLabel10.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
-        jLabel10.setText("Week");
-        panelSX.add(jLabel10);
-        jLabel10.setBounds(50, 280, 60, 32);
+        labelWeek.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
+        labelWeek.setText("Week");
+        panelSX.add(labelWeek);
+        labelWeek.setBounds(50, 280, 60, 32);
 
         fieldWeek.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
         panelSX.add(fieldWeek);
@@ -566,7 +579,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
         jLabel9.setText("Materials");
         panelSX.add(jLabel9);
-        jLabel9.setBounds(50, 370, 90, 20);
+        jLabel9.setBounds(50, 380, 90, 20);
 
         tendinaMateriali.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
         panelSX.add(tendinaMateriali);
@@ -590,6 +603,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         tendinaTipoAttività.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
         tendinaTipoAttività.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Planned", "EWO", "Extra" }));
         tendinaTipoAttività.setToolTipText("");
+        tendinaTipoAttività.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                tendinaTipoAttivitàItemStateChanged(evt);
+            }
+        });
         panelSX.add(tendinaTipoAttività);
         tendinaTipoAttività.setBounds(180, 40, 89, 30);
 
@@ -597,6 +615,17 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jLabel1.setText("Tipo di attività");
         panelSX.add(jLabel1);
         jLabel1.setBounds(50, 40, 130, 30);
+
+        labelDay.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
+        labelDay.setText("Day");
+        labelDay.setEnabled(false);
+        panelSX.add(labelDay);
+        labelDay.setBounds(290, 284, 50, 30);
+
+        fieldDay.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
+        fieldDay.setEnabled(false);
+        panelSX.add(fieldDay);
+        fieldDay.setBounds(340, 280, 90, 30);
 
         creazioneAttività.getContentPane().add(panelSX);
         panelSX.setBounds(-30, 0, 530, 580);
@@ -959,9 +988,13 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         buttonModificaAttività.setVisible(false);
         buttonAssegna.setVisible(false);
         disattivaVis();
+        fieldDay.setText(giorno);
     }//GEN-LAST:event_buttonGestManutActionPerformed
 
     private void buttonCreaAttivitàActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreaAttivitàActionPerformed
+
+        disabilitaDay();
+        fieldWeek.setEnabled(true);
         labelTipologiaOra.setVisible(false);
         labelAttivitàOra.setVisible(false);
         labelInterrompibileOra.setVisible(false);
@@ -1093,6 +1126,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonRimuoviMaterialeActionPerformed
 
     private void buttonModificaAttivitàActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModificaAttivitàActionPerformed
+
         labelAttivitàOra.setText(("(Now is"));
         labelTipologiaOra.setText(("(Now is"));
         labelInterrompibileOra.setText(("(Now is"));
@@ -1104,6 +1138,14 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         if (indice == -1) {
             mostraErrore("ERRORE", "Seleziona una riga dalla tabella!");
         } else {
+            if (!tabellaAttività.getValueAt(tabellaAttività.getSelectedRow(), 6).equals("EWO")) {
+                disabilitaDay();
+                fieldWeek.setEnabled(true);
+            } else {
+                fieldWeek.setEnabled(false);
+                fieldDay.setVisible(true);
+                labelDay.setVisible(true);
+            }
             creazioneAttività.setVisible(true);
             buttonModificaAttività.setEnabled(true);
             labelTipologiaOra.setEnabled(true);
@@ -1231,7 +1273,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         } else {
 
             svuotaTabella(tb2);
-            assegnaAttività.setTitle(("Disponibilità manutentori settimana "+tabellaAttività.getValueAt(tabellaAttività.getSelectedRow(), 5)));
+            assegnaAttività.setTitle(("Disponibilità manutentori settimana " + tabellaAttività.getValueAt(tabellaAttività.getSelectedRow(), 5)));
             tabellaDisponibilità.getColumnModel().setSelectionModel(new DefaultListSelectionModel() {
                 private boolean isSelectable(int indice) {
                     return !(indice == 1 || indice == 0);
@@ -1327,8 +1369,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             assegnaAttività2.setVisible(true);
             tabellaDisponibilità.setEnabled(false);
             Activity a = p.getActivity(id);
-            assegnaAttività2.setTitle("Disponibilità di "+tabellaDisponibilità.getValueAt(tabellaDisponibilità.getSelectedRow(), 0)+" "
-                    + "nel giorno  "+tb2.getColumnName(tabellaDisponibilità.getSelectedColumn()).toLowerCase());
+            assegnaAttività2.setTitle("Disponibilità di " + tabellaDisponibilità.getValueAt(tabellaDisponibilità.getSelectedRow(), 0) + " "
+                    + "nel giorno  " + tb2.getColumnName(tabellaDisponibilità.getSelectedColumn()).toLowerCase());
             textAreaWorkspaceNotes2.setText(String.valueOf(a.getWorkSpaceNote()));
             labelWeekDisp.setText(labelWeekDisp.getText() + " " + String.valueOf(a.getWeek()));
             labelDayDisp.setText(labelDayDisp.getText() + " " + tabellaDisponibilità.getColumnName(colonna));
@@ -1392,6 +1434,37 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_aggiungiSkillActionPerformed
+    private void tendinaTipoAttivitàItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tendinaTipoAttivitàItemStateChanged
+        if (tendinaTipoAttività.getSelectedItem().equals("EWO")) {
+            labelWeek.setEnabled(false);
+            fieldWeek.setEnabled(false);
+            fieldDay.setVisible(true);
+            labelDay.setVisible(true);
+            Calendar cal = Calendar.getInstance();
+
+            fieldDay.setText(giorno);
+            fieldWeek.setText(String.valueOf(52 - Calendar.WEEK_OF_YEAR));
+
+        } else {
+            if (!buttonCrea.getText().equals(("MODIFICA ATTIVITA'"))) {
+                labelWeek.setEnabled(true);
+                fieldWeek.setEnabled(true);
+                fieldDay.setVisible(false);
+                labelDay.setVisible(false);
+                fieldWeek.setText("");
+                fieldDay.setText("");
+            } else {
+                labelWeek.setEnabled(true);
+                fieldWeek.setEnabled(true);
+                fieldDay.setVisible(false);
+                labelDay.setVisible(false);
+                fieldWeek.setText(String.valueOf(p.getActivity(id).getWeek()));
+                fieldDay.setText("");
+            }
+        }
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tendinaTipoAttivitàItemStateChanged
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1649,6 +1722,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         }
 
     }
+
+    private void disabilitaDay() {
+        fieldDay.setVisible(false);
+        labelDay.setVisible(false);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFrame GestioneAttività;
     private javax.swing.JButton aggiungiSkill;
@@ -1668,6 +1746,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JButton buttonSMP;
     private javax.swing.JFrame creazioneAttività;
     private javax.swing.JTextField fieldArea;
+    private javax.swing.JTextField fieldDay;
     private javax.swing.JTextField fieldFactorySite;
     private javax.swing.JTextField fieldID;
     private javax.swing.JTextField fieldTime;
@@ -1726,6 +1805,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JLabel labelAttivitàOra;
     private javax.swing.JLabel labelCO;
     private javax.swing.JLabel labelDE;
+    private javax.swing.JLabel labelDay;
     private javax.swing.JLabel labelDayDisp;
     private javax.swing.JLabel labelDisponibilità;
     private javax.swing.JLabel labelID;
@@ -1733,6 +1813,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JLabel labelML;
     private javax.swing.JLabel labelTipologiaOra;
     private javax.swing.JLabel labelWO;
+    private javax.swing.JLabel labelWeek;
     private javax.swing.JLabel labelWeekDisp;
     private javax.swing.JList<String> listaCompetenze;
     private javax.swing.JList<String> listaMateriali;
