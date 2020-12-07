@@ -199,6 +199,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jScrollPane15 = new javax.swing.JScrollPane();
         jListSkillsneededewo = new javax.swing.JList<>();
         jButtonConfermaewo = new javax.swing.JButton();
+        aggiungiSkill = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         buttonGestManut = new javax.swing.JButton();
 
@@ -788,6 +789,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jLabel14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jLabel14.setOpaque(true);
 
+        attivitàEWO.setMinimumSize(new java.awt.Dimension(837, 400));
+
         jPanel5.setBackground(new java.awt.Color(255, 102, 0));
 
         jLabelWeek2.setText("WEEK N°");
@@ -817,6 +820,18 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jScrollPane15.setViewportView(jListSkillsneededewo);
 
         jButtonConfermaewo.setText("CONFERMA");
+        jButtonConfermaewo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonConfermaewoActionPerformed(evt);
+            }
+        });
+
+        aggiungiSkill.setText("AGGIUNGI SKILL");
+        aggiungiSkill.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aggiungiSkillActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -835,7 +850,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                                 .addComponent(jLabel21)
                                 .addGap(52, 52, 52)
                                 .addComponent(textFieldActivityToAssign2, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(100, 100, 100)
+                                .addGap(51, 51, 51)
                                 .addComponent(jButtonConfermaewo, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -848,14 +863,13 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                                         .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(92, 92, 92)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(aggiungiSkill, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabelWeek2, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
                         .addComponent(jLabelDay2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -875,16 +889,18 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                     .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane13)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(23, 23, 23)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel22)
-                            .addComponent(textFieldEstimatedtimeewo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 15, Short.MAX_VALUE))
-                    .addComponent(jScrollPane15))
-                .addContainerGap())
+                            .addComponent(textFieldEstimatedtimeewo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(aggiungiSkill)))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout attivitàEWOLayout = new javax.swing.GroupLayout(attivitàEWO.getContentPane());
@@ -1179,13 +1195,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             jTextAreaDescriptionewo.setText(String.valueOf(a.getActivityDescription()));
             textFieldEstimatedtimeewo.setText(String.valueOf(a.getEstimatedTime()));
             jListSkillsneededewo.setModel(listModelSkillsEwo);
-          
-            
-            
-            
-            
-        
-        }
+            List<String> skills = p.getAllSkills();
+            for(String s : skills){
+                listModelSkillsEwo.addElement(s);
+            }
+            }
         
         else{
             abilitaVis();
@@ -1368,6 +1382,17 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_assegnaAttività2WindowClosing
 
+    private void jButtonConfermaewoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfermaewoActionPerformed
+           
+            
+            
+    }//GEN-LAST:event_jButtonConfermaewoActionPerformed
+
+    private void aggiungiSkillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aggiungiSkillActionPerformed
+        
+        
+    }//GEN-LAST:event_aggiungiSkillActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1449,7 +1474,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                     a = new EwoActivity(Integer.parseInt(fieldID.getText()), fieldFactorySite.getText(), fieldArea.getText(),
                             tendinaTipologia.getSelectedItem().toString(),
                             textAreaDescrizioneAttività.getText(), Integer.parseInt(fieldTime.getText()),
-                            Integer.parseInt(fieldWeek.getText()), materiali, b, textAreaWorkspace.getText(), null);
+                            Integer.parseInt(fieldWeek.getText()), materiali, b, textAreaWorkspace.getText(),2);
                     break;
                 default:
                     a = new ExtraActivity(Integer.parseInt(fieldID.getText()), fieldFactorySite.getText(), fieldArea.getText(),
@@ -1626,6 +1651,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFrame GestioneAttività;
+    private javax.swing.JButton aggiungiSkill;
     private javax.swing.JFrame assegnaAttività;
     private javax.swing.JFrame assegnaAttività2;
     private javax.swing.JFrame attivitàEWO;

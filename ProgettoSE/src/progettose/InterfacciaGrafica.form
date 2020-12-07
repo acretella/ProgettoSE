@@ -1394,6 +1394,11 @@
       </Properties>
     </Component>
     <Container class="javax.swing.JFrame" name="attivit&#xe0;EWO">
+      <Properties>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[837, 400]"/>
+        </Property>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -1432,7 +1437,7 @@
                                       <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                                       <Component id="textFieldActivityToAssign2" min="-2" pref="169" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                                       <Component id="jButtonConfermaewo" min="-2" pref="142" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
@@ -1449,11 +1454,9 @@
                                       </Group>
                                       <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                                              <Component id="jScrollPane15" min="-2" max="-2" attributes="0"/>
-                                          </Group>
                                           <Component id="jLabel23" min="-2" pref="258" max="-2" attributes="0"/>
+                                          <Component id="jScrollPane15" min="-2" pref="182" max="-2" attributes="0"/>
+                                          <Component id="aggiungiSkill" alignment="0" min="-2" pref="133" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -1463,7 +1466,7 @@
                               <Component id="jLabelDay2" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="27" max="32767" attributes="0"/>
+                      <EmptySpace pref="50" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1487,7 +1490,6 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane13" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="jScrollPane14" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
@@ -1495,11 +1497,15 @@
                                   <Component id="jLabel22" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="textFieldEstimatedtimeewo" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="15" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="jScrollPane15" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jScrollPane13" min="-2" pref="125" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jScrollPane15" min="-2" pref="121" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="aggiungiSkill" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace pref="15" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1600,6 +1606,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="CONFERMA"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonConfermaewoActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="aggiungiSkill">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="AGGIUNGI SKILL"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aggiungiSkillActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
