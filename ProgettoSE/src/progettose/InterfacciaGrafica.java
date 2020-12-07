@@ -256,7 +256,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         );
 
         GestioneAttività.getContentPane().add(panelCopertura2);
-        panelCopertura2.setBounds(0, 370, 1060, 240);
+        panelCopertura2.setBounds(0, 370, 0, 0);
 
         buttonCreaAttività.setText("Crea attività");
         buttonCreaAttività.addActionListener(new java.awt.event.ActionListener() {
@@ -819,6 +819,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jLabel14.setOpaque(true);
 
         attivitàEWO.setMinimumSize(new java.awt.Dimension(837, 400));
+        attivitàEWO.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                attivitàEWOWindowClosing(evt);
+            }
+        });
 
         jPanel5.setBackground(new java.awt.Color(255, 102, 0));
 
@@ -843,6 +848,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jScrollPane14.setViewportView(jTextAreaDescriptionewo);
 
         jLabel22.setText("ESTIMATED TIME");
+
+        textFieldEstimatedtimeewo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldEstimatedtimeewoActionPerformed(evt);
+            }
+        });
 
         jLabel23.setText("SKILLS NEEDED");
 
@@ -1221,6 +1232,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         panelCopertura2.setVisible(false);
         listModelVis.clear();
         listModelComp.clear();
+        
         DefaultTableModel tb = (DefaultTableModel) tabellaAttività.getModel();
         listaCompetenze.setModel(listModelComp);
         listaMaterialiVis.setModel(listModel);
@@ -1466,6 +1478,14 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tendinaTipoAttivitàItemStateChanged
 
+    private void attivitàEWOWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_attivitàEWOWindowClosing
+        clearEwoFrame();
+    }//GEN-LAST:event_attivitàEWOWindowClosing
+
+    private void textFieldEstimatedtimeewoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldEstimatedtimeewoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldEstimatedtimeewoActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1498,6 +1518,16 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
     }
+    
+    
+    private void clearEwoFrame(){
+        jLabelWeek2.setText("Week");
+        textFieldActivityToAssign2.setText("");
+        jTextAreaWorkspacenotesewo.setText("");
+        jTextAreaDescriptionewo.setText("");
+        listModelSkillsEwo.clear();
+        textFieldEstimatedtimeewo.setText("");
+       }
 
     private void svuota() {
         materiali.clear();
@@ -1754,7 +1784,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAssegnaAttività2;
     private javax.swing.JButton jButtonConfermaewo;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;

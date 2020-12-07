@@ -1429,6 +1429,9 @@
           <Dimension value="[837, 400]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="attivit&#xe0;EWOWindowClosing"/>
+      </Events>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -1607,6 +1610,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="textFieldEstimatedtimeewo">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textFieldEstimatedtimeewoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel23">
               <Properties>
