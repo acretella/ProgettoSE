@@ -33,5 +33,6 @@ public class Procedure {
     public List<String> getCompetencies() {
         return competencies;
     }
-        
+    
+    
 }
