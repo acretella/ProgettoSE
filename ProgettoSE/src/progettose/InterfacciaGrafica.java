@@ -61,6 +61,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     DefaultListModel listModelSkillsEwo = new DefaultListModel();
     LocalDate date = LocalDate.now();
     String giorno = String.valueOf(date.getDayOfWeek());
+    
 
     Planner p;
     List<String> materiali = new ArrayList<>();
@@ -1414,18 +1415,17 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private void buttonConfermaEwoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfermaEwoActionPerformed
 
         Activity a = p.getActivity(id);
-        EwoActivity b = new EwoActivity(a.getId(), a.getFactorySite(), a.getArea(), a.getTypology(), textAreaDescrizioneEWO.getText(),
-                Integer.parseInt(textFieldEstimatedtimeewo.getText()),
-                a.getWeek(), a.getMaterials(), a.isInterruptable(), textAreaWNEWO.getText(), a.getDay(),a.getProcedure());
-        List<String> x= new ArrayList();
-        int i=0;
-        
-        while(listModelSkillsEwo.isEmpty()){
-            x.add(String.valueOf(listModelSkillsEwo.remove(i)));
-            i++;
-           
+        try {
+            EwoActivity b = new EwoActivity(a.getId(), a.getFactorySite(), a.getArea(), a.getTypology(), textAreaDescrizioneEWO.getText(),
+                    Integer.parseInt(textFieldEstimatedtimeewo.getText()),
+                    a.getWeek(), a.getMaterials(), a.isInterruptable(), textAreaWNEWO.getText(), a.getDay(), a.getProcedure());
+
+            b.setSkills(skills);
+            p.setEwoActivity(b);
+        } catch (NumberFormatException e) {
+            mostraErrore("ERRORE", "Campo estimated time non contiene tutti interi! ");
         }
-        b.setSkills(x);
+
 
     }//GEN-LAST:event_buttonConfermaEwoActionPerformed
 
@@ -1438,6 +1438,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             mostraErrore("ERRORE", "Skill già inserita");
         }
         listSkillsEWO.setModel(listModelSkillsEwo);
+
     }//GEN-LAST:event_buttonAddSkillActionPerformed
     private void tendinaTipoAttivitàItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tendinaTipoAttivitàItemStateChanged
         if (tendinaTipoAttività.getSelectedItem().equals("EWO")) {
@@ -1584,7 +1585,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                     a = new EwoActivity(Integer.parseInt(fieldID.getText()), fieldFactorySite.getText(), fieldArea.getText(),
                             tendinaTipologia.getSelectedItem().toString(),
                             textAreaDescrizioneAttività.getText(), Integer.parseInt(fieldTime.getText()),
-                            Integer.parseInt(fieldWeek.getText()), materiali, b, textAreaWorkspace.getText(), 2);
+                            Integer.parseInt(fieldWeek.getText()), materiali, b, textAreaWorkspace.getText(), date.getDayOfMonth(), null);
                     break;
                 default:
                     a = new ExtraActivity(Integer.parseInt(fieldID.getText()), fieldFactorySite.getText(), fieldArea.getText(),
