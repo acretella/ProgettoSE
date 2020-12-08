@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -41,6 +43,11 @@ public class Planner {
             Statement stm = connection.createStatement();
             String query;
             if (a.getProcedure() == null) {
+                if(a.getType() == 1) //se è una EWO activity allora devo aggiungere il giorno 
+                    query = "insert into Activity(id_,factorySite,area,typology,description,estimatedTime,week,interruptable,workSpaceNotes,activityType,procedura,giorno)"
+                        + " values(" + a.getId() + ",'" + a.getFactorySite() + "','" + a.getArea() + "','" + a.getTypology() + "','"
+                        + a.getActivityDescription() + "'," + a.getEstimatedTime() + "," + a.getWeek() + "," + a.isInterruptable() + ",'" + a.getWorkSpaceNote()
+                        + "'," + a.getType() + ",null" +","+ a.getDay()+");";
                 query = "insert into Activity(id_,factorySite,area,typology,description,estimatedTime,week,interruptable,workSpaceNotes,activityType,procedura)"
                         + " values(" + a.getId() + ",'" + a.getFactorySite() + "','" + a.getArea() + "','" + a.getTypology() + "','"
                         + a.getActivityDescription() + "'," + a.getEstimatedTime() + "," + a.getWeek() + "," + a.isInterruptable() + ",'" + a.getWorkSpaceNote()
@@ -167,7 +174,7 @@ public class Planner {
                         materials,
                         rst.getBoolean("interruptable"),
                         rst.getString("workSpaceNotes"),
-                        p = createProcedure(rst.getInt("procedura"))
+                        rst.getInt("giorno")
                 );
                 break;
             case 2:
@@ -357,6 +364,53 @@ public class Planner {
             }           
         }
         throw new Exception("Non c'è disponibilità per il manutentore nell'arco di tempo selezionato");
+    }
+       
+    /**
+     * This method returns a list that contains all the skills in the DB
+     * @return a list of strings or a list empty
+     */
+    public List<String> getAllSkills(){
+        try {
+            Statement stm = connection.createStatement();
+            ResultSet rst = stm.executeQuery("select * from Competence");
+            List<String> skills = new ArrayList<>();
+            while(rst.next())
+                skills.add(rst.getString("skill"));
+            return skills;
+        } catch (SQLException ex) {
+            return new ArrayList<>();
+        }
+    }
+    
+    public boolean setEwoActivity(EwoActivity a){
+        try {
+            Statement stm = connection.createStatement();
+            
+            String query = "select max(id_) from Procedura";
+            ResultSet rst = stm.executeQuery(query);
+            rst.next();
+            int id = rst.getInt("max");
+            if(rst.wasNull()) //Se non ci sono procedure nel database
+                id = 0; 
+            else
+                id += 1;
+            //Creo una procedura e mi assicuro che l'id sia univoco
+            query = "insert into Procedura(id_,smp_path) values ("+id+",null);";
+            stm.executeUpdate(query);
+            //Associo la procedura all'attività nel database ed aggiorno la descrizione ed il tempo stimato
+            query = "update Activity set description = '" + a.getActivityDescription() + 
+                    "',estimatedTime = "+a.getEstimatedTime()+",procedura= "+ id +" where id_ =" + a.getId();
+            stm.executeUpdate(query);
+            //Associo le competenze alla procedura appena creata 
+            for (String c : a.getProcedure().getCompetencies()){
+                query = "insert into Competence_for_Procedure (procedura,competence) values ("+id+",'"+c+"');";
+                stm.executeUpdate(query);
+            }
+            return true;
+        } catch (SQLException ex) {
+            return false;
+        }
     }
   
 }

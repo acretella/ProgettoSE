@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Altro
  */
-public class Activity {
+public abstract class Activity {
     private int id;
     private String factorySite;
     private String area;
@@ -22,7 +22,7 @@ public class Activity {
     private List<String> materials;
     private boolean interruptable;
     private String workSpaceNote;
-    private Procedure procedure;
+    Procedure procedure;
     private int type = 0;
 
 
@@ -99,6 +99,16 @@ public class Activity {
 
     public Procedure getProcedure() {
         return procedure;
+    }
+    
+    public abstract int getDay();
+
+    public void setActivityDescription(String activityDescription) {
+        this.activityDescription = activityDescription;
+    }
+
+    public void setEstimatedTime(int estimatedTime) {
+        this.estimatedTime = estimatedTime;
     }
     
 }

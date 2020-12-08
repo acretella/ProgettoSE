@@ -19,6 +19,11 @@ public class PlannedActivity extends Activity{
         super.setType(0);
     }
 
+    @Override
+    public int getDay() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
     
     
