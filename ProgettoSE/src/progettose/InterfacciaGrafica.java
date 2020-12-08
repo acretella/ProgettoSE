@@ -1413,6 +1413,10 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
     private void buttonConfermaEwoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfermaEwoActionPerformed
 
+        Activity a = p.getActivity(id);
+        EwoActivity b = new EwoActivity(a.getId(), a.getFactorySite(), a.getArea(), a.getTypology(), textAreaDescrizioneEWO.getText(),
+                Integer.parseInt(textFieldEstimatedtimeewo.getText()),
+                a.getWeek(), a.getMaterials(), a.isInterruptable(), textAreaWNEWO.getText(), a.getDay());
 
     }//GEN-LAST:event_buttonConfermaEwoActionPerformed
 
@@ -1769,10 +1773,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 listModelSkillsEwo.addElement(s);
             }
         }
-        
+
         listSkillsEWO.setModel(listModelSkillsEwo);
 
-         
         for (String s : p.getAllSkills()) {
             tendinaSkills.addItem(s);
         }
