@@ -237,7 +237,7 @@ public class Planner {
             else
                 idproc=null;
             String query="";
-            if(a.getDay() != -1){
+            if(a.getDay() == -1){
                 query ="update Activity set factorySite='"+a.getFactorySite()+
                         "',area='"+a.getArea()+"',typology='"+a.getTypology()+"',description='"+a.getActivityDescription()+
                         "',estimatedTime="+a.getEstimatedTime()+",week="+a.getWeek()+",interruptable="+a.isInterruptable()+
@@ -399,20 +399,19 @@ public class Planner {
             Statement stm = connection.createStatement();
             String query = "";
             int id = 0;
-            if(a.getProcedure().getId() == 0) // se l'attività non ha procedure associate nel db
-                for (String skill:a.getProcedure().getCompetencies()){
-                    query = "select max(id_) from Procedura";
-                    ResultSet rst = stm.executeQuery(query);
-                    rst.next();
-                    id = rst.getInt("max");
-                    if(rst.wasNull()) //Se non ci sono procedure nel database
-                        id = 0; 
-                    else
-                        id += 1;
-                    
-                    //Creo una procedura e mi assicuro che l'id sia univoco
-                    query = "insert into Procedura(id_,smp_path) values ("+id+",null);";
-                    stm.executeUpdate(query);
+            if(a.getProcedure().getId() == 0){ // se l'attività non ha procedure associate nel db
+                query = "select max(id_) from Procedura";
+                ResultSet rst = stm.executeQuery(query);
+                rst.next();
+                id = rst.getInt("max");
+                if(rst.wasNull()) //Se non ci sono procedure nel database
+                    id = 0; 
+                else
+                    id += 1;
+
+                //Creo una procedura e mi assicuro che l'id sia univoco
+                query = "insert into Procedura(id_,smp_path) values ("+id+",null);";
+                stm.executeUpdate(query);
                 }
             else{
                 id = a.getProcedure().getId();
