@@ -1031,6 +1031,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 mostraErrore("ERRORE", "Input non corretti!");
             } else if (buttonCrea.getText().equals("CREA ATTIVITA'")) {
                 try {
+                    
                     p.createActivity(a);
                     svuota();
                     mostraSuccesso("ATTIVITA' CREATA", "Hai creato l'attività correttamente!");
@@ -1042,7 +1043,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 a.setProcedure(p.getActivity(id).getProcedure());
 
                 try {
-                    System.out.println(a.getDay());
+                    
                     p.modifyActivity(a);
                     svuota();
                     mostraSuccesso("ATTIVITA' MODIFICATA", "Hai modificato l'attività correttamente");
@@ -1419,10 +1420,13 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             EwoActivity b = new EwoActivity(a.getId(), a.getFactorySite(), a.getArea(), a.getTypology(), textAreaDescrizioneEWO.getText(),
                     Integer.parseInt(textFieldEstimatedtimeewo.getText()),
                     a.getWeek(), a.getMaterials(), a.isInterruptable(), textAreaWNEWO.getText(), a.getDay(), a.getProcedure());
-            System.out.println(skills);
             b.setSkills(skills);
-            System.out.println(b.getProcedure().getCompetencies());
-            System.out.println(p.setEwoActivity(b));
+            if (p.setEwoActivity(b)) {
+                mostraSuccesso("EWO modificata!", "EWO modificata con successo");
+                attivitàEWO.setVisible(false);
+            } else {
+                mostraErrore("ERRORE", "Modifica non effettuata");
+            }
         } catch (NumberFormatException e) {
             mostraErrore("ERRORE", "Campo estimated time non contiene tutti interi! ");
         }
