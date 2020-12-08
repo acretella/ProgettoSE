@@ -1416,7 +1416,16 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         Activity a = p.getActivity(id);
         EwoActivity b = new EwoActivity(a.getId(), a.getFactorySite(), a.getArea(), a.getTypology(), textAreaDescrizioneEWO.getText(),
                 Integer.parseInt(textFieldEstimatedtimeewo.getText()),
-                a.getWeek(), a.getMaterials(), a.isInterruptable(), textAreaWNEWO.getText(), a.getDay());
+                a.getWeek(), a.getMaterials(), a.isInterruptable(), textAreaWNEWO.getText(), a.getDay(),a.getProcedure());
+        List<String> x= new ArrayList();
+        int i=0;
+        
+        while(listModelSkillsEwo.isEmpty()){
+            x.add(String.valueOf(listModelSkillsEwo.remove(i)));
+            i++;
+           
+        }
+        b.setSkills(x);
 
     }//GEN-LAST:event_buttonConfermaEwoActionPerformed
 
