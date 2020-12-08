@@ -33,5 +33,10 @@ public class Procedure {
     public List<String> getCompetencies() {
         return competencies;
     }
-        
+
+    public void setCompetencies(List<String> competencies) {
+        this.competencies = competencies;
+    }
+    
+    
 }

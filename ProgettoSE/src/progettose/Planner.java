@@ -174,7 +174,8 @@ public class Planner {
                         materials,
                         rst.getBoolean("interruptable"),
                         rst.getString("workSpaceNotes"),
-                        rst.getInt("giorno")
+                        rst.getInt("giorno"),
+                        p = createProcedure(rst.getInt("procedura"))
                 );
                 break;
             case 2:
@@ -235,11 +236,21 @@ public class Planner {
                 idproc = String.valueOf(a.getProcedure().getId());
             else
                 idproc=null;
-            String query ="update Activity set factorySite='"+a.getFactorySite()+
+            String query="";
+            if(a.getDay() != -1){
+                query ="update Activity set factorySite='"+a.getFactorySite()+
                         "',area='"+a.getArea()+"',typology='"+a.getTypology()+"',description='"+a.getActivityDescription()+
                         "',estimatedTime="+a.getEstimatedTime()+",week="+a.getWeek()+",interruptable="+a.isInterruptable()+
                         ",workSpaceNotes='"+a.getWorkSpaceNote()+"',activityType="+a.getType()+
-                    ",procedura="+idproc+" where id_="+a.getId()+";";
+                    ",procedura="+idproc+",giorno= null"+" where id_="+a.getId()+";";
+            }
+            else{
+                query = "update Activity set factorySite='"+a.getFactorySite()+
+                        "',area='"+a.getArea()+"',typology='"+a.getTypology()+"',description='"+a.getActivityDescription()+
+                        "',estimatedTime="+a.getEstimatedTime()+",week="+a.getWeek()+",interruptable="+a.isInterruptable()+
+                        ",workSpaceNotes='"+a.getWorkSpaceNote()+"',activityType="+a.getType()+
+                    ",procedura="+idproc+",giorno="+a.getDay()+" where id_="+a.getId()+";";
+            }
              
                     if(stm.executeUpdate(query) == 0)
                         throw new Exception("Nessuna modifica effettuata");
@@ -386,7 +397,7 @@ public class Planner {
     public boolean setEwoActivity(EwoActivity a){
         try {
             Statement stm = connection.createStatement();
-            
+            //if(a.getProcedure() != null && a.getProcedure().getId() != 0)
             String query = "select max(id_) from Procedura";
             ResultSet rst = stm.executeQuery(query);
             rst.next();

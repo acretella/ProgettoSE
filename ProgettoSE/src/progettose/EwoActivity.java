@@ -14,8 +14,8 @@ import java.util.List;
 public class EwoActivity extends UnPlannedActivity{
     private int day;
 
-    public EwoActivity(int id, String factorySite, String area, String typology, String activityDescription, int estimatedTime, int week, List<String> materials,boolean interruptable, String workSpaceNote,int day) {
-        super(id, factorySite, area, typology, activityDescription, estimatedTime, week, materials,interruptable, workSpaceNote, null);
+    public EwoActivity(int id, String factorySite, String area, String typology, String activityDescription, int estimatedTime, int week, List<String> materials,boolean interruptable, String workSpaceNote,int day,Procedure procedura) {
+        super(id, factorySite, area, typology, activityDescription, estimatedTime, week, materials,interruptable, workSpaceNote, procedura);
         super.setType(1);
         this.day = day;
     }
@@ -26,7 +26,10 @@ public class EwoActivity extends UnPlannedActivity{
     }
     
     public void setSkills(List<String> skills){
-        this.procedure = new Procedure(0,null,skills);      
+        if (this.procedure != null)
+            this.procedure = new Procedure(0,null,skills);
+        else 
+            this.procedure.setCompetencies(skills);
     }
     
     
