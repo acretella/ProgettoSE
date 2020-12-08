@@ -136,8 +136,11 @@ public class Planner {
             List<String> competences = new ArrayList<>();
             while (rst.next()) {
                 competences.add(rst.getString("competence"));
-            }
-            return new Procedure(id, new File(path), competences);
+            }           
+            if(path != null)
+                return new Procedure(id, new File(path), competences);
+            else
+                return new Procedure(id, null, competences);
 
         } catch (SQLException ex) {
             return null;
