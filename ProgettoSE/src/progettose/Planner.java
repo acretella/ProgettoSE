@@ -399,9 +399,9 @@ public class Planner {
             Statement stm = connection.createStatement();
             String query = "";
             int id = 0;
-            if(a.getProcedure() != null && a.getProcedure().getId() != 0)
+            if(a.getProcedure() != null && a.getProcedure().getId() == 0)
                 for (String skill:a.getProcedure().getCompetencies()){
-                    query = "delete from Competence_for_Procedure where competence = " + skill;
+                    query = "delete from Competence_for_Procedure where procedura = " + id;
                     stm.executeUpdate(query);
                     id = a.getProcedure().getId();
                 }

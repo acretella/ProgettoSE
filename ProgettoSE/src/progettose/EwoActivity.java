@@ -26,7 +26,7 @@ public class EwoActivity extends UnPlannedActivity{
     }
     
     public void setSkills(List<String> skills){
-        if (this.procedure != null)
+        if (this.procedure == null)
             this.procedure = new Procedure(0,null,skills);
         else 
             this.procedure.setCompetencies(skills);
