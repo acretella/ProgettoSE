@@ -174,7 +174,8 @@ public class Planner {
                         materials,
                         rst.getBoolean("interruptable"),
                         rst.getString("workSpaceNotes"),
-                        rst.getInt("giorno")
+                        rst.getInt("giorno"),
+                        p = createProcedure(rst.getInt("procedura"))
                 );
                 break;
             case 2:
@@ -396,7 +397,7 @@ public class Planner {
     public boolean setEwoActivity(EwoActivity a){
         try {
             Statement stm = connection.createStatement();
-            
+            //if(a.getProcedure() != null && a.getProcedure().getId() != 0)
             String query = "select max(id_) from Procedura";
             ResultSet rst = stm.executeQuery(query);
             rst.next();
