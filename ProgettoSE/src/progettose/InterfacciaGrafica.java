@@ -61,7 +61,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     DefaultListModel listModelSkillsEwo = new DefaultListModel();
     LocalDate date = LocalDate.now();
     String giorno = String.valueOf(date.getDayOfWeek());
-    
 
     Planner p;
     List<String> materiali = new ArrayList<>();
@@ -1537,6 +1536,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         textFieldEstimatedtimeewo.setText("");
         labelDayEWO.setText("DAY ");
         skills.clear();
+        tendinaSkills.removeAllItems();
     }
 
     private void svuota() {
@@ -1781,6 +1781,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         textFieldEstimatedtimeewo.setText(String.valueOf(a.getEstimatedTime()));
 
         if (a.getProcedure() != null) {
+            skills = a.getProcedure().getCompetencies();
             for (String s : a.getProcedure().getCompetencies()) {
                 listModelSkillsEwo.addElement(s);
             }

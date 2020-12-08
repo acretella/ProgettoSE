@@ -5,6 +5,7 @@
  */
 package progettose;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -27,7 +28,7 @@ public class EwoActivity extends UnPlannedActivity{
     
     public void setSkills(List<String> skills){
         if (this.procedure == null)
-            this.procedure = new Procedure(0,null,skills);
+            this.procedure = new Procedure(0,new File(""),skills);
         else 
             this.procedure.setCompetencies(skills);
     }
