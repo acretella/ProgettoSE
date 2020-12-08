@@ -237,7 +237,7 @@ public class Planner {
             else
                 idproc=null;
             String query="";
-            if(a.getDay() != -1){
+            if(a.getDay() == -1){
                 query ="update Activity set factorySite='"+a.getFactorySite()+
                         "',area='"+a.getArea()+"',typology='"+a.getTypology()+"',description='"+a.getActivityDescription()+
                         "',estimatedTime="+a.getEstimatedTime()+",week="+a.getWeek()+",interruptable="+a.isInterruptable()+

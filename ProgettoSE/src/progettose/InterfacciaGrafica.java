@@ -1043,6 +1043,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 a.setProcedure(p.getActivity(id).getProcedure());
 
                 try {
+                    System.out.println(a.getDay());
                     p.modifyActivity(a);
                     svuota();
                     mostraSuccesso("ATTIVITA' MODIFICATA", "Hai modificato l'attività correttamente");
@@ -1419,9 +1420,10 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             EwoActivity b = new EwoActivity(a.getId(), a.getFactorySite(), a.getArea(), a.getTypology(), textAreaDescrizioneEWO.getText(),
                     Integer.parseInt(textFieldEstimatedtimeewo.getText()),
                     a.getWeek(), a.getMaterials(), a.isInterruptable(), textAreaWNEWO.getText(), a.getDay(), a.getProcedure());
-
+            System.out.println(skills);
             b.setSkills(skills);
-            p.setEwoActivity(b);
+            System.out.println(b.getProcedure().getCompetencies());
+            System.out.println(p.setEwoActivity(b));
         } catch (NumberFormatException e) {
             mostraErrore("ERRORE", "Campo estimated time non contiene tutti interi! ");
         }
@@ -1772,7 +1774,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         Activity a = p.getActivity(id);
 
         labelWeekEWO.setText(labelWeekEWO.getText() + " " + String.valueOf(a.getWeek()));
-        labelDayEWO.setText(labelDay.getText() + " " + String.valueOf(a.getDay()));
+        labelDayEWO.setText(labelDay.getText() + " " + a.getDay());
         textFieldActivityEWO.setText(id + " - " + a.getFactorySite() + " - " + a.getArea() + " - " + a.getTypology());
         textAreaWNEWO.setText(String.valueOf(a.getWorkSpaceNote()));
         textAreaDescrizioneEWO.setText(String.valueOf(a.getActivityDescription()));
