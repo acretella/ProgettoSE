@@ -81,7 +81,7 @@ public class PlannerTest {
                         new ArrayList<>(), 
                         true, 
                         "dscas", 
-                        15);
+                        15,null);
        try {
             p.createActivity(a);
         } catch (Exception ex) {
@@ -382,7 +382,7 @@ public class PlannerTest {
     
     @Test 
     public void testSetEwo() throws Exception{
-        EwoActivity a = new EwoActivity(47,"a","b","f","dd",20,1,new ArrayList<>(),true,"d",11);
+        EwoActivity a = new EwoActivity(47,"a","b","f","dd",20,1,new ArrayList<>(),true,"d",11,null);
         p.createActivity(a);
         a.setEstimatedTime(10);
         a.setActivityDescription("ccc");
