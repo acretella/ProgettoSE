@@ -397,18 +397,27 @@ public class Planner {
     public boolean setEwoActivity(EwoActivity a){
         try {
             Statement stm = connection.createStatement();
-            //if(a.getProcedure() != null && a.getProcedure().getId() != 0)
-            String query = "select max(id_) from Procedura";
-            ResultSet rst = stm.executeQuery(query);
-            rst.next();
-            int id = rst.getInt("max");
-            if(rst.wasNull()) //Se non ci sono procedure nel database
-                id = 0; 
-            else
-                id += 1;
-            //Creo una procedura e mi assicuro che l'id sia univoco
-            query = "insert into Procedura(id_,smp_path) values ("+id+",null);";
-            stm.executeUpdate(query);
+            String query = "";
+            int id = 0;
+            if(a.getProcedure() != null && a.getProcedure().getId() != 0)
+                for (String skill:a.getProcedure().getCompetencies()){
+                    query = "delete from Competence_for_Procedure where competence = " + skill;
+                    stm.executeUpdate(query);
+                    id = a.getProcedure().getId();
+                }
+            else{
+                query = "select max(id_) from Procedura";
+                ResultSet rst = stm.executeQuery(query);
+                rst.next();
+                id = rst.getInt("max");
+                if(rst.wasNull()) //Se non ci sono procedure nel database
+                    id = 0; 
+                else
+                    id += 1;
+                //Creo una procedura e mi assicuro che l'id sia univoco
+                query = "insert into Procedura(id_,smp_path) values ("+id+",null);";
+                stm.executeUpdate(query);
+            }
             //Associo la procedura all'attività nel database ed aggiorno la descrizione ed il tempo stimato
             query = "update Activity set description = '" + a.getActivityDescription() + 
                     "',estimatedTime = "+a.getEstimatedTime()+",procedura= "+ id +" where id_ =" + a.getId();
