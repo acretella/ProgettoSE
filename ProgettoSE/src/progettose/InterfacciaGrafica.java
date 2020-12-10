@@ -30,7 +30,7 @@ import javax.swing.ListSelectionModel;
  * @author Daniele
  */
 public class InterfacciaGrafica extends javax.swing.JFrame {
-
+    
     private final DefaultTableModel tb = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int row, int column) {
@@ -38,21 +38,21 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             return false;
         }
     };
-
+    
     private final DefaultTableModel tb3 = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int row, int column) {
             return false;
         }
     };
-
+    
     private final DefaultTableModel tb2 = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int row, int column) {
             return false;
         }
     };
-
+    
     String tipo = "";
     String interrompibile = "";
     DefaultListModel listModel = new DefaultListModel();
@@ -63,7 +63,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     DefaultListModel listModelSkillsEwo2 = new DefaultListModel();
     LocalDate date = LocalDate.now();
     String giorno = String.valueOf(date.getDayOfWeek());
-
+    
     Planner p;
     List<String> materiali = new ArrayList<>();
     int id;
@@ -80,16 +80,16 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         }
         initComponents();
         togliBordi();
-
+        
         for (String m : p.getAllMaterials()) {
             tendinaMateriali.addItem(m);
-
+            
         }
         tabellaDisponibilità2.getColumnModel().setSelectionModel(new DefaultListSelectionModel() {
             private boolean isSelectable(int indice) {
                 return !(indice == 1 || indice == 0);
             }
-
+            
             @Override
             public void setSelectionInterval(int indice1, int indice2) {
                 if (isSelectable(indice2) && isSelectable(indice1)) {
@@ -97,16 +97,16 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 } else {
                 }
             }
-
+            
             @Override
             public void addSelectionInterval(int indice1, int indice2) {
                 if (isSelectable(indice1) && isSelectable(indice2)) {
                     super.addSelectionInterval(indice1, indice2);
                 }
             }
-
+            
         });
-
+        
     }
 
     /**
@@ -142,6 +142,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelCO = new javax.swing.JLabel();
         labelWO = new javax.swing.JLabel();
         labelML = new javax.swing.JLabel();
+        buttonModificaEWO = new javax.swing.JButton();
         creazioneAttività = new javax.swing.JFrame();
         panelDX = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
@@ -420,6 +421,15 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelML.setOpaque(true);
         jPanel1.add(labelML);
         labelML.setBounds(560, 420, 240, 30);
+
+        buttonModificaEWO.setText("Modifica info EWO");
+        buttonModificaEWO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonModificaEWOActionPerformed(evt);
+            }
+        });
+        jPanel1.add(buttonModificaEWO);
+        buttonModificaEWO.setBounds(50, 290, 240, 40);
 
         GestioneAttività.getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 1230, 610);
@@ -1030,16 +1040,17 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonGestManutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGestManutActionPerformed
-
+        
         GestioneAttività.setVisible(true);
         buttonModificaAttività.setVisible(false);
         buttonAssegna.setVisible(false);
         disattivaVis();
         fieldDay.setText(giorno);
+        buttonModificaEWO.setVisible(false);
     }//GEN-LAST:event_buttonGestManutActionPerformed
 
     private void buttonCreaAttivitàActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreaAttivitàActionPerformed
-
+        
         disabilitaDay();
         fieldWeek.setEnabled(true);
         labelTipologiaOra.setVisible(false);
@@ -1062,31 +1073,31 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldTimeActionPerformed
 
     private void buttonCreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreaActionPerformed
-
+        
         if (fieldID.getText().equals("") || fieldFactorySite.getText().equals("") || fieldArea.getText().equals("")
                 || textAreaDescrizioneAttività.getText().equals("")
                 || fieldTime.getText().equals("") || fieldWeek.getText().equals("")) {
             mostraErrore("ERRORE", "ALCUNI CAMPI OBBLIGATORI NON SONO STATI COMPILATI");
-
+            
         } else {
             Activity a = buildActivity(tendinaTipoAttività.getSelectedItem().toString());
             if (a == null) {
                 mostraErrore("ERRORE", "Input non corretti!");
             } else if (buttonCrea.getText().equals("CREA ATTIVITA'")) {
                 try {
-
+                    
                     p.createActivity(a);
                     svuota();
                     mostraSuccesso("ATTIVITA' CREATA", "Hai creato l'attività correttamente!");
                 } catch (Exception ex) {
                     mostraErrore("ERRORE", ex.getMessage());
                 }
-
+                
             } else {
                 a.setProcedure(p.getActivity(id).getProcedure());
-
+                
                 try {
-
+                    
                     p.modifyActivity(a);
                     svuota();
                     mostraSuccesso("ATTIVITA' MODIFICATA", "Hai modificato l'attività correttamente");
@@ -1094,14 +1105,14 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 } catch (Exception ex) {
                     mostraErrore("ERRORE", ex.getMessage());
                 }
-
+                
             }
         }
 
     }//GEN-LAST:event_buttonCreaActionPerformed
 
     private void buttonAggiungiMaterialeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAggiungiMaterialeActionPerformed
-
+        
         String materiale = tendinaMateriali.getSelectedItem().toString();
         materiali.add(materiale);
         if (listModel.contains(materiale) == false) {
@@ -1109,9 +1120,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         } else {
             mostraErrore("ERRORE", "Materiale già inserito");
         }
-
+        
         listaMateriali.setModel(listModel);
-
+        
 
     }//GEN-LAST:event_buttonAggiungiMaterialeActionPerformed
 
@@ -1120,7 +1131,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldFactorySiteActionPerformed
 
     private void buttonCancellaAttivitàActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancellaAttivitàActionPerformed
-
+        
         String s = JOptionPane.showInputDialog(null, "Inserisci l'ID da cancellare");
         if (s == null) {
         } else if (s.isBlank()) {
@@ -1140,11 +1151,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_buttonCancellaAttivitàActionPerformed
-
+    
 
     private void buttonMostraAttivitàActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMostraAttivitàActionPerformed
         panelCopertura.setVisible(false);
-
+        buttonModificaEWO.setVisible(true);
+        buttonModificaEWO.setEnabled(false);
         buttonModificaAttività.setVisible(true);
         buttonAssegna.setVisible(true);
         svuotaTabella(tb);
@@ -1169,7 +1181,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonRimuoviMaterialeActionPerformed
 
     private void buttonModificaAttivitàActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModificaAttivitàActionPerformed
-
+        
         labelAttivitàOra.setText(("(Now is"));
         labelTipologiaOra.setText(("(Now is"));
         labelInterrompibileOra.setText(("(Now is"));
@@ -1254,17 +1266,17 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             } catch (IOException ex) {
                 mostraErrore("ERRORE", "File non trovato");
             }
-
+            
         }
 
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonSMPActionPerformed
 
     private void tabellaAttivitàMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabellaAttivitàMouseClicked
-
+        
         listModelVis.clear();
         listModelComp.clear();
-
+        
         DefaultTableModel tb = (DefaultTableModel) tabellaAttività.getModel();
         listaCompetenze.setModel(listModelComp);
         listaMaterialiVis.setModel(listModel);
@@ -1273,6 +1285,10 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             mostraErrore("ERRORE", "Seleziona una riga dalla tabella!");
         } else {
             if (tabellaAttività.getValueAt(tabellaAttività.getSelectedRow(), 6).equals("EWO")) {
+                buttonModificaEWO.setEnabled(true);
+                
+            } else {
+                buttonModificaEWO.setEnabled(false);
                 gestioneEWO();
             }
             panelCopertura2.setVisible(false);
@@ -1292,19 +1308,19 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                     listModelComp.addElement("·" + c);
                 }
             }
-
+            
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_tabellaAttivitàMouseClicked
 
     private void buttonAssegnaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAssegnaActionPerformed
-
+        
         int indice = tabellaAttività.getSelectedRow();
         if (indice == -1) {
             mostraErrore("ERRORE", "Seleziona un'attività dalla tabella!");
         } else {
             if (p.getActivity(id).getType() != 1) {
-
+                
                 casoNotEWO();
             } else {
                 tabellaDisponibilità.setEnabled(false);
@@ -1341,7 +1357,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 private boolean isSelectable(int indice) {
                     return !(indice == 1 || indice == 0);
                 }
-
+                
                 @Override
                 public void setSelectionInterval(int indice1, int indice2) {
                     if (isSelectable(indice2) && isSelectable(indice1)) {
@@ -1349,16 +1365,16 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                     } else {
                     }
                 }
-
+                
                 @Override
                 public void addSelectionInterval(int indice1, int indice2) {
                     if (isSelectable(indice1) && isSelectable(indice2)) {
                         super.addSelectionInterval(indice1, indice2);
                     }
                 }
-
+                
             });
-
+            
             assegnaAttività2.setVisible(true);
             tabellaDisponibilità.setEnabled(false);
             Activity a = p.getActivity(id);
@@ -1371,12 +1387,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                     + tabellaDisponibilità.getValueAt(riga, colonna));
             jTextFieldActivityToAssign2.setText(id + " - " + a.getFactorySite() + " - " + a.getArea() + " - "
                     + a.getTypology() + " - " + a.getEstimatedTime() + " mins");
-
+            
             tabellaDisponibilità2.setCellSelectionEnabled(true);
             svuotaTabella(tb3);
             tabellaDisponibilità2.setRowHeight(50);
             aggiornaTabella3();
-
+            
         }
 
     }//GEN-LAST:event_jButtonAssegnaAttività2ActionPerformed
@@ -1391,34 +1407,34 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         if (p.getActivity(id).getType() != 1) {
             riga = tabellaDisponibilità.getSelectedRow();
             c = tabellaDisponibilità.getSelectedColumn();
-
+            
         } else {
-
+            
             riga = tabellaDisponibilità2.getSelectedRow();
             c = date.getDayOfWeek().getValue() + 1;
         }
-
+        
         int[] oreSelezionate = tabellaDisponibilità2.getSelectedColumns();
-
+        
         for (int i = 0; i < oreSelezionate.length; i++) {
             oreSelezionate[i] -= 2;
-
+            
         }
-
+        
         try {
-
+            
             p.assignedActivityToMaintainer(p.getAllMaintainers().get(riga), p.getActivity(id), c - 2, oreSelezionate);
-
+            
             mostraSuccesso("Attività assegnata!", "Attività assegnata con successo");
             aggiornaTabella2();
             resetPostEWO();
             assegnaAttività2.setVisible(false);
             tabellaDisponibilità.setEnabled(true);
         } catch (Exception ex) {
-
+            
             mostraErrore("ERRORE", ex.getMessage());
         }
-
+        
 
     }//GEN-LAST:event_buttonForwardActionPerformed
 
@@ -1433,7 +1449,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_assegnaAttività2WindowClosing
 
     private void buttonConfermaEwoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfermaEwoActionPerformed
-
+        
         Activity a = p.getActivity(id);
         try {
             EwoActivity b = new EwoActivity(a.getId(), a.getFactorySite(), a.getArea(), a.getTypology(), textAreaDescrizioneEWO.getText(),
@@ -1449,7 +1465,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
             mostraErrore("ERRORE", "Campo estimated time non contiene tutti interi! ");
         }
-
+        
 
     }//GEN-LAST:event_buttonConfermaEwoActionPerformed
 
@@ -1471,10 +1487,10 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             fieldDay.setVisible(true);
             labelDay.setVisible(true);
             Calendar cal = Calendar.getInstance();
-
+            
             fieldDay.setText(giorno);
             fieldWeek.setText(String.valueOf(52 - Calendar.WEEK_OF_YEAR));
-
+            
         } else {
             if (!buttonCrea.getText().equals(("MODIFICA ATTIVITA'"))) {
                 labelWeek.setEnabled(true);
@@ -1505,7 +1521,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_textFieldEstimatedtimeewoActionPerformed
 
     private void buttonRemoveSkillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveSkillActionPerformed
-
+        
         if (listSkillsEWO.getSelectedIndex() == -1) {
             mostraErrore("ERROR", "Seleziona una skill dalla lista delle skills da rimuovere");
         } else {
@@ -1518,11 +1534,20 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonRemoveSkillActionPerformed
 
     private void tabellaDisponibilità2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabellaDisponibilità2MouseClicked
-
-
+        
 
     }//GEN-LAST:event_tabellaDisponibilità2MouseClicked
 
+    private void buttonModificaEWOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModificaEWOActionPerformed
+        if (tabellaAttività.getSelectedRow() > -1) {
+            gestioneEWO();
+        } else {
+            buttonModificaEWO.setEnabled(false);
+        }
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonModificaEWOActionPerformed
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1555,7 +1580,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
     }
-
+    
     private void clearEwoFrame() {
         labelWeekEWO.setText("WEEK ");
         textFieldActivityEWO.setText("");
@@ -1567,7 +1592,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         skills.clear();
         tendinaSkills.removeAllItems();
     }
-
+    
     private void svuota() {
         materiali.clear();
         fieldID.setText("");
@@ -1577,10 +1602,10 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         textAreaDescrizioneAttività.setText("");
         textAreaWorkspace.setText("");
         listModel.clear();
-
+        
         fieldArea.setText("");
     }
-
+    
     private void disattivaVis() {
         togliBordi();
         buttonSMP.setVisible(false);
@@ -1592,9 +1617,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         textAreaWorkspaceNotesVis.setVisible(false);
         listaMaterialiVis.setVisible(false);
         listaCompetenze.setVisible(false);
-
+        
     }
-
+    
     private Activity buildActivity(String tipoAttività) {
         Activity a;
         boolean b;
@@ -1604,7 +1629,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             b = false;
         }
         try {
-
+            
             switch (tipoAttività) {
                 case "Planned":
                     a = new PlannedActivity(Integer.parseInt(fieldID.getText()), fieldFactorySite.getText(), fieldArea.getText(),
@@ -1626,12 +1651,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                     break;
             }
         } catch (NumberFormatException e) {
-
+            
             return null;
         }
         return a;
     }
-
+    
     private void abilitaVis() {
         aggiungiBordi();
         buttonSMP.setVisible(true);
@@ -1643,9 +1668,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         textAreaWorkspaceNotesVis.setVisible(true);
         listaMaterialiVis.setVisible(true);
         listaCompetenze.setVisible(true);
-
+        
     }
-
+    
     private void riempiTabella() {
         svuotaTabella(tb);
         String[] nomi = {"ID", "Factory Site", "Area", "Typology", "Estimated Time", "Week", "Tipo", "Interrompibile"};
@@ -1670,13 +1695,13 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             } else {
                 interrompibile = "No";
             }
-
+            
             String[] inserimento = {String.valueOf(x.getId()), x.getFactorySite(), x.getArea(), x.getTypology(),
                 String.valueOf(x.getEstimatedTime()), String.valueOf(x.getWeek()), tipo, interrompibile};
             tb.addRow(inserimento);
         }
     }
-
+    
     private String[] calcolaPercentuale(int m[][]) {
         String[] percentuali = new String[7];
         float sum = 0;
@@ -1684,15 +1709,15 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             for (int j = 0; j <= 6; j++) {
                 sum += m[i][j];
             }
-
+            
             percentuali[i] = String.valueOf((int) (sum / 420 * 100)) + "%";
             sum = 0;
-
+            
         }
-
+        
         return percentuali;
     }
-
+    
     private String contaCompetenze(List<String> competenzeAttività, List<String> competenzeMaintainer) {
         int count = 0;
         for (String c : competenzeAttività) {
@@ -1702,7 +1727,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         }
         return count + "/" + competenzeAttività.size();
     }
-
+    
     private void aggiungiBordi() {
         jScrollPane8.setBorder(BorderFactory.createLineBorder(black));
         jScrollPane7.setBorder(BorderFactory.createLineBorder(black));
@@ -1710,24 +1735,24 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jScrollPane4.setBorder(BorderFactory.createLineBorder(black));
         jScrollPane3.setBorder(BorderFactory.createLineBorder(black));
     }
-
+    
     private void togliBordi() {
         jScrollPane8.setBorder(null);
         jScrollPane7.setBorder(null);
         jScrollPane5.setBorder(null);
         jScrollPane4.setBorder(null);
         jScrollPane3.setBorder(null);
-
+        
     }
-
+    
     private void mostraErrore(String titolo, String messaggio) {
         JOptionPane.showMessageDialog(null, messaggio, titolo, ERROR_MESSAGE);
     }
-
+    
     private void mostraSuccesso(String titolo, String messaggio) {
         JOptionPane.showMessageDialog(null, messaggio, titolo, INFORMATION_MESSAGE);
     }
-
+    
     private String getComp(Activity a, Maintainer m) {
         String competenze;
         if (a.getProcedure() != null) {
@@ -1738,19 +1763,19 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         }
         return competenze;
     }
-
+    
     private void svuotaTabella(DefaultTableModel tb) {
         while (tb.getRowCount() > 0) {
             tb.removeRow(0);
         }
     }
-
+    
     private void resettaLabelDisp() {
         labelWeekDisp.setText("WEEK:");
         labelDayDisp.setText("DAY:");
         labelDisponibilità.setText("AVAILABILITY OF");
     }
-
+    
     private void aggiornaTabella3() {
         Activity a = p.getActivity(id);
         Maintainer m = p.getAllMaintainers().get(tabellaDisponibilità.getSelectedRow());
@@ -1770,9 +1795,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             String.valueOf(ore[5]) + " min", String.valueOf(ore[6]) + " min"};
         tb3.addRow(inserimento);
         tabellaDisponibilità2.setModel(tb3);
-
+        
     }
-
+    
     private void aggiornaTabella2() {
         svuotaTabella(tb2);
         Activity a = p.getActivity(id);
@@ -1789,45 +1814,45 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 tb2.addRow(inserimento);
             }
         }
-
+        
     }
-
+    
     private void disabilitaDay() {
         fieldDay.setVisible(false);
         labelDay.setVisible(false);
     }
-
+    
     private void gestioneEWO() {
         attivitàEWO.setVisible(true);
         id = Integer.parseInt(tb.getValueAt(tabellaAttività.getSelectedRow(), 0).toString());
         Activity a = p.getActivity(id);
-
+        
         labelWeekEWO.setText(labelWeekEWO.getText() + " " + String.valueOf(a.getWeek()));
         labelDayEWO.setText(labelDay.getText() + " " + a.getDay());
         textFieldActivityEWO.setText(id + " - " + a.getFactorySite() + " - " + a.getArea() + " - " + a.getTypology());
         textAreaWNEWO.setText(String.valueOf(a.getWorkSpaceNote()));
         textAreaDescrizioneEWO.setText(String.valueOf(a.getActivityDescription()));
         textFieldEstimatedtimeewo.setText(String.valueOf(a.getEstimatedTime()));
-
+        
         if (a.getProcedure() != null) {
             skills = a.getProcedure().getCompetencies();
             for (String s : a.getProcedure().getCompetencies()) {
                 listModelSkillsEwo.addElement(s);
             }
         }
-
+        
         listSkillsEWO.setModel(listModelSkillsEwo);
-
+        
         for (String s : p.getAllSkills()) {
             tendinaSkills.addItem(s);
         }
-
+        
     }
-
+    
     private void casoNotEWO() {
         svuotaTabella(tb2);
         assegnaAttività.setTitle(("Disponibilità manutentori settimana " + tabellaAttività.getValueAt(tabellaAttività.getSelectedRow(), 5)));
-
+        
         tabellaDisponibilità.setCellSelectionEnabled(true);
         Activity a = p.getActivity(id);
         listModelSkills.clear();
@@ -1837,22 +1862,22 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 listModelSkills.addElement("·" + c);
             });
         }
-
+        
         listaSkills.setModel(listModelSkills);
         textWeekAssegnata.setText(String.valueOf(a.getWeek()));
         textAttivitàDaAssegnare.setText(id + " - " + a.getFactorySite() + " - " + a.getArea() + " - " + a.getTypology() + " - " + a.getEstimatedTime() + " mins");
-
+        
         aggiornaTabella2();
-
+        
         if (tb2.getRowCount() == 0) {
             mostraErrore("ERRORE", "Nessun manutentore disponibile nella settimana " + a.getWeek());
             assegnaAttività.setVisible(false);
         } else {
             assegnaAttività.setVisible(true);
         }
-
+        
     }
-
+    
     private void casoEWO() {
         assegnaAttività2.setVisible(true);
         Activity a = p.getActivity(id);
@@ -1868,9 +1893,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             listModelSkillsEwo2.addElement(s);
         }
         listSkillsEWO2.setModel(listModelSkillsEwo2);
-
-
-
+        
         String[] nomi = {"Maintainer", "Skills", "08:00 to 9:00", "09:00 to 10:00", "10:00 to 11:00", "11:00 to 12:00", "12:00 to 13:00", "13:00 to 14:00", "14:00 to 15:00"};
         tb3.setColumnIdentifiers(nomi);
         tabellaDisponibilità2.setModel(tb3);
@@ -1878,8 +1901,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         tabellaDisponibilità2.setRowSelectionAllowed(true);
         tabellaDisponibilità2.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         
-        
-
         for (Maintainer m : p.getAllMaintainers()) {
             int[][] disp = m.getAvailability().get(a.getWeek());
             int[] ore;
@@ -1888,25 +1909,25 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 ore = new int[7];
             } else {
                 ore = disp[date.getDayOfWeek().getValue() - 1];
-
+                
             }
-
+            
             competenze = getComp(a, m);
-
+            
             String[] inserimento = {m.getName(), competenze, String.valueOf(ore[0]) + " min",
                 String.valueOf(ore[1]) + " min", String.valueOf(ore[2]) + " min",
                 String.valueOf(ore[3]) + " min", String.valueOf(ore[4]) + " min",
                 String.valueOf(ore[5]) + " min", String.valueOf(ore[6]) + " min"};
             tb3.addRow(inserimento);
-
+            
         }
-
+        
     }
-
+    
     private void resetPostEWO() {
         listModelSkillsEwo2.clear();
         labelWeekDisp.setText("WEEK: ");
-        labelDayDisp.setText("DAY:_");
+        labelDayDisp.setText("DAY: ");
         svuotaTabella(tb3);
     }
 
@@ -1925,6 +1946,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JButton buttonForward;
     private javax.swing.JButton buttonGestManut;
     private javax.swing.JButton buttonModificaAttività;
+    private javax.swing.JButton buttonModificaEWO;
     private javax.swing.JButton buttonMostraAttività;
     private javax.swing.JButton buttonRemoveSkill;
     private javax.swing.JButton buttonRimuoviMateriale;
