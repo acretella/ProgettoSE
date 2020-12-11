@@ -267,7 +267,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         panelCopertura2.setLayout(panelCopertura2Layout);
         panelCopertura2Layout.setHorizontalGroup(
             panelCopertura2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1060, Short.MAX_VALUE)
+            .addGap(0, 1070, Short.MAX_VALUE)
         );
         panelCopertura2Layout.setVerticalGroup(
             panelCopertura2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -275,7 +275,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         );
 
         GestioneAttività.getContentPane().add(panelCopertura2);
-        panelCopertura2.setBounds(0, 370, 1060, 240);
+        panelCopertura2.setBounds(0, 370, 1070, 240);
 
         buttonCreaAttività.setText("Crea attività");
         buttonCreaAttività.addActionListener(new java.awt.event.ActionListener() {
