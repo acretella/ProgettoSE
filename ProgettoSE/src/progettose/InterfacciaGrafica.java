@@ -221,7 +221,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         buttonModifyMaterial = new javax.swing.JButton();
         MaterialeSelezionato = new javax.swing.JTextField();
-        ModificaMat = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         buttonGestManut = new javax.swing.JButton();
 
@@ -265,7 +264,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         );
 
         GestioneAttività.getContentPane().add(panelCopertura2);
-        panelCopertura2.setBounds(0, 370, 0, 0);
+        panelCopertura2.setBounds(0, 370, 1060, 240);
 
         buttonCreaAttività.setText("Crea attività");
         buttonCreaAttività.addActionListener(new java.awt.event.ActionListener() {
@@ -1025,17 +1024,13 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jPanel6.add(buttonModifyMaterial);
         buttonModifyMaterial.setBounds(500, 210, 120, 21);
 
-        MaterialeSelezionato.setEditable(false);
-        jPanel6.add(MaterialeSelezionato);
-        MaterialeSelezionato.setBounds(500, 130, 90, 19);
-
-        ModificaMat.addActionListener(new java.awt.event.ActionListener() {
+        MaterialeSelezionato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ModificaMatActionPerformed(evt);
+                MaterialeSelezionatoActionPerformed(evt);
             }
         });
-        jPanel6.add(ModificaMat);
-        ModificaMat.setBounds(500, 170, 90, 20);
+        jPanel6.add(MaterialeSelezionato);
+        MaterialeSelezionato.setBounds(500, 160, 90, 19);
 
         GestioneMateriali.getContentPane().add(jPanel6);
         jPanel6.setBounds(0, 0, 630, 290);
@@ -1592,6 +1587,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
     private void buttonGestisciMaterialiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGestisciMaterialiActionPerformed
         GestioneMateriali.setVisible(true);
+        materiali2 = p.getAllMaterials();
+        for(String m : materiali2){
+            listModelMaterial.addElement(m);
+            }
+        MaterialList.setModel(listModelMaterial);
     }//GEN-LAST:event_buttonGestisciMaterialiActionPerformed
 
     private void buttonAddMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddMaterialActionPerformed
@@ -1601,14 +1601,14 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
      }else{
      String materiale = InserisciMateriale.getText();
      materiali2.add(materiale);
-    
-         
-    
-     
+     if(listModelMaterial.contains(materiale) == false){
+        p.createMaterial(materiale);
+        listModelMaterial.addElement(materiale);
+     }else{
+         mostraErrore("ERRORE","Materiale già presente");
      }
-    
      
-     
+    }
      
     }//GEN-LAST:event_buttonAddMaterialActionPerformed
 
@@ -1616,15 +1616,13 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
          if (MaterialList.getSelectedIndex() == -1) {
             mostraErrore("ERROR", "Seleziona un materiale dalla lista dei materiali da rimuovere");
         } else {
-                materiali2.remove(MaterialList.getSelectedValue());
-            
-            MaterialList.setModel(listModelMaterial);
-        }
+            materiali2.remove(MaterialList.getSelectedValue());
+            listModelMaterial.removeElement(MaterialList.getSelectedValue());
+            if(p.deleteMaterial(MaterialList.getSelectedValue())){
+                mostraSuccesso("Materiale rimosso","Materiale rimosso con successo");
+            }
+            }
     }//GEN-LAST:event_buttonRemoveMaterialActionPerformed
-
-    private void ModificaMatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificaMatActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ModificaMatActionPerformed
 
     private void buttonModifyMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModifyMaterialActionPerformed
         if(MaterialList.getSelectedIndex() == -1){
@@ -1632,8 +1630,13 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         }
         else{
             MaterialeSelezionato.setText(MaterialList.getSelectedValue());
+            p.modifyMaterial(MaterialList.getSelectedValue(), MaterialeSelezionato.getText());
         }
     }//GEN-LAST:event_buttonModifyMaterialActionPerformed
+
+    private void MaterialeSelezionatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MaterialeSelezionatoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MaterialeSelezionatoActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1941,7 +1944,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JTextField InserisciMateriale;
     private javax.swing.JList<String> MaterialList;
     private javax.swing.JTextField MaterialeSelezionato;
-    private javax.swing.JTextField ModificaMat;
     private javax.swing.JFrame assegnaAttività;
     private javax.swing.JFrame assegnaAttività2;
     private javax.swing.JFrame attivitàEWO;
