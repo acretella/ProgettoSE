@@ -119,6 +119,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelCO = new javax.swing.JLabel();
         labelWO = new javax.swing.JLabel();
         labelML = new javax.swing.JLabel();
+        buttonGestisciMateriali = new javax.swing.JButton();
         creazioneAttività = new javax.swing.JFrame();
         panelDX = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
@@ -205,6 +206,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         buttonAddSkill = new javax.swing.JButton();
         buttonRemoveSkill = new javax.swing.JButton();
         tendinaSkills = new javax.swing.JComboBox<>();
+        GestioneMateriali = new javax.swing.JFrame();
+        jPanel6 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         buttonGestManut = new javax.swing.JButton();
 
@@ -394,6 +398,10 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelML.setOpaque(true);
         jPanel1.add(labelML);
         labelML.setBounds(560, 420, 240, 30);
+
+        buttonGestisciMateriali.setText("Gestisci materiali");
+        jPanel1.add(buttonGestisciMateriali);
+        buttonGestisciMateriali.setBounds(50, 290, 240, 40);
 
         GestioneAttività.getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 1230, 610);
@@ -814,7 +822,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jLabel14.setOpaque(true);
 
         attivitàEWO.setMinimumSize(new java.awt.Dimension(812, 340));
-        attivitàEWO.setPreferredSize(new java.awt.Dimension(817, 309));
         attivitàEWO.setResizable(false);
         attivitàEWO.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -929,7 +936,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         jPanel5.add(buttonAddSkill);
-        buttonAddSkill.setBounds(510, 260, 80, 23);
+        buttonAddSkill.setBounds(510, 260, 80, 21);
 
         buttonRemoveSkill.setText("REMOVE");
         buttonRemoveSkill.addActionListener(new java.awt.event.ActionListener() {
@@ -938,7 +945,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         jPanel5.add(buttonRemoveSkill);
-        buttonRemoveSkill.setBounds(610, 260, 80, 23);
+        buttonRemoveSkill.setBounds(610, 260, 80, 21);
 
         tendinaSkills.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
         jPanel5.add(tendinaSkills);
@@ -946,6 +953,38 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         attivitàEWO.getContentPane().add(jPanel5);
         jPanel5.setBounds(0, 0, 810, 310);
+
+        jPanel6.setBackground(new java.awt.Color(0, 0, 204));
+
+        jButton1.setText("Visualizza lista materiali");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(455, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(254, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout GestioneMaterialiLayout = new javax.swing.GroupLayout(GestioneMateriali.getContentPane());
+        GestioneMateriali.getContentPane().setLayout(GestioneMaterialiLayout);
+        GestioneMaterialiLayout.setHorizontalGroup(
+            GestioneMaterialiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        GestioneMaterialiLayout.setVerticalGroup(
+            GestioneMaterialiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MENU' PRINCIPALE");
@@ -1800,6 +1839,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFrame GestioneAttività;
+    private javax.swing.JFrame GestioneMateriali;
     private javax.swing.JFrame assegnaAttività;
     private javax.swing.JFrame assegnaAttività2;
     private javax.swing.JFrame attivitàEWO;
@@ -1812,6 +1852,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JButton buttonCreaAttività;
     private javax.swing.JButton buttonForward;
     private javax.swing.JButton buttonGestManut;
+    private javax.swing.JButton buttonGestisciMateriali;
     private javax.swing.JButton buttonModificaAttività;
     private javax.swing.JButton buttonMostraAttività;
     private javax.swing.JButton buttonRemoveSkill;
@@ -1824,6 +1865,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JTextField fieldID;
     private javax.swing.JTextField fieldTime;
     private javax.swing.JTextField fieldWeek;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAssegnaAttività2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
@@ -1851,6 +1893,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
