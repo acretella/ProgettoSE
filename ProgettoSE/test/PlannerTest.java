@@ -392,5 +392,27 @@ public class PlannerTest {
         a.setSkills(l);
         assertEquals(p.setEwoActivity(a),true);
     }
+    
+    @Test
+    public void testPosCreateMaterial(){
+        String material = "cavi";
+        assertTrue(p.createMaterial(material));
+        p.deleteMaterial(material);
+    }
+    
+    @Test
+    public void testDeleteMaterial(){
+        String material = "pinza";
+        p.createMaterial(material);
+        assertTrue(p.deleteMaterial(material));
+    }
+    @Test
+    public void testModifyMaterial(){
+        String material = "nastro";
+        p.createMaterial(material);
+        String newMaterial = "nastro isolante";
+        assertTrue(p.modifyMaterial(material, newMaterial));
+        p.deleteMaterial(newMaterial);
+    }
         
 }
