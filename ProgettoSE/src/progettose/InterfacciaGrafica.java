@@ -1618,9 +1618,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
      }else{
      String materiale = InserisciMateriale.getText();
      materiali2.add(materiale);
-     if(MaterialList.contains(materiale) == false){
+    
          
-     }
+    
      
      }
     
