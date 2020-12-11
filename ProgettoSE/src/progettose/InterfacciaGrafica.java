@@ -60,7 +60,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     DefaultListModel listModelSkills = new DefaultListModel();
     DefaultListModel listModelSkillsEwo = new DefaultListModel();
     DefaultListModel listModelMaterial = new DefaultListModel();
-    
+
     LocalDate date = LocalDate.now();
     String giorno = String.valueOf(date.getDayOfWeek());
 
@@ -103,7 +103,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         panelCopertura2 = new javax.swing.JPanel();
         buttonCreaAttività = new javax.swing.JButton();
         buttonMostraAttività = new javax.swing.JButton();
-        buttonCancellaAttività = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabellaAttività = new javax.swing.JTable();
         jScrollPane7 = new javax.swing.JScrollPane();
@@ -115,7 +114,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         textAreaDescrizioneAttivitàVis = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
-        buttonModificaAttività = new javax.swing.JButton();
         buttonAssegna = new javax.swing.JButton();
         labelDE = new javax.swing.JLabel();
         buttonSMP = new javax.swing.JButton();
@@ -123,6 +121,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelWO = new javax.swing.JLabel();
         labelML = new javax.swing.JLabel();
         buttonGestisciMateriali = new javax.swing.JButton();
+        buttonCancellaAttività = new javax.swing.JButton();
+        buttonModificaAttività = new javax.swing.JButton();
+        buttonModificaEWO = new javax.swing.JButton();
         creazioneAttività = new javax.swing.JFrame();
         panelDX = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
@@ -212,15 +213,15 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         GestioneMateriali = new javax.swing.JFrame();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane16 = new javax.swing.JScrollPane();
-        MaterialList = new javax.swing.JList<>();
+        materialList = new javax.swing.JList<>();
         jLabel10 = new javax.swing.JLabel();
         buttonAddMaterial = new javax.swing.JButton();
         buttonRemoveMaterial = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        InserisciMateriale = new javax.swing.JTextField();
+        buttonConfermaMateriale = new javax.swing.JButton();
+        fieldInserisciMateriale = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
         buttonModifyMaterial = new javax.swing.JButton();
-        MaterialeSelezionato = new javax.swing.JTextField();
+        fieldMaterialeSelezionato = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         buttonGestManut = new javax.swing.JButton();
 
@@ -284,15 +285,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         GestioneAttività.getContentPane().add(buttonMostraAttività);
         buttonMostraAttività.setBounds(50, 90, 240, 40);
 
-        buttonCancellaAttività.setText("Cancella attività");
-        buttonCancellaAttività.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCancellaAttivitàActionPerformed(evt);
-            }
-        });
-        GestioneAttività.getContentPane().add(buttonCancellaAttività);
-        buttonCancellaAttività.setBounds(50, 140, 240, 40);
-
         tabellaAttività.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         tabellaAttività.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -348,15 +340,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jPanel1.setMinimumSize(new java.awt.Dimension(1400, 650));
         jPanel1.setLayout(null);
 
-        buttonModificaAttività.setText("Modifica attività");
-        buttonModificaAttività.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonModificaAttivitàActionPerformed(evt);
-            }
-        });
-        jPanel1.add(buttonModificaAttività);
-        buttonModificaAttività.setBounds(50, 190, 240, 40);
-
         buttonAssegna.setText("Assegna attività");
         buttonAssegna.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -364,7 +347,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         jPanel1.add(buttonAssegna);
-        buttonAssegna.setBounds(50, 240, 240, 40);
+        buttonAssegna.setBounds(50, 290, 240, 40);
 
         labelDE.setBackground(new java.awt.Color(153, 204, 255));
         labelDE.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
@@ -418,7 +401,34 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         jPanel1.add(buttonGestisciMateriali);
-        buttonGestisciMateriali.setBounds(50, 290, 240, 40);
+        buttonGestisciMateriali.setBounds(50, 140, 240, 40);
+
+        buttonCancellaAttività.setText("Cancella attività");
+        buttonCancellaAttività.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCancellaAttivitàActionPerformed(evt);
+            }
+        });
+        jPanel1.add(buttonCancellaAttività);
+        buttonCancellaAttività.setBounds(50, 190, 240, 40);
+
+        buttonModificaAttività.setText("Modifica attività");
+        buttonModificaAttività.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonModificaAttivitàActionPerformed(evt);
+            }
+        });
+        jPanel1.add(buttonModificaAttività);
+        buttonModificaAttività.setBounds(50, 240, 240, 40);
+
+        buttonModificaEWO.setText("Modifica informazioni EWO");
+        buttonModificaEWO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonModificaEWOActionPerformed(evt);
+            }
+        });
+        jPanel1.add(buttonModificaEWO);
+        buttonModificaEWO.setBounds(700, 300, 190, 40);
 
         GestioneAttività.getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 1230, 610);
@@ -953,7 +963,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         jPanel5.add(buttonAddSkill);
-        buttonAddSkill.setBounds(510, 260, 80, 21);
+        buttonAddSkill.setBounds(510, 260, 80, 23);
 
         buttonRemoveSkill.setText("REMOVE");
         buttonRemoveSkill.addActionListener(new java.awt.event.ActionListener() {
@@ -962,7 +972,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         jPanel5.add(buttonRemoveSkill);
-        buttonRemoveSkill.setBounds(610, 260, 80, 21);
+        buttonRemoveSkill.setBounds(610, 260, 80, 23);
 
         tendinaSkills.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
         jPanel5.add(tendinaSkills);
@@ -971,21 +981,28 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         attivitàEWO.getContentPane().add(jPanel5);
         jPanel5.setBounds(0, 0, 810, 310);
 
+        GestioneMateriali.setTitle("Material Management");
+        GestioneMateriali.setMinimumSize(new java.awt.Dimension(480, 270));
+        GestioneMateriali.setResizable(false);
         GestioneMateriali.getContentPane().setLayout(null);
 
         jPanel6.setBackground(new java.awt.Color(0, 0, 204));
         jPanel6.setLayout(null);
 
-        jScrollPane16.setViewportView(MaterialList);
+        materialList.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
+        jScrollPane16.setViewportView(materialList);
 
         jPanel6.add(jScrollPane16);
-        jScrollPane16.setBounds(310, 60, 178, 177);
+        jScrollPane16.setBounds(280, 50, 178, 177);
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel10.setText("MATERIAL LIST");
+        jLabel10.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
+        jLabel10.setText("      MATERIAL LIST");
+        jLabel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jLabel10.setOpaque(true);
         jPanel6.add(jLabel10);
-        jLabel10.setBounds(316, 10, 178, 36);
+        jLabel10.setBounds(280, 10, 178, 36);
 
+        buttonAddMaterial.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
         buttonAddMaterial.setText("Add material");
         buttonAddMaterial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -993,8 +1010,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         jPanel6.add(buttonAddMaterial);
-        buttonAddMaterial.setBounds(143, 56, 120, 21);
+        buttonAddMaterial.setBounds(10, 30, 130, 30);
 
+        buttonRemoveMaterial.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
         buttonRemoveMaterial.setText("Remove material");
         buttonRemoveMaterial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1002,19 +1020,30 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         jPanel6.add(buttonRemoveMaterial);
-        buttonRemoveMaterial.setBounds(143, 95, 120, 21);
+        buttonRemoveMaterial.setBounds(10, 90, 130, 30);
 
-        jButton1.setText("Confirm");
-        jPanel6.add(jButton1);
-        jButton1.setBounds(150, 210, 115, 21);
-        jPanel6.add(InserisciMateriale);
-        InserisciMateriale.setBounds(10, 57, 98, 19);
+        buttonConfermaMateriale.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
+        buttonConfermaMateriale.setText("Confirm");
+        buttonConfermaMateriale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonConfermaMaterialeActionPerformed(evt);
+            }
+        });
+        jPanel6.add(buttonConfermaMateriale);
+        buttonConfermaMateriale.setBounds(150, 190, 120, 30);
 
-        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel21.setText("Inserisci il nome del materiale");
+        fieldInserisciMateriale.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
+        jPanel6.add(fieldInserisciMateriale);
+        fieldInserisciMateriale.setBounds(150, 30, 120, 30);
+
+        jLabel21.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
+        jLabel21.setText("       MATERIAL");
+        jLabel21.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jLabel21.setOpaque(true);
         jPanel6.add(jLabel21);
-        jLabel21.setBounds(10, 30, 159, 15);
+        jLabel21.setBounds(150, 10, 120, 20);
 
+        buttonModifyMaterial.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
         buttonModifyMaterial.setText("Modify material");
         buttonModifyMaterial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1022,15 +1051,16 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         jPanel6.add(buttonModifyMaterial);
-        buttonModifyMaterial.setBounds(500, 210, 120, 21);
+        buttonModifyMaterial.setBounds(10, 150, 130, 30);
 
-        MaterialeSelezionato.addActionListener(new java.awt.event.ActionListener() {
+        fieldMaterialeSelezionato.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
+        fieldMaterialeSelezionato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MaterialeSelezionatoActionPerformed(evt);
+                fieldMaterialeSelezionatoActionPerformed(evt);
             }
         });
-        jPanel6.add(MaterialeSelezionato);
-        MaterialeSelezionato.setBounds(500, 160, 90, 19);
+        jPanel6.add(fieldMaterialeSelezionato);
+        fieldMaterialeSelezionato.setBounds(150, 150, 120, 30);
 
         GestioneMateriali.getContentPane().add(jPanel6);
         jPanel6.setBounds(0, 0, 630, 290);
@@ -1081,6 +1111,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         buttonAssegna.setVisible(false);
         disattivaVis();
         fieldDay.setText(giorno);
+        buttonModificaEWO.setVisible(false);
     }//GEN-LAST:event_buttonGestManutActionPerformed
 
     private void buttonCreaAttivitàActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreaAttivitàActionPerformed
@@ -1119,7 +1150,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 mostraErrore("ERRORE", "Input non corretti!");
             } else if (buttonCrea.getText().equals("CREA ATTIVITA'")) {
                 try {
-                    
+
                     p.createActivity(a);
                     svuota();
                     mostraSuccesso("ATTIVITA' CREATA", "Hai creato l'attività correttamente!");
@@ -1131,7 +1162,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 a.setProcedure(p.getActivity(id).getProcedure());
 
                 try {
-                    
+
                     p.modifyActivity(a);
                     svuota();
                     mostraSuccesso("ATTIVITA' MODIFICATA", "Hai modificato l'attività correttamente");
@@ -1317,7 +1348,10 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             mostraErrore("ERRORE", "Seleziona una riga dalla tabella!");
         } else {
             if (tabellaAttività.getValueAt(tabellaAttività.getSelectedRow(), 6).equals("EWO")) {
-                gestioneEWO();
+
+                buttonModificaEWO.setVisible(true);
+            } else {
+                buttonModificaEWO.setVisible(false);
             }
             panelCopertura2.setVisible(false);
             abilitaVis();
@@ -1588,55 +1622,82 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private void buttonGestisciMaterialiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGestisciMaterialiActionPerformed
         GestioneMateriali.setVisible(true);
         materiali2 = p.getAllMaterials();
-        for(String m : materiali2){
+        for (String m : materiali2) {
             listModelMaterial.addElement(m);
-            }
-        MaterialList.setModel(listModelMaterial);
+        }
+        materialList.setModel(listModelMaterial);
+        fieldMaterialeSelezionato.setVisible(false);
+        buttonConfermaMateriale.setVisible(false);
     }//GEN-LAST:event_buttonGestisciMaterialiActionPerformed
 
     private void buttonAddMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddMaterialActionPerformed
-    
-     if(InserisciMateriale.getText().isBlank()){
-        mostraErrore("ERRORE","Nessun materiale inserito");
-     }else{
-     String materiale = InserisciMateriale.getText();
-     materiali2.add(materiale);
-     if(listModelMaterial.contains(materiale) == false){
-        p.createMaterial(materiale);
-        listModelMaterial.addElement(materiale);
-     }else{
-         mostraErrore("ERRORE","Materiale già presente");
-     }
-     
-    }
-     
+
+        if (fieldInserisciMateriale.getText().isBlank()) {
+            mostraErrore("ERRORE", "Nessun materiale inserito");
+        } else {
+            String materiale = fieldInserisciMateriale.getText();
+            materiali2.add(materiale);
+            if (!listModelMaterial.contains(materiale)) {
+                p.createMaterial(materiale);
+                listModelMaterial.addElement(materiale);
+                fieldInserisciMateriale.setText("");
+            } else {
+                mostraErrore("ERRORE", "Materiale già presente");
+            }
+
+        }
+
     }//GEN-LAST:event_buttonAddMaterialActionPerformed
 
     private void buttonRemoveMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveMaterialActionPerformed
-         if (MaterialList.getSelectedIndex() == -1) {
+        if (materialList.getSelectedIndex() == -1) {
             mostraErrore("ERROR", "Seleziona un materiale dalla lista dei materiali da rimuovere");
         } else {
-            materiali2.remove(MaterialList.getSelectedValue());
-            listModelMaterial.removeElement(MaterialList.getSelectedValue());
-            if(p.deleteMaterial(MaterialList.getSelectedValue())){
-                mostraSuccesso("Materiale rimosso","Materiale rimosso con successo");
+            materiali2.remove(materialList.getSelectedValue());
+            listModelMaterial.removeElement(materialList.getSelectedValue());
+            if (p.deleteMaterial(materialList.getSelectedValue())) {
+                mostraSuccesso("Materiale rimosso", "Materiale rimosso con successo");
             }
-            }
+        }
     }//GEN-LAST:event_buttonRemoveMaterialActionPerformed
 
     private void buttonModifyMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModifyMaterialActionPerformed
-        if(MaterialList.getSelectedIndex() == -1){
-            mostraErrore("ERROR","Seleziona un materiale dalla lista dei materiali");
-        }
-        else{
-            MaterialeSelezionato.setText(MaterialList.getSelectedValue());
-            p.modifyMaterial(MaterialList.getSelectedValue(), MaterialeSelezionato.getText());
+        if (materialList.getSelectedIndex() == -1) {
+            mostraErrore("ERROR", "Seleziona un materiale dalla lista dei materiali");
+        } else {
+            fieldMaterialeSelezionato.setVisible(true);
+            buttonConfermaMateriale.setVisible(true);
+            fieldMaterialeSelezionato.setText(materialList.getSelectedValue());
+
         }
     }//GEN-LAST:event_buttonModifyMaterialActionPerformed
 
-    private void MaterialeSelezionatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MaterialeSelezionatoActionPerformed
+    private void fieldMaterialeSelezionatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldMaterialeSelezionatoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_MaterialeSelezionatoActionPerformed
+    }//GEN-LAST:event_fieldMaterialeSelezionatoActionPerformed
+
+    private void buttonModificaEWOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModificaEWOActionPerformed
+        gestioneEWO();
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonModificaEWOActionPerformed
+
+    private void buttonConfermaMaterialeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfermaMaterialeActionPerformed
+        if (p.modifyMaterial(materialList.getSelectedValue(), fieldMaterialeSelezionato.getText())) {
+            mostraSuccesso("Materiale modificato!", "Materiale modificato con successo!");
+            fieldMaterialeSelezionato.setVisible(false);
+            buttonConfermaMateriale.setVisible(false);
+            fieldMaterialeSelezionato.setText("");
+            listModelMaterial.clear();
+            for (String s : p.getAllMaterials()) {
+                listModelMaterial.addElement(s);
+            }
+        } else {
+            mostraErrore("ERRORE", "Materiale non modificato!");
+        }
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonConfermaMaterialeActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1941,9 +2002,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFrame GestioneAttività;
     private javax.swing.JFrame GestioneMateriali;
-    private javax.swing.JTextField InserisciMateriale;
-    private javax.swing.JList<String> MaterialList;
-    private javax.swing.JTextField MaterialeSelezionato;
     private javax.swing.JFrame assegnaAttività;
     private javax.swing.JFrame assegnaAttività2;
     private javax.swing.JFrame attivitàEWO;
@@ -1953,12 +2011,14 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JButton buttonAssegna;
     private javax.swing.JButton buttonCancellaAttività;
     private javax.swing.JButton buttonConfermaEwo;
+    private javax.swing.JButton buttonConfermaMateriale;
     private javax.swing.JButton buttonCrea;
     private javax.swing.JButton buttonCreaAttività;
     private javax.swing.JButton buttonForward;
     private javax.swing.JButton buttonGestManut;
     private javax.swing.JButton buttonGestisciMateriali;
     private javax.swing.JButton buttonModificaAttività;
+    private javax.swing.JButton buttonModificaEWO;
     private javax.swing.JButton buttonModifyMaterial;
     private javax.swing.JButton buttonMostraAttività;
     private javax.swing.JButton buttonRemoveMaterial;
@@ -1970,9 +2030,10 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JTextField fieldDay;
     private javax.swing.JTextField fieldFactorySite;
     private javax.swing.JTextField fieldID;
+    private javax.swing.JTextField fieldInserisciMateriale;
+    private javax.swing.JTextField fieldMaterialeSelezionato;
     private javax.swing.JTextField fieldTime;
     private javax.swing.JTextField fieldWeek;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAssegnaAttività2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -2041,6 +2102,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JList<String> listaMateriali;
     private javax.swing.JList<String> listaMaterialiVis;
     private javax.swing.JList<String> listaSkills;
+    private javax.swing.JList<String> materialList;
     private javax.swing.JPanel panelCopertura;
     private javax.swing.JPanel panelCopertura2;
     private javax.swing.JPanel panelDX;
