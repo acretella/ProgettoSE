@@ -275,7 +275,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         );
 
         GestioneAttività.getContentPane().add(panelCopertura2);
-        panelCopertura2.setBounds(0, 370, 1060, 240);
+        panelCopertura2.setBounds(0, 370, 0, 0);
 
         buttonCreaAttività.setText("Crea attività");
         buttonCreaAttività.addActionListener(new java.awt.event.ActionListener() {
@@ -1252,6 +1252,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         }
         buttonCrea.setText("ATTIVITA'");
         buttonCreaAttività.setEnabled(true);
+        labelWeek.setEnabled(true);
         svuota();
 
     }//GEN-LAST:event_creazioneAttivitàWindowClosing
