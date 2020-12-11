@@ -496,4 +496,37 @@ public class Planner {
             }        
         }       
     }
+    
+    public boolean createMaterial(String material){
+        try {
+            Statement stm = connection.createStatement();
+            String query = "insert into Material(materialName) values ('" + material +"');";
+            stm.executeUpdate(query);
+            return true;
+        } catch (SQLException ex) {//la execute lancia un'eccezione se il materiale è già presente
+            return false;
+        }
+    }
+    
+    public boolean deleteMaterial(String material){
+        try {
+            Statement stm = connection.createStatement();
+            String query = "delete from Material where materialName = '" + material + "';";
+            return stm.executeUpdate(query) == 1;//controllo il valore restituito per stabilire se ha effettuato la delete
+        } catch (SQLException ex) {
+            return false;
+        }
+    }
+    
+    public boolean modifyMaterial(String oldMaterial, String newMaterial){
+        try {
+            Statement stm = connection.createStatement();
+            String query = "update Material set materialName = '" + newMaterial + "' where materialName = '" + oldMaterial + "'";
+            return stm.executeUpdate(query) == 1;//controllo il valore restituito per stabilire se ha effettuato la update
+        } catch (SQLException ex) {
+            return false;
+
+        }
+    }
+        
 }
