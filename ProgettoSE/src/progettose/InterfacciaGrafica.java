@@ -1188,8 +1188,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private void buttonCancellaAttivitàActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancellaAttivitàActionPerformed
 
         String s = JOptionPane.showInputDialog(null, "Inserisci l'ID da cancellare");
-        if (s == null) {
-        } else if (s.isBlank()) {
+        if (s.isBlank()) {
             JOptionPane.showMessageDialog(null, "Campo ID vuoto", "ERRORE", ERROR_MESSAGE);
         } else {
             try {
