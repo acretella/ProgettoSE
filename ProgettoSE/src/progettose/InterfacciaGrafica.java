@@ -220,6 +220,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         InserisciMateriale = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
         buttonModifyMaterial = new javax.swing.JButton();
+        MaterialeSelezionato = new javax.swing.JTextField();
+        ModificaMat = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         buttonGestManut = new javax.swing.JButton();
 
@@ -263,7 +265,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         );
 
         GestioneAttività.getContentPane().add(panelCopertura2);
-        panelCopertura2.setBounds(0, 370, 1060, 240);
+        panelCopertura2.setBounds(0, 370, 0, 0);
 
         buttonCreaAttività.setText("Crea attività");
         buttonCreaAttività.addActionListener(new java.awt.event.ActionListener() {
@@ -970,12 +972,20 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         attivitàEWO.getContentPane().add(jPanel5);
         jPanel5.setBounds(0, 0, 810, 310);
 
+        GestioneMateriali.getContentPane().setLayout(null);
+
         jPanel6.setBackground(new java.awt.Color(0, 0, 204));
+        jPanel6.setLayout(null);
 
         jScrollPane16.setViewportView(MaterialList);
 
+        jPanel6.add(jScrollPane16);
+        jScrollPane16.setBounds(310, 60, 178, 177);
+
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel10.setText("MATERIAL LIST");
+        jPanel6.add(jLabel10);
+        jLabel10.setBounds(316, 10, 178, 36);
 
         buttonAddMaterial.setText("Add material");
         buttonAddMaterial.addActionListener(new java.awt.event.ActionListener() {
@@ -983,6 +993,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 buttonAddMaterialActionPerformed(evt);
             }
         });
+        jPanel6.add(buttonAddMaterial);
+        buttonAddMaterial.setBounds(143, 56, 120, 21);
 
         buttonRemoveMaterial.setText("Remove material");
         buttonRemoveMaterial.addActionListener(new java.awt.event.ActionListener() {
@@ -990,71 +1002,43 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 buttonRemoveMaterialActionPerformed(evt);
             }
         });
+        jPanel6.add(buttonRemoveMaterial);
+        buttonRemoveMaterial.setBounds(143, 95, 120, 21);
 
         jButton1.setText("Confirm");
+        jPanel6.add(jButton1);
+        jButton1.setBounds(150, 210, 115, 21);
+        jPanel6.add(InserisciMateriale);
+        InserisciMateriale.setBounds(10, 57, 98, 19);
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel21.setText("Inserisci il nome del materiale");
+        jPanel6.add(jLabel21);
+        jLabel21.setBounds(10, 30, 159, 15);
 
         buttonModifyMaterial.setText("Modify material");
+        buttonModifyMaterial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonModifyMaterialActionPerformed(evt);
+            }
+        });
+        jPanel6.add(buttonModifyMaterial);
+        buttonModifyMaterial.setBounds(500, 210, 120, 21);
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel6Layout.createSequentialGroup()
-                                    .addComponent(InserisciMateriale, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(40, 40, 40)
-                                    .addComponent(buttonAddMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(buttonRemoveMaterial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addComponent(buttonModifyMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(53, 53, 53)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel21))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(buttonAddMaterial)
-                            .addComponent(InserisciMateriale, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(buttonRemoveMaterial)
-                        .addGap(29, 29, 29)
-                        .addComponent(buttonModifyMaterial)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
-                    .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        MaterialeSelezionato.setEditable(false);
+        jPanel6.add(MaterialeSelezionato);
+        MaterialeSelezionato.setBounds(500, 130, 90, 19);
 
-        javax.swing.GroupLayout GestioneMaterialiLayout = new javax.swing.GroupLayout(GestioneMateriali.getContentPane());
-        GestioneMateriali.getContentPane().setLayout(GestioneMaterialiLayout);
-        GestioneMaterialiLayout.setHorizontalGroup(
-            GestioneMaterialiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        GestioneMaterialiLayout.setVerticalGroup(
-            GestioneMaterialiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        ModificaMat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ModificaMatActionPerformed(evt);
+            }
+        });
+        jPanel6.add(ModificaMat);
+        ModificaMat.setBounds(500, 170, 90, 20);
+
+        GestioneMateriali.getContentPane().add(jPanel6);
+        jPanel6.setBounds(0, 0, 630, 290);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MENU' PRINCIPALE");
@@ -1638,6 +1622,19 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_buttonRemoveMaterialActionPerformed
 
+    private void ModificaMatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificaMatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ModificaMatActionPerformed
+
+    private void buttonModifyMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModifyMaterialActionPerformed
+        if(MaterialList.getSelectedIndex() == -1){
+            mostraErrore("ERROR","Seleziona un materiale dalla lista dei materiali");
+        }
+        else{
+            MaterialeSelezionato.setText(MaterialList.getSelectedValue());
+        }
+    }//GEN-LAST:event_buttonModifyMaterialActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1943,6 +1940,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JFrame GestioneMateriali;
     private javax.swing.JTextField InserisciMateriale;
     private javax.swing.JList<String> MaterialList;
+    private javax.swing.JTextField MaterialeSelezionato;
+    private javax.swing.JTextField ModificaMat;
     private javax.swing.JFrame assegnaAttività;
     private javax.swing.JFrame assegnaAttività2;
     private javax.swing.JFrame attivitàEWO;
