@@ -59,6 +59,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     DefaultListModel listModelComp = new DefaultListModel();
     DefaultListModel listModelSkills = new DefaultListModel();
     DefaultListModel listModelSkillsEwo = new DefaultListModel();
+    DefaultListModel listModelMaterial = new DefaultListModel();
+    
     LocalDate date = LocalDate.now();
     String giorno = String.valueOf(date.getDayOfWeek());
 
@@ -66,6 +68,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     List<String> materiali = new ArrayList<>();
     int id;
     List<String> skills = new ArrayList<>();
+    List<String> materiali2 = new ArrayList<>();
 
     /**
      * Creates new form InterfacciaGrafica
@@ -208,7 +211,15 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         tendinaSkills = new javax.swing.JComboBox<>();
         GestioneMateriali = new javax.swing.JFrame();
         jPanel6 = new javax.swing.JPanel();
+        jScrollPane16 = new javax.swing.JScrollPane();
+        MaterialList = new javax.swing.JList<>();
+        jLabel10 = new javax.swing.JLabel();
+        buttonAddMaterial = new javax.swing.JButton();
+        buttonRemoveMaterial = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        InserisciMateriale = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        buttonModifyMaterial = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         buttonGestManut = new javax.swing.JButton();
 
@@ -400,6 +411,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelML.setBounds(560, 420, 240, 30);
 
         buttonGestisciMateriali.setText("Gestisci materiali");
+        buttonGestisciMateriali.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonGestisciMaterialiActionPerformed(evt);
+            }
+        });
         jPanel1.add(buttonGestisciMateriali);
         buttonGestisciMateriali.setBounds(50, 290, 240, 40);
 
@@ -956,7 +972,31 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jPanel6.setBackground(new java.awt.Color(0, 0, 204));
 
-        jButton1.setText("Visualizza lista materiali");
+        jScrollPane16.setViewportView(MaterialList);
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel10.setText("MATERIAL LIST");
+
+        buttonAddMaterial.setText("Add material");
+        buttonAddMaterial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAddMaterialActionPerformed(evt);
+            }
+        });
+
+        buttonRemoveMaterial.setText("Remove material");
+        buttonRemoveMaterial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRemoveMaterialActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Confirm");
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel21.setText("Inserisci il nome del materiale");
+
+        buttonModifyMaterial.setText("Modify material");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -964,15 +1004,45 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(455, Short.MAX_VALUE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel6Layout.createSequentialGroup()
+                                    .addComponent(InserisciMateriale, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(40, 40, 40)
+                                    .addComponent(buttonAddMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(buttonRemoveMaterial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addComponent(buttonModifyMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(53, 53, 53)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(254, Short.MAX_VALUE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buttonAddMaterial)
+                            .addComponent(InserisciMateriale, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(buttonRemoveMaterial)
+                        .addGap(29, 29, 29)
+                        .addComponent(buttonModifyMaterial)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1))
+                    .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout GestioneMaterialiLayout = new javax.swing.GroupLayout(GestioneMateriali.getContentPane());
@@ -1537,6 +1607,38 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 // TODO add your handling code here:
     }//GEN-LAST:event_buttonRemoveSkillActionPerformed
 
+    private void buttonGestisciMaterialiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGestisciMaterialiActionPerformed
+        GestioneMateriali.setVisible(true);
+    }//GEN-LAST:event_buttonGestisciMaterialiActionPerformed
+
+    private void buttonAddMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddMaterialActionPerformed
+    
+     if(InserisciMateriale.getText().isBlank()){
+        mostraErrore("ERRORE","Nessun materiale inserito");
+     }else{
+     String materiale = InserisciMateriale.getText();
+     materiali2.add(materiale);
+     if(MaterialList.contains(materiale) == false){
+         
+     }
+     
+     }
+    
+     
+     
+     
+    }//GEN-LAST:event_buttonAddMaterialActionPerformed
+
+    private void buttonRemoveMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveMaterialActionPerformed
+         if (MaterialList.getSelectedIndex() == -1) {
+            mostraErrore("ERROR", "Seleziona un materiale dalla lista dei materiali da rimuovere");
+        } else {
+                materiali2.remove(MaterialList.getSelectedValue());
+            
+            MaterialList.setModel(listModelMaterial);
+        }
+    }//GEN-LAST:event_buttonRemoveMaterialActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1840,9 +1942,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFrame GestioneAttività;
     private javax.swing.JFrame GestioneMateriali;
+    private javax.swing.JTextField InserisciMateriale;
+    private javax.swing.JList<String> MaterialList;
     private javax.swing.JFrame assegnaAttività;
     private javax.swing.JFrame assegnaAttività2;
     private javax.swing.JFrame attivitàEWO;
+    private javax.swing.JButton buttonAddMaterial;
     private javax.swing.JButton buttonAddSkill;
     private javax.swing.JButton buttonAggiungiMateriale;
     private javax.swing.JButton buttonAssegna;
@@ -1854,7 +1959,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JButton buttonGestManut;
     private javax.swing.JButton buttonGestisciMateriali;
     private javax.swing.JButton buttonModificaAttività;
+    private javax.swing.JButton buttonModifyMaterial;
     private javax.swing.JButton buttonMostraAttività;
+    private javax.swing.JButton buttonRemoveMaterial;
     private javax.swing.JButton buttonRemoveSkill;
     private javax.swing.JButton buttonRimuoviMateriale;
     private javax.swing.JButton buttonSMP;
@@ -1868,6 +1975,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAssegnaAttività2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -1879,6 +1987,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
@@ -1901,6 +2010,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JScrollPane jScrollPane15;
+    private javax.swing.JScrollPane jScrollPane16;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
