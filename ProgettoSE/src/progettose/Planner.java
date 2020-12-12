@@ -15,8 +15,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -207,7 +205,7 @@ public class Planner {
             Activity a = this.getActivity(id);
             if(a==null) //Se l'attività da cancellare non esiste
                 return false;
-            this.rebuildAvailability(a);//ripristino le disponibilità dei manutentori collegati all'attività
+            this.rebuildAvailability(a,false,null);//ripristino le disponibilità dei manutentori collegati all'attività
             if (stm.executeUpdate(query) == 0)
                     return false;
 
@@ -340,13 +338,11 @@ public class Planner {
 
     }
     
-    @SuppressWarnings("empty-statement")
     public void assignedActivityToMaintainer(Maintainer m, Activity a, int giorno, int ore[]) throws Exception{
-        //aggiungere codice per verificare se c'è un'attività già presente da interrompere se interrompibile
-        if(a.getType() == 1){
+        if(a.getType() == 1){ //Se l'attività è una EWO devo verificare se il planner vuole assegnarla al posto di un'altra interrompibile
             connection.setAutoCommit(false);
             connection.setSavepoint();
-            this.checkInterruptable(m, a, giorno, ore);  
+            this.checkInterruptable(m, a, giorno, ore);
             for(Maintainer man : this.getAllMaintainers()){
                 if(man.getName().equals(m.getName())){
                     m=man;
@@ -389,16 +385,18 @@ public class Planner {
                     Statement stm3 = connection.createStatement();
                     String query = "insert into Maintainer_for_Activity(maintainer,activity,day_of_week,hour_of_day,minutes_first_cell) values("+id+","+a.getId()+","+giorno+","+ore[0]+","+minutiprimacella+");";
                     stm3.executeUpdate(query);
+                    connection.setAutoCommit(true);
+                    return;
                     } catch (SQLException ex) {
+                        if(!connection.getAutoCommit()){
+                            connection.rollback();
+                            connection.setAutoCommit(true);
+                        }
                         if(ex.getMessage().contains("maintainer_for_activity_pkey"))
                             throw new Exception("L'attività è gia stata assegnata a "+ m.getName());
                         else
                             throw new Exception("L'attività non può essere assegnata");
                     }
-                finally{
-                    connection.setAutoCommit(true);                   
-                    return;
-                }
             }           
         }
         connection.rollback();
@@ -463,7 +461,7 @@ public class Planner {
     }
   
     
-    private void rebuildAvailability(Activity a) throws SQLException{
+    private void rebuildAvailability(Activity a,boolean onemaintainer,Maintainer ma) throws SQLException{
         List <Maintainer> m = this.getAllMaintainers();
         List <Maintainer> maintainers = this.getAllMaintainers();
         List<String> idm = new ArrayList<>();
@@ -472,7 +470,11 @@ public class Planner {
         List<Integer> minutes = new ArrayList<>();
         
         Statement stm = connection.createStatement();
-        String query = "select * from Maintainer_for_Activity,Maintainer where Maintainer.id_man = Maintainer_for_Activity.maintainer and  activity = " + a.getId();
+        String query= "";
+        if(onemaintainer)
+            query=  "select * from Maintainer_for_Activity,Maintainer where Maintainer.id_man = Maintainer_for_Activity.maintainer and nome = '"+ma.getName()+"'"+" and activity = " + a.getId();
+        else
+            query = "select * from Maintainer_for_Activity,Maintainer where Maintainer.id_man = Maintainer_for_Activity.maintainer and  activity = " + a.getId();
         ResultSet rst = stm.executeQuery(query);
         while (rst.next()){
             idm.add(rst.getString("Nome"));
@@ -494,15 +496,15 @@ public class Planner {
             if (minutes.get(i) < 60) {
                 availability[k] += minutes.get(i);
                 temp -= minutes.get(i);
-            }
-            k++;
+                k++;
+            }          
             while(temp!=0){
                 if(temp<60){
                     availability[k] += temp;
                     temp = 0;
                 }
                 else{
-                    availability[k] += 60;
+                    availability[k] = 60;
                     temp -= 60;
                 }
                 k++;
@@ -544,7 +546,8 @@ public class Planner {
                 end = (et/60)+start;
             if((end >= ore[0] && start <= ore[ore.length-1]) || (start <= ore[ore.length-1] && end>=ore[0]))
                 if(rst2.getBoolean("interruptable")){
-                    this.deleteActivity(rst2.getInt("id_"));
+                    this.rebuildAvailability(this.getActivity(rst2.getInt("id_")), true, m);
+                    connection.createStatement().executeUpdate("delete from Maintainer_for_Activity where maintainer = " + id +" and activity = "+ a.getId());
                 }
         }
 
@@ -578,7 +581,6 @@ public class Planner {
             return stm.executeUpdate(query) == 1;//controllo il valore restituito per stabilire se ha effettuato la update
         } catch (SQLException ex) {
             return false;
-
         }
     }
         
