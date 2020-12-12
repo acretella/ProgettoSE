@@ -60,7 +60,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     DefaultListModel listModelComp = new DefaultListModel();
     DefaultListModel listModelSkills = new DefaultListModel();
     DefaultListModel listModelSkillsEwo = new DefaultListModel();
-        DefaultListModel listModelSkillsEwo2 = new DefaultListModel();
+    DefaultListModel listModelSkillsEwo2 = new DefaultListModel();
 
     DefaultListModel listModelMaterial = new DefaultListModel();
 
@@ -126,7 +126,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         buttonGestisciMateriali = new javax.swing.JButton();
         buttonCancellaAttività = new javax.swing.JButton();
         buttonModificaAttività = new javax.swing.JButton();
-        buttonModificaEWO = new javax.swing.JButton();
         creazioneAttività = new javax.swing.JFrame();
         panelDX = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
@@ -426,15 +425,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         });
         jPanel1.add(buttonModificaAttività);
         buttonModificaAttività.setBounds(50, 240, 240, 40);
-
-        buttonModificaEWO.setText("Modifica informazioni EWO");
-        buttonModificaEWO.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonModificaEWOActionPerformed(evt);
-            }
-        });
-        jPanel1.add(buttonModificaEWO);
-        buttonModificaEWO.setBounds(700, 300, 190, 40);
 
         GestioneAttività.getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 1230, 610);
@@ -1130,7 +1120,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         buttonAssegna.setVisible(false);
         disattivaVis();
         fieldDay.setText(giorno);
-        buttonModificaEWO.setVisible(false);
+        
     }//GEN-LAST:event_buttonGestManutActionPerformed
 
     private void buttonCreaAttivitàActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreaAttivitàActionPerformed
@@ -1366,12 +1356,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         if (indice == -1) {
             mostraErrore("ERRORE", "Seleziona una riga dalla tabella!");
         } else {
-            if (tabellaAttività.getValueAt(tabellaAttività.getSelectedRow(), 6).equals("EWO")) {
 
-                buttonModificaEWO.setVisible(true);
-            } else {
-                buttonModificaEWO.setVisible(false);
-            }
+
             panelCopertura2.setVisible(false);
             abilitaVis();
             id = Integer.parseInt(tb.getValueAt(tabellaAttività.getSelectedRow(), 0).toString());
@@ -1405,7 +1391,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 casoNotEWO();
             } else {
                 tabellaDisponibilità.setEnabled(false);
-                casoEWO();
+                gestioneEWO();
             }
         }
     }//GEN-LAST:event_buttonAssegnaActionPerformed
@@ -1484,7 +1470,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
     private void buttonForwardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonForwardActionPerformed
 
-       int riga;
+        int riga;
         int c;
         if (p.getActivity(id).getType() != 1) {
             riga = tabellaDisponibilità.getSelectedRow();
@@ -1540,7 +1526,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             b.setSkills(skills);
             if (p.setEwoActivity(b)) {
                 mostraSuccesso("EWO modificata!", "EWO modificata con successo");
+                clearEwoFrame();
                 attivitàEWO.setVisible(false);
+                casoEWO();
             } else {
                 mostraErrore("ERRORE", "Modifica non effettuata");
             }
@@ -1616,6 +1604,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonRemoveSkillActionPerformed
 
     private void buttonGestisciMaterialiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGestisciMaterialiActionPerformed
+        listModelMaterial.clear();
         GestioneMateriali.setVisible(true);
         materiali2 = p.getAllMaterials();
         for (String m : materiali2) {
@@ -1671,14 +1660,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private void fieldMaterialeSelezionatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldMaterialeSelezionatoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_fieldMaterialeSelezionatoActionPerformed
-
-    private void buttonModificaEWOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModificaEWOActionPerformed
-        if (tabellaAttività.getSelectedRow() > -1) {
-            gestioneEWO();
-        } else {
-            buttonModificaEWO.setEnabled(false);
-        }
-    }//GEN-LAST:event_buttonModificaEWOActionPerformed
 
     private void buttonConfermaMaterialeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfermaMaterialeActionPerformed
         if (p.modifyMaterial(materialList.getSelectedValue(), fieldMaterialeSelezionato.getText())) {
@@ -1997,8 +1978,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         }
 
     }
-    
-        private void casoNotEWO() {
+
+    private void casoNotEWO() {
         svuotaTabella(tb2);
         assegnaAttività.setTitle(("Disponibilità manutentori settimana " + tabellaAttività.getValueAt(tabellaAttività.getSelectedRow(), 5)));
 
@@ -2100,7 +2081,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JButton buttonGestManut;
     private javax.swing.JButton buttonGestisciMateriali;
     private javax.swing.JButton buttonModificaAttività;
-    private javax.swing.JButton buttonModificaEWO;
     private javax.swing.JButton buttonModifyMaterial;
     private javax.swing.JButton buttonMostraAttività;
     private javax.swing.JButton buttonRemoveMaterial;
