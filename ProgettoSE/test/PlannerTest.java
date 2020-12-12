@@ -392,5 +392,47 @@ public class PlannerTest {
         a.setSkills(l);
         assertEquals(p.setEwoActivity(a),true);
     }
+    
+    @Test
+    public void testPosCreateMaterial(){
+        String material = "cavi";
+        assertTrue(p.createMaterial(material));
+        p.deleteMaterial(material);
+    }
+    
+    @Test 
+    public void testNegCreateMaterial(){
+        String material = "materialTest1";
+        p.createMaterial(material);
+        assertFalse(p.createMaterial(material));
+        p.deleteMaterial(material);
+    }
+    
+    @Test
+    public void testPosDeleteMaterial(){
+        String material = "pinza";
+        p.createMaterial(material);
+        assertTrue(p.deleteMaterial(material));
+    }
+    
+    @Test
+    public void testNegDeleteMaterial(){
+        String material = "materialTest2"; //materiale non presente nel DB
+        assertFalse(p.deleteMaterial(material));
+    }
+    @Test
+    public void testPosModifyMaterial(){
+        String material = "nastro";
+        p.createMaterial(material);
+        String newMaterial = "nastro isolante";
+        assertTrue(p.modifyMaterial(material, newMaterial));
+        p.deleteMaterial(newMaterial);
+    }
+    
+    @Test
+    public void testNegModifyMaterial(){
+        String material = "materialTest2";//materiale non presente nel DB
+        assertFalse(p.modifyMaterial(material, material));
+    }
         
 }

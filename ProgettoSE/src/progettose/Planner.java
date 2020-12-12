@@ -213,7 +213,6 @@ public class Planner {
 
             return true;
         } catch (SQLException ex) {
-            System.out.println(ex);
             return false;
         }
     }
@@ -336,7 +335,6 @@ public class Planner {
             }
             return l;
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
             return null;
         }
 
@@ -391,7 +389,6 @@ public class Planner {
                     Statement stm3 = connection.createStatement();
                     String query = "insert into Maintainer_for_Activity(maintainer,activity,day_of_week,hour_of_day,minutes_first_cell) values("+id+","+a.getId()+","+giorno+","+ore[0]+","+minutiprimacella+");";
                     stm3.executeUpdate(query);
-                    return;
                     } catch (SQLException ex) {
                         if(ex.getMessage().contains("maintainer_for_activity_pkey"))
                             throw new Exception("L'attività è gia stata assegnata a "+ m.getName());
@@ -399,11 +396,13 @@ public class Planner {
                             throw new Exception("L'attività non può essere assegnata");
                     }
                 finally{
-                    connection.setAutoCommit(true);
+                    connection.setAutoCommit(true);                   
+                    return;
                 }
             }           
         }
-        connection.rollback();;
+        connection.rollback();
+        connection.setAutoCommit(true);
         throw new Exception("Non c'è disponibilità per il manutentore nell'arco di tempo selezionato");
     }
        
@@ -543,7 +542,6 @@ public class Planner {
                 end = ((et/60)+start)-1;
             else
                 end = (et/60)+start;
-            System.out.println(start+" "+end);
             if((end >= ore[0] && start <= ore[ore.length-1]) || (start <= ore[ore.length-1] && end>=ore[0]))
                 if(rst2.getBoolean("interruptable")){
                     this.deleteActivity(rst2.getInt("id_"));
@@ -552,4 +550,36 @@ public class Planner {
 
         
     }
+    public boolean createMaterial(String material){
+        try {
+            Statement stm = connection.createStatement();
+            String query = "insert into Material(materialName) values ('" + material +"');";
+            stm.executeUpdate(query);
+            return true;
+        } catch (SQLException ex) {//la execute lancia un'eccezione se il materiale è già presente
+            return false;
+        }
+    }
+    
+    public boolean deleteMaterial(String material){
+        try {
+            Statement stm = connection.createStatement();
+            String query = "delete from Material where materialName = '" + material + "';";
+            return stm.executeUpdate(query) == 1;//controllo il valore restituito per stabilire se ha effettuato la delete
+        } catch (SQLException ex) {
+            return false;
+        }
+    }
+    
+    public boolean modifyMaterial(String oldMaterial, String newMaterial){
+        try {
+            Statement stm = connection.createStatement();
+            String query = "update Material set materialName = '" + newMaterial + "' where materialName = '" + oldMaterial + "'";
+            return stm.executeUpdate(query) == 1;//controllo il valore restituito per stabilire se ha effettuato la update
+        } catch (SQLException ex) {
+            return false;
+
+        }
+    }
+        
 }
