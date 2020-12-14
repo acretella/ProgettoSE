@@ -1479,7 +1479,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         } else {
 
             riga = tabellaDisponibilità2.getSelectedRow();
-            c = date.getDayOfWeek().getValue() + 1;
+            c = date.getDayOfWeek().getValue() + 2;
+            if (c==9)
+                c=2;
         }
 
         int[] oreSelezionate = tabellaDisponibilità2.getSelectedColumns();
@@ -2040,8 +2042,10 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             if (disp == null) {
                 ore = new int[7];
             } else {
-                ore = disp[date.getDayOfWeek().getValue() - 1];
-
+                int n = date.getDayOfWeek().getValue();
+                if(n==7)
+                    n=0;
+                ore = disp[n];
             }
 
             competenze = getComp(a, m);
