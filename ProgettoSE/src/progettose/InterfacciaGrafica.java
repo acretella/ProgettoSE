@@ -6,6 +6,7 @@
 package progettose;
 
 import static java.awt.Color.black;
+import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
@@ -24,6 +25,10 @@ import javax.swing.table.DefaultTableModel;
 import java.util.Calendar;
 import java.time.LocalDate;
 import javax.swing.ListSelectionModel;
+import static javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION;
+import static javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION;
+import static javax.swing.ListSelectionModel.SINGLE_SELECTION;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -89,6 +94,48 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             tendinaMateriali.addItem(m);
 
         }
+        tabellaDisponibilità2.getColumnModel().setSelectionModel(new DefaultListSelectionModel() {
+                private boolean isSelectable(int indice) {
+                    return !(indice == 1 || indice == 0);
+                }
+
+                @Override
+                public void setSelectionInterval(int indice1, int indice2) {
+                    if (isSelectable(indice2) && isSelectable(indice1)) {
+                        super.setSelectionInterval(indice1, indice2);
+                    } else {
+                    }
+                }
+
+                @Override
+                public void addSelectionInterval(int indice1, int indice2) {
+                    if (isSelectable(indice1) && isSelectable(indice2)) {
+                        super.addSelectionInterval(indice1, indice2);
+                    }
+                }
+
+            });
+        tabellaDisponibilità.getColumnModel().setSelectionModel(new DefaultListSelectionModel() {
+                private boolean isSelectable(int indice) {
+                    return !(indice == 1 || indice == 0);
+                }
+
+                @Override
+                public void setSelectionInterval(int indice1, int indice2) {
+                    if (isSelectable(indice2) && isSelectable(indice1)) {
+                        super.setSelectionInterval(indice1, indice2);
+                    } else {
+                    }
+                }
+
+                @Override
+                public void addSelectionInterval(int indice1, int indice2) {
+                    if (isSelectable(indice1) && isSelectable(indice2)) {
+                        super.addSelectionInterval(indice1, indice2);
+                    }
+                }
+
+            });
 
     }
 
@@ -193,7 +240,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelSkillsEWO2 = new javax.swing.JLabel();
         jScrollPane17 = new javax.swing.JScrollPane();
         listSkillsEWO2 = new javax.swing.JList<>();
-        jLabel14 = new javax.swing.JLabel();
         attivitàEWO = new javax.swing.JFrame();
         jPanel5 = new javax.swing.JPanel();
         labelWeekEWO = new javax.swing.JLabel();
@@ -451,7 +497,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel19.setBackground(new java.awt.Color(255, 255, 204));
         jLabel19.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
-        jLabel19.setText("      MATERIAL LIST");
+        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel19.setText("MATERIAL LIST");
         jLabel19.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jLabel19.setOpaque(true);
         panelDX.add(jLabel19);
@@ -459,7 +506,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel20.setBackground(new java.awt.Color(255, 255, 204));
         jLabel20.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
-        jLabel20.setText("  WORKSPACE NOTES");
+        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel20.setText("WORKSPACE NOTES");
         jLabel20.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jLabel20.setOpaque(true);
         panelDX.add(jLabel20);
@@ -538,7 +586,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         panelSX.add(fieldFactorySite);
         fieldFactorySite.setBounds(180, 120, 90, 30);
 
-        jLabel4.setFont(new java.awt.Font("Dubai", 0, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
         jLabel4.setText("Area");
         panelSX.add(jLabel4);
         jLabel4.setBounds(50, 170, 60, 20);
@@ -664,6 +712,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 102));
         jLabel2.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("WEEK");
         jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jLabel2.setOpaque(true);
@@ -681,6 +730,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel13.setBackground(new java.awt.Color(255, 255, 102));
         jLabel13.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("ACTIVITY TO ASSIGN");
         jLabel13.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jLabel13.setOpaque(true);
@@ -698,7 +748,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel15.setBackground(new java.awt.Color(255, 255, 102));
         jLabel15.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
-        jLabel15.setText("   SKILLS NEEDED");
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel15.setText("SKILLS NEEDED");
         jLabel15.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jLabel15.setOpaque(true);
         jPanel2.add(jLabel15);
@@ -706,7 +757,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel16.setBackground(new java.awt.Color(255, 255, 102));
         jLabel16.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
-        jLabel16.setText("                               MAINTAINER AVAILABILITY");
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel16.setText("MAINTAINER AVAILABILITY");
         jLabel16.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jLabel16.setOpaque(true);
         jPanel2.add(jLabel16);
@@ -773,6 +825,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel17.setBackground(new java.awt.Color(255, 255, 102));
         jLabel17.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel17.setText("Activity to assign");
         jLabel17.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         jLabel17.setOpaque(true);
@@ -785,6 +838,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel18.setBackground(new java.awt.Color(255, 255, 102));
         jLabel18.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
+        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("Workspace Notes");
         jLabel18.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         jLabel18.setOpaque(true);
@@ -806,6 +860,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
             }
         ));
+        tabellaDisponibilità2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabellaDisponibilità2MousePressed(evt);
+            }
+        });
         jScrollPane12.setViewportView(tabellaDisponibilità2);
 
         jPanel3.add(jScrollPane12);
@@ -813,7 +872,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         labelDisponibilità.setBackground(new java.awt.Color(255, 255, 102));
         labelDisponibilità.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
-        labelDisponibilità.setText("                           AVAILABILITY OF ");
+        labelDisponibilità.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelDisponibilità.setText("AVAILABILITY OF");
         labelDisponibilità.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         labelDisponibilità.setOpaque(true);
         jPanel3.add(labelDisponibilità);
@@ -838,7 +898,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         labelSkillsEWO2.setBackground(new java.awt.Color(255, 255, 102));
         labelSkillsEWO2.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
-        labelSkillsEWO2.setText("   SKILLS NEEDED");
+        labelSkillsEWO2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelSkillsEWO2.setText("SKILLS NEEDED");
         labelSkillsEWO2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         labelSkillsEWO2.setOpaque(true);
         jPanel3.add(labelSkillsEWO2);
@@ -851,11 +912,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         assegnaAttività2.getContentPane().add(jPanel3);
         jPanel3.setBounds(0, 0, 1233, 428);
-
-        jLabel14.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
-        jLabel14.setText("      MATERIAL LIST");
-        jLabel14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jLabel14.setOpaque(true);
 
         attivitàEWO.setMinimumSize(new java.awt.Dimension(812, 340));
         attivitàEWO.setResizable(false);
@@ -1005,7 +1061,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jScrollPane16.setBounds(280, 50, 178, 177);
 
         jLabel10.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
-        jLabel10.setText("      MATERIAL LIST");
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("MATERIAL LIST");
         jLabel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jLabel10.setOpaque(true);
         jPanel6.add(jLabel10);
@@ -1046,7 +1103,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         fieldInserisciMateriale.setBounds(150, 30, 120, 30);
 
         jLabel21.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
-        jLabel21.setText("       MATERIAL");
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel21.setText("MATERIAL");
         jLabel21.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jLabel21.setOpaque(true);
         jPanel6.add(jLabel21);
@@ -1387,7 +1445,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             mostraErrore("ERRORE", "Seleziona un'attività dalla tabella!");
         } else {
             if (p.getActivity(id).getType() != 1) {
-
+                        tabellaDisponibilità.setCellSelectionEnabled(true);
+        tabellaDisponibilità.setRowSelectionAllowed(true);
+        tabellaDisponibilità.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
                 casoNotEWO();
             } else {
                 tabellaDisponibilità.setEnabled(false);
@@ -1420,27 +1480,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         } else {
             resettaLabelDisp();
             textAreaWorkspaceNotes2.setEditable(false);
-            tabellaDisponibilità2.getColumnModel().setSelectionModel(new DefaultListSelectionModel() {
-                private boolean isSelectable(int indice) {
-                    return !(indice == 1 || indice == 0);
-                }
-
-                @Override
-                public void setSelectionInterval(int indice1, int indice2) {
-                    if (isSelectable(indice2) && isSelectable(indice1)) {
-                        super.setSelectionInterval(indice1, indice2);
-                    } else {
-                    }
-                }
-
-                @Override
-                public void addSelectionInterval(int indice1, int indice2) {
-                    if (isSelectable(indice1) && isSelectable(indice2)) {
-                        super.addSelectionInterval(indice1, indice2);
-                    }
-                }
-
-            });
+            
 
             assegnaAttività2.setVisible(true);
             tabellaDisponibilità.setEnabled(false);
@@ -1492,14 +1532,17 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         }
 
         try {
-
+            if(tabellaDisponibilità2.getSelectedRowCount()>1){
+                mostraErrore("ERRORE","Seleziona una riga alla volta");
+            }
+            else{
             p.assignedActivityToMaintainer(p.getAllMaintainers().get(riga), p.getActivity(id), c - 2, oreSelezionate);
-
             mostraSuccesso("Attività assegnata!", "Attività assegnata con successo");
             aggiornaTabella2();
             resetPostEWO();
             assegnaAttività2.setVisible(false);
             tabellaDisponibilità.setEnabled(true);
+            }
         } catch (Exception ex) {
 
             mostraErrore("ERRORE", ex.getMessage());
@@ -1679,6 +1722,10 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonConfermaMaterialeActionPerformed
+
+    private void tabellaDisponibilità2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabellaDisponibilità2MousePressed
+
+    }//GEN-LAST:event_tabellaDisponibilità2MousePressed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -2055,9 +2102,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 String.valueOf(ore[3]) + " min", String.valueOf(ore[4]) + " min",
                 String.valueOf(ore[5]) + " min", String.valueOf(ore[6]) + " min"};
             tb3.addRow(inserimento);
-
         }
-
     }
 
     private void resetPostEWO() {
@@ -2106,7 +2151,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
