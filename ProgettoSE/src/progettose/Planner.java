@@ -339,9 +339,9 @@ public class Planner {
     }
     
     public void assignedActivityToMaintainer(Maintainer m, Activity a, int giorno, int ore[]) throws Exception{
+        connection.setAutoCommit(false);
+        connection.setSavepoint();
         if(a.getType() == 1){ //Se l'attività è una EWO devo verificare se il planner vuole assegnarla al posto di un'altra interrompibile
-            connection.setAutoCommit(false);
-            connection.setSavepoint();
             this.checkInterruptable(m, a, giorno, ore);
             for(Maintainer man : this.getAllMaintainers()){
                 if(man.getName().equals(m.getName())){
@@ -399,8 +399,10 @@ public class Planner {
                     }
             }           
         }
-        connection.rollback();
-        connection.setAutoCommit(true);
+        if(!connection.getAutoCommit()){
+            connection.rollback();
+            connection.setAutoCommit(true);
+        }
         throw new Exception("Non c'è disponibilità per il manutentore nell'arco di tempo selezionato");
     }
        

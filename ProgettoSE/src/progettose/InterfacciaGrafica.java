@@ -2034,7 +2034,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         tabellaDisponibilità2.setCellSelectionEnabled(true);
         tabellaDisponibilità2.setRowSelectionAllowed(true);
         tabellaDisponibilità2.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-
         for (Maintainer m : p.getAllMaintainers()) {
             int[][] disp = m.getAvailability().get(a.getWeek());
             int[] ore;
@@ -2055,7 +2054,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 String.valueOf(ore[3]) + " min", String.valueOf(ore[4]) + " min",
                 String.valueOf(ore[5]) + " min", String.valueOf(ore[6]) + " min"};
             tb3.addRow(inserimento);
-
+            
         }
 
     }
