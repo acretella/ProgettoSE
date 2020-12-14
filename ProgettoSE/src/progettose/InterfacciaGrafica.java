@@ -61,7 +61,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     DefaultListModel listModelSkills = new DefaultListModel();
     DefaultListModel listModelSkillsEwo = new DefaultListModel();
     DefaultListModel listModelSkillsEwo2 = new DefaultListModel();
-
+    DefaultListModel listModelCompetence = new DefaultListModel();
     DefaultListModel listModelMaterial = new DefaultListModel();
 
     LocalDate date = LocalDate.now();
@@ -72,6 +72,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     int id;
     List<String> skills = new ArrayList<>();
     List<String> materiali2 = new ArrayList<>();
+    List<String> competence = new ArrayList<>();
 
     /**
      * Creates new form InterfacciaGrafica
@@ -227,8 +228,37 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         buttonModifyMaterial = new javax.swing.JButton();
         fieldMaterialeSelezionato = new javax.swing.JTextField();
+        administrator = new javax.swing.JFrame();
+        jPanel7 = new javax.swing.JPanel();
+        buttonGestisciCompetenze = new javax.swing.JButton();
+        buttonManageSide = new javax.swing.JButton();
+        manageCompetence = new javax.swing.JFrame();
+        jPanel8 = new javax.swing.JPanel();
+        buttonAddCompetence = new javax.swing.JButton();
+        buttonRemoveCompetence = new javax.swing.JButton();
+        buttonModifyCompetence = new javax.swing.JButton();
+        textFieldModifyCompetence = new javax.swing.JTextField();
+        fieldInserisciCompetence = new javax.swing.JTextField();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jScrollPane18 = new javax.swing.JScrollPane();
+        competenceList = new javax.swing.JList<>();
+        buttonConfirmModifyCompetence = new javax.swing.JButton();
+        manageSite = new javax.swing.JFrame();
+        jPanel9 = new javax.swing.JPanel();
+        buttonAddSite = new javax.swing.JButton();
+        buttonRemoveSite = new javax.swing.JButton();
+        buttonModifySite = new javax.swing.JButton();
+        fieldModifySite = new javax.swing.JTextField();
+        fieldInserisciSite = new javax.swing.JTextField();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jScrollPane19 = new javax.swing.JScrollPane();
+        siteList = new javax.swing.JList<>();
+        buttonConfirmModifySite = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         buttonGestManut = new javax.swing.JButton();
+        buttonAdministratorArea = new javax.swing.JButton();
 
         GestioneAttività.setTitle("MENU' GESTIONE ATTIVITA'");
         GestioneAttività.setMinimumSize(new java.awt.Dimension(1246, 650));
@@ -270,7 +300,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         );
 
         GestioneAttività.getContentPane().add(panelCopertura2);
-        panelCopertura2.setBounds(0, 370, 1070, 240);
+        panelCopertura2.setBounds(0, 370, 1070, 0);
 
         buttonCreaAttività.setText("Crea attività");
         buttonCreaAttività.addActionListener(new java.awt.event.ActionListener() {
@@ -972,7 +1002,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         jPanel5.add(buttonAddSkill);
-        buttonAddSkill.setBounds(510, 260, 80, 23);
+        buttonAddSkill.setBounds(510, 260, 80, 21);
 
         buttonRemoveSkill.setText("REMOVE");
         buttonRemoveSkill.addActionListener(new java.awt.event.ActionListener() {
@@ -981,7 +1011,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         jPanel5.add(buttonRemoveSkill);
-        buttonRemoveSkill.setBounds(610, 260, 80, 23);
+        buttonRemoveSkill.setBounds(610, 260, 80, 21);
 
         tendinaSkills.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
         jPanel5.add(tendinaSkills);
@@ -1074,6 +1104,275 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         GestioneMateriali.getContentPane().add(jPanel6);
         jPanel6.setBounds(0, 0, 630, 290);
 
+        administrator.setTitle("Administrator");
+        administrator.setMinimumSize(new java.awt.Dimension(370, 200));
+
+        jPanel7.setBackground(new java.awt.Color(255, 0, 51));
+        jPanel7.setMinimumSize(new java.awt.Dimension(370, 200));
+
+        buttonGestisciCompetenze.setText("Manage Competence");
+        buttonGestisciCompetenze.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonGestisciCompetenzeActionPerformed(evt);
+            }
+        });
+
+        buttonManageSide.setText("Manage Site");
+        buttonManageSide.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonManageSideActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(100, 100, 100)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(buttonGestisciCompetenze, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonManageSide, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(141, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(buttonGestisciCompetenze, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(buttonManageSide, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(81, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout administratorLayout = new javax.swing.GroupLayout(administrator.getContentPane());
+        administrator.getContentPane().setLayout(administratorLayout);
+        administratorLayout.setHorizontalGroup(
+            administratorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        administratorLayout.setVerticalGroup(
+            administratorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        manageCompetence.setTitle("Competence management");
+        manageCompetence.setMinimumSize(new java.awt.Dimension(530, 270));
+        manageCompetence.setPreferredSize(new java.awt.Dimension(480, 222));
+
+        jPanel8.setBackground(new java.awt.Color(255, 0, 51));
+        jPanel8.setMinimumSize(new java.awt.Dimension(500, 230));
+        jPanel8.setName(""); // NOI18N
+
+        buttonAddCompetence.setText("Add competence");
+        buttonAddCompetence.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAddCompetenceActionPerformed(evt);
+            }
+        });
+
+        buttonRemoveCompetence.setText("Remove competence");
+        buttonRemoveCompetence.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRemoveCompetenceActionPerformed(evt);
+            }
+        });
+
+        buttonModifyCompetence.setText("Modify competence");
+        buttonModifyCompetence.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonModifyCompetenceActionPerformed(evt);
+            }
+        });
+
+        fieldInserisciCompetence.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldInserisciCompetenceActionPerformed(evt);
+            }
+        });
+
+        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel24.setText("COMPETENCE");
+
+        jLabel25.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel25.setText("COMPETENCE LIST");
+
+        jScrollPane18.setViewportView(competenceList);
+
+        buttonConfirmModifyCompetence.setText("Confirm");
+        buttonConfirmModifyCompetence.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonConfirmModifyCompetenceActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(buttonAddCompetence, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonRemoveCompetence, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonModifyCompetence, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(buttonConfirmModifyCompetence, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                        .addComponent(fieldInserisciCompetence, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(textFieldModifyCompetence)))
+                .addGap(64, 64, 64)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane18, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buttonAddCompetence, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fieldInserisciCompetence, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(17, 17, 17)
+                        .addComponent(buttonRemoveCompetence, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buttonModifyCompetence, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textFieldModifyCompetence, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buttonConfirmModifyCompetence))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel25)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout manageCompetenceLayout = new javax.swing.GroupLayout(manageCompetence.getContentPane());
+        manageCompetence.getContentPane().setLayout(manageCompetenceLayout);
+        manageCompetenceLayout.setHorizontalGroup(
+            manageCompetenceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        manageCompetenceLayout.setVerticalGroup(
+            manageCompetenceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        manageSite.setTitle("Site management");
+        manageSite.setMinimumSize(new java.awt.Dimension(570, 320));
+        manageSite.setPreferredSize(new java.awt.Dimension(555, 304));
+        manageSite.getContentPane().setLayout(null);
+
+        jPanel9.setBackground(new java.awt.Color(255, 0, 51));
+
+        buttonAddSite.setText("Add Site");
+        buttonAddSite.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAddSiteActionPerformed(evt);
+            }
+        });
+
+        buttonRemoveSite.setText("Remove Site");
+        buttonRemoveSite.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRemoveSiteActionPerformed(evt);
+            }
+        });
+
+        buttonModifySite.setText("Modify Site");
+        buttonModifySite.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonModifySiteActionPerformed(evt);
+            }
+        });
+
+        fieldInserisciSite.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldInserisciSiteActionPerformed(evt);
+            }
+        });
+
+        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel26.setText("SITE (factory site - area)");
+
+        jLabel27.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel27.setText("SITE LIST");
+
+        jScrollPane19.setViewportView(siteList);
+
+        buttonConfirmModifySite.setText("Confirm");
+        buttonConfirmModifySite.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonConfirmModifySiteActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(buttonAddSite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonRemoveSite, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                    .addComponent(buttonModifySite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(fieldInserisciSite, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                .addComponent(fieldModifySite))
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addComponent(buttonConfirmModifySite, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(48, 48, 48)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane19, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel27)))
+                    .addComponent(jLabel26))
+                .addGap(0, 703, Short.MAX_VALUE))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addGap(8, 8, 8)
+                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buttonAddSite, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fieldInserisciSite, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(buttonRemoveSite, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(fieldModifySite, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(buttonModifySite, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buttonConfirmModifySite)
+                        .addGap(122, 122, 122))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel27)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(127, 127, 127))))
+        );
+
+        manageSite.getContentPane().add(jPanel9);
+        jPanel9.setBounds(0, 0, 1185, 309);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MENU' PRINCIPALE");
         setMinimumSize(new java.awt.Dimension(410, 210));
@@ -1090,21 +1389,32 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
 
+        buttonAdministratorArea.setText("Administrator Area");
+        buttonAdministratorArea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAdministratorAreaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(113, 113, 113)
-                .addComponent(buttonGestManut)
-                .addContainerGap(152, Short.MAX_VALUE))
+                .addGap(114, 114, 114)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(buttonGestManut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonAdministratorArea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(157, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(71, 71, 71)
+                .addGap(35, 35, 35)
                 .addComponent(buttonGestManut, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addComponent(buttonAdministratorArea, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(86, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel4);
@@ -1680,6 +1990,94 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonConfermaMaterialeActionPerformed
 
+    private void buttonAdministratorAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAdministratorAreaActionPerformed
+     administrator.setVisible(true);
+    }//GEN-LAST:event_buttonAdministratorAreaActionPerformed
+
+    private void fieldInserisciCompetenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldInserisciCompetenceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldInserisciCompetenceActionPerformed
+
+    private void buttonAddCompetenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddCompetenceActionPerformed
+     if(fieldInserisciCompetence.getText().isBlank()){
+         mostraErrore("ERROR", "Nessuna competenza inserita");
+     }else{
+         String competenza = fieldInserisciCompetence.getText();
+         competence.add(competenza);
+         if(!listModelCompetence.contains(competenza)){
+             //MEDOTO CREATE
+             listModelCompetence.addElement(competenza);
+             fieldInserisciCompetence.setText("");
+         } else{
+             mostraErrore("ERROR","Competenza già presente");
+         }
+     }   
+    }//GEN-LAST:event_buttonAddCompetenceActionPerformed
+
+    private void buttonRemoveCompetenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveCompetenceActionPerformed
+        if(competenceList.getSelectedIndex() == -1){
+            mostraErrore("ERROR","Seleziona una competenza dalla lista!");
+        }else{
+            competence.remove(competenceList.getSelectedValue());
+            listModelCompetence.removeElement(competenceList.getSelectedValue());
+            //METODO DELETE
+        }
+    }//GEN-LAST:event_buttonRemoveCompetenceActionPerformed
+
+    private void buttonModifyCompetenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModifyCompetenceActionPerformed
+        if(competenceList.getSelectedIndex() == -1) {
+            mostraErrore("ERRORE","Seleziona una competenza dalla lista!");
+        }else{
+            textFieldModifyCompetence.setVisible(true);
+            buttonConfirmModifyCompetence.setVisible(true);
+            textFieldModifyCompetence.setText(competenceList.getSelectedValue());
+            //MODIFY
+        }
+    }//GEN-LAST:event_buttonModifyCompetenceActionPerformed
+
+    private void buttonConfirmModifyCompetenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmModifyCompetenceActionPerformed
+          /*if (a.modifyCompetence(competenceList.getSelectedValue(), textFieldModifyCompetence.getText())) {
+            mostraSuccesso("Materiale modificato!", "Materiale modificato con successo!");
+            textFieldModifyCompetence.setVisible(false);
+            buttonConfirmModifyCompetence.setVisible(false);
+            textFieldModifyCompetence.setText("");
+            listModelCompetence.clear();
+            AGGIUNTA LISTA MODIFICATA
+        } else {
+            mostraErrore("ERRORE", "Competenza non modificata!");        }
+*/
+    }//GEN-LAST:event_buttonConfirmModifyCompetenceActionPerformed
+
+    private void buttonGestisciCompetenzeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGestisciCompetenzeActionPerformed
+        manageCompetence.setVisible(true);
+        textFieldModifyCompetence.setVisible(false);
+        buttonConfirmModifyCompetence.setVisible(false);
+    }//GEN-LAST:event_buttonGestisciCompetenzeActionPerformed
+
+    private void buttonConfirmModifySiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmModifySiteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonConfirmModifySiteActionPerformed
+
+    private void fieldInserisciSiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldInserisciSiteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldInserisciSiteActionPerformed
+
+    private void buttonModifySiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModifySiteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonModifySiteActionPerformed
+
+    private void buttonRemoveSiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveSiteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonRemoveSiteActionPerformed
+
+    private void buttonAddSiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddSiteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonAddSiteActionPerformed
+
+    private void buttonManageSideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonManageSideActionPerformed
+       manageSite.setVisible(true);
+    }//GEN-LAST:event_buttonManageSideActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -2069,35 +2467,51 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFrame GestioneAttività;
     private javax.swing.JFrame GestioneMateriali;
+    private javax.swing.JFrame administrator;
     private javax.swing.JFrame assegnaAttività;
     private javax.swing.JFrame assegnaAttività2;
     private javax.swing.JFrame attivitàEWO;
+    private javax.swing.JButton buttonAddCompetence;
     private javax.swing.JButton buttonAddMaterial;
+    private javax.swing.JButton buttonAddSite;
     private javax.swing.JButton buttonAddSkill;
+    private javax.swing.JButton buttonAdministratorArea;
     private javax.swing.JButton buttonAggiungiMateriale;
     private javax.swing.JButton buttonAssegna;
     private javax.swing.JButton buttonCancellaAttività;
     private javax.swing.JButton buttonConfermaEwo;
     private javax.swing.JButton buttonConfermaMateriale;
+    private javax.swing.JButton buttonConfirmModifyCompetence;
+    private javax.swing.JButton buttonConfirmModifySite;
     private javax.swing.JButton buttonCrea;
     private javax.swing.JButton buttonCreaAttività;
     private javax.swing.JButton buttonForward;
     private javax.swing.JButton buttonGestManut;
+    private javax.swing.JButton buttonGestisciCompetenze;
     private javax.swing.JButton buttonGestisciMateriali;
+    private javax.swing.JButton buttonManageSide;
     private javax.swing.JButton buttonModificaAttività;
+    private javax.swing.JButton buttonModifyCompetence;
     private javax.swing.JButton buttonModifyMaterial;
+    private javax.swing.JButton buttonModifySite;
     private javax.swing.JButton buttonMostraAttività;
+    private javax.swing.JButton buttonRemoveCompetence;
     private javax.swing.JButton buttonRemoveMaterial;
+    private javax.swing.JButton buttonRemoveSite;
     private javax.swing.JButton buttonRemoveSkill;
     private javax.swing.JButton buttonRimuoviMateriale;
     private javax.swing.JButton buttonSMP;
+    private javax.swing.JList<String> competenceList;
     private javax.swing.JFrame creazioneAttività;
     private javax.swing.JTextField fieldArea;
     private javax.swing.JTextField fieldDay;
     private javax.swing.JTextField fieldFactorySite;
     private javax.swing.JTextField fieldID;
+    private javax.swing.JTextField fieldInserisciCompetence;
     private javax.swing.JTextField fieldInserisciMateriale;
+    private javax.swing.JTextField fieldInserisciSite;
     private javax.swing.JTextField fieldMaterialeSelezionato;
+    private javax.swing.JTextField fieldModifySite;
     private javax.swing.JTextField fieldTime;
     private javax.swing.JTextField fieldWeek;
     private javax.swing.JButton jButtonAssegnaAttività2;
@@ -2117,6 +2531,10 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -2130,6 +2548,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
@@ -2139,6 +2560,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane15;
     private javax.swing.JScrollPane jScrollPane16;
     private javax.swing.JScrollPane jScrollPane17;
+    private javax.swing.JScrollPane jScrollPane18;
+    private javax.swing.JScrollPane jScrollPane19;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -2171,11 +2594,14 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JList<String> listaMateriali;
     private javax.swing.JList<String> listaMaterialiVis;
     private javax.swing.JList<String> listaSkills;
+    private javax.swing.JFrame manageCompetence;
+    private javax.swing.JFrame manageSite;
     private javax.swing.JList<String> materialList;
     private javax.swing.JPanel panelCopertura;
     private javax.swing.JPanel panelCopertura2;
     private javax.swing.JPanel panelDX;
     private javax.swing.JPanel panelSX;
+    private javax.swing.JList<String> siteList;
     private javax.swing.JTable tabellaAttività;
     private javax.swing.JTable tabellaDisponibilità;
     private javax.swing.JTable tabellaDisponibilità2;
@@ -2194,6 +2620,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JTextField textAttivitàDaAssegnare;
     private javax.swing.JTextField textFieldActivityEWO;
     private javax.swing.JTextField textFieldEstimatedtimeewo;
+    private javax.swing.JTextField textFieldModifyCompetence;
     private javax.swing.JTextField textWeekAssegnata;
     // End of variables declaration//GEN-END:variables
 }
