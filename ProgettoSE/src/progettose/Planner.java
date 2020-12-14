@@ -43,17 +43,19 @@ public class Planner {
             Statement stm = connection.createStatement();
             String query;
             if (a.getProcedure() == null) {
-                if(a.getType() == 1) //se è una EWO activity allora devo aggiungere il giorno 
+                if (a.getType() == 1) //se è una EWO activity allora devo aggiungere il giorno 
+                {
                     query = "insert into Activity(id_,factorySite,area,typology,description,estimatedTime,week,interruptable,workSpaceNotes,activityType,procedura,giorno)"
-                        + " values(" + a.getId() + ",'" + a.getFactorySite() + "','" + a.getArea() + "','" + a.getTypology() + "','"
-                        + a.getActivityDescription() + "'," + a.getEstimatedTime() + "," + a.getWeek() + "," + a.isInterruptable() + ",'" + a.getWorkSpaceNote()
-                        + "'," + a.getType() + ",null" +","+ a.getDay()+");";
-                else
+                            + " values(" + a.getId() + ",'" + a.getFactorySite() + "','" + a.getArea() + "','" + a.getTypology() + "','"
+                            + a.getActivityDescription() + "'," + a.getEstimatedTime() + "," + a.getWeek() + "," + a.isInterruptable() + ",'" + a.getWorkSpaceNote()
+                            + "'," + a.getType() + ",null" + "," + a.getDay() + ");";
+                } else {
                     query = "insert into Activity(id_,factorySite,area,typology,description,estimatedTime,week,interruptable,workSpaceNotes,activityType,procedura)"
-                        + " values(" + a.getId() + ",'" + a.getFactorySite() + "','" + a.getArea() + "','" + a.getTypology() + "','"
-                        + a.getActivityDescription() + "'," + a.getEstimatedTime() + "," + a.getWeek() + "," + a.isInterruptable() + ",'" + a.getWorkSpaceNote()
-                        + "'," + a.getType() + ",null" + ");";
-            } else{ // se all'attività è associata una procedura
+                            + " values(" + a.getId() + ",'" + a.getFactorySite() + "','" + a.getArea() + "','" + a.getTypology() + "','"
+                            + a.getActivityDescription() + "'," + a.getEstimatedTime() + "," + a.getWeek() + "," + a.isInterruptable() + ",'" + a.getWorkSpaceNote()
+                            + "'," + a.getType() + ",null" + ");";
+                }
+            } else { // se all'attività è associata una procedura
                 query = "insert into Activity(id_,factorySite,area,typology,description,estimatedTime,week,interruptable,workSpaceNotes,activityType,procedura)"
                         + " values(" + a.getId() + ",'" + a.getFactorySite() + "','" + a.getArea() + "','" + a.getTypology() + "','"
                         + a.getActivityDescription() + "'," + a.getEstimatedTime() + "," + a.getWeek() + "," + a.isInterruptable() + ",'" + a.getWorkSpaceNote()
@@ -62,14 +64,15 @@ public class Planner {
             stm.executeUpdate(query);
 
             updateMaterials(a);
-            
+
         } catch (SQLException ex) {
-            if(ex.getMessage().contains("check_id"))
-                throw new Exception("Esiste già un attività con id = "+a.getId());
-            else if (ex.getMessage().contains("check_week"))
+            if (ex.getMessage().contains("check_id")) {
+                throw new Exception("Esiste già un attività con id = " + a.getId());
+            } else if (ex.getMessage().contains("check_week")) {
                 throw new Exception("La settimana deve essere compresa fra 1 e 52");
-            else
+            } else {
                 throw new Exception("L'attività non può essere creata");
+            }
         }
 
     }
@@ -137,11 +140,12 @@ public class Planner {
             List<String> competences = new ArrayList<>();
             while (rst.next()) {
                 competences.add(rst.getString("competence"));
-            }           
-            if(path != null)
+            }
+            if (path != null) {
                 return new Procedure(id, new File(path), competences);
-            else
+            } else {
                 return new Procedure(id, null, competences);
+            }
 
         } catch (SQLException ex) {
             return null;
@@ -205,11 +209,14 @@ public class Planner {
             Statement stm = connection.createStatement();
             String query = "delete from Activity where id_ =" + id;
             Activity a = this.getActivity(id);
-            if(a==null) //Se l'attività da cancellare non esiste
+            if (a == null) //Se l'attività da cancellare non esiste
+            {
                 return false;
-            this.rebuildAvailability(a,false,null);//ripristino le disponibilità dei manutentori collegati all'attività
-            if (stm.executeUpdate(query) == 0)
-                    return false;
+            }
+            this.rebuildAvailability(a, false, null);//ripristino le disponibilità dei manutentori collegati all'attività
+            if (stm.executeUpdate(query) == 0) {
+                return false;
+            }
 
             return true;
         } catch (SQLException ex) {
@@ -243,43 +250,45 @@ public class Planner {
         try {
             Statement stm = connection.createStatement();
             String idproc;
-            if(a.getProcedure() != null)
+            if (a.getProcedure() != null) {
                 idproc = String.valueOf(a.getProcedure().getId());
-            else
-                idproc=null;
-            String query="";
-            if(a.getDay() == -1){
-                query ="update Activity set factorySite='"+a.getFactorySite()+
-                        "',area='"+a.getArea()+"',typology='"+a.getTypology()+"',description='"+a.getActivityDescription()+
-                        "',estimatedTime="+a.getEstimatedTime()+",week="+a.getWeek()+",interruptable="+a.isInterruptable()+
-                        ",workSpaceNotes='"+a.getWorkSpaceNote()+"',activityType="+a.getType()+
-                    ",procedura="+idproc+",giorno= null"+" where id_="+a.getId()+";";
+            } else {
+                idproc = null;
             }
-            else{
-                query = "update Activity set factorySite='"+a.getFactorySite()+
-                        "',area='"+a.getArea()+"',typology='"+a.getTypology()+"',description='"+a.getActivityDescription()+
-                        "',estimatedTime="+a.getEstimatedTime()+",week="+a.getWeek()+",interruptable="+a.isInterruptable()+
-                        ",workSpaceNotes='"+a.getWorkSpaceNote()+"',activityType="+a.getType()+
-                    ",procedura="+idproc+",giorno="+a.getDay()+" where id_="+a.getId()+";";
+            String query = "";
+            if (a.getDay() == -1) {
+                query = "update Activity set factorySite='" + a.getFactorySite()
+                        + "',area='" + a.getArea() + "',typology='" + a.getTypology() + "',description='" + a.getActivityDescription()
+                        + "',estimatedTime=" + a.getEstimatedTime() + ",week=" + a.getWeek() + ",interruptable=" + a.isInterruptable()
+                        + ",workSpaceNotes='" + a.getWorkSpaceNote() + "',activityType=" + a.getType()
+                        + ",procedura=" + idproc + ",giorno= null" + " where id_=" + a.getId() + ";";
+            } else {
+                query = "update Activity set factorySite='" + a.getFactorySite()
+                        + "',area='" + a.getArea() + "',typology='" + a.getTypology() + "',description='" + a.getActivityDescription()
+                        + "',estimatedTime=" + a.getEstimatedTime() + ",week=" + a.getWeek() + ",interruptable=" + a.isInterruptable()
+                        + ",workSpaceNotes='" + a.getWorkSpaceNote() + "',activityType=" + a.getType()
+                        + ",procedura=" + idproc + ",giorno=" + a.getDay() + " where id_=" + a.getId() + ";";
             }
-             
-                    if(stm.executeUpdate(query) == 0)
-                        throw new Exception("Nessuna modifica effettuata");
-                    
-                    query = "delete from Material_for_Activity where activity= "+ a.getId();
-                    stm.executeUpdate(query);
-                    
-                    updateMaterials(a);
+
+            if (stm.executeUpdate(query) == 0) {
+                throw new Exception("Nessuna modifica effettuata");
+            }
+
+            query = "delete from Material_for_Activity where activity= " + a.getId();
+            stm.executeUpdate(query);
+
+            updateMaterials(a);
         } catch (SQLException ex) {
-            if(ex.getMessage().contains("check_week"))
+            if (ex.getMessage().contains("check_week")) {
                 throw new Exception("La settimana deve essere compresa fra 1 e 52");
-            else
+            } else {
                 throw new Exception("L'attività non può essere modificata");
+            }
         }
     }
-    
-    private void updateMaterials(Activity a) throws SQLException{
-        String query=  " ";
+
+    private void updateMaterials(Activity a) throws SQLException {
+        String query = " ";
         Statement stm = connection.createStatement();
         if (!a.getMaterials().isEmpty()) {
             for (String material : a.getMaterials()) {
@@ -287,21 +296,21 @@ public class Planner {
                 query = "insert into Material_for_Activity(activity,material) values("
                         + a.getId() + ",'" + material + "');";
 
-                   stm.executeUpdate(query);
+                stm.executeUpdate(query);
             }
         }
     }
 
     public List<Maintainer> getAllMaintainers() {
         List<Maintainer> l = new ArrayList<>();
-        int id;        
+        int id;
         try {
             Statement stm = connection.createStatement();
             Statement stm2 = connection.createStatement();
             String query = "select * from Maintainer";
             ResultSet rst = stm.executeQuery(query);
-            while(rst.next()){
-                Map<Integer, int[][]> avaibilities = new HashMap<>();        
+            while (rst.next()) {
+                Map<Integer, int[][]> avaibilities = new HashMap<>();
                 List<String> competencies = new ArrayList<>();
                 String name = rst.getString("nome");
                 id = rst.getInt("ID_MAN");
@@ -331,7 +340,7 @@ public class Planner {
                 }
                 avaibilities.put(temp, value); //per non perdere l'ultima settimana di disponibilità
                 l.add(new Maintainer(name, competencies, avaibilities));
-               
+
             }
             return l;
         } catch (SQLException ex) {
@@ -339,123 +348,126 @@ public class Planner {
         }
 
     }
-    
-    public void assignedActivityToMaintainer(Maintainer m, Activity a, int giorno, int ore[]) throws Exception{
+
+    public void assignedActivityToMaintainer(Maintainer m, Activity a, int giorno, int ore[]) throws Exception {
         connection.setAutoCommit(false);
         connection.setSavepoint();
-        if(a.getType() == 1){ //Se l'attività è una EWO devo verificare se il planner vuole assegnarla al posto di un'altra interrompibile
+        if (a.getType() == 1) { //Se l'attività è una EWO devo verificare se il planner vuole assegnarla al posto di un'altra interrompibile
             this.checkInterruptable(m, a, giorno, ore);
-            for(Maintainer man : this.getAllMaintainers()){
-                if(man.getName().equals(m.getName())){
-                    m=man;
+            for (Maintainer man : this.getAllMaintainers()) {
+                if (man.getName().equals(m.getName())) {
+                    m = man;
                     break;
                 }
             }
         }
-        
-        int avaibility[][] = m.getAvailability().get(a.getWeek()); 
-        int daily [] = avaibility[giorno];
+
+        int avaibility[][] = m.getAvailability().get(a.getWeek());
+        int daily[] = avaibility[giorno];
         int timeLeft = a.getEstimatedTime();
-        int minutiprimacella=daily[ore[0]];
-        for (int i=0; i<ore.length; i++){
-            if (daily[ore[i]] < timeLeft){
+        int minutiprimacella = daily[ore[0]];
+        for (int i = 0; i < ore.length; i++) {
+            if (daily[ore[i]] < timeLeft) {
                 timeLeft -= daily[ore[i]];
                 daily[ore[i]] = 0;
-            }
-            else{ 
+            } else {
                 daily[ore[i]] -= timeLeft;
                 //Aggiorno il db
                 int id = 0;
-                
+
                 Statement stm = connection.createStatement();
-                ResultSet rst = stm.executeQuery("select * from Maintainer where nome = '" + m.getName()+"'");
+                ResultSet rst = stm.executeQuery("select * from Maintainer where nome = '" + m.getName() + "'");
                 rst.next();
-                id= rst.getInt("ID_MAN");
-                try{
-                    for (int j=0; j<=6; j++){
-                        for (int k=0; k<=6; k++){
+                id = rst.getInt("ID_MAN");
+                try {
+                    for (int j = 0; j <= 6; j++) {
+                        for (int k = 0; k <= 6; k++) {
                             Statement stm2 = connection.createStatement();
-                            String query = "update Availability set minuti = " + avaibility[j][k] +
-                                            " where ID_DISPONIBILITA in (select ID_DISPONIBILITA"+   
-                                                " from DISPONIBILITA_MANUTENTORE where ID_MAN = " + id + ")"+
-                                                      "and (settimana = " + a.getWeek()+ ")" +
-                                                      "and (giorno = " + j + ")"+
-                                                      "and (ora = " + k + ")";
+                            String query = "update Availability set minuti = " + avaibility[j][k]
+                                    + " where ID_DISPONIBILITA in (select ID_DISPONIBILITA"
+                                    + " from DISPONIBILITA_MANUTENTORE where ID_MAN = " + id + ")"
+                                    + "and (settimana = " + a.getWeek() + ")"
+                                    + "and (giorno = " + j + ")"
+                                    + "and (ora = " + k + ")";
                             stm2.executeUpdate(query);
                         }
                     }
                     Statement stm3 = connection.createStatement();
-                    String query = "insert into Maintainer_for_Activity(maintainer,activity,day_of_week,hour_of_day,minutes_first_cell) values("+id+","+a.getId()+","+giorno+","+ore[0]+","+minutiprimacella+");";
+                    String query = "insert into Maintainer_for_Activity(maintainer,activity,day_of_week,hour_of_day,minutes_first_cell) values(" + id + "," + a.getId() + "," + giorno + "," + ore[0] + "," + minutiprimacella + ");";
                     stm3.executeUpdate(query);
                     connection.setAutoCommit(true);
                     return;
-                    } catch (SQLException ex) {
-                        if(!connection.getAutoCommit()){
-                            connection.rollback();
-                            connection.setAutoCommit(true);
-                        }
-                        if(ex.getMessage().contains("maintainer_for_activity_pkey"))
-                            throw new Exception("L'attività è gia stata assegnata a "+ m.getName());
-                        else
-                            throw new Exception("L'attività non può essere assegnata");
+                } catch (SQLException ex) {
+                    if (!connection.getAutoCommit()) {
+                        connection.rollback();
+                        connection.setAutoCommit(true);
                     }
-            }           
+                    if (ex.getMessage().contains("maintainer_for_activity_pkey")) {
+                        throw new Exception("L'attività è gia stata assegnata a " + m.getName());
+                    } else {
+                        throw new Exception("L'attività non può essere assegnata");
+                    }
+                }
+            }
         }
-        if(!connection.getAutoCommit()){
+        if (!connection.getAutoCommit()) {
             connection.rollback();
             connection.setAutoCommit(true);
         }
         throw new Exception("Non c'è disponibilità per il manutentore nell'arco di tempo selezionato");
     }
-       
+
     /**
      * This method returns a list that contains all the skills in the DB
+     *
      * @return a list of strings or a list empty
      */
-    public List<String> getAllSkills(){
+    public List<String> getAllSkills() {
         try {
             Statement stm = connection.createStatement();
             ResultSet rst = stm.executeQuery("select * from Competence");
             List<String> skills = new ArrayList<>();
-            while(rst.next())
+            while (rst.next()) {
                 skills.add(rst.getString("skill"));
+            }
             return skills;
         } catch (SQLException ex) {
             return new ArrayList<>();
         }
     }
-    
-    public boolean setEwoActivity(EwoActivity a){
+
+    public boolean setEwoActivity(EwoActivity a) {
         try {
             Statement stm = connection.createStatement();
             String query = "";
             int id = 0;
-            if(a.getProcedure().getId() == 0){ // se l'attività non ha procedure associate nel db
+            if (a.getProcedure().getId() == 0) { // se l'attività non ha procedure associate nel db
                 query = "select max(id_) from Procedura";
                 ResultSet rst = stm.executeQuery(query);
                 rst.next();
                 id = rst.getInt("max");
-                if(rst.wasNull()) //Se non ci sono procedure nel database
-                    id = 0; 
-                else
+                if (rst.wasNull()) //Se non ci sono procedure nel database
+                {
+                    id = 0;
+                } else {
                     id += 1;
+                }
 
                 //Creo una procedura e mi assicuro che l'id sia univoco
-                query = "insert into Procedura(id_,smp_path) values ("+id+",null);";
+                query = "insert into Procedura(id_,smp_path) values (" + id + ",null);";
                 stm.executeUpdate(query);
-                }
-            else{
+            } else {
                 id = a.getProcedure().getId();
                 query = "delete from Competence_for_Procedure where procedura = " + id;
                 stm.executeUpdate(query);
             }
             //Associo la procedura all'attività nel database ed aggiorno la descrizione ed il tempo stimato
-            query = "update Activity set description = '" + a.getActivityDescription() + 
-                    "',estimatedTime = "+a.getEstimatedTime()+",procedura= "+ id +" where id_ =" + a.getId();
+            query = "update Activity set description = '" + a.getActivityDescription()
+                    + "',estimatedTime = " + a.getEstimatedTime() + ",procedura= " + id + " where id_ =" + a.getId();
             stm.executeUpdate(query);
             //Associo le competenze alla procedura appena creata 
-            for (String c : a.getProcedure().getCompetencies()){
-                query = "insert into Competence_for_Procedure (procedura,competence) values ("+id+",'"+c+"');";
+            for (String c : a.getProcedure().getCompetencies()) {
+                query = "insert into Competence_for_Procedure (procedura,competence) values (" + id + ",'" + c + "');";
                 stm.executeUpdate(query);
             }
             return true;
@@ -463,57 +475,58 @@ public class Planner {
             return false;
         }
     }
-  
-    
-    private void rebuildAvailability(Activity a,boolean onemaintainer,Maintainer ma) throws SQLException{
-        List <Maintainer> m = this.getAllMaintainers();
-        List <Maintainer> maintainers = this.getAllMaintainers();
+
+    private void rebuildAvailability(Activity a, boolean onemaintainer, Maintainer ma) throws SQLException {
+        List<Maintainer> m = this.getAllMaintainers();
+        List<Maintainer> maintainers = this.getAllMaintainers();
         List<String> idm = new ArrayList<>();
         List<Integer> starts = new ArrayList<>(); //Per ogni manutentore segno l'ora di inizio dell'attività
         List<Integer> days = new ArrayList<>(); //Per ogni manutentore segno il giorno della settimana in cui svolgo l'attività
         List<Integer> minutes = new ArrayList<>();
-        
+
         Statement stm = connection.createStatement();
-        String query= "";
-        if(onemaintainer)
-            query=  "select * from Maintainer_for_Activity,Maintainer where Maintainer.id_man = Maintainer_for_Activity.maintainer and nome = '"+ma.getName()+"'"+" and activity = " + a.getId();
-        else
+        String query = "";
+        if (onemaintainer) {
+            query = "select * from Maintainer_for_Activity,Maintainer where Maintainer.id_man = Maintainer_for_Activity.maintainer and nome = '" + ma.getName() + "'" + " and activity = " + a.getId();
+        } else {
             query = "select * from Maintainer_for_Activity,Maintainer where Maintainer.id_man = Maintainer_for_Activity.maintainer and  activity = " + a.getId();
+        }
         ResultSet rst = stm.executeQuery(query);
-        while (rst.next()){
+        while (rst.next()) {
             idm.add(rst.getString("Nome"));
             days.add(rst.getInt("day_of_week"));
             starts.add(rst.getInt("hour_of_day"));
             minutes.add(rst.getInt("minutes_first_cell"));
         }
-        
-        for (Maintainer man:maintainers)
-            if(!idm.contains(man.getName()))
-                m.remove(man);           
-        
-        for (int i=0 ; i<starts.size();i++){ //Aggiornare le disponibilità
+
+        for (Maintainer man : maintainers) {
+            if (!idm.contains(man.getName())) {
+                m.remove(man);
+            }
+        }
+
+        for (int i = 0; i < starts.size(); i++) { //Aggiornare le disponibilità
             Maintainer man = m.get(i);
-            int [] availability = man.getAvailability().get(a.getWeek())[days.get(i)];
-            int k=starts.get(i);
+            int[] availability = man.getAvailability().get(a.getWeek())[days.get(i)];
+            int k = starts.get(i);
             int temp = a.getEstimatedTime();
-      
+
             if (minutes.get(i) < 60) {
                 availability[k] += minutes.get(i);
                 temp -= minutes.get(i);
                 k++;
-            }          
-            while(temp!=0){
-                if(temp<60){
+            }
+            while (temp != 0) {
+                if (temp < 60) {
                     availability[k] += temp;
                     temp = 0;
-                }
-                else{
+                } else {
                     availability[k] = 60;
                     temp -= 60;
                 }
                 k++;
             }
-            
+
             for (int j = 0; j <= 6; j++) {
                 for (k = 0; k <= 6; k++) {
                     Statement stm2 = connection.createStatement();
@@ -525,50 +538,52 @@ public class Planner {
                             + "and (ora = " + k + ")";
                     stm2.executeUpdate(query);
                 }
-            }        
-        }       
+            }
+        }
     }
-    
-    
-    private void checkInterruptable(Maintainer m,Activity a, int giorno, int ore[]) throws SQLException{
+
+    private void checkInterruptable(Maintainer m, Activity a, int giorno, int ore[]) throws SQLException {
         //Acquisisco id del maintainer dal db
         Statement stm = connection.createStatement();
-        ResultSet rst = stm.executeQuery("Select * from Maintainer where nome = '" + m.getName()+"'");
-        int id=0;
-        while(rst.next())
+        ResultSet rst = stm.executeQuery("Select * from Maintainer where nome = '" + m.getName() + "'");
+        int id = 0;
+        while (rst.next()) {
             id = rst.getInt("id_man");
-       
-        String query = "Select * from Maintainer_for_Activity,Activity where activity=id_ and  maintainer = " + id +" and day_of_week = " + giorno;
+        }
+
+        String query = "Select * from Maintainer_for_Activity,Activity where activity=id_ and  maintainer = " + id + " and day_of_week = " + giorno;
         ResultSet rst2 = stm.executeQuery(query);
-        while(rst2.next()){
+        while (rst2.next()) {
             int et = rst2.getInt("estimatedTime");
             int start = rst2.getInt("hour_of_day"); //inizio attività
             int end; //fine attività
-            if(et%60==0)
-                end = ((et/60)+start)-1;
-            else
-                end = (et/60)+start;
-            if((end >= ore[0] && start <= ore[ore.length-1]) || (start <= ore[ore.length-1] && end>=ore[0]))
-                if(rst2.getBoolean("interruptable")){
+            if (et % 60 == 0) {
+                end = ((et / 60) + start) - 1;
+            } else {
+                end = (et / 60) + start;
+            }
+            if ((end >= ore[0] && start <= ore[ore.length - 1]) || (start <= ore[ore.length - 1] && end >= ore[0])) {
+                if (rst2.getBoolean("interruptable")) {
                     this.rebuildAvailability(this.getActivity(rst2.getInt("id_")), true, m);
-                    connection.createStatement().executeUpdate("delete from Maintainer_for_Activity where maintainer = " + id +" and activity = "+ a.getId());
+                    connection.createStatement().executeUpdate("delete from Maintainer_for_Activity where maintainer = " + id + " and activity = " + a.getId());
                 }
+            }
         }
 
-        
     }
-    public boolean createMaterial(String material){
+
+    public boolean createMaterial(String material) {
         try {
             Statement stm = connection.createStatement();
-            String query = "insert into Material(materialName) values ('" + material +"');";
+            String query = "insert into Material(materialName) values ('" + material + "');";
             stm.executeUpdate(query);
             return true;
         } catch (SQLException ex) {//la execute lancia un'eccezione se il materiale è già presente
             return false;
         }
     }
-    
-    public boolean deleteMaterial(String material){
+
+    public boolean deleteMaterial(String material) {
         try {
             Statement stm = connection.createStatement();
             String query = "delete from Material where materialName = '" + material + "';";
@@ -577,8 +592,8 @@ public class Planner {
             return false;
         }
     }
-    
-    public boolean modifyMaterial(String oldMaterial, String newMaterial){
+
+    public boolean modifyMaterial(String oldMaterial, String newMaterial) {
         try {
             Statement stm = connection.createStatement();
             String query = "update Material set materialName = '" + newMaterial + "' where materialName = '" + oldMaterial + "'";
@@ -587,37 +602,42 @@ public class Planner {
             return false;
         }
     }
-    
-    public String[] busyMaintainer(Maintainer m,int week,int dayofweek){
+
+    public String[] busyMaintainer(Maintainer m, int week, int dayofweek) {
         try {
-            String busy[] = new String[]{" "," "," "," "," "," "," "};
-            ResultSet rst = connection.createStatement().executeQuery("Select * from Maintainer where nome = '" + m.getName()+"'");
-            int id=0;
-            while(rst.next())
+            String busy[] = new String[]{" ", " ", " ", " ", " ", " ", " "};
+            ResultSet rst = connection.createStatement().executeQuery("Select * from Maintainer where nome = '" + m.getName() + "'");
+            int id = 0;
+            while (rst.next()) {
                 id = rst.getInt("id_man");
-            String query="Select * from Maintainer_for_Activity,Activity where activity = id_ and maintainer = " + id + " and week = " + week + " and day_of_week = " + dayofweek ;
+            }
+            String query = "Select * from Maintainer_for_Activity,Activity where activity = id_ and maintainer = " + id + " and week = " + week + " and day_of_week = " + dayofweek;
             ResultSet rst2 = connection.createStatement().executeQuery(query);
-            while(rst2.next()){
+            while (rst2.next()) {
+
                 int start = rst2.getInt("hour_of_day");
                 int minstart = rst2.getInt("minutes_first_cell");
                 int time = rst2.getInt("estimatedTime");
+                System.out.println(time);
                 boolean flag = true;
-                while(time <= 0){
-                    busy[start]="*";
-                    if(flag){
+                while (time > 0) {
+
+                    busy[start] = "*";
+                    if (flag) {
                         time -= minstart;
-                        flag=false;
-                    }
-                    else
+                        flag = false;
+                    } else {
                         time -= 60;
+                    }
                     start++;
                 }
             }
             return busy;
         } catch (SQLException ex) {
+            System.out.println(ex);
             return null;
         }
-        
+
     }
-    
+
 }

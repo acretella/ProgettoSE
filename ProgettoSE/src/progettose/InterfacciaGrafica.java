@@ -95,47 +95,47 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         }
         tabellaDisponibilità2.getColumnModel().setSelectionModel(new DefaultListSelectionModel() {
-                private boolean isSelectable(int indice) {
-                    return !(indice == 1 || indice == 0);
-                }
+            private boolean isSelectable(int indice) {
+                return !(indice == 1 || indice == 0);
+            }
 
-                @Override
-                public void setSelectionInterval(int indice1, int indice2) {
-                    if (isSelectable(indice2) && isSelectable(indice1)) {
-                        super.setSelectionInterval(indice1, indice2);
-                    } else {
-                    }
+            @Override
+            public void setSelectionInterval(int indice1, int indice2) {
+                if (isSelectable(indice2) && isSelectable(indice1)) {
+                    super.setSelectionInterval(indice1, indice2);
+                } else {
                 }
+            }
 
-                @Override
-                public void addSelectionInterval(int indice1, int indice2) {
-                    if (isSelectable(indice1) && isSelectable(indice2)) {
-                        super.addSelectionInterval(indice1, indice2);
-                    }
+            @Override
+            public void addSelectionInterval(int indice1, int indice2) {
+                if (isSelectable(indice1) && isSelectable(indice2)) {
+                    super.addSelectionInterval(indice1, indice2);
                 }
+            }
 
-            });
+        });
         tabellaDisponibilità.getColumnModel().setSelectionModel(new DefaultListSelectionModel() {
-                private boolean isSelectable(int indice) {
-                    return !(indice == 1 || indice == 0);
-                }
+            private boolean isSelectable(int indice) {
+                return !(indice == 1 || indice == 0);
+            }
 
-                @Override
-                public void setSelectionInterval(int indice1, int indice2) {
-                    if (isSelectable(indice2) && isSelectable(indice1)) {
-                        super.setSelectionInterval(indice1, indice2);
-                    } else {
-                    }
+            @Override
+            public void setSelectionInterval(int indice1, int indice2) {
+                if (isSelectable(indice2) && isSelectable(indice1)) {
+                    super.setSelectionInterval(indice1, indice2);
+                } else {
                 }
+            }
 
-                @Override
-                public void addSelectionInterval(int indice1, int indice2) {
-                    if (isSelectable(indice1) && isSelectable(indice2)) {
-                        super.addSelectionInterval(indice1, indice2);
-                    }
+            @Override
+            public void addSelectionInterval(int indice1, int indice2) {
+                if (isSelectable(indice1) && isSelectable(indice2)) {
+                    super.addSelectionInterval(indice1, indice2);
                 }
+            }
 
-            });
+        });
 
     }
 
@@ -240,6 +240,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelSkillsEWO2 = new javax.swing.JLabel();
         jScrollPane17 = new javax.swing.JScrollPane();
         listSkillsEWO2 = new javax.swing.JList<>();
+        labelOccupato = new javax.swing.JLabel();
         attivitàEWO = new javax.swing.JFrame();
         jPanel5 = new javax.swing.JPanel();
         labelWeekEWO = new javax.swing.JLabel();
@@ -910,6 +911,14 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jPanel3.add(jScrollPane17);
         jScrollPane17.setBounds(10, 270, 220, 130);
 
+        labelOccupato.setBackground(new java.awt.Color(255, 255, 102));
+        labelOccupato.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
+        labelOccupato.setText("*=OCCUPIED");
+        labelOccupato.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        labelOccupato.setOpaque(true);
+        jPanel3.add(labelOccupato);
+        labelOccupato.setBounds(650, 320, 120, 30);
+
         assegnaAttività2.getContentPane().add(jPanel3);
         jPanel3.setBounds(0, 0, 1233, 428);
 
@@ -1178,7 +1187,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         buttonAssegna.setVisible(false);
         disattivaVis();
         fieldDay.setText(giorno);
-        
+
     }//GEN-LAST:event_buttonGestManutActionPerformed
 
     private void buttonCreaAttivitàActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreaAttivitàActionPerformed
@@ -1415,7 +1424,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             mostraErrore("ERRORE", "Seleziona una riga dalla tabella!");
         } else {
 
-
             panelCopertura2.setVisible(false);
             abilitaVis();
             id = Integer.parseInt(tb.getValueAt(tabellaAttività.getSelectedRow(), 0).toString());
@@ -1445,13 +1453,15 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             mostraErrore("ERRORE", "Seleziona un'attività dalla tabella!");
         } else {
             if (p.getActivity(id).getType() != 1) {
-                        tabellaDisponibilità.setCellSelectionEnabled(true);
-        tabellaDisponibilità.setRowSelectionAllowed(true);
-        tabellaDisponibilità.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                tabellaDisponibilità.setCellSelectionEnabled(true);
+                tabellaDisponibilità.setRowSelectionAllowed(true);
+                tabellaDisponibilità.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                labelOccupato.setVisible(false);
                 casoNotEWO();
             } else {
                 tabellaDisponibilità.setEnabled(false);
                 gestioneEWO();
+                labelOccupato.setVisible(true);
             }
         }
     }//GEN-LAST:event_buttonAssegnaActionPerformed
@@ -1480,7 +1490,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         } else {
             resettaLabelDisp();
             textAreaWorkspaceNotes2.setEditable(false);
-            
 
             assegnaAttività2.setVisible(true);
             tabellaDisponibilità.setEnabled(false);
@@ -1520,8 +1529,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
             riga = tabellaDisponibilità2.getSelectedRow();
             c = date.getDayOfWeek().getValue() + 2;
-            if (c==9)
-                c=2;
+            if (c == 9) {
+                c = 2;
+            }
         }
 
         int[] oreSelezionate = tabellaDisponibilità2.getSelectedColumns();
@@ -1532,16 +1542,15 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         }
 
         try {
-            if(tabellaDisponibilità2.getSelectedRowCount()>1){
-                mostraErrore("ERRORE","Seleziona una riga alla volta");
-            }
-            else{
-            p.assignedActivityToMaintainer(p.getAllMaintainers().get(riga), p.getActivity(id), c - 2, oreSelezionate);
-            mostraSuccesso("Attività assegnata!", "Attività assegnata con successo");
-            aggiornaTabella2();
-            resetPostEWO();
-            assegnaAttività2.setVisible(false);
-            tabellaDisponibilità.setEnabled(true);
+            if (tabellaDisponibilità2.getSelectedRowCount() > 1) {
+                mostraErrore("ERRORE", "Seleziona una riga alla volta");
+            } else {
+                p.assignedActivityToMaintainer(p.getAllMaintainers().get(riga), p.getActivity(id), c - 2, oreSelezionate);
+                mostraSuccesso("Attività assegnata!", "Attività assegnata con successo");
+                aggiornaTabella2();
+                resetPostEWO();
+                assegnaAttività2.setVisible(false);
+                tabellaDisponibilità.setEnabled(true);
             }
         } catch (Exception ex) {
 
@@ -2081,27 +2090,30 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         tabellaDisponibilità2.setCellSelectionEnabled(true);
         tabellaDisponibilità2.setRowSelectionAllowed(true);
         tabellaDisponibilità2.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        int n = 0;
         for (Maintainer m : p.getAllMaintainers()) {
             int[][] disp = m.getAvailability().get(a.getWeek());
             int[] ore;
             String competenze;
+
             if (disp == null) {
                 ore = new int[7];
             } else {
-                int n = date.getDayOfWeek().getValue();
-                if(n==7)
-                    n=0;
+                n = date.getDayOfWeek().getValue();
+                if (n == 7) {
+                    n = 0;
+                }
                 ore = disp[n];
             }
 
+            String[] x = p.busyMaintainer(m, a.getWeek(), n);
             competenze = getComp(a, m);
-            
-            String[] inserimento = {m.getName(), competenze, String.valueOf(ore[0]) + " min",
-                String.valueOf(ore[1]) + " min", String.valueOf(ore[2]) + " min",
-                String.valueOf(ore[3]) + " min", String.valueOf(ore[4]) + " min",
-                String.valueOf(ore[5]) + " min", String.valueOf(ore[6]) + " min"};
+            String[] inserimento = {m.getName(), competenze, String.valueOf(ore[0]) + " min" + x[0],
+                String.valueOf(ore[1]) + " min" + x[1], String.valueOf(ore[2]) + " min" + x[2],
+                String.valueOf(ore[3]) + " min" + x[3], String.valueOf(ore[4]) + " min" + x[4],
+                String.valueOf(ore[5]) + " min" + x[5], String.valueOf(ore[6]) + " min" + x[6]};
             tb3.addRow(inserimento);
-            
+
         }
     }
 
@@ -2203,6 +2215,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JLabel labelID;
     private javax.swing.JLabel labelInterrompibileOra;
     private javax.swing.JLabel labelML;
+    private javax.swing.JLabel labelOccupato;
     private javax.swing.JLabel labelSkillsEWO2;
     private javax.swing.JLabel labelTipologiaOra;
     private javax.swing.JLabel labelWO;
