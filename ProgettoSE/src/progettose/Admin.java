@@ -20,7 +20,7 @@ public class Admin extends User {
     public boolean createCompetence(String competence){
         try{
             Statement stm = super.getConnection().createStatement();
-            String query = "insert into Competence(skill) values  ('" + competence + "');";
+            String query = "insert into Competence(skill) values ('" + competence + "');";
             stm.executeUpdate(query);
             return true;
         } catch (SQLException ex){
