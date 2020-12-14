@@ -68,6 +68,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     String giorno = String.valueOf(date.getDayOfWeek());
 
     Planner p;
+    Admin a;
     List<String> materiali = new ArrayList<>();
     int id;
     List<String> skills = new ArrayList<>();
@@ -300,7 +301,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         );
 
         GestioneAttività.getContentPane().add(panelCopertura2);
-        panelCopertura2.setBounds(0, 370, 1070, 0);
+        panelCopertura2.setBounds(0, 370, 1070, 240);
 
         buttonCreaAttività.setText("Crea attività");
         buttonCreaAttività.addActionListener(new java.awt.event.ActionListener() {
@@ -1928,7 +1929,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonGestisciMaterialiActionPerformed
 
     private void buttonAddMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddMaterialActionPerformed
-
+        fieldMaterialeSelezionato.setVisible(false);
+        buttonConfermaMateriale.setVisible(false);
         if (fieldInserisciMateriale.getText().isBlank()) {
             mostraErrore("ERRORE", "Nessun materiale inserito");
         } else {
@@ -1947,6 +1949,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonAddMaterialActionPerformed
 
     private void buttonRemoveMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveMaterialActionPerformed
+        fieldMaterialeSelezionato.setVisible(false);
+        buttonConfermaMateriale.setVisible(false);
         if (materialList.getSelectedIndex() == -1) {
             mostraErrore("ERROR", "Seleziona un materiale dalla lista dei materiali da rimuovere");
         } else {
@@ -1992,6 +1996,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
     private void buttonAdministratorAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAdministratorAreaActionPerformed
      administrator.setVisible(true);
+      try {
+            a = new Admin("nello", "12345");
+        } catch (SQLException ex) {
+            Logger.getLogger(InterfacciaGrafica.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_buttonAdministratorAreaActionPerformed
 
     private void fieldInserisciCompetenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldInserisciCompetenceActionPerformed
@@ -1999,13 +2008,15 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldInserisciCompetenceActionPerformed
 
     private void buttonAddCompetenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddCompetenceActionPerformed
-     if(fieldInserisciCompetence.getText().isBlank()){
+        textFieldModifyCompetence.setVisible(false);
+        buttonConfirmModifyCompetence.setVisible(false);
+        if(fieldInserisciCompetence.getText().isBlank()){
          mostraErrore("ERROR", "Nessuna competenza inserita");
      }else{
          String competenza = fieldInserisciCompetence.getText();
          competence.add(competenza);
          if(!listModelCompetence.contains(competenza)){
-             //MEDOTO CREATE
+             a.createCompetence(competenza);
              listModelCompetence.addElement(competenza);
              fieldInserisciCompetence.setText("");
          } else{
@@ -2015,12 +2026,14 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonAddCompetenceActionPerformed
 
     private void buttonRemoveCompetenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveCompetenceActionPerformed
+        textFieldModifyCompetence.setVisible(false);
+        buttonConfirmModifyCompetence.setVisible(false);
         if(competenceList.getSelectedIndex() == -1){
             mostraErrore("ERROR","Seleziona una competenza dalla lista!");
         }else{
             competence.remove(competenceList.getSelectedValue());
             listModelCompetence.removeElement(competenceList.getSelectedValue());
-            //METODO DELETE
+            a.deleteCompetence(competenceList.getSelectedValue());
         }
     }//GEN-LAST:event_buttonRemoveCompetenceActionPerformed
 
@@ -2031,25 +2044,34 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             textFieldModifyCompetence.setVisible(true);
             buttonConfirmModifyCompetence.setVisible(true);
             textFieldModifyCompetence.setText(competenceList.getSelectedValue());
-            //MODIFY
+            
         }
     }//GEN-LAST:event_buttonModifyCompetenceActionPerformed
 
     private void buttonConfirmModifyCompetenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmModifyCompetenceActionPerformed
-          /*if (a.modifyCompetence(competenceList.getSelectedValue(), textFieldModifyCompetence.getText())) {
+          if (a.modifyCompetence(competenceList.getSelectedValue(), textFieldModifyCompetence.getText())) {
             mostraSuccesso("Materiale modificato!", "Materiale modificato con successo!");
             textFieldModifyCompetence.setVisible(false);
             buttonConfirmModifyCompetence.setVisible(false);
             textFieldModifyCompetence.setText("");
             listModelCompetence.clear();
-            AGGIUNTA LISTA MODIFICATA
+            for(String c : a.getAllSkills()){
+                listModelCompetence.addElement(c);
+            }
         } else {
-            mostraErrore("ERRORE", "Competenza non modificata!");        }
-*/
+            mostraErrore("ERRORE", "Competenza non modificata!");        
+          }
+
     }//GEN-LAST:event_buttonConfirmModifyCompetenceActionPerformed
 
     private void buttonGestisciCompetenzeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGestisciCompetenzeActionPerformed
+        listModelCompetence.clear();
         manageCompetence.setVisible(true);
+        competence = a.getAllSkills();
+        for (String c : competence) {
+            listModelCompetence.addElement(c);
+        }
+        competenceList.setModel(listModelCompetence);
         textFieldModifyCompetence.setVisible(false);
         buttonConfirmModifyCompetence.setVisible(false);
     }//GEN-LAST:event_buttonGestisciCompetenzeActionPerformed
