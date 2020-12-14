@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -339,9 +341,9 @@ public class Planner {
     }
     
     public void assignedActivityToMaintainer(Maintainer m, Activity a, int giorno, int ore[]) throws Exception{
+        connection.setAutoCommit(false);
+        connection.setSavepoint();
         if(a.getType() == 1){ //Se l'attività è una EWO devo verificare se il planner vuole assegnarla al posto di un'altra interrompibile
-            connection.setAutoCommit(false);
-            connection.setSavepoint();
             this.checkInterruptable(m, a, giorno, ore);
             for(Maintainer man : this.getAllMaintainers()){
                 if(man.getName().equals(m.getName())){
@@ -399,8 +401,10 @@ public class Planner {
                     }
             }           
         }
-        connection.rollback();
-        connection.setAutoCommit(true);
+        if(!connection.getAutoCommit()){
+            connection.rollback();
+            connection.setAutoCommit(true);
+        }
         throw new Exception("Non c'è disponibilità per il manutentore nell'arco di tempo selezionato");
     }
        
@@ -583,5 +587,37 @@ public class Planner {
             return false;
         }
     }
+    
+    public String[] busyMaintainer(Maintainer m,int week,int dayofweek){
+        try {
+            String busy[] = new String[]{" "," "," "," "," "," "," "};
+            ResultSet rst = connection.createStatement().executeQuery("Select * from Maintainer where nome = '" + m.getName()+"'");
+            int id=0;
+            while(rst.next())
+                id = rst.getInt("id_man");
+            String query="Select * from Maintainer_for_Activity,Activity where activity = id_ and maintainer = " + id + " and week = " + week + " and day_of_week = " + dayofweek ;
+            ResultSet rst2 = connection.createStatement().executeQuery(query);
+            while(rst2.next()){
+                int start = rst2.getInt("hour_of_day");
+                int minstart = rst2.getInt("minutes_first_cell");
+                int time = rst2.getInt("estimatedTime");
+                boolean flag = true;
+                while(time <= 0){
+                    busy[start]="*";
+                    if(flag){
+                        time -= minstart;
+                        flag=false;
+                    }
+                    else
+                        time -= 60;
+                    start++;
+                }
+            }
+            return busy;
+        } catch (SQLException ex) {
+            return null;
+        }
         
+    }
+    
 }
