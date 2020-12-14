@@ -618,7 +618,6 @@ public class Planner {
                 int start = rst2.getInt("hour_of_day");
                 int minstart = rst2.getInt("minutes_first_cell");
                 int time = rst2.getInt("estimatedTime");
-                System.out.println(time);
                 boolean flag = true;
                 while (time > 0) {
 
