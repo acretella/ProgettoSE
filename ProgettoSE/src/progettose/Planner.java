@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -71,6 +73,28 @@ public class Planner {
             } else {
                 throw new Exception("L'attività non può essere creata");
             }
+        }
+
+    }
+
+    public List<String> getAllMaterials() {
+        try {
+            Statement stm = connection.createStatement();
+
+            String query = "Select * from Material";
+
+            ResultSet rst = stm.executeQuery(query);
+
+            List<String> l = new ArrayList<>();
+
+            while (rst.next()) {
+                l.add(rst.getString("materialName"));
+            }
+
+            return l;
+
+        } catch (SQLException ex) {
+            return new ArrayList<>();
         }
 
     }
@@ -393,6 +417,25 @@ public class Planner {
         throw new Exception("Non c'è disponibilità per il manutentore nell'arco di tempo selezionato");
     }
 
+    /**
+     * This method returns a list that contains all the skills in the DB
+     *
+     * @return a list of strings or a list empty
+     */
+    public List<String> getAllSkills() {
+        try {
+            Statement stm = connection.createStatement();
+            ResultSet rst = stm.executeQuery("select * from Competence");
+            List<String> skills = new ArrayList<>();
+            while (rst.next()) {
+                skills.add(rst.getString("skill"));
+            }
+            return skills;
+        } catch (SQLException ex) {
+            return new ArrayList<>();
+        }
+    }
+
     public boolean setEwoActivity(EwoActivity a) {
         try {
             Statement stm = connection.createStatement();
@@ -529,6 +572,36 @@ public class Planner {
 
     }
 
+    public boolean createMaterial(String material) {
+        try {
+            Statement stm = connection.createStatement();
+            String query = "insert into Material(materialName) values ('" + material + "');";
+            stm.executeUpdate(query);
+            return true;
+        } catch (SQLException ex) {//la execute lancia un'eccezione se il materiale è già presente
+            return false;
+        }
+    }
+
+    public boolean deleteMaterial(String material) {
+        try {
+            Statement stm = connection.createStatement();
+            String query = "delete from Material where materialName = '" + material + "';";
+            return stm.executeUpdate(query) == 1;//controllo il valore restituito per stabilire se ha effettuato la delete
+        } catch (SQLException ex) {
+            return false;
+        }
+    }
+
+    public boolean modifyMaterial(String oldMaterial, String newMaterial) {
+        try {
+            Statement stm = connection.createStatement();
+            String query = "update Material set materialName = '" + newMaterial + "' where materialName = '" + oldMaterial + "'";
+            return stm.executeUpdate(query) == 1;//controllo il valore restituito per stabilire se ha effettuato la update
+        } catch (SQLException ex) {
+            return false;
+        }
+    }
 
     public String[] busyMaintainer(Maintainer m, int week, int dayofweek) {
         try {
