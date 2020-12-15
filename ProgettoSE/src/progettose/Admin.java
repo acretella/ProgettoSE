@@ -48,4 +48,13 @@ public class Admin extends User {
         }
     }
     
+    public boolean deleteSite(Site site) {
+        try {
+            Statement stm = super.getConnection().createStatement();
+            String query = "delete from Site where (factory_site, area) = ('" + site.getFactorySite() + "', '" + site.getArea() + "')";
+            return stm.executeUpdate(query) == 1;
+        } catch (SQLException ex) {
+            return false;
+        }
+    }
 }

@@ -91,5 +91,20 @@ public class User {
             return new ArrayList<>();
         }
     }
+    
+    public List<Site> getAllSites() {
+        try {
+            Statement stm = connection.createStatement();
+            ResultSet rst = stm.executeQuery("select * from Site");
+            List<Site> sites = new ArrayList<>();
+            while (rst.next()) {
+                Site s = new Site(rst.getString("factory_site"), rst.getString("area"));
+                sites.add(s);
+            }
+            return sites;
+        } catch (SQLException ex) {
+            return new ArrayList<>();
+        }
+    }
                       
 }
