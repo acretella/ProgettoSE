@@ -63,6 +63,19 @@ public class AdminTest {
     }
     
     @Test
+    public void testPosDeleteSite(){
+        Site site = new Site("factorySite1","area1");
+        admin.createSite(site);
+        assertTrue(admin.deleteSite(site));
+    }
+    
+    @Test
+    public void testNegDeleteSite(){
+        Site site = new Site("factorySite2","area2"); //non presenti nel DB
+        assertFalse(admin.deleteSite(site));
+    }
+    
+    @Test
     public void testPosCreateSite(){
         assertTrue(admin.createSite(new Site("aaa","bbb")));
         admin.deleteSite(new Site("aaa","bbb")); //per poter rilanciare il test senza cancellare dal db
