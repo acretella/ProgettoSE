@@ -28,7 +28,7 @@ public class Site {
 
     @Override
     public String toString() {
-        return "factorySite=" + factorySite + ", area=" + area ;
+        return factorySite + ", " + area ;
     }
         
 }

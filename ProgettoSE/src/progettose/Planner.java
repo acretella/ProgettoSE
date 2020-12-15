@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -35,18 +37,18 @@ public class Planner extends User{
                 if (a.getType() == 1) //se è una EWO activity allora devo aggiungere il giorno 
                 {
                     query = "insert into Activity(id_,factorySite,area,typology,description,estimatedTime,week,interruptable,workSpaceNotes,activityType,procedura,giorno)"
-                            + " values(" + a.getId() + ",'" + a.getFactorySite() + "','" + a.getArea() + "','" + a.getTypology() + "','"
+                            + " values(" + a.getId() + ",'" + a.getSite().getFactorySite() + "','" + a.getSite().getArea() + "','" + a.getTypology() + "','"
                             + a.getActivityDescription() + "'," + a.getEstimatedTime() + "," + a.getWeek() + "," + a.isInterruptable() + ",'" + a.getWorkSpaceNote()
                             + "'," + a.getType() + ",null" + "," + a.getDay() + ");";
                 } else {
                     query = "insert into Activity(id_,factorySite,area,typology,description,estimatedTime,week,interruptable,workSpaceNotes,activityType,procedura)"
-                            + " values(" + a.getId() + ",'" + a.getFactorySite() + "','" + a.getArea() + "','" + a.getTypology() + "','"
+                            + " values(" + a.getId() + ",'" + a.getSite().getFactorySite() + "','" + a.getSite().getArea() + "','" + a.getTypology() + "','"
                             + a.getActivityDescription() + "'," + a.getEstimatedTime() + "," + a.getWeek() + "," + a.isInterruptable() + ",'" + a.getWorkSpaceNote()
                             + "'," + a.getType() + ",null" + ");";
                 }
             } else { // se all'attività è associata una procedura
                 query = "insert into Activity(id_,factorySite,area,typology,description,estimatedTime,week,interruptable,workSpaceNotes,activityType,procedura)"
-                        + " values(" + a.getId() + ",'" + a.getFactorySite() + "','" + a.getArea() + "','" + a.getTypology() + "','"
+                        + " values(" + a.getId() + ",'" + a.getSite().getFactorySite() + "','" + a.getSite().getArea() + "','" + a.getTypology() + "','"
                         + a.getActivityDescription() + "'," + a.getEstimatedTime() + "," + a.getWeek() + "," + a.isInterruptable() + ",'" + a.getWorkSpaceNote()
                         + "'," + a.getType() + "," + a.getProcedure().getId() + ");";
             }
@@ -225,14 +227,14 @@ public class Planner extends User{
             }
             String query = "";
             if (a.getDay() == -1) {
-                query = "update Activity set factorySite='" + a.getFactorySite()
-                        + "',area='" + a.getArea() + "',typology='" + a.getTypology() + "',description='" + a.getActivityDescription()
+                query = "update Activity set factorySite='" + a.getSite().getFactorySite()
+                        + "',area='" + a.getSite().getArea() + "',typology='" + a.getTypology() + "',description='" + a.getActivityDescription()
                         + "',estimatedTime=" + a.getEstimatedTime() + ",week=" + a.getWeek() + ",interruptable=" + a.isInterruptable()
                         + ",workSpaceNotes='" + a.getWorkSpaceNote() + "',activityType=" + a.getType()
                         + ",procedura=" + idproc + ",giorno= null" + " where id_=" + a.getId() + ";";
             } else {
-                query = "update Activity set factorySite='" + a.getFactorySite()
-                        + "',area='" + a.getArea() + "',typology='" + a.getTypology() + "',description='" + a.getActivityDescription()
+                query = "update Activity set factorySite='" + a.getSite().getFactorySite()
+                        + "',area='" + a.getSite().getArea() + "',typology='" + a.getTypology() + "',description='" + a.getActivityDescription()
                         + "',estimatedTime=" + a.getEstimatedTime() + ",week=" + a.getWeek() + ",interruptable=" + a.isInterruptable()
                         + ",workSpaceNotes='" + a.getWorkSpaceNote() + "',activityType=" + a.getType()
                         + ",procedura=" + idproc + ",giorno=" + a.getDay() + " where id_=" + a.getId() + ";";
@@ -555,5 +557,14 @@ public class Planner extends User{
         }
 
     }
-
+    
+    public boolean getEwoState(int id){
+        try {
+            String query = "select * from Maintainer_for_Activity where activity = " + id;
+            //Se la tabella è vuota allora l'attività non è stata assegnata quindi ritorna false. Ritorna vero altrimenti.
+            return getConnection().createStatement().executeQuery(query).next(); 
+        } catch (SQLException ex) {
+            return false;
+        }
+    }
 }

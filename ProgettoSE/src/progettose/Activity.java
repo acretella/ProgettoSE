@@ -13,8 +13,7 @@ import java.util.List;
  */
 public abstract class Activity {
     private int id;
-    private String factorySite;
-    private String area;
+    private Site site;
     private String typology;
     private String activityDescription;
     private int estimatedTime;
@@ -29,8 +28,7 @@ public abstract class Activity {
     public Activity(int id, String factorySite, String area, String typology, String activityDescription, int estimatedTime, 
             int week, List<String> materials,boolean interruptable, String workSpaceNote, Procedure procedure) {
         this.id = id;
-        this.factorySite = factorySite;
-        this.area = area;
+        this.site = new Site(factorySite,area);
         this.typology = typology;
         this.activityDescription = activityDescription;
         this.estimatedTime = estimatedTime;
@@ -49,13 +47,10 @@ public abstract class Activity {
         return id;
     }
 
-    public String getFactorySite() {
-        return factorySite;
+    public Site getSite() {
+        return site;
     }
 
-    public String getArea() {
-        return area;
-    }
 
     public String getTypology() {
         return typology;
