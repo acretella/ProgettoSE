@@ -370,16 +370,6 @@ public class PlannerTest {
         }
     }
     
-    @Test
-    public void testGetAllSkill(){
-        //questo test dà esito positivo solo se esistono delle skill nel DB
-        List<String> l;
-        l = p.getAllSkills();
-        assertTrue(!l.isEmpty());
-        for(String s: l)
-            System.out.println(s);
-    }
-    
     @Test 
     public void testSetEwo() throws Exception{
         EwoActivity a = new EwoActivity(47,"branch office","departement","f","dd",20,1,new ArrayList<>(),true,"d",11,null);
@@ -393,46 +383,5 @@ public class PlannerTest {
         assertEquals(p.setEwoActivity(a),true);
     }
     
-    @Test
-    public void testPosCreateMaterial(){
-        String material = "cavi";
-        assertTrue(p.createMaterial(material));
-        p.deleteMaterial(material);
-    }
-    
-    @Test 
-    public void testNegCreateMaterial(){
-        String material = "materialTest1";
-        p.createMaterial(material);
-        assertFalse(p.createMaterial(material));
-        p.deleteMaterial(material);
-    }
-    
-    @Test
-    public void testPosDeleteMaterial(){
-        String material = "pinza";
-        p.createMaterial(material);
-        assertTrue(p.deleteMaterial(material));
-    }
-    
-    @Test
-    public void testNegDeleteMaterial(){
-        String material = "materialTest2"; //materiale non presente nel DB
-        assertFalse(p.deleteMaterial(material));
-    }
-    @Test
-    public void testPosModifyMaterial(){
-        String material = "nastro";
-        p.createMaterial(material);
-        String newMaterial = "nastro isolante";
-        assertTrue(p.modifyMaterial(material, newMaterial));
-        p.deleteMaterial(newMaterial);
-    }
-    
-    @Test
-    public void testNegModifyMaterial(){
-        String material = "materialTest2";//materiale non presente nel DB
-        assertFalse(p.modifyMaterial(material, material));
-    }
         
 }
