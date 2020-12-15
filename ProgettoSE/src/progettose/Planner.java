@@ -558,9 +558,9 @@ public class Planner extends User{
 
     }
     
-    public boolean getEwoState(EwoActivity a){
+    public boolean getEwoState(int id){
         try {
-            String query = "select * from Maintainer_for_Activity where activity = " + a.getId();
+            String query = "select * from Maintainer_for_Activity where activity = " + id;
             //Se la tabella è vuota allora l'attività non è stata assegnata quindi ritorna false. Ritorna vero altrimenti.
             return getConnection().createStatement().executeQuery(query).next(); 
         } catch (SQLException ex) {
