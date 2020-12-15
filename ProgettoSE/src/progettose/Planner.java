@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -555,5 +557,14 @@ public class Planner extends User{
         }
 
     }
-
+    
+    public boolean getEwoState(int id){
+        try {
+            String query = "select * from Maintainer_for_Activity where activity = " + id;
+            //Se la tabella è vuota allora l'attività non è stata assegnata quindi ritorna false. Ritorna vero altrimenti.
+            return getConnection().createStatement().executeQuery(query).next(); 
+        } catch (SQLException ex) {
+            return false;
+        }
+    }
 }
