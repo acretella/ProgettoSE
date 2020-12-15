@@ -7,6 +7,8 @@ package progettose;
 
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Rossella
@@ -32,7 +34,7 @@ public class Admin extends User {
         try{
             Statement stm = super.getConnection().createStatement();
             String query = "delete from Competence where skill = '" + competence +"';";
-            return stm.executeUpdate(query) ==1;
+            return stm.executeUpdate(query) == 1;
         } catch(SQLException ex){
             return false;
         }
@@ -44,6 +46,43 @@ public class Admin extends User {
             String query = "update Competence set skill = '" + newCompetence + "' where skill = '" + oldCompetence + "';";
             return stm.executeUpdate(query) == 1;
         }catch (SQLException ex){
+            return false;
+        }
+    }
+    
+    public boolean deleteSite(Site site) {
+        try {
+            Statement stm = super.getConnection().createStatement();
+            String query = "delete from Site where (factory_site, area) = ('" + site.getFactorySite() + "', '" + site.getArea() + "')";
+            return stm.executeUpdate(query) == 1;
+        } catch (SQLException ex) {
+            return false;
+        }
+    }
+    public boolean createSite(Site s){
+        try {
+            //Se la factorySite non esiste devo crearla
+            if(!getConnection().createStatement().executeQuery("select * from FactorySite where factory_site = " +s.getFactorySite()).next())
+                getConnection().createStatement().executeQuery("insert into FactorySite values('"+s.getFactorySite()+"');");
+            //Se la l'area non esiste devo crearla
+            if(!getConnection().createStatement().executeQuery("select * from Area where area = " +s.getArea()).next())
+                getConnection().createStatement().executeQuery("insert into Area values('"+s.getArea()+"')");
+            String query = "insert into Site(factory_site,area) values('" + s.getFactorySite() +"','"+s.getArea()+"');";
+            getConnection().createStatement().executeQuery(query);
+            return true;
+        } catch (SQLException ex) {
+            return false;
+        }
+    }
+    
+    public boolean modifySite(Site old,Site nw){
+        try {
+            String query = "update FactorySite set factory_site = '" +nw.getFactorySite() +"' where factory_site = '" + old.getFactorySite() +"'";
+            getConnection().createStatement().executeQuery(query);
+            query = "update Area set area = '" +nw.getArea() +"' where area = '" + old.getArea() +"'";
+            getConnection().createStatement().executeQuery(query);
+            return true;
+        } catch (SQLException ex) {
             return false;
         }
     }

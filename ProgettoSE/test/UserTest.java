@@ -6,12 +6,10 @@
 
 import java.sql.SQLException;
 import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import progettose.Site;
 import progettose.User;
 
 /**
@@ -84,6 +82,14 @@ public class UserTest {
     public void testNegModifyMaterial(){
         String material = "materialtest5";//materiale non presente nel DB
         assertFalse(user.modifyMaterial(material, material));
+    }
+    
+    @Test
+    public void testGetAllSites(){
+        List<Site> sites = user.getAllSites();
+        assertTrue(!sites.isEmpty());
+        for(Site s: sites)
+            System.out.println(s);
     }
     
 }

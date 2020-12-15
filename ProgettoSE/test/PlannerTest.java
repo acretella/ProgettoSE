@@ -382,7 +382,7 @@ public class PlannerTest {
     
     @Test 
     public void testSetEwo() throws Exception{
-        EwoActivity a = new EwoActivity(47,"a","b","f","dd",20,1,new ArrayList<>(),true,"d",11,null);
+        EwoActivity a = new EwoActivity(47,"branch office","departement","f","dd",20,1,new ArrayList<>(),true,"d",11,null);
         p.createActivity(a);
         a.setEstimatedTime(10);
         a.setActivityDescription("ccc");
