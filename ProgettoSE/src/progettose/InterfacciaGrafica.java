@@ -1296,6 +1296,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         manageCompetence.getContentPane().add(jLabel31);
         jLabel31.setBounds(0, 0, 70, 17);
 
+        SiteManagement.setMinimumSize(new java.awt.Dimension(600, 250));
         SiteManagement.getContentPane().setLayout(null);
 
         jPanel11.setBackground(new java.awt.Color(255, 0, 0));
@@ -2114,8 +2115,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
        SiteManagement.setVisible(true);
        fieldModifyFactory.setVisible(false);
        fieldModifyArea.setVisible(false);
-       buttonConfirmModifySite.setVisible(false);
+       ConfirmModifySite.setVisible(false);
        listModelSite.clear();
+       //site = a.getAllSite();
+       //for che aggiunge alla listSite della gui la lista di site
+       //Settare modello lista
     }//GEN-LAST:event_buttonManageSideActionPerformed
 
     private void textFieldFactoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldFactoryActionPerformed
@@ -2123,13 +2127,24 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_textFieldFactoryActionPerformed
 
     private void AddSiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddSiteActionPerformed
-       if(textFieldFactory.getText().isBlank() || textFieldArea.getText().isBlank()){
+        fieldModifyFactory.setVisible(false);
+        fieldModifyArea.setVisible(false);
+        ConfirmModifySite.setVisible(false);
+        if(textFieldFactory.getText().isBlank() || textFieldArea.getText().isBlank()){
            mostraErrore("ERROR","Inserisci tutti i campi!");
        }else{
            String factorySite = textFieldFactory.getText();
            String area = textFieldArea.getText();
-           if(!listModelSite.contains(factorySite) && listModelSite.contains(area)){
+           Site s = new Site(factorySite,area);
+           site.add(s);
+           if(!listModelSite.contains(s)){
+               //CREATE MATERIAL FUNCTION
+               listModelSite.addElement(s);
+               textFieldFactory.setText("");
+               textFieldArea.setText("");
               
+           }else{
+               mostraErrore("ERROR","Site già presente!");
            }
            
        }
@@ -2137,10 +2152,15 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_AddSiteActionPerformed
 
     private void RemoveSiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveSiteActionPerformed
-       if(ListSite.getSelectedIndex() == -1){
+       fieldModifyFactory.setVisible(false);
+       fieldModifyArea.setVisible(false);
+       ConfirmModifySite.setVisible(false);
+        if(ListSite.getSelectedIndex() == -1){
            mostraErrore("ERROR","Selezionare un site da rimuovere dalla lista!");
        }else{
-           
+           site.remove(ListSite.getSelectedValue()); 
+           listModelSite.removeElement(ListSite.getSelectedValue());
+           //REMOVE SITE FUNCTION
        }
     }//GEN-LAST:event_RemoveSiteActionPerformed
 
@@ -2150,13 +2170,16 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         }else{
             fieldModifyFactory.setVisible(true);
             fieldModifyArea.setVisible(true);
-            buttonConfirmModifySite.setVisible(true);
+            ConfirmModifySite.setVisible(true);
+            //DOVREBBE ESSERE CREATO UN OGGETTO SITE PER OSPITARE IL SITE SELEZIONATO DA CUI ESTRAPOLARE FACTORY E AREA            
+            //fieldModifyFactory.setText(s.getFactorySite());
+            //fieldModifyArea.setText(s.getArea());
             
         }
     }//GEN-LAST:event_ModifySiteActionPerformed
 
     private void ConfirmModifySiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmModifySiteActionPerformed
-        // TODO add your handling code here:
+        // MODIFY SITE FUNCTION
     }//GEN-LAST:event_ConfirmModifySiteActionPerformed
 
     public static void main(String args[]) {
