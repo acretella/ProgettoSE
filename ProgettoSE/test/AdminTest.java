@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import progettose.Admin;
+import progettose.Site;
 /**
  *
  * @author Rossella
@@ -56,14 +57,22 @@ public class AdminTest {
     }
     
     @Test
-    public void testNegModify(){
+    public void testNegModifyCompetence(){
         String skill = "skilltest15";//skill non presente nel DB
         assertFalse(admin.modifyCompetence(skill, skill));
     }
     
     @Test
-    public void testPosDelete(){
-        Site s = new Site("")
+    public void testPosDeleteSite(){
+        Site site = new Site("factorySite1","area1");
+        admin.createSite(site);
+        assertTrue(admin.deleteSite(site));
+    }
+    
+    @Test
+    public void testNegDeleteSite(){
+        Site site = new Site("factorySite2","area2"); //non presenti nel DB
+        assertFalse(admin.deleteSite(site));
     }
         
 }
