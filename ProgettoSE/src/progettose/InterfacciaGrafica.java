@@ -341,7 +341,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         );
 
         GestioneAttività.getContentPane().add(panelCopertura2);
-        panelCopertura2.setBounds(0, 370, 1070, 240);
+        panelCopertura2.setBounds(0, 370, 1070, 0);
 
         buttonCreaAttività.setText("Crea attività");
         buttonCreaAttività.addActionListener(new java.awt.event.ActionListener() {
@@ -652,7 +652,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelWeek.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
         labelWeek.setText("Week");
         panelSX.add(labelWeek);
-        labelWeek.setBounds(50, 280, 60, 32);
+        labelWeek.setBounds(50, 280, 60, 24);
 
         fieldWeek.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
         panelSX.add(fieldWeek);
@@ -706,7 +706,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         panelSX.add(tendinaTipoAttività);
-        tendinaTipoAttività.setBounds(180, 40, 89, 30);
+        tendinaTipoAttività.setBounds(180, 40, 89, 25);
 
         jLabel1.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
         jLabel1.setText("Tipo di attività");
@@ -1214,7 +1214,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         manageCompetence.setTitle("Competence management");
         manageCompetence.setMinimumSize(new java.awt.Dimension(530, 270));
-        manageCompetence.setPreferredSize(new java.awt.Dimension(480, 222));
         manageCompetence.getContentPane().setLayout(null);
 
         jPanel8.setBackground(new java.awt.Color(255, 0, 51));
