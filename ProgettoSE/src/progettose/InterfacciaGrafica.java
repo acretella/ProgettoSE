@@ -68,7 +68,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     DefaultListModel listModelSkillsEwo2 = new DefaultListModel();
     DefaultListModel listModelCompetence = new DefaultListModel();
     DefaultListModel listModelMaterial = new DefaultListModel();
-
+    DefaultListModel listModelSite = new DefaultListModel();
+    
     LocalDate date = LocalDate.now();
     String giorno = String.valueOf(date.getDayOfWeek());
 
@@ -79,7 +80,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     List<String> skills = new ArrayList<>();
     List<String> materiali2 = new ArrayList<>();
     List<String> competence = new ArrayList<>();
-
+    List<Site> site = new ArrayList<>();
     /**
      * Creates new form InterfacciaGrafica
      */
@@ -285,18 +286,22 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jScrollPane18 = new javax.swing.JScrollPane();
         competenceList = new javax.swing.JList<>();
         buttonConfirmModifyCompetence = new javax.swing.JButton();
-        manageSite = new javax.swing.JFrame();
-        jPanel9 = new javax.swing.JPanel();
-        buttonAddSite = new javax.swing.JButton();
-        buttonRemoveSite = new javax.swing.JButton();
-        buttonModifySite = new javax.swing.JButton();
-        fieldModifySite = new javax.swing.JTextField();
-        fieldInserisciSite = new javax.swing.JTextField();
-        jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
-        jScrollPane19 = new javax.swing.JScrollPane();
-        siteList = new javax.swing.JList<>();
-        buttonConfirmModifySite = new javax.swing.JButton();
+        jLabel31 = new javax.swing.JLabel();
+        SiteManagement = new javax.swing.JFrame();
+        jPanel11 = new javax.swing.JPanel();
+        AddSite = new javax.swing.JButton();
+        RemoveSite = new javax.swing.JButton();
+        ModifySite = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        textFieldFactory = new javax.swing.JTextField();
+        textFieldArea = new javax.swing.JTextField();
+        fieldModifyFactory = new javax.swing.JTextField();
+        fieldModifyArea = new javax.swing.JTextField();
+        ConfirmModifySite = new javax.swing.JButton();
+        jScrollPane21 = new javax.swing.JScrollPane();
+        ListSite = new javax.swing.JList<>();
+        jLabel32 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         buttonGestManut = new javax.swing.JButton();
         buttonAdministratorArea = new javax.swing.JButton();
@@ -341,7 +346,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         );
 
         GestioneAttività.getContentPane().add(panelCopertura2);
-        panelCopertura2.setBounds(0, 370, 1070, 240);
+        panelCopertura2.setBounds(0, 370, 1070, 0);
 
         buttonCreaAttività.setText("Crea attività");
         buttonCreaAttività.addActionListener(new java.awt.event.ActionListener() {
@@ -1056,7 +1061,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         jPanel5.add(buttonAddSkill);
-        buttonAddSkill.setBounds(510, 260, 80, 23);
+        buttonAddSkill.setBounds(510, 260, 80, 21);
 
         buttonRemoveSkill.setText("REMOVE");
         buttonRemoveSkill.addActionListener(new java.awt.event.ActionListener() {
@@ -1065,7 +1070,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         jPanel5.add(buttonRemoveSkill);
-        buttonRemoveSkill.setBounds(610, 260, 80, 23);
+        buttonRemoveSkill.setBounds(610, 260, 80, 21);
 
         tendinaSkills.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
         jPanel5.add(tendinaSkills);
@@ -1238,7 +1243,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         jPanel8.add(buttonRemoveCompetence);
-        buttonRemoveCompetence.setBounds(10, 79, 133, 32);
+        buttonRemoveCompetence.setBounds(10, 79, 127, 32);
 
         buttonModifyCompetence.setText("Modify competence");
         buttonModifyCompetence.addActionListener(new java.awt.event.ActionListener() {
@@ -1281,115 +1286,134 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         jPanel8.add(buttonConfirmModifyCompetence);
-        buttonConfirmModifyCompetence.setBounds(176, 173, 95, 23);
+        buttonConfirmModifyCompetence.setBounds(176, 173, 95, 21);
 
         manageCompetence.getContentPane().add(jPanel8);
         jPanel8.setBounds(0, 0, 500, 230);
 
-        manageSite.setTitle("Site management");
-        manageSite.setMinimumSize(new java.awt.Dimension(570, 320));
-        manageSite.getContentPane().setLayout(null);
+        jLabel31.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel31.setText("SITE LIST");
+        manageCompetence.getContentPane().add(jLabel31);
+        jLabel31.setBounds(0, 0, 70, 17);
 
-        jPanel9.setBackground(new java.awt.Color(255, 0, 51));
+        SiteManagement.getContentPane().setLayout(null);
 
-        buttonAddSite.setText("Add Site");
-        buttonAddSite.addActionListener(new java.awt.event.ActionListener() {
+        jPanel11.setBackground(new java.awt.Color(255, 0, 0));
+
+        AddSite.setText("Add site");
+        AddSite.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonAddSiteActionPerformed(evt);
+                AddSiteActionPerformed(evt);
             }
         });
 
-        buttonRemoveSite.setText("Remove Site");
-        buttonRemoveSite.addActionListener(new java.awt.event.ActionListener() {
+        RemoveSite.setText("Remove site");
+        RemoveSite.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonRemoveSiteActionPerformed(evt);
+                RemoveSiteActionPerformed(evt);
             }
         });
 
-        buttonModifySite.setText("Modify Site");
-        buttonModifySite.addActionListener(new java.awt.event.ActionListener() {
+        ModifySite.setText("Modify site");
+        ModifySite.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonModifySiteActionPerformed(evt);
+                ModifySiteActionPerformed(evt);
             }
         });
 
-        fieldInserisciSite.addActionListener(new java.awt.event.ActionListener() {
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel14.setText("FACTORY SITE");
+
+        jLabel30.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel30.setText("AREA");
+
+        textFieldFactory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldInserisciSiteActionPerformed(evt);
+                textFieldFactoryActionPerformed(evt);
             }
         });
 
-        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel26.setText("SITE (factory site - area)");
-
-        jLabel27.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel27.setText("SITE LIST");
-
-        jScrollPane19.setViewportView(siteList);
-
-        buttonConfirmModifySite.setText("Confirm");
-        buttonConfirmModifySite.addActionListener(new java.awt.event.ActionListener() {
+        ConfirmModifySite.setText("Confirm");
+        ConfirmModifySite.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonConfirmModifySiteActionPerformed(evt);
+                ConfirmModifySiteActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(buttonAddSite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(buttonRemoveSite, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                    .addComponent(buttonModifySite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(fieldInserisciSite, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                .addComponent(fieldModifySite))
-                            .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addComponent(buttonConfirmModifySite, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(48, 48, 48)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane19, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel27)))
-                    .addComponent(jLabel26))
-                .addGap(0, 703, Short.MAX_VALUE))
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(buttonAddSite, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fieldInserisciSite, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        jScrollPane21.setViewportView(ListSite);
+
+        jLabel32.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel32.setText("SITE LIST");
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(AddSite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(RemoveSite, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                            .addComponent(ModifySite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel11Layout.createSequentialGroup()
+                                .addGap(39, 39, 39)
+                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(textFieldFactory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(fieldModifyFactory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(18, 18, 18)
-                        .addComponent(buttonRemoveSite, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(fieldModifySite, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonModifySite, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(buttonConfirmModifySite)
-                        .addGap(122, 122, 122))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel27)
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(textFieldArea, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                                .addComponent(fieldModifyArea))
+                            .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(59, 59, 59)
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane21, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGap(205, 205, 205)
+                        .addComponent(ConfirmModifySite, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(47, Short.MAX_VALUE))
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE))
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(AddSite, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textFieldFactory, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textFieldArea, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(RemoveSite, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ModifySite, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fieldModifyFactory, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fieldModifyArea, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(127, 127, 127))))
+                        .addComponent(ConfirmModifySite))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
-        manageSite.getContentPane().add(jPanel9);
-        jPanel9.setBounds(0, 0, 0, 0);
+        SiteManagement.getContentPane().add(jPanel11);
+        jPanel11.setBounds(0, 0, 597, 228);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MENU' PRINCIPALE");
@@ -2086,29 +2110,54 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         buttonConfirmModifyCompetence.setVisible(false);
     }//GEN-LAST:event_buttonGestisciCompetenzeActionPerformed
 
-    private void buttonConfirmModifySiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmModifySiteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buttonConfirmModifySiteActionPerformed
-
-    private void fieldInserisciSiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldInserisciSiteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fieldInserisciSiteActionPerformed
-
-    private void buttonModifySiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModifySiteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buttonModifySiteActionPerformed
-
-    private void buttonRemoveSiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveSiteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buttonRemoveSiteActionPerformed
-
-    private void buttonAddSiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddSiteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buttonAddSiteActionPerformed
-
     private void buttonManageSideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonManageSideActionPerformed
-       manageSite.setVisible(true);
+       SiteManagement.setVisible(true);
+       fieldModifyFactory.setVisible(false);
+       fieldModifyArea.setVisible(false);
+       buttonConfirmModifySite.setVisible(false);
+       listModelSite.clear();
     }//GEN-LAST:event_buttonManageSideActionPerformed
+
+    private void textFieldFactoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldFactoryActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldFactoryActionPerformed
+
+    private void AddSiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddSiteActionPerformed
+       if(textFieldFactory.getText().isBlank() || textFieldArea.getText().isBlank()){
+           mostraErrore("ERROR","Inserisci tutti i campi!");
+       }else{
+           String factorySite = textFieldFactory.getText();
+           String area = textFieldArea.getText();
+           if(!listModelSite.contains(factorySite) && listModelSite.contains(area)){
+              
+           }
+           
+       }
+       
+    }//GEN-LAST:event_AddSiteActionPerformed
+
+    private void RemoveSiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveSiteActionPerformed
+       if(ListSite.getSelectedIndex() == -1){
+           mostraErrore("ERROR","Selezionare un site da rimuovere dalla lista!");
+       }else{
+           
+       }
+    }//GEN-LAST:event_RemoveSiteActionPerformed
+
+    private void ModifySiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifySiteActionPerformed
+        if(ListSite.getSelectedIndex() == -1){
+            mostraErrore("ERROR","Seleziona un site da modificare dalla lista!");
+        }else{
+            fieldModifyFactory.setVisible(true);
+            fieldModifyArea.setVisible(true);
+            buttonConfirmModifySite.setVisible(true);
+            
+        }
+    }//GEN-LAST:event_ModifySiteActionPerformed
+
+    private void ConfirmModifySiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmModifySiteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ConfirmModifySiteActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -2498,8 +2547,14 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         svuotaTabella(tb3);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AddSite;
+    private javax.swing.JButton ConfirmModifySite;
     private javax.swing.JFrame GestioneAttività;
     private javax.swing.JFrame GestioneMateriali;
+    private javax.swing.JList<String> ListSite;
+    private javax.swing.JButton ModifySite;
+    private javax.swing.JButton RemoveSite;
+    private javax.swing.JFrame SiteManagement;
     private javax.swing.JFrame administrator;
     private javax.swing.JFrame assegnaAttività;
     private javax.swing.JFrame assegnaAttività2;
@@ -2507,6 +2562,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JButton buttonAddCompetence;
     private javax.swing.JButton buttonAddMaterial;
     private javax.swing.JButton buttonAddSite;
+    private javax.swing.JButton buttonAddSite1;
     private javax.swing.JButton buttonAddSkill;
     private javax.swing.JButton buttonAdministratorArea;
     private javax.swing.JButton buttonAggiungiMateriale;
@@ -2516,6 +2572,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JButton buttonConfermaMateriale;
     private javax.swing.JButton buttonConfirmModifyCompetence;
     private javax.swing.JButton buttonConfirmModifySite;
+    private javax.swing.JButton buttonConfirmModifySite1;
     private javax.swing.JButton buttonCrea;
     private javax.swing.JButton buttonCreaAttività;
     private javax.swing.JButton buttonForward;
@@ -2527,10 +2584,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JButton buttonModifyCompetence;
     private javax.swing.JButton buttonModifyMaterial;
     private javax.swing.JButton buttonModifySite;
+    private javax.swing.JButton buttonModifySite1;
     private javax.swing.JButton buttonMostraAttività;
     private javax.swing.JButton buttonRemoveCompetence;
     private javax.swing.JButton buttonRemoveMaterial;
     private javax.swing.JButton buttonRemoveSite;
+    private javax.swing.JButton buttonRemoveSite1;
     private javax.swing.JButton buttonRemoveSkill;
     private javax.swing.JButton buttonRimuoviMateriale;
     private javax.swing.JButton buttonSMP;
@@ -2543,8 +2602,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JTextField fieldInserisciCompetence;
     private javax.swing.JTextField fieldInserisciMateriale;
     private javax.swing.JTextField fieldInserisciSite;
+    private javax.swing.JTextField fieldInserisciSite1;
     private javax.swing.JTextField fieldMaterialeSelezionato;
+    private javax.swing.JTextField fieldModifyArea;
+    private javax.swing.JTextField fieldModifyFactory;
     private javax.swing.JTextField fieldModifySite;
+    private javax.swing.JTextField fieldModifySite1;
     private javax.swing.JTextField fieldTime;
     private javax.swing.JTextField fieldWeek;
     private javax.swing.JButton jButtonAssegnaAttività2;
@@ -2553,6 +2616,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -2567,7 +2631,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -2575,6 +2644,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -2595,6 +2666,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane18;
     private javax.swing.JScrollPane jScrollPane19;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane20;
+    private javax.swing.JScrollPane jScrollPane21;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
@@ -2629,12 +2702,14 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JList<String> listaSkills;
     private javax.swing.JFrame manageCompetence;
     private javax.swing.JFrame manageSite;
+    private javax.swing.JFrame manageSite1;
     private javax.swing.JList<String> materialList;
     private javax.swing.JPanel panelCopertura;
     private javax.swing.JPanel panelCopertura2;
     private javax.swing.JPanel panelDX;
     private javax.swing.JPanel panelSX;
     private javax.swing.JList<String> siteList;
+    private javax.swing.JList<String> siteList1;
     private javax.swing.JTable tabellaAttività;
     private javax.swing.JTable tabellaDisponibilità;
     private javax.swing.JTable tabellaDisponibilità2;
@@ -2652,7 +2727,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JTextArea textAreaWorkspaceNotesVis;
     private javax.swing.JTextField textAttivitàDaAssegnare;
     private javax.swing.JTextField textFieldActivityEWO;
+    private javax.swing.JTextField textFieldArea;
     private javax.swing.JTextField textFieldEstimatedtimeewo;
+    private javax.swing.JTextField textFieldFactory;
     private javax.swing.JTextField textFieldModifyCompetence;
     private javax.swing.JTextField textWeekAssegnata;
     // End of variables declaration//GEN-END:variables
