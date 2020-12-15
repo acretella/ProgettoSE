@@ -6,6 +6,7 @@
 package progettose;
 
 import static java.awt.Color.black;
+import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
@@ -24,6 +25,10 @@ import javax.swing.table.DefaultTableModel;
 import java.util.Calendar;
 import java.time.LocalDate;
 import javax.swing.ListSelectionModel;
+import static javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION;
+import static javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION;
+import static javax.swing.ListSelectionModel.SINGLE_SELECTION;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -79,18 +84,53 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
      * Creates new form InterfacciaGrafica
      */
     public InterfacciaGrafica() {
-        try {
-            p = new Planner("alessio", "12345");
-        } catch (SQLException ex) {
-            Logger.getLogger(InterfacciaGrafica.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
         initComponents();
         togliBordi();
 
-        for (String m : p.getAllMaterials()) {
-            tendinaMateriali.addItem(m);
 
-        }
+        tabellaDisponibilità2.getColumnModel().setSelectionModel(new DefaultListSelectionModel() {
+            private boolean isSelectable(int indice) {
+                return !(indice == 1 || indice == 0);
+            }
+
+            @Override
+            public void setSelectionInterval(int indice1, int indice2) {
+                if (isSelectable(indice2) && isSelectable(indice1)) {
+                    super.setSelectionInterval(indice1, indice2);
+                } else {
+                }
+            }
+
+            @Override
+            public void addSelectionInterval(int indice1, int indice2) {
+                if (isSelectable(indice1) && isSelectable(indice2)) {
+                    super.addSelectionInterval(indice1, indice2);
+                }
+            }
+
+        });
+        tabellaDisponibilità.getColumnModel().setSelectionModel(new DefaultListSelectionModel() {
+            private boolean isSelectable(int indice) {
+                return !(indice == 1 || indice == 0);
+            }
+
+            @Override
+            public void setSelectionInterval(int indice1, int indice2) {
+                if (isSelectable(indice2) && isSelectable(indice1)) {
+                    super.setSelectionInterval(indice1, indice2);
+                } else {
+                }
+            }
+
+            @Override
+            public void addSelectionInterval(int indice1, int indice2) {
+                if (isSelectable(indice1) && isSelectable(indice2)) {
+                    super.addSelectionInterval(indice1, indice2);
+                }
+            }
+
+        });
 
     }
 
@@ -195,7 +235,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelSkillsEWO2 = new javax.swing.JLabel();
         jScrollPane17 = new javax.swing.JScrollPane();
         listSkillsEWO2 = new javax.swing.JList<>();
-        jLabel14 = new javax.swing.JLabel();
+        labelOccupato = new javax.swing.JLabel();
         attivitàEWO = new javax.swing.JFrame();
         jPanel5 = new javax.swing.JPanel();
         labelWeekEWO = new javax.swing.JLabel();
@@ -482,7 +522,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel19.setBackground(new java.awt.Color(255, 255, 204));
         jLabel19.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
-        jLabel19.setText("      MATERIAL LIST");
+        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel19.setText("MATERIAL LIST");
         jLabel19.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jLabel19.setOpaque(true);
         panelDX.add(jLabel19);
@@ -490,7 +531,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel20.setBackground(new java.awt.Color(255, 255, 204));
         jLabel20.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
-        jLabel20.setText("  WORKSPACE NOTES");
+        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel20.setText("WORKSPACE NOTES");
         jLabel20.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jLabel20.setOpaque(true);
         panelDX.add(jLabel20);
@@ -569,7 +611,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         panelSX.add(fieldFactorySite);
         fieldFactorySite.setBounds(180, 120, 90, 30);
 
-        jLabel4.setFont(new java.awt.Font("Dubai", 0, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
         jLabel4.setText("Area");
         panelSX.add(jLabel4);
         jLabel4.setBounds(50, 170, 60, 20);
@@ -695,6 +737,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 102));
         jLabel2.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("WEEK");
         jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jLabel2.setOpaque(true);
@@ -712,6 +755,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel13.setBackground(new java.awt.Color(255, 255, 102));
         jLabel13.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("ACTIVITY TO ASSIGN");
         jLabel13.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jLabel13.setOpaque(true);
@@ -729,7 +773,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel15.setBackground(new java.awt.Color(255, 255, 102));
         jLabel15.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
-        jLabel15.setText("   SKILLS NEEDED");
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel15.setText("SKILLS NEEDED");
         jLabel15.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jLabel15.setOpaque(true);
         jPanel2.add(jLabel15);
@@ -737,7 +782,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel16.setBackground(new java.awt.Color(255, 255, 102));
         jLabel16.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
-        jLabel16.setText("                               MAINTAINER AVAILABILITY");
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel16.setText("MAINTAINER AVAILABILITY");
         jLabel16.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jLabel16.setOpaque(true);
         jPanel2.add(jLabel16);
@@ -804,6 +850,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel17.setBackground(new java.awt.Color(255, 255, 102));
         jLabel17.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel17.setText("Activity to assign");
         jLabel17.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         jLabel17.setOpaque(true);
@@ -816,6 +863,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         jLabel18.setBackground(new java.awt.Color(255, 255, 102));
         jLabel18.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
+        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("Workspace Notes");
         jLabel18.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         jLabel18.setOpaque(true);
@@ -844,7 +892,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         labelDisponibilità.setBackground(new java.awt.Color(255, 255, 102));
         labelDisponibilità.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
-        labelDisponibilità.setText("                           AVAILABILITY OF ");
+        labelDisponibilità.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelDisponibilità.setText("AVAILABILITY OF");
         labelDisponibilità.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         labelDisponibilità.setOpaque(true);
         jPanel3.add(labelDisponibilità);
@@ -869,7 +918,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         labelSkillsEWO2.setBackground(new java.awt.Color(255, 255, 102));
         labelSkillsEWO2.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
-        labelSkillsEWO2.setText("   SKILLS NEEDED");
+        labelSkillsEWO2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelSkillsEWO2.setText("SKILLS NEEDED");
         labelSkillsEWO2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         labelSkillsEWO2.setOpaque(true);
         jPanel3.add(labelSkillsEWO2);
@@ -880,13 +930,16 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jPanel3.add(jScrollPane17);
         jScrollPane17.setBounds(10, 270, 220, 130);
 
+        labelOccupato.setBackground(new java.awt.Color(255, 255, 102));
+        labelOccupato.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
+        labelOccupato.setText("*=OCCUPIED");
+        labelOccupato.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        labelOccupato.setOpaque(true);
+        jPanel3.add(labelOccupato);
+        labelOccupato.setBounds(650, 320, 120, 30);
+
         assegnaAttività2.getContentPane().add(jPanel3);
         jPanel3.setBounds(0, 0, 1233, 428);
-
-        jLabel14.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
-        jLabel14.setText("      MATERIAL LIST");
-        jLabel14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jLabel14.setOpaque(true);
 
         attivitàEWO.setMinimumSize(new java.awt.Dimension(812, 340));
         attivitàEWO.setResizable(false);
@@ -1003,7 +1056,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         jPanel5.add(buttonAddSkill);
-        buttonAddSkill.setBounds(510, 260, 80, 21);
+        buttonAddSkill.setBounds(510, 260, 80, 23);
 
         buttonRemoveSkill.setText("REMOVE");
         buttonRemoveSkill.addActionListener(new java.awt.event.ActionListener() {
@@ -1012,7 +1065,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         jPanel5.add(buttonRemoveSkill);
-        buttonRemoveSkill.setBounds(610, 260, 80, 21);
+        buttonRemoveSkill.setBounds(610, 260, 80, 23);
 
         tendinaSkills.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
         jPanel5.add(tendinaSkills);
@@ -1036,7 +1089,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jScrollPane16.setBounds(280, 50, 178, 177);
 
         jLabel10.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
-        jLabel10.setText("      MATERIAL LIST");
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("MATERIAL LIST");
         jLabel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jLabel10.setOpaque(true);
         jPanel6.add(jLabel10);
@@ -1077,7 +1131,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         fieldInserisciMateriale.setBounds(150, 30, 120, 30);
 
         jLabel21.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
-        jLabel21.setText("       MATERIAL");
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel21.setText("MATERIAL");
         jLabel21.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jLabel21.setOpaque(true);
         jPanel6.add(jLabel21);
@@ -1160,10 +1215,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         manageCompetence.setTitle("Competence management");
         manageCompetence.setMinimumSize(new java.awt.Dimension(530, 270));
         manageCompetence.setPreferredSize(new java.awt.Dimension(480, 222));
+        manageCompetence.getContentPane().setLayout(null);
 
         jPanel8.setBackground(new java.awt.Color(255, 0, 51));
         jPanel8.setMinimumSize(new java.awt.Dimension(500, 230));
         jPanel8.setName(""); // NOI18N
+        jPanel8.setLayout(null);
 
         buttonAddCompetence.setText("Add competence");
         buttonAddCompetence.addActionListener(new java.awt.event.ActionListener() {
@@ -1171,6 +1228,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 buttonAddCompetenceActionPerformed(evt);
             }
         });
+        jPanel8.add(buttonAddCompetence);
+        buttonAddCompetence.setBounds(10, 32, 133, 30);
 
         buttonRemoveCompetence.setText("Remove competence");
         buttonRemoveCompetence.addActionListener(new java.awt.event.ActionListener() {
@@ -1178,6 +1237,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 buttonRemoveCompetenceActionPerformed(evt);
             }
         });
+        jPanel8.add(buttonRemoveCompetence);
+        buttonRemoveCompetence.setBounds(10, 79, 133, 32);
 
         buttonModifyCompetence.setText("Modify competence");
         buttonModifyCompetence.addActionListener(new java.awt.event.ActionListener() {
@@ -1185,20 +1246,33 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 buttonModifyCompetenceActionPerformed(evt);
             }
         });
+        jPanel8.add(buttonModifyCompetence);
+        buttonModifyCompetence.setBounds(10, 129, 133, 33);
+        jPanel8.add(textFieldModifyCompetence);
+        textFieldModifyCompetence.setBounds(176, 129, 95, 33);
 
         fieldInserisciCompetence.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fieldInserisciCompetenceActionPerformed(evt);
             }
         });
+        jPanel8.add(fieldInserisciCompetence);
+        fieldInserisciCompetence.setBounds(176, 32, 95, 30);
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel24.setText("COMPETENCE");
+        jPanel8.add(jLabel24);
+        jLabel24.setBounds(180, 10, 95, 15);
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel25.setText("COMPETENCE LIST");
+        jPanel8.add(jLabel25);
+        jLabel25.setBounds(335, 22, 140, 17);
 
         jScrollPane18.setViewportView(competenceList);
+
+        jPanel8.add(jScrollPane18);
+        jScrollPane18.setBounds(335, 45, 135, 130);
 
         buttonConfirmModifyCompetence.setText("Confirm");
         buttonConfirmModifyCompetence.addActionListener(new java.awt.event.ActionListener() {
@@ -1206,71 +1280,14 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 buttonConfirmModifyCompetenceActionPerformed(evt);
             }
         });
+        jPanel8.add(buttonConfirmModifyCompetence);
+        buttonConfirmModifyCompetence.setBounds(176, 173, 95, 23);
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(buttonAddCompetence, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(buttonRemoveCompetence, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(buttonModifyCompetence, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(33, 33, 33)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(buttonConfirmModifyCompetence, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
-                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
-                        .addComponent(fieldInserisciCompetence, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(textFieldModifyCompetence)))
-                .addGap(64, 64, 64)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane18, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(buttonAddCompetence, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fieldInserisciCompetence, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(17, 17, 17)
-                        .addComponent(buttonRemoveCompetence, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(buttonModifyCompetence, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textFieldModifyCompetence, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(buttonConfirmModifyCompetence))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jLabel25)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout manageCompetenceLayout = new javax.swing.GroupLayout(manageCompetence.getContentPane());
-        manageCompetence.getContentPane().setLayout(manageCompetenceLayout);
-        manageCompetenceLayout.setHorizontalGroup(
-            manageCompetenceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        manageCompetenceLayout.setVerticalGroup(
-            manageCompetenceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        manageCompetence.getContentPane().add(jPanel8);
+        jPanel8.setBounds(0, 0, 500, 230);
 
         manageSite.setTitle("Site management");
         manageSite.setMinimumSize(new java.awt.Dimension(570, 320));
-        manageSite.setPreferredSize(new java.awt.Dimension(555, 304));
         manageSite.getContentPane().setLayout(null);
 
         jPanel9.setBackground(new java.awt.Color(255, 0, 51));
@@ -1372,7 +1389,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         );
 
         manageSite.getContentPane().add(jPanel9);
-        jPanel9.setBounds(0, 0, 1185, 309);
+        jPanel9.setBounds(0, 0, 0, 0);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MENU' PRINCIPALE");
@@ -1425,13 +1442,21 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonGestManutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGestManutActionPerformed
+        try {
+            p = new Planner("alessio", "12345");
+        } catch (SQLException ex) {
+            Logger.getLogger(InterfacciaGrafica.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                for (String m : p.getAllMaterials()) {
+            tendinaMateriali.addItem(m);
 
+        }
         GestioneAttività.setVisible(true);
         buttonModificaAttività.setVisible(false);
         buttonAssegna.setVisible(false);
         disattivaVis();
         fieldDay.setText(giorno);
-        
+
     }//GEN-LAST:event_buttonGestManutActionPerformed
 
     private void buttonCreaAttivitàActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreaAttivitàActionPerformed
@@ -1668,7 +1693,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             mostraErrore("ERRORE", "Seleziona una riga dalla tabella!");
         } else {
 
-
             panelCopertura2.setVisible(false);
             abilitaVis();
             id = Integer.parseInt(tb.getValueAt(tabellaAttività.getSelectedRow(), 0).toString());
@@ -1698,11 +1722,15 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             mostraErrore("ERRORE", "Seleziona un'attività dalla tabella!");
         } else {
             if (p.getActivity(id).getType() != 1) {
-
+                tabellaDisponibilità.setCellSelectionEnabled(true);
+                tabellaDisponibilità.setRowSelectionAllowed(true);
+                tabellaDisponibilità.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                labelOccupato.setVisible(false);
                 casoNotEWO();
             } else {
                 tabellaDisponibilità.setEnabled(false);
                 gestioneEWO();
+                labelOccupato.setVisible(true);
             }
         }
     }//GEN-LAST:event_buttonAssegnaActionPerformed
@@ -1731,27 +1759,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         } else {
             resettaLabelDisp();
             textAreaWorkspaceNotes2.setEditable(false);
-            tabellaDisponibilità2.getColumnModel().setSelectionModel(new DefaultListSelectionModel() {
-                private boolean isSelectable(int indice) {
-                    return !(indice == 1 || indice == 0);
-                }
-
-                @Override
-                public void setSelectionInterval(int indice1, int indice2) {
-                    if (isSelectable(indice2) && isSelectable(indice1)) {
-                        super.setSelectionInterval(indice1, indice2);
-                    } else {
-                    }
-                }
-
-                @Override
-                public void addSelectionInterval(int indice1, int indice2) {
-                    if (isSelectable(indice1) && isSelectable(indice2)) {
-                        super.addSelectionInterval(indice1, indice2);
-                    }
-                }
-
-            });
 
             assegnaAttività2.setVisible(true);
             tabellaDisponibilità.setEnabled(false);
@@ -1791,8 +1798,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
             riga = tabellaDisponibilità2.getSelectedRow();
             c = date.getDayOfWeek().getValue() + 2;
-            if (c==9)
-                c=2;
+            if (c == 9) {
+                c = 2;
+            }
         }
 
         int[] oreSelezionate = tabellaDisponibilità2.getSelectedColumns();
@@ -1803,14 +1811,16 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         }
 
         try {
-
-            p.assignedActivityToMaintainer(p.getAllMaintainers().get(riga), p.getActivity(id), c - 2, oreSelezionate);
-
-            mostraSuccesso("Attività assegnata!", "Attività assegnata con successo");
-            aggiornaTabella2();
-            resetPostEWO();
-            assegnaAttività2.setVisible(false);
-            tabellaDisponibilità.setEnabled(true);
+            if (tabellaDisponibilità2.getSelectedRowCount() > 1) {
+                mostraErrore("ERRORE", "Seleziona una riga alla volta");
+            } else {
+                p.assignedActivityToMaintainer(p.getAllMaintainers().get(riga), p.getActivity(id), c - 2, oreSelezionate);
+                mostraSuccesso("Attività assegnata!", "Attività assegnata con successo");
+                aggiornaTabella2();
+                resetPostEWO();
+                assegnaAttività2.setVisible(false);
+                tabellaDisponibilità.setEnabled(true);
+            }
         } catch (Exception ex) {
 
             mostraErrore("ERRORE", ex.getMessage());
@@ -1997,7 +2007,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private void buttonAdministratorAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAdministratorAreaActionPerformed
      administrator.setVisible(true);
       try {
-            a = new Admin("nello", "12345");
+            a = new Admin("alessio", "12345");
         } catch (SQLException ex) {
             Logger.getLogger(InterfacciaGrafica.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -2454,30 +2464,31 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         tabellaDisponibilità2.setCellSelectionEnabled(true);
         tabellaDisponibilità2.setRowSelectionAllowed(true);
         tabellaDisponibilità2.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-
+        int n = 0;
         for (Maintainer m : p.getAllMaintainers()) {
             int[][] disp = m.getAvailability().get(a.getWeek());
             int[] ore;
             String competenze;
+
             if (disp == null) {
                 ore = new int[7];
             } else {
-                int n = date.getDayOfWeek().getValue();
-                if(n==7)
-                    n=0;
+                n = date.getDayOfWeek().getValue();
+                if (n == 7) {
+                    n = 0;
+                }
                 ore = disp[n];
             }
 
+            String[] x = p.busyMaintainer(m, a.getWeek(), n);
             competenze = getComp(a, m);
-
-            String[] inserimento = {m.getName(), competenze, String.valueOf(ore[0]) + " min",
-                String.valueOf(ore[1]) + " min", String.valueOf(ore[2]) + " min",
-                String.valueOf(ore[3]) + " min", String.valueOf(ore[4]) + " min",
-                String.valueOf(ore[5]) + " min", String.valueOf(ore[6]) + " min"};
+            String[] inserimento = {m.getName(), competenze, String.valueOf(ore[0]) + " min" + x[0],
+                String.valueOf(ore[1]) + " min" + x[1], String.valueOf(ore[2]) + " min" + x[2],
+                String.valueOf(ore[3]) + " min" + x[3], String.valueOf(ore[4]) + " min" + x[4],
+                String.valueOf(ore[5]) + " min" + x[5], String.valueOf(ore[6]) + " min" + x[6]};
             tb3.addRow(inserimento);
 
         }
-
     }
 
     private void resetPostEWO() {
@@ -2542,7 +2553,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -2604,6 +2614,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JLabel labelID;
     private javax.swing.JLabel labelInterrompibileOra;
     private javax.swing.JLabel labelML;
+    private javax.swing.JLabel labelOccupato;
     private javax.swing.JLabel labelSkillsEWO2;
     private javax.swing.JLabel labelTipologiaOra;
     private javax.swing.JLabel labelWO;
