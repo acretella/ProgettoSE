@@ -56,12 +56,13 @@ public class Admin extends User {
             String query = "delete from Site where (factory_site, area) = ('" + site.getFactorySite() + "', '" + site.getArea() + "')";
             return stm.executeUpdate(query) == 1;
         } catch (SQLException ex) {
+            System.out.println(ex);
             return false;
         }
     }
     public boolean createSite(Site s){
         try {
-            this.createFactorySiteandArea(s); //Se la factorySite o l'area non esistono allora devo crearle
+            //this.createFactorySiteandArea(s); //Se la factorySite o l'area non esistono allora devo crearle
             String query = "insert into Site(factory_site,area) values('" + s.getFactorySite() +"','"+s.getArea()+"');";
             getConnection().createStatement().executeUpdate(query);
             return true;
@@ -72,7 +73,7 @@ public class Admin extends User {
     
     public boolean modifySite(Site old,Site nw){
         try {
-            this.createFactorySiteandArea(nw); //Se la factorySite o l'area non esistono allora devo crearle
+            //this.createFactorySiteandArea(nw); //Se la factorySite o l'area non esistono allora devo crearle
             String query = "update Site set factory_site = '" +nw.getFactorySite() +"',"
                     +" area='"+nw.getArea()+ "' where factory_site = '" + old.getFactorySite() +"' and area = '" + old.getArea() + "'";
             return getConnection().createStatement().executeUpdate(query) != 0; //Se il valore di ritorno è uguale a 0 allora non è stata fatta nessuna modifica
