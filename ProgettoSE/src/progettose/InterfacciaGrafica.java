@@ -81,6 +81,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     DefaultListModel listModelSkillsEwo2 = new DefaultListModel();
     DefaultListModel listModelCompetence = new DefaultListModel();
     DefaultListModel listModelMaterial = new DefaultListModel();
+    DefaultListModel listModelSite = new DefaultListModel();
 
     LocalDate date = LocalDate.now();
     String giorno = String.valueOf(date.getDayOfWeek());
@@ -303,13 +304,16 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         buttonAddSite = new javax.swing.JButton();
         buttonRemoveSite = new javax.swing.JButton();
         buttonModifySite = new javax.swing.JButton();
-        fieldModifySite = new javax.swing.JTextField();
-        fieldInserisciSite = new javax.swing.JTextField();
+        fieldModifyFactorySite = new javax.swing.JTextField();
+        fieldAddFactorySite = new javax.swing.JTextField();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
         jScrollPane19 = new javax.swing.JScrollPane();
-        siteList = new javax.swing.JList<>();
+        listSite = new javax.swing.JList<>();
         buttonConfirmModifySite = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
+        fieldAddArea = new javax.swing.JTextField();
+        fieldModifyArea = new javax.swing.JTextField();
         EwoState = new javax.swing.JFrame();
         jPanel10 = new javax.swing.JPanel();
         jScrollPane21 = new javax.swing.JScrollPane();
@@ -1310,6 +1314,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         manageSite.getContentPane().setLayout(null);
 
         jPanel9.setBackground(new java.awt.Color(255, 0, 51));
+        jPanel9.setLayout(null);
 
         buttonAddSite.setText("Add Site");
         buttonAddSite.addActionListener(new java.awt.event.ActionListener() {
@@ -1317,6 +1322,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 buttonAddSiteActionPerformed(evt);
             }
         });
+        jPanel9.add(buttonAddSite);
+        buttonAddSite.setBounds(30, 30, 121, 30);
 
         buttonRemoveSite.setText("Remove Site");
         buttonRemoveSite.addActionListener(new java.awt.event.ActionListener() {
@@ -1324,6 +1331,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 buttonRemoveSiteActionPerformed(evt);
             }
         });
+        jPanel9.add(buttonRemoveSite);
+        buttonRemoveSite.setBounds(30, 70, 121, 32);
 
         buttonModifySite.setText("Modify Site");
         buttonModifySite.addActionListener(new java.awt.event.ActionListener() {
@@ -1331,20 +1340,27 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 buttonModifySiteActionPerformed(evt);
             }
         });
+        jPanel9.add(buttonModifySite);
+        buttonModifySite.setBounds(30, 110, 121, 33);
+        jPanel9.add(fieldModifyFactorySite);
+        fieldModifyFactorySite.setBounds(180, 110, 110, 30);
+        jPanel9.add(fieldAddFactorySite);
+        fieldAddFactorySite.setBounds(180, 30, 110, 30);
 
-        fieldInserisciSite.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldInserisciSiteActionPerformed(evt);
-            }
-        });
-
-        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel26.setText("SITE (factory site - area)");
+        jLabel26.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
+        jLabel26.setText("FACTORY SITE");
+        jPanel9.add(jLabel26);
+        jLabel26.setBounds(190, 10, 90, 24);
 
         jLabel27.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel27.setText("SITE LIST");
+        jPanel9.add(jLabel27);
+        jLabel27.setBounds(530, 30, 71, 17);
 
-        jScrollPane19.setViewportView(siteList);
+        jScrollPane19.setViewportView(listSite);
+
+        jPanel9.add(jScrollPane19);
+        jScrollPane19.setBounds(480, 50, 170, 150);
 
         buttonConfirmModifySite.setText("Confirm");
         buttonConfirmModifySite.addActionListener(new java.awt.event.ActionListener() {
@@ -1352,63 +1368,20 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 buttonConfirmModifySiteActionPerformed(evt);
             }
         });
+        jPanel9.add(buttonConfirmModifySite);
+        buttonConfirmModifySite.setBounds(250, 150, 95, 23);
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(buttonAddSite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(buttonRemoveSite, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                    .addComponent(buttonModifySite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(fieldInserisciSite, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                .addComponent(fieldModifySite))
-                            .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addComponent(buttonConfirmModifySite, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(48, 48, 48)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane19, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel27)))
-                    .addComponent(jLabel26))
-                .addGap(0, 703, Short.MAX_VALUE))
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(buttonAddSite, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fieldInserisciSite, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(buttonRemoveSite, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(fieldModifySite, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonModifySite, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(buttonConfirmModifySite)
-                        .addGap(122, 122, 122))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel27)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(127, 127, 127))))
-        );
+        jLabel14.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
+        jLabel14.setText("AREA");
+        jPanel9.add(jLabel14);
+        jLabel14.setBounds(350, 10, 34, 24);
+        jPanel9.add(fieldAddArea);
+        fieldAddArea.setBounds(310, 30, 110, 30);
+        jPanel9.add(fieldModifyArea);
+        fieldModifyArea.setBounds(310, 110, 110, 30);
 
         manageSite.getContentPane().add(jPanel9);
-        jPanel9.setBounds(0, 0, 1185, 309);
+        jPanel9.setBounds(0, 0, 680, 300);
 
         EwoState.setMinimumSize(new java.awt.Dimension(799, 398));
         EwoState.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -1740,8 +1713,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
             fieldID.setText(String.valueOf(a.getId()));
             labelAttivitàOra.setText(labelAttivitàOra.getText() + " " + tipo.toLowerCase() + ")");
-            fieldFactorySite.setText(a.getFactorySite());
-            fieldArea.setText(a.getArea());
+            fieldFactorySite.setText(a.getSite().getFactorySite());
+            fieldArea.setText(a.getSite().getArea());
             labelTipologiaOra.setText((labelTipologiaOra.getText()) + " " + a.getTypology().toLowerCase() + ")");
             fieldTime.setText(String.valueOf(a.getEstimatedTime()));
             fieldWeek.setText(String.valueOf(a.getWeek()));
@@ -1861,7 +1834,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             labelDayDisp.setText(labelDayDisp.getText() + " " + tabellaDisponibilità.getColumnName(colonna));
             labelDisponibilità.setText((labelDisponibilità.getText()) + " " + tabellaDisponibilità.getValueAt(riga, 0) + " "
                     + tabellaDisponibilità.getValueAt(riga, colonna));
-            jTextFieldActivityToAssign2.setText(id + " - " + a.getFactorySite() + " - " + a.getArea() + " - "
+            jTextFieldActivityToAssign2.setText(id + " - " + a.getSite().getFactorySite() + " - " + a.getSite().getArea() + " - "
                     + a.getTypology() + " - " + a.getEstimatedTime() + " mins");
 
             tabellaDisponibilità2.setCellSelectionEnabled(true);
@@ -1930,7 +1903,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         Activity a = p.getActivity(id);
         try {
-            EwoActivity b = new EwoActivity(a.getId(), a.getFactorySite(), a.getArea(), a.getTypology(), textAreaDescrizioneEWO.getText(),
+            EwoActivity b = new EwoActivity(a.getId(), a.getSite().getFactorySite(), a.getSite().getArea(), a.getTypology(), textAreaDescrizioneEWO.getText(),
                     Integer.parseInt(textFieldEstimatedtimeewo.getText()),
                     a.getWeek(), a.getMaterials(), a.isInterruptable(), textAreaWNEWO.getText(), a.getDay(), a.getProcedure());
             b.setSkills(skills);
@@ -2166,27 +2139,95 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonGestisciCompetenzeActionPerformed
 
     private void buttonConfirmModifySiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmModifySiteActionPerformed
-        // TODO add your handling code here:
+        Site nuovo = new Site(fieldModifyFactorySite.getText(), fieldModifyArea.getText());
+        String[] x = listSite.getSelectedValue().split(", ");
+
+        Site vecchio = new Site(x[0], x[1]);
+        if (a.modifySite(vecchio, nuovo)) {
+            mostraSuccesso("Site modificato!", "Site modificato con successo!");
+            
+            listModelSite.clear();
+            for (Site s : a.getAllSites()) {
+                listModelSite.addElement(s.toString());
+            }
+            
+            listSite.setEnabled(true);
+            fieldModifyFactorySite.setText("");
+            fieldModifyArea.setText("");
+            
+            fieldModifyFactorySite.setVisible(false);
+            fieldModifyArea.setVisible(false);
+            buttonConfirmModifySite.setVisible(false);
+            
+
+        }else{
+            mostraErrore("ERRORE","Site non modificato!");
+        }
+
     }//GEN-LAST:event_buttonConfirmModifySiteActionPerformed
 
-    private void fieldInserisciSiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldInserisciSiteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fieldInserisciSiteActionPerformed
-
     private void buttonModifySiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModifySiteActionPerformed
-        // TODO add your handling code here:
+        if (listSite.getSelectedIndex() > -1) {
+            fieldModifyFactorySite.setVisible(true);
+            fieldModifyArea.setVisible(true);
+            buttonConfirmModifySite.setVisible(true);
+            listSite.setEnabled(false);
+            String[] s = listSite.getSelectedValue().split(", ");
+            fieldModifyFactorySite.setText(s[0]);
+            fieldModifyArea.setText(s[1]);
+
+        } else {
+            mostraErrore("ERRORE", "Nessun site selezionato dalla lista da modificare!");
+        }
     }//GEN-LAST:event_buttonModifySiteActionPerformed
 
     private void buttonRemoveSiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveSiteActionPerformed
-        // TODO add your handling code here:
+        if (listSite.getSelectedIndex() > -1) {
+            String[] site = listSite.getSelectedValue().split(", ");
+            Site s = new Site(site[1], site[2]);
+            if (a.deleteSite(s)) {
+                mostraSuccesso("Site eliminato", "Site eliminato con successo");
+                listModelSite.removeElement(listSite.getSelectedValue());
+            } else {
+                mostraErrore("ERRORE!", "Non è stato possibile eliminare il site");
+            }
+        }
+
+
     }//GEN-LAST:event_buttonRemoveSiteActionPerformed
 
     private void buttonAddSiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddSiteActionPerformed
-        // TODO add your handling code here:
+        if (fieldAddFactorySite.getText().isBlank() || fieldAddArea.getText().isBlank()) {
+            mostraErrore("ERRORE", "Riempi in campi per la creazione del site!");
+        } else {
+            Site s = new Site(fieldAddFactorySite.getText(), fieldAddArea.getText());
+            if (a.createSite(s)) {
+                mostraSuccesso("SITE CREATO", "Site creato con successo!");
+                fieldAddFactorySite.setText("");
+                fieldAddArea.setText("");
+                listModelSite.addElement(s.toString());
+            } else {
+                mostraErrore("ERRORE", "Site già presente!");
+            }
+
+        }
+
+
     }//GEN-LAST:event_buttonAddSiteActionPerformed
 
     private void buttonManageSideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonManageSideActionPerformed
         manageSite.setVisible(true);
+
+        listModelSite.clear();
+        for (Site s : a.getAllSites()) {
+            listModelSite.addElement(s.toString());
+        }
+        listSite.setModel(listModelSite);
+
+        fieldModifyFactorySite.setVisible(false);
+        fieldModifyArea.setVisible(false);
+        buttonConfirmModifySite.setVisible(false);
+
     }//GEN-LAST:event_buttonManageSideActionPerformed
 
     private void buttonShowEWOStateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonShowEWOStateActionPerformed
@@ -2196,19 +2237,19 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         labelWeekState.setText(labelWeekState.getText() + String.valueOf(52 - Calendar.WEEK_OF_YEAR));
         labelDayState.setText(labelDayState.getText() + date.getDayOfMonth());
-        
+
         tableEWO.setModel(tbEWO);
         tableStateEWO.setModel(tbStateEWO);
-        
+
         String[] nomiEWO = {"ID", "Area", "Type", "Estimated Time"};
         tbEWO.setColumnIdentifiers(nomiEWO);
-        String[] nomiStateEWO = {"Department","Area","General State"};
+        String[] nomiStateEWO = {"Department", "Area", "General State"};
         tbStateEWO.setColumnIdentifiers(nomiStateEWO);
 
         for (Activity a : p.getAllActivities()) {
             if (a.getType() == 1) {
-                
-                String[] ewo = {String.valueOf(a.getId()), a.getArea() + " - " + a.getFactorySite(), a.getTypology(), String.valueOf(a.getEstimatedTime())};
+
+                String[] ewo = {String.valueOf(a.getId()), a.getSite().getArea() + " - " + a.getSite().getFactorySite(), a.getTypology(), String.valueOf(a.getEstimatedTime())};
                 tbEWO.addRow(ewo);
                 String s = "";
                 if (a.getDay() != date.getDayOfMonth()) {
@@ -2380,7 +2421,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 interrompibile = "No";
             }
 
-            String[] inserimento = {String.valueOf(x.getId()), x.getFactorySite(), x.getArea(), x.getTypology(),
+            String[] inserimento = {String.valueOf(x.getId()), x.getSite().getFactorySite(), x.getSite().getArea(), x.getTypology(),
                 String.valueOf(x.getEstimatedTime()), String.valueOf(x.getWeek()), tipo, interrompibile};
             tb.addRow(inserimento);
         }
@@ -2513,7 +2554,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         labelWeekEWO.setText(labelWeekEWO.getText() + " " + String.valueOf(a.getWeek()));
         labelDayEWO.setText(labelDay.getText() + " " + a.getDay());
-        textFieldActivityEWO.setText(id + " - " + a.getFactorySite() + " - " + a.getArea() + " - " + a.getTypology());
+        textFieldActivityEWO.setText(id + " - " + a.getSite().getFactorySite() + " - " + a.getSite().getArea() + " - " + a.getTypology());
         textAreaWNEWO.setText(String.valueOf(a.getWorkSpaceNote()));
         textAreaDescrizioneEWO.setText(String.valueOf(a.getActivityDescription()));
         textFieldEstimatedtimeewo.setText(String.valueOf(a.getEstimatedTime()));
@@ -2549,7 +2590,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         listaSkills.setModel(listModelSkills);
         textWeekAssegnata.setText(String.valueOf(a.getWeek()));
-        textAttivitàDaAssegnare.setText(id + " - " + a.getFactorySite() + " - " + a.getArea() + " - " + a.getTypology() + " - " + a.getEstimatedTime() + " mins");
+        textAttivitàDaAssegnare.setText(id + " - " + a.getSite().getFactorySite() + " - " + a.getSite().getArea() + " - " + a.getTypology() + " - " + a.getEstimatedTime() + " mins");
 
         aggiornaTabella2();
 
@@ -2570,7 +2611,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelDisponibilità.setText("MAINTAINERS AVAILABILITY");
         labelWeekDisp.setText(labelWeekDisp.getText() + " " + a.getWeek());
         labelDayDisp.setText((labelDayDisp.getText()) + " " + a.getDay());
-        jTextFieldActivityToAssign2.setText(id + " - " + a.getFactorySite() + " - " + a.getArea() + " - "
+        jTextFieldActivityToAssign2.setText(id + " - " + a.getSite().getFactorySite() + " - " + a.getSite().getArea() + " - "
                 + a.getTypology() + " - " + a.getEstimatedTime() + " mins");
         textAreaWorkspaceNotes2.setText(a.getWorkSpaceNote());
         if (a.getProcedure() != null) {
@@ -2667,15 +2708,17 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JButton buttonShowEWOState;
     private javax.swing.JList<String> competenceList;
     private javax.swing.JFrame creazioneAttività;
+    private javax.swing.JTextField fieldAddArea;
+    private javax.swing.JTextField fieldAddFactorySite;
     private javax.swing.JTextField fieldArea;
     private javax.swing.JTextField fieldDay;
     private javax.swing.JTextField fieldFactorySite;
     private javax.swing.JTextField fieldID;
     private javax.swing.JTextField fieldInserisciCompetence;
     private javax.swing.JTextField fieldInserisciMateriale;
-    private javax.swing.JTextField fieldInserisciSite;
     private javax.swing.JTextField fieldMaterialeSelezionato;
-    private javax.swing.JTextField fieldModifySite;
+    private javax.swing.JTextField fieldModifyArea;
+    private javax.swing.JTextField fieldModifyFactorySite;
     private javax.swing.JTextField fieldTime;
     private javax.swing.JTextField fieldWeek;
     private javax.swing.JButton jButtonAssegnaAttività2;
@@ -2684,6 +2727,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -2760,6 +2804,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JLabel labelWeekDisp;
     private javax.swing.JLabel labelWeekEWO;
     private javax.swing.JLabel labelWeekState;
+    private javax.swing.JList<String> listSite;
     private javax.swing.JList<String> listSkillsEWO;
     private javax.swing.JList<String> listSkillsEWO2;
     private javax.swing.JList<String> listaCompetenze;
@@ -2773,7 +2818,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JPanel panelCopertura2;
     private javax.swing.JPanel panelDX;
     private javax.swing.JPanel panelSX;
-    private javax.swing.JList<String> siteList;
     private javax.swing.JTable tabellaAttività;
     private javax.swing.JTable tabellaDisponibilità;
     private javax.swing.JTable tabellaDisponibilità2;
