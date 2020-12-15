@@ -63,12 +63,12 @@ public class Admin extends User {
         try {
             //Se la factorySite non esiste devo crearla
             if(!getConnection().createStatement().executeQuery("select * from FactorySite where factory_site = " +s.getFactorySite()).next())
-                getConnection().createStatement().executeQuery("insert into FactorySite values('"+s.getFactorySite()+"');");
+                getConnection().createStatement().executeUpdate("insert into FactorySite values('"+s.getFactorySite()+"');");
             //Se la l'area non esiste devo crearla
             if(!getConnection().createStatement().executeQuery("select * from Area where area = " +s.getArea()).next())
-                getConnection().createStatement().executeQuery("insert into Area values('"+s.getArea()+"')");
+                getConnection().createStatement().executeUpdate("insert into Area values('"+s.getArea()+"')");
             String query = "insert into Site(factory_site,area) values('" + s.getFactorySite() +"','"+s.getArea()+"');";
-            getConnection().createStatement().executeQuery(query);
+            getConnection().createStatement().executeUpdate(query);
             return true;
         } catch (SQLException ex) {
             return false;
@@ -77,11 +77,9 @@ public class Admin extends User {
     
     public boolean modifySite(Site old,Site nw){
         try {
-            String query = "update FactorySite set factory_site = '" +nw.getFactorySite() +"' where factory_site = '" + old.getFactorySite() +"'";
-            getConnection().createStatement().executeQuery(query);
-            query = "update Area set area = '" +nw.getArea() +"' where area = '" + old.getArea() +"'";
-            getConnection().createStatement().executeQuery(query);
-            return true;
+            String query = "update Site(factory_site,area) set factory_site = '" +nw.getFactorySite() +"',"
+                    +"area='"+nw.getArea()+ "' where factory_site = '" + old.getFactorySite() +"' and area = '" + old.getArea() + "'";
+            return getConnection().createStatement().executeUpdate(query) != 0; //Se il valore di ritorno è uguale a 0 allora non è stata fatta nessuna modifica
         } catch (SQLException ex) {
             return false;
         }

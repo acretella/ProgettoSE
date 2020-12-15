@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import progettose.Admin;
+import progettose.Site;
 /**
  *
  * @author Rossella
@@ -56,9 +57,51 @@ public class AdminTest {
     }
     
     @Test
-    public void testNegModify(){
+    public void testNegModifyCompetence(){
         String skill = "skilltest15";//skill non presente nel DB
         assertFalse(admin.modifyCompetence(skill, skill));
     }
+    
+    @Test
+    public void testPosCreateSite(){
+        assertTrue(admin.createSite(new Site("aaa","bbb")));
+        admin.deleteSite(new Site("aaa","bbb")); //per poter rilanciare il test senza cancellare dal db
+    }
+    
+    @Test
+    public void testPos2CreateSite(){
+        assertTrue(admin.createSite(new Site("ccc","ddd")));
+        assertTrue(admin.createSite(new Site("ccc","fff"))); //Due Site con stesso factorySite
+        admin.deleteSite(new Site("ccc","ddd")); //per poter rilanciare il test senza cancellare dal db
+        admin.deleteSite(new Site("ccc","fff")); //per poter rilanciare il test senza cancellare dal db
+    }
+
+    @Test
+    public void testPos3CreateSite(){
+        assertTrue(admin.createSite(new Site("cca","ww")));
+        assertTrue(admin.createSite(new Site("ccb","ww"))); //Due Site con stessa Area
+        admin.deleteSite(new Site("cca","ww")); //per poter rilanciare il test senza cancellare dal db
+        admin.deleteSite(new Site("ccb","ww")); //per poter rilanciare il test senza cancellare dal db
+    }
+    
+    @Test
+    public void testNegCreateSite(){
+        assertTrue(admin.createSite(new Site("aa","bb")));
+        assertFalse(admin.createSite(new Site("aa","bb")));
+        admin.deleteSite(new Site("aa","bb")); //per poter rilanciare il test senza cancellare dal db
+    }
+  
+    @Test
+    public void testPosModifySite(){
+        admin.createSite(new Site("aax","bbx"));
+        assertTrue(admin.modifySite(new Site("aax","bbx"), new Site("vcd","pgb")));
+        admin.deleteSite(new Site("vcd","pgb")); //per poter rilanciare il test senza cancellare dal db
+    }
+
+    @Test
+    public void testNegModifySite(){
+        assertFalse(admin.modifySite(new Site("44","55"), new Site("66","77")));
+    }
+    
         
 }
