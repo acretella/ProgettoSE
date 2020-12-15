@@ -60,5 +60,10 @@ public class AdminTest {
         String skill = "skilltest15";//skill non presente nel DB
         assertFalse(admin.modifyCompetence(skill, skill));
     }
+    
+    @Test
+    public void testPosDelete(){
+        Site s = new Site("")
+    }
         
 }
