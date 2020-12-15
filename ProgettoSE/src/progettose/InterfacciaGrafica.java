@@ -1310,7 +1310,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jPanel8.setBounds(0, 0, 500, 230);
 
         manageSite.setTitle("Site management");
-        manageSite.setMinimumSize(new java.awt.Dimension(570, 320));
+        manageSite.setMinimumSize(new java.awt.Dimension(676, 282));
+        manageSite.setResizable(false);
         manageSite.getContentPane().setLayout(null);
 
         jPanel9.setBackground(new java.awt.Color(255, 0, 51));
@@ -1355,12 +1356,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jLabel27.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel27.setText("SITE LIST");
         jPanel9.add(jLabel27);
-        jLabel27.setBounds(530, 30, 71, 17);
+        jLabel27.setBounds(530, 20, 71, 17);
 
         jScrollPane19.setViewportView(listSite);
 
         jPanel9.add(jScrollPane19);
-        jScrollPane19.setBounds(480, 50, 170, 150);
+        jScrollPane19.setBounds(480, 40, 170, 150);
 
         buttonConfirmModifySite.setText("Confirm");
         buttonConfirmModifySite.addActionListener(new java.awt.event.ActionListener() {
@@ -2184,7 +2185,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private void buttonRemoveSiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveSiteActionPerformed
         if (listSite.getSelectedIndex() > -1) {
             String[] site = listSite.getSelectedValue().split(", ");
-            Site s = new Site(site[1], site[2]);
+            Site s = new Site(site[0], site[1]);
             if (a.deleteSite(s)) {
                 mostraSuccesso("Site eliminato", "Site eliminato con successo");
                 listModelSite.removeElement(listSite.getSelectedValue());
@@ -2198,7 +2199,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
     private void buttonAddSiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddSiteActionPerformed
         if (fieldAddFactorySite.getText().isBlank() || fieldAddArea.getText().isBlank()) {
-            mostraErrore("ERRORE", "Riempi in campi per la creazione del site!");
+            mostraErrore("ERRORE", "Riempi i campi per la creazione del site!");
         } else {
             Site s = new Site(fieldAddFactorySite.getText(), fieldAddArea.getText());
             if (a.createSite(s)) {
