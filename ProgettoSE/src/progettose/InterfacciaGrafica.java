@@ -25,6 +25,7 @@ import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import javax.swing.table.DefaultTableModel;
 import java.util.Calendar;
 import java.time.LocalDate;
+import java.util.Locale;
 import javax.swing.ListSelectionModel;
 import static javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION;
 import static javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION;
@@ -91,6 +92,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     List<String> skills = new ArrayList<>();
     List<String> materiali2 = new ArrayList<>();
     List<String> competence = new ArrayList<>();
+    Calendar cal = Calendar.getInstance(Locale.ITALY);
 
     /**
      * Creates new form InterfacciaGrafica
@@ -1272,12 +1274,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         buttonModifyCompetence.setBounds(10, 129, 133, 33);
         jPanel8.add(textFieldModifyCompetence);
         textFieldModifyCompetence.setBounds(176, 129, 95, 33);
-
-        fieldInserisciCompetence.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldInserisciCompetenceActionPerformed(evt);
-            }
-        });
         jPanel8.add(fieldInserisciCompetence);
         fieldInserisciCompetence.setBounds(176, 32, 95, 30);
 
@@ -1822,7 +1818,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 p.assignedActivityToMaintainer(p.getAllMaintainers().get(riga), p.getActivity(id), c - 2, oreSelezionate); //c-2 poichè mi serve il giorno preciso da 0 domenica a 6 sabato
                 mostraSuccesso("Attività assegnata!", "Attività assegnata con successo");
                 aggiornaTabella2(); // aggiorno la prima tabella delle disponibilità
-                resetPostEWO(); // 
+                resetPostEWO(); // resetto il frame dopo aver assegnato la ewo
                 assegnaAttività2.setVisible(false);
                 tabellaDisponibilità.setEnabled(true);
             }
@@ -1839,7 +1835,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_GestioneAttivitàWindowClosing
 
     private void assegnaAttività2WindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_assegnaAttività2WindowClosing
-        tabellaDisponibilità.setEnabled(true);
+        tabellaDisponibilità.setEnabled(true); //sblocco la tabella delle disponibilità dopo aver assegnato l'attività
         resetPostEWO();
 
     }//GEN-LAST:event_assegnaAttività2WindowClosing
@@ -1848,15 +1844,16 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         Activity a = p.getActivity(id);
         try {
+            //mi ricreo l'attività EWO
             EwoActivity b = new EwoActivity(a.getId(), a.getSite().getFactorySite(), a.getSite().getArea(), a.getTypology(), textAreaDescrizioneEWO.getText(),
                     Integer.parseInt(textFieldEstimatedtimeewo.getText()),
                     a.getWeek(), a.getMaterials(), a.isInterruptable(), textAreaWNEWO.getText(), a.getDay(), a.getProcedure());
             b.setSkills(skills);
             if (p.setEwoActivity(b)) {
                 mostraSuccesso("EWO modificata!", "EWO modificata con successo");
-                clearEwoFrame();
+                clearEwoFrame(); //pulisco il frame dopo aver confermato le modifiche
                 attivitàEWO.setVisible(false);
-                casoEWO();
+                casoEWO();//caso di assegnazione di una EWO
             } else {
                 mostraErrore("ERRORE", "Modifica non effettuata");
             }
@@ -1879,15 +1876,15 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
     }//GEN-LAST:event_buttonAddSkillActionPerformed
     private void tendinaTipoAttivitàItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tendinaTipoAttivitàItemStateChanged
-        if (tendinaTipoAttività.getSelectedItem().equals("EWO")) {
+
+        //GESTIONE DEL CAMBIAMENTO DELLA TENDINA CON IL TIPO DI ATTIVITA'
+        if (tendinaTipoAttività.getSelectedItem().equals("EWO")) {//CASO IN CUI SELEZIONO EWO, BLOCCO LA WEEK E IL GIORNO DA ASSEGNARE
             labelWeek.setEnabled(false);
             fieldWeek.setEnabled(false);
             fieldDay.setVisible(true);
             labelDay.setVisible(true);
-            Calendar cal = Calendar.getInstance();
-
             fieldDay.setText(giorno);
-            fieldWeek.setText(String.valueOf(52 - Calendar.WEEK_OF_YEAR));
+            fieldWeek.setText(String.valueOf(cal.get(Calendar.WEEK_OF_YEAR))); 
 
         } else {
             if (!buttonCrea.getText().equals(("MODIFY ACTIVITY"))) {
@@ -1923,8 +1920,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             listModelSkillsEwo.removeElement(listSkillsEWO.getSelectedValue());
             listSkillsEWO.setModel(listModelSkillsEwo);
         }
-
-// TODO add your handling code here:
     }//GEN-LAST:event_buttonRemoveSkillActionPerformed
 
     private void buttonGestisciMaterialiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGestisciMaterialiActionPerformed
@@ -1997,8 +1992,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         } else {
             mostraErrore("ERRORE", "Materiale non modificato!");
         }
-
-        // TODO add your handling code here:
+    
     }//GEN-LAST:event_buttonConfermaMaterialeActionPerformed
 
     private void buttonAdministratorAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAdministratorAreaActionPerformed
@@ -2009,10 +2003,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             Logger.getLogger(InterfacciaGrafica.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_buttonAdministratorAreaActionPerformed
-
-    private void fieldInserisciCompetenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldInserisciCompetenceActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fieldInserisciCompetenceActionPerformed
 
     private void buttonAddCompetenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddCompetenceActionPerformed
         textFieldModifyCompetence.setVisible(false);
@@ -2085,7 +2075,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
     private void buttonConfirmModifySiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmModifySiteActionPerformed
         Site nuovo = new Site(fieldModifyFactorySite.getText(), fieldModifyArea.getText());
-        String[] x = listSite.getSelectedValue().split(", ");
+        String[] x = listSite.getSelectedValue().split(", "); //prendo la stringa nella lista e la divido in 2 stringhe separate inizialmente da ", "
 
         Site vecchio = new Site(x[0], x[1]);
         if (a.modifySite(vecchio, nuovo)) {
@@ -2135,7 +2125,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             mostraErrore("ERRORE", "Seleziona un site da rimuovere!");
         }
 
-
     }//GEN-LAST:event_buttonRemoveSiteActionPerformed
 
     private void buttonAddSiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddSiteActionPerformed
@@ -2152,10 +2141,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             } else {
                 mostraErrore("ERRORE", "Site già presente!");
             }
-
         }
-
-
     }//GEN-LAST:event_buttonAddSiteActionPerformed
 
     private void buttonManageSideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonManageSideActionPerformed
@@ -2175,7 +2161,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         resetStateEWO();
 
-        labelWeekState.setText(labelWeekState.getText() + String.valueOf(52 - Calendar.WEEK_OF_YEAR));
+        labelWeekState.setText(labelWeekState.getText() + String.valueOf(cal.get(Calendar.WEEK_OF_YEAR)));
         labelDayState.setText(labelDayState.getText() + date.getDayOfMonth());
 
         tableEWO.setModel(tbEWO);
@@ -2187,12 +2173,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         tbStateEWO.setColumnIdentifiers(nomiStateEWO);
 
         for (Activity a : p.getAllActivities()) {
-            if (a.getType() == 1) {
+            if (a.getType() == 1) {//prendo solamente le attività che sono di tipo EWO
 
                 String[] ewo = {String.valueOf(a.getId()), a.getSite().getArea() + " - " + a.getSite().getFactorySite(), a.getTypology(), String.valueOf(a.getEstimatedTime())};
                 tbEWO.addRow(ewo);
                 String s = "";
-                if (a.getDay() != date.getDayOfMonth()) {
+                if (a.getDay() != date.getDayOfMonth()) {//se il giorno è diverso allora la EWO sarà terminata
                     s = "Closed";
                 } else if (p.getEwoState(id)) {
                     s = "In progress";
@@ -2269,7 +2255,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         textAreaDescrizioneAttività.setText("");
         textAreaWorkspace.setText("");
         listModel.clear();
-
     }
 
     private Activity buildActivity(String tipoAttività) {
@@ -2343,7 +2328,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         }
     }
 
-    private String[] calcolaPercentuale(int m[][]) {
+    private String[] calcolaPercentuale(int m[][]) { //Calcolo della percentuale di ogni manutentore durante i giorni
         String[] percentuali = new String[7];
         float sum = 0;
         for (int i = 0; i <= 6; i++) {
@@ -2434,7 +2419,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             if (matrice != null) {
                 String competenze = getComp(a, m);
                 String[] percentuali = calcolaPercentuale(matrice);
-                String[] inserimento = {m.getName(), competenze, percentuali[0], percentuali[1], percentuali[2], percentuali[3], percentuali[4], percentuali[5], percentuali[6]};
+                String[] inserimento = 
+                    {m.getName(), competenze, 
+                    percentuali[0], percentuali[1],
+                    percentuali[2], percentuali[3], 
+                    percentuali[4], percentuali[5], 
+                    percentuali[6]};
                 tb2.addRow(inserimento);
             }
         }

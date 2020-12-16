@@ -2193,9 +2193,6 @@
               </Constraints>
             </Component>
             <Component class="javax.swing.JTextField" name="fieldInserisciCompetence">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fieldInserisciCompetenceActionPerformed"/>
-              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="176" y="32" width="95" height="30"/>
