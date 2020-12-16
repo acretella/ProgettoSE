@@ -234,7 +234,7 @@
             </Container>
             <Component class="javax.swing.JButton" name="buttonAssegna">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Assegna attivit&#xe0;"/>
+                <Property name="text" type="java.lang.String" value="Assign Activity"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAssegnaActionPerformed"/>
@@ -256,7 +256,8 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="66" green="0" red="0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="         DESCRIPTION"/>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="DESCRIPTION"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                     <LineBorder thickness="2">
@@ -274,7 +275,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="buttonSMP">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Mostra SMP"/>
+                <Property name="text" type="java.lang.String" value="Show SMP"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSMPActionPerformed"/>
@@ -296,7 +297,8 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="66" green="0" red="0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="     NEEDED SKILLS"/>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="NEEDED SKILLS"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                     <LineBorder thickness="2">
@@ -323,7 +325,8 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="66" green="0" red="0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="    WORKSPACE NOTES "/>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="WORKSPACE NOTES "/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                     <LineBorder thickness="2">
@@ -350,7 +353,8 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="66" green="0" red="0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="      MATERIALI LIST"/>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="MATERIAL LIST"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                     <LineBorder thickness="2">
@@ -368,7 +372,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="buttonGestisciMateriali">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Gestisci materiali"/>
+                <Property name="text" type="java.lang.String" value="Manage materials"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonGestisciMaterialiActionPerformed"/>
@@ -381,7 +385,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="buttonModificaAttivit&#xe0;">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Modifica attivit&#xe0;"/>
+                <Property name="text" type="java.lang.String" value="Modify Activity"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonModificaAttivit&#xe0;ActionPerformed"/>
@@ -394,7 +398,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="buttonCreaAttivit&#xe0;">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Crea attivit&#xe0;"/>
+                <Property name="text" type="java.lang.String" value="Create Activity"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCreaAttivit&#xe0;ActionPerformed"/>
@@ -407,7 +411,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="buttonMostraAttivit&#xe0;">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Mostra elenco attivit&#xe0;"/>
+                <Property name="text" type="java.lang.String" value="Show Activity List"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonMostraAttivit&#xe0;ActionPerformed"/>
@@ -420,7 +424,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="buttonShowEWOState">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Mostra stato EWO"/>
+                <Property name="text" type="java.lang.String" value="Show EWO State"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonShowEWOStateActionPerformed"/>
@@ -433,7 +437,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="buttonCancellaAttivit&#xe0;">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Cancella attivit&#xe0;"/>
+                <Property name="text" type="java.lang.String" value="Delete Activity"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCancellaAttivit&#xe0;ActionPerformed"/>
@@ -572,7 +576,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dubai Medium" size="14" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="ATTIVITA&apos;"/>
+                <Property name="text" type="java.lang.String" value="ACTIVITY"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCreaActionPerformed"/>
@@ -632,7 +636,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dubai Medium" size="14" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Rimuovi"/>
+                <Property name="text" type="java.lang.String" value="Remove"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRimuoviMaterialeActionPerformed"/>
@@ -868,7 +872,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dubai Medium" size="14" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Aggiungi"/>
+                <Property name="text" type="java.lang.String" value="Add"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAggiungiMaterialeActionPerformed"/>
@@ -1518,6 +1522,7 @@
     </Container>
     <Container class="javax.swing.JFrame" name="attivit&#xe0;EWO">
       <Properties>
+        <Property name="title" type="java.lang.String" value="Additional info EWO"/>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[812, 340]"/>
         </Property>
@@ -2033,10 +2038,11 @@
     </Container>
     <Container class="javax.swing.JFrame" name="administrator">
       <Properties>
-        <Property name="title" type="java.lang.String" value="Administrator"/>
+        <Property name="title" type="java.lang.String" value="Administrator Panel"/>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[370, 200]"/>
         </Property>
+        <Property name="resizable" type="boolean" value="false"/>
       </Properties>
 
       <Layout>
@@ -2112,7 +2118,7 @@
       <Properties>
         <Property name="title" type="java.lang.String" value="Competence management"/>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[530, 270]"/>
+          <Dimension value="[499, 227]"/>
         </Property>
       </Properties>
 
@@ -2441,6 +2447,7 @@
     </Container>
     <Container class="javax.swing.JFrame" name="EwoState">
       <Properties>
+        <Property name="title" type="java.lang.String" value="EWO State"/>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[799, 398]"/>
         </Property>
@@ -2701,7 +2708,7 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="buttonGestManut">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Gestione Manutenzione"/>
+            <Property name="text" type="java.lang.String" value=" Maintenance Management"/>
             <Property name="name" type="java.lang.String" value="" noResource="true"/>
           </Properties>
           <Events>
@@ -2709,7 +2716,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="114" y="35" width="-1" height="30"/>
+              <AbsoluteConstraints x="80" y="40" width="210" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -2722,7 +2729,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="114" y="91" width="145" height="33"/>
+              <AbsoluteConstraints x="80" y="90" width="210" height="33"/>
             </Constraint>
           </Constraints>
         </Component>
