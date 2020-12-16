@@ -198,10 +198,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         panelSX = new javax.swing.JPanel();
         labelID = new javax.swing.JLabel();
         fieldID = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        fieldFactorySite = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        fieldArea = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         tendinaTipologia = new javax.swing.JComboBox<>();
         labelTipologiaOra = new javax.swing.JLabel();
@@ -220,6 +216,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         labelDay = new javax.swing.JLabel();
         fieldDay = new javax.swing.JTextField();
+        labelID1 = new javax.swing.JLabel();
+        tendinaSite = new javax.swing.JComboBox<>();
+        labelSiteOra = new javax.swing.JLabel();
         assegnaAttività = new javax.swing.JFrame();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -639,7 +638,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         buttonRimuoviMateriale.setBounds(150, 440, 90, 30);
 
         creazioneAttività.getContentPane().add(panelDX);
-        panelDX.setBounds(420, 0, 960, 570);
+        panelDX.setBounds(490, 0, 1030, 570);
 
         panelSX.setBackground(new java.awt.Color(255, 255, 204));
         panelSX.setLayout(null);
@@ -651,40 +650,22 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         fieldID.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
         panelSX.add(fieldID);
-        fieldID.setBounds(180, 80, 90, 30);
-
-        jLabel3.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
-        jLabel3.setText("Factory site");
-        panelSX.add(jLabel3);
-        jLabel3.setBounds(50, 130, 100, 20);
-
-        fieldFactorySite.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
-        panelSX.add(fieldFactorySite);
-        fieldFactorySite.setBounds(180, 120, 90, 30);
-
-        jLabel4.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
-        jLabel4.setText("Area");
-        panelSX.add(jLabel4);
-        jLabel4.setBounds(50, 170, 60, 20);
-
-        fieldArea.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
-        panelSX.add(fieldArea);
-        fieldArea.setBounds(180, 160, 90, 30);
+        fieldID.setBounds(180, 80, 140, 30);
 
         jLabel5.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
         jLabel5.setText("Typology");
         panelSX.add(jLabel5);
-        jLabel5.setBounds(50, 210, 80, 20);
+        jLabel5.setBounds(50, 200, 80, 20);
 
         tendinaTipologia.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
         tendinaTipologia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Electrical", "Electronic", "Hydraulic", "Mechanical" }));
         panelSX.add(tendinaTipologia);
-        tendinaTipologia.setBounds(180, 200, 90, 30);
+        tendinaTipologia.setBounds(180, 190, 140, 30);
 
-        labelTipologiaOra.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
+        labelTipologiaOra.setFont(new java.awt.Font("Dubai Medium", 0, 12)); // NOI18N
         labelTipologiaOra.setText("(Now is");
         panelSX.add(labelTipologiaOra);
-        labelTipologiaOra.setBounds(290, 200, 200, 30);
+        labelTipologiaOra.setBounds(340, 190, 200, 30);
 
         jLabel7.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
         jLabel7.setText("Time");
@@ -693,40 +674,40 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         fieldTime.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
         panelSX.add(fieldTime);
-        fieldTime.setBounds(180, 240, 90, 30);
+        fieldTime.setBounds(180, 240, 140, 30);
 
         labelWeek.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
         labelWeek.setText("Week");
         panelSX.add(labelWeek);
-        labelWeek.setBounds(50, 280, 60, 32);
+        labelWeek.setBounds(50, 290, 60, 32);
 
         fieldWeek.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
         panelSX.add(fieldWeek);
-        fieldWeek.setBounds(180, 280, 90, 30);
+        fieldWeek.setBounds(180, 290, 140, 30);
 
         jLabel8.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
         jLabel8.setText("Interruptible");
         panelSX.add(jLabel8);
-        jLabel8.setBounds(50, 320, 110, 30);
+        jLabel8.setBounds(50, 340, 110, 30);
 
         tendinaInterrompibile.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
         tendinaInterrompibile.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Si", "No" }));
         panelSX.add(tendinaInterrompibile);
-        tendinaInterrompibile.setBounds(180, 320, 90, 30);
+        tendinaInterrompibile.setBounds(180, 340, 140, 30);
 
-        labelInterrompibileOra.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
+        labelInterrompibileOra.setFont(new java.awt.Font("Dubai Medium", 0, 12)); // NOI18N
         labelInterrompibileOra.setText("(Now is");
         panelSX.add(labelInterrompibileOra);
-        labelInterrompibileOra.setBounds(290, 320, 210, 30);
+        labelInterrompibileOra.setBounds(340, 340, 210, 30);
 
         jLabel9.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
         jLabel9.setText("Materials");
         panelSX.add(jLabel9);
-        jLabel9.setBounds(50, 380, 90, 20);
+        jLabel9.setBounds(50, 410, 90, 20);
 
         tendinaMateriali.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
         panelSX.add(tendinaMateriali);
-        tendinaMateriali.setBounds(180, 370, 90, 30);
+        tendinaMateriali.setBounds(180, 400, 140, 30);
 
         buttonAggiungiMateriale.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
         buttonAggiungiMateriale.setText("Aggiungi");
@@ -736,12 +717,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         panelSX.add(buttonAggiungiMateriale);
-        buttonAggiungiMateriale.setBounds(290, 370, 82, 30);
+        buttonAggiungiMateriale.setBounds(340, 400, 82, 30);
 
-        labelAttivitàOra.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
+        labelAttivitàOra.setFont(new java.awt.Font("Dubai Medium", 0, 12)); // NOI18N
         labelAttivitàOra.setText("(Now is");
         panelSX.add(labelAttivitàOra);
-        labelAttivitàOra.setBounds(290, 40, 170, 30);
+        labelAttivitàOra.setBounds(340, 40, 170, 30);
 
         tendinaTipoAttività.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
         tendinaTipoAttività.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Planned", "EWO", "Extra" }));
@@ -752,7 +733,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         panelSX.add(tendinaTipoAttività);
-        tendinaTipoAttività.setBounds(180, 40, 89, 30);
+        tendinaTipoAttività.setBounds(180, 40, 140, 30);
 
         jLabel1.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
         jLabel1.setText("Tipo di attività");
@@ -763,15 +744,29 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelDay.setText("Day");
         labelDay.setEnabled(false);
         panelSX.add(labelDay);
-        labelDay.setBounds(290, 284, 50, 30);
+        labelDay.setBounds(340, 290, 50, 30);
 
         fieldDay.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
         fieldDay.setEnabled(false);
         panelSX.add(fieldDay);
-        fieldDay.setBounds(340, 280, 90, 30);
+        fieldDay.setBounds(400, 290, 90, 30);
+
+        labelID1.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
+        labelID1.setText("Site");
+        panelSX.add(labelID1);
+        labelID1.setBounds(50, 140, 90, 20);
+
+        tendinaSite.setFont(new java.awt.Font("Dubai Medium", 0, 12)); // NOI18N
+        panelSX.add(tendinaSite);
+        tendinaSite.setBounds(180, 130, 140, 30);
+
+        labelSiteOra.setFont(new java.awt.Font("Dubai Medium", 0, 12)); // NOI18N
+        labelSiteOra.setText("(Now is");
+        panelSX.add(labelSiteOra);
+        labelSiteOra.setBounds(340, 130, 210, 30);
 
         creazioneAttività.getContentPane().add(panelSX);
-        panelSX.setBounds(-30, 0, 530, 580);
+        panelSX.setBounds(-30, 0, 590, 580);
 
         assegnaAttività.setMinimumSize(new java.awt.Dimension(1058, 350));
         assegnaAttività.setResizable(false);
@@ -1484,6 +1479,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         getContentPane().setLayout(null);
 
         jPanel4.setBackground(new java.awt.Color(102, 102, 255));
+        jPanel4.setLayout(null);
 
         buttonGestManut.setText("Gestione Manutenzione");
         buttonGestManut.setName(""); // NOI18N
@@ -1492,6 +1488,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 buttonGestManutActionPerformed(evt);
             }
         });
+        jPanel4.add(buttonGestManut);
+        buttonGestManut.setBounds(114, 35, 145, 30);
 
         buttonAdministratorArea.setText("Administrator Area");
         buttonAdministratorArea.addActionListener(new java.awt.event.ActionListener() {
@@ -1499,27 +1497,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 buttonAdministratorAreaActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(114, 114, 114)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(buttonGestManut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(buttonAdministratorArea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(157, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(buttonGestManut, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(buttonAdministratorArea, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(86, Short.MAX_VALUE))
-        );
+        jPanel4.add(buttonAdministratorArea);
+        buttonAdministratorArea.setBounds(114, 91, 145, 33);
 
         getContentPane().add(jPanel4);
         jPanel4.setBounds(0, 0, 410, 210);
@@ -1537,6 +1516,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             tendinaMateriali.addItem(m);
 
         }
+        for (Site s:p.getAllSites()){
+            tendinaSite.addItem(s.toString());
+        }
         GestioneAttività.setVisible(true);
         buttonModificaAttività.setVisible(false);
         buttonAssegna.setVisible(false);
@@ -1552,6 +1534,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         fieldWeek.setEnabled(true);
         labelTipologiaOra.setVisible(false);
         labelAttivitàOra.setVisible(false);
+        labelSiteOra.setVisible(false);
         labelInterrompibileOra.setVisible(false);
         fieldID.setEnabled(true);
         labelID.setEnabled(true);
@@ -1559,6 +1542,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         buttonModificaAttività.setEnabled(false);
         labelTipologiaOra.setEnabled(false);
         labelAttivitàOra.setEnabled(false);
+        labelSiteOra.setEnabled(false);
         labelInterrompibileOra.setEnabled(false);
         buttonCrea.setText("CREA ATTIVITA'");
         creazioneAttività.setTitle("Creazione Attività");
@@ -1567,7 +1551,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
     private void buttonCreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreaActionPerformed
 
-        if (fieldID.getText().equals("") || fieldFactorySite.getText().equals("") || fieldArea.getText().equals("")
+        if (fieldID.getText().equals("")
                 || textAreaDescrizioneAttività.getText().equals("")
                 || fieldTime.getText().equals("") || fieldWeek.getText().equals("")) {
             mostraErrore("ERRORE", "ALCUNI CAMPI OBBLIGATORI NON SONO STATI COMPILATI");
@@ -1668,12 +1652,14 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
     private void buttonModificaAttivitàActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModificaAttivitàActionPerformed
 
-        labelAttivitàOra.setText(("(Now is"));
-        labelTipologiaOra.setText(("(Now is"));
-        labelInterrompibileOra.setText(("(Now is"));
+        labelAttivitàOra.setText(("(Now is "));
+        labelTipologiaOra.setText(("(Now is "));
+        labelInterrompibileOra.setText(("(Now is "));
+        labelSiteOra.setText(("(Now is "));
         labelInterrompibileOra.setVisible(true);
         labelAttivitàOra.setVisible(true);
         labelTipologiaOra.setVisible(true);
+        labelSiteOra.setVisible(true);
         int indice = tabellaAttività.getSelectedRow();
         listModel.clear();
         if (indice == -1) {
@@ -1691,6 +1677,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             buttonModificaAttività.setEnabled(true);
             labelTipologiaOra.setEnabled(true);
             labelAttivitàOra.setEnabled(true);
+            labelSiteOra.setEnabled(true);
             labelInterrompibileOra.setEnabled(true);
             fieldID.setEnabled(false);
             labelID.setEnabled(false);
@@ -1714,8 +1701,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
             fieldID.setText(String.valueOf(a.getId()));
             labelAttivitàOra.setText(labelAttivitàOra.getText() + " " + tipo.toLowerCase() + ")");
-            fieldFactorySite.setText(a.getSite().getFactorySite());
-            fieldArea.setText(a.getSite().getArea());
+            
+            
+            labelSiteOra.setText(labelSiteOra.getText()+a.getSite().toString()+")");
+
+            
+            
             labelTipologiaOra.setText((labelTipologiaOra.getText()) + " " + a.getTypology().toLowerCase() + ")");
             fieldTime.setText(String.valueOf(a.getEstimatedTime()));
             fieldWeek.setText(String.valueOf(a.getWeek()));
@@ -2146,23 +2137,22 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         Site vecchio = new Site(x[0], x[1]);
         if (a.modifySite(vecchio, nuovo)) {
             mostraSuccesso("Site modificato!", "Site modificato con successo!");
-            
+
             listModelSite.clear();
             for (Site s : a.getAllSites()) {
                 listModelSite.addElement(s.toString());
             }
-            
+
             listSite.setEnabled(true);
             fieldModifyFactorySite.setText("");
             fieldModifyArea.setText("");
-            
+
             fieldModifyFactorySite.setVisible(false);
             fieldModifyArea.setVisible(false);
             buttonConfirmModifySite.setVisible(false);
-            
 
-        }else{
-            mostraErrore("ERRORE","Site non modificato!");
+        } else {
+            mostraErrore("ERRORE", "Site non modificato!");
         }
 
     }//GEN-LAST:event_buttonConfirmModifySiteActionPerformed
@@ -2322,14 +2312,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private void svuota() {
         materiali.clear();
         fieldID.setText("");
-        fieldFactorySite.setText("");
         fieldTime.setText("");
         fieldWeek.setText("");
         textAreaDescrizioneAttività.setText("");
         textAreaWorkspace.setText("");
         listModel.clear();
 
-        fieldArea.setText("");
     }
 
     private void disattivaVis() {
@@ -2354,23 +2342,26 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         } else {
             b = false;
         }
+        
+        String [] c = String.valueOf(tendinaSite.getSelectedItem()).split(", ");
+        
         try {
 
             switch (tipoAttività) {
                 case "Planned":
-                    a = new PlannedActivity(Integer.parseInt(fieldID.getText()), fieldFactorySite.getText(), fieldArea.getText(),
+                    a = new PlannedActivity(Integer.parseInt(fieldID.getText()), c[0], c[1],
                             tendinaTipologia.getSelectedItem().toString(),
                             textAreaDescrizioneAttività.getText(), Integer.parseInt(fieldTime.getText()),
                             Integer.parseInt(fieldWeek.getText()), materiali, b, textAreaWorkspace.getText(), null);
                     break;
                 case "EWO":
-                    a = new EwoActivity(Integer.parseInt(fieldID.getText()), fieldFactorySite.getText(), fieldArea.getText(),
+                    a = new EwoActivity(Integer.parseInt(fieldID.getText()), c[0], c[1],
                             tendinaTipologia.getSelectedItem().toString(),
                             textAreaDescrizioneAttività.getText(), Integer.parseInt(fieldTime.getText()),
                             Integer.parseInt(fieldWeek.getText()), materiali, b, textAreaWorkspace.getText(), date.getDayOfMonth(), null);
                     break;
                 default:
-                    a = new ExtraActivity(Integer.parseInt(fieldID.getText()), fieldFactorySite.getText(), fieldArea.getText(),
+                    a = new ExtraActivity(Integer.parseInt(fieldID.getText()),c[0], c[1],
                             tendinaTipologia.getSelectedItem().toString(),
                             textAreaDescrizioneAttività.getText(), Integer.parseInt(fieldTime.getText()),
                             Integer.parseInt(fieldWeek.getText()), materiali, b, textAreaWorkspace.getText(), null);
@@ -2711,9 +2702,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JFrame creazioneAttività;
     private javax.swing.JTextField fieldAddArea;
     private javax.swing.JTextField fieldAddFactorySite;
-    private javax.swing.JTextField fieldArea;
     private javax.swing.JTextField fieldDay;
-    private javax.swing.JTextField fieldFactorySite;
     private javax.swing.JTextField fieldID;
     private javax.swing.JTextField fieldInserisciCompetence;
     private javax.swing.JTextField fieldInserisciMateriale;
@@ -2744,10 +2733,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -2795,9 +2782,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JLabel labelDayState;
     private javax.swing.JLabel labelDisponibilità;
     private javax.swing.JLabel labelID;
+    private javax.swing.JLabel labelID1;
     private javax.swing.JLabel labelInterrompibileOra;
     private javax.swing.JLabel labelML;
     private javax.swing.JLabel labelOccupato;
+    private javax.swing.JLabel labelSiteOra;
     private javax.swing.JLabel labelSkillsEWO2;
     private javax.swing.JLabel labelTipologiaOra;
     private javax.swing.JLabel labelWO;
@@ -2826,6 +2815,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JTable tableStateEWO;
     private javax.swing.JComboBox<String> tendinaInterrompibile;
     private javax.swing.JComboBox<String> tendinaMateriali;
+    private javax.swing.JComboBox<String> tendinaSite;
     private javax.swing.JComboBox<String> tendinaSkills;
     private javax.swing.JComboBox<String> tendinaTipoAttività;
     private javax.swing.JComboBox<String> tendinaTipologia;
