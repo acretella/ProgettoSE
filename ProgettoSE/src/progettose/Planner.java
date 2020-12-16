@@ -314,11 +314,19 @@ public class Planner extends User{
 
     }
     
+    /**
+     * Assegna l'attvitià ad un manutentore
+     * @param m Manutentore a cui vogliamo assegnare l'attività
+     * @param a Attività da assegnare
+     * @param giorno Giorno in cui assegnare l'attività
+     * @param ore Ore delle settimana selezionate per svolgere l'attività
+     * @throws Exception L'attività non può essere assegnata. è possibile vedere la causa nel messaggio dell'eccezione.
+     */
     public void assignedActivityToMaintainer(Maintainer m, Activity a, int giorno, int ore[]) throws Exception{
         super.getConnection().setAutoCommit(false);
         super.getConnection().setSavepoint();
         if(a.getType() == 1){ //Se l'attività è una EWO devo verificare se il planner vuole assegnarla al posto di un'altra interrompibile
-            this.checkInterruptable(m, a, giorno, ore);
+            this.checkInterruptable(m, a, giorno, ore); //Controllo se il manutentore sta svolgendo un'attività da interrompere
             for (Maintainer man : this.getAllMaintainers()) {
                 if (man.getName().equals(m.getName())) {
                     m = man;
@@ -339,7 +347,6 @@ public class Planner extends User{
                 daily[ore[i]] -= timeLeft;
                 //Aggiorno il db
                 int id = 0;
-                
                 Statement stm = super.getConnection().createStatement();
                 ResultSet rst = stm.executeQuery("select * from Maintainer where nome = '" + m.getName()+"'");
                 rst.next();
@@ -347,26 +354,21 @@ public class Planner extends User{
                 try{
                     for (int j=0; j<=6; j++){
                         for (int k=0; k<=6; k++){
-                            Statement stm2 = super.getConnection().createStatement();
                             String query = "update Availability set minuti = " + avaibility[j][k] +
                                             " where ID_DISPONIBILITA in (select ID_DISPONIBILITA"+   
                                                 " from DISPONIBILITA_MANUTENTORE where ID_MAN = " + id + ")"+
                                                       "and (settimana = " + a.getWeek()+ ")" +
                                                       "and (giorno = " + j + ")"+
                                                       "and (ora = " + k + ")";
-                            stm2.executeUpdate(query);
+                            super.getConnection().createStatement().executeUpdate(query);
                         }
                     }
-                    Statement stm3 = super.getConnection().createStatement();
                     String query = "insert into Maintainer_for_Activity(maintainer,activity,day_of_week,hour_of_day,minutes_first_cell) values("+id+","+a.getId()+","+giorno+","+ore[0]+","+minutiprimacella+");";
-                    stm3.executeUpdate(query);
+                    super.getConnection().createStatement().executeUpdate(query);
                     super.getConnection().setAutoCommit(true);
                     return;
                 } catch (SQLException ex) {
-                    if (!super.getConnection().getAutoCommit()) {
-                        super.getConnection().rollback();
-                        super.getConnection().setAutoCommit(true);
-                    }
+                    this.roollback();
                     if (ex.getMessage().contains("maintainer_for_activity_pkey")) {
                         throw new Exception("L'attività è gia stata assegnata a " + m.getName());
                     } else {
@@ -375,13 +377,16 @@ public class Planner extends User{
                 }
             }
         }
-        if(!super.getConnection().getAutoCommit()){
+        this.roollback();
+        throw new Exception("Non c'è disponibilità per il manutentore nell'arco di tempo selezionato");
+    }
+    
+    private void roollback() throws SQLException{
+        if (!super.getConnection().getAutoCommit()) {
             super.getConnection().rollback();
             super.getConnection().setAutoCommit(true);
         }
-        throw new Exception("Non c'è disponibilità per il manutentore nell'arco di tempo selezionato");
     }
-
     public boolean setEwoActivity(EwoActivity a) {
         try {
             Statement stm = super.getConnection().createStatement();
@@ -497,7 +502,6 @@ public class Planner extends User{
         while(rst.next())
             id = rst.getInt("id_man");
         
-
         String query = "Select * from Maintainer_for_Activity,Activity where activity=id_ and  maintainer = " + id + " and day_of_week = " + giorno;
         ResultSet rst2 = stm.executeQuery(query);
         while (rst2.next()) {
@@ -519,6 +523,14 @@ public class Planner extends User{
 
     }
    
+    /**
+     * Ritorna un'array di stringhe dove l'indice rappresenta l'ora del giorno e l'elemento indica se il Maintainer in
+     * quella data ora è impegnato con un'attività
+     * @param m Manutentore
+     * @param week Settimana da controllare
+     * @param dayofweek Giorno da controllare
+     * @return Array di stringhe, un elemento dell'array ha l'asterisco se il Maintainer è occupato a svolgere l'attività in quell'ora
+     */
     public String[] busyMaintainer(Maintainer m,int week,int dayofweek){
         try {
             String busy[] = new String[]{" "," "," "," "," "," "," "};
@@ -553,11 +565,15 @@ public class Planner extends User{
 
     }
     
+    /**
+     * Metodo di utilità per i tickets
+     * @param id Identificativo dell'attività
+     * @return Ritorna lo stato generale della attività EWO (True=Assegnata,False altrimenti)
+     */
     public boolean getEwoState(int id){
         try {
-            String query = "select * from Maintainer_for_Activity where activity = " + id;
             //Se la tabella è vuota allora l'attività non è stata assegnata quindi ritorna false. Ritorna vero altrimenti.
-            return getConnection().createStatement().executeQuery(query).next(); 
+            return getConnection().createStatement().executeQuery("select * from Maintainer_for_Activity where activity = " + id).next(); 
         } catch (SQLException ex) {
             return false;
         }
