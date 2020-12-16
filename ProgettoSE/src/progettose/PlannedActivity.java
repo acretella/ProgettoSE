@@ -21,10 +21,7 @@ public class PlannedActivity extends Activity{
 
     @Override
     public int getDay() {
-        return -1;
-    }
-
-    
-    
+        throw new UnsupportedOperationException("Not supported yet."); 
+    }    
     
 }
