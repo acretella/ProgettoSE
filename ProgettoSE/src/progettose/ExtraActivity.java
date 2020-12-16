@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Altro
  */
-public class ExtraActivity extends UnPlannedActivity{
+public class ExtraActivity extends Activity{
 
     public ExtraActivity(int id, String factorySite, String area, String typology, String activityDescription, 
             int estimatedTime, int week, List<String> materials,boolean interruptable, String workSpaceNote, Procedure procedure) {
