@@ -19,7 +19,7 @@ public class Admin extends User {
     /**
      * Inserisce la competenza passata come parametro nel DB
      * @param competence nome della competenza da inserire
-     * @return true quando l'inserimento viene eseguito correttamente, false quando la competenza è già presente nel DB o ci sono SQLException
+     * @return true quando l'inserimento viene eseguito correttamente, false quando la competenza è già presente nel DB o ci sono SQLException 
      */
     public boolean createCompetence(String competence){
         try{
