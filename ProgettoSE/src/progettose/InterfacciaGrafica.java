@@ -5,6 +5,7 @@
  */
 package progettose;
 
+import java.awt.Color;
 import static java.awt.Color.black;
 import java.awt.Component;
 import java.awt.Desktop;
@@ -57,6 +58,18 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             return false;
         }
     };
+    private final DefaultTableModel tbEWO = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+    private final DefaultTableModel tbStateEWO = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
 
     String tipo = "";
     String interrompibile = "";
@@ -68,6 +81,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     DefaultListModel listModelSkillsEwo2 = new DefaultListModel();
     DefaultListModel listModelCompetence = new DefaultListModel();
     DefaultListModel listModelMaterial = new DefaultListModel();
+    DefaultListModel listModelSite = new DefaultListModel();
 
     LocalDate date = LocalDate.now();
     String giorno = String.valueOf(date.getDayOfWeek());
@@ -87,7 +101,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         initComponents();
         togliBordi();
-
 
         tabellaDisponibilità2.getColumnModel().setSelectionModel(new DefaultListSelectionModel() {
             private boolean isSelectable(int indice) {
@@ -145,20 +158,18 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         GestioneAttività = new javax.swing.JFrame();
         panelCopertura = new javax.swing.JPanel();
-        panelCopertura2 = new javax.swing.JPanel();
-        buttonCreaAttività = new javax.swing.JButton();
-        buttonMostraAttività = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabellaAttività = new javax.swing.JTable();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        textAreaWorkspaceNotesVis = new javax.swing.JTextArea();
+        jPanel1 = new javax.swing.JPanel();
+        panelCopertura2 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
         listaMaterialiVis = new javax.swing.JList<>();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        listaCompetenze = new javax.swing.JList<>();
         jScrollPane5 = new javax.swing.JScrollPane();
         textAreaDescrizioneAttivitàVis = new javax.swing.JTextArea();
-        jPanel1 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        listaCompetenze = new javax.swing.JList<>();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        textAreaWorkspaceNotesVis = new javax.swing.JTextArea();
         buttonAssegna = new javax.swing.JButton();
         labelDE = new javax.swing.JLabel();
         buttonSMP = new javax.swing.JButton();
@@ -166,8 +177,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelWO = new javax.swing.JLabel();
         labelML = new javax.swing.JLabel();
         buttonGestisciMateriali = new javax.swing.JButton();
-        buttonCancellaAttività = new javax.swing.JButton();
         buttonModificaAttività = new javax.swing.JButton();
+        buttonCreaAttività = new javax.swing.JButton();
+        buttonMostraAttività = new javax.swing.JButton();
+        buttonShowEWOState = new javax.swing.JButton();
+        buttonCancellaAttività = new javax.swing.JButton();
         creazioneAttività = new javax.swing.JFrame();
         panelDX = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
@@ -290,13 +304,49 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         buttonAddSite = new javax.swing.JButton();
         buttonRemoveSite = new javax.swing.JButton();
         buttonModifySite = new javax.swing.JButton();
-        fieldModifySite = new javax.swing.JTextField();
-        fieldInserisciSite = new javax.swing.JTextField();
+        fieldModifyFactorySite = new javax.swing.JTextField();
+        fieldAddFactorySite = new javax.swing.JTextField();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
         jScrollPane19 = new javax.swing.JScrollPane();
-        siteList = new javax.swing.JList<>();
+        listSite = new javax.swing.JList<>();
         buttonConfirmModifySite = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
+        fieldAddArea = new javax.swing.JTextField();
+        fieldModifyArea = new javax.swing.JTextField();
+        EwoState = new javax.swing.JFrame();
+        jPanel10 = new javax.swing.JPanel();
+        jScrollPane21 = new javax.swing.JScrollPane();
+        tableEWO = new javax.swing.JTable();
+        jScrollPane20 = new javax.swing.JScrollPane();
+        tableStateEWO = new javax.swing.JTable(){
+            @Override
+            public Component prepareRenderer (TableCellRenderer renderer, int rowIndex, int columnIndex){
+                Component component = super.prepareRenderer(renderer, rowIndex, columnIndex);
+                Object value = getModel().getValueAt(rowIndex,columnIndex);
+                component.setBackground(Color.WHITE);
+                component.setForeground(Color.BLACK);
+
+                if (value!="-"){
+                    if ((String)value == "Not Started"){
+                        component.setBackground(Color.RED);
+                    }
+                    else if ((String)value == "In progress"){
+                        component.setBackground(Color.YELLOW);
+                    }
+                    else if ((String)value == "Closed"){
+                        component.setBackground(Color.GREEN);
+                    }
+
+                };
+                return component;    }
+
+        };
+        labelDayState = new javax.swing.JLabel();
+        labelWeekState = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         buttonGestManut = new javax.swing.JButton();
         buttonAdministratorArea = new javax.swing.JButton();
@@ -327,6 +377,33 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         GestioneAttività.getContentPane().add(panelCopertura);
         panelCopertura.setBounds(340, 20, 850, 280);
 
+        tabellaAttività.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        tabellaAttività.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
+        tabellaAttività.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        tabellaAttività.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tabellaAttività.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tabellaAttività.setRowHeight(30);
+        tabellaAttività.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabellaAttivitàMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tabellaAttività);
+
+        GestioneAttività.getContentPane().add(jScrollPane3);
+        jScrollPane3.setBounds(400, 30, 760, 250);
+
+        jPanel1.setBackground(new java.awt.Color(0, 102, 102));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1400, 650));
+        jPanel1.setLayout(null);
+
         panelCopertura2.setBackground(new java.awt.Color(0, 102, 102));
 
         javax.swing.GroupLayout panelCopertura2Layout = new javax.swing.GroupLayout(panelCopertura2);
@@ -340,66 +417,13 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             .addGap(0, 240, Short.MAX_VALUE)
         );
 
-        GestioneAttività.getContentPane().add(panelCopertura2);
-        panelCopertura2.setBounds(0, 370, 1070, 0);
-
-        buttonCreaAttività.setText("Crea attività");
-        buttonCreaAttività.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCreaAttivitàActionPerformed(evt);
-            }
-        });
-        GestioneAttività.getContentPane().add(buttonCreaAttività);
-        buttonCreaAttività.setBounds(50, 40, 240, 40);
-
-        buttonMostraAttività.setText("Mostra elenco attività");
-        buttonMostraAttività.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonMostraAttivitàActionPerformed(evt);
-            }
-        });
-        GestioneAttività.getContentPane().add(buttonMostraAttività);
-        buttonMostraAttività.setBounds(50, 90, 240, 40);
-
-        tabellaAttività.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tabellaAttività.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        tabellaAttività.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tabellaAttività.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        tabellaAttività.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabellaAttivitàMouseClicked(evt);
-            }
-        });
-        jScrollPane3.setViewportView(tabellaAttività);
-
-        GestioneAttività.getContentPane().add(jScrollPane3);
-        jScrollPane3.setBounds(400, 30, 760, 250);
-
-        textAreaWorkspaceNotesVis.setEditable(false);
-        textAreaWorkspaceNotesVis.setColumns(20);
-        textAreaWorkspaceNotesVis.setRows(5);
-        textAreaWorkspaceNotesVis.setBorder(null);
-        jScrollPane7.setViewportView(textAreaWorkspaceNotesVis);
-
-        GestioneAttività.getContentPane().add(jScrollPane7);
-        jScrollPane7.setBounds(280, 450, 270, 150);
+        jPanel1.add(panelCopertura2);
+        panelCopertura2.setBounds(0, 360, 1070, 240);
 
         jScrollPane8.setViewportView(listaMaterialiVis);
 
-        GestioneAttività.getContentPane().add(jScrollPane8);
+        jPanel1.add(jScrollPane8);
         jScrollPane8.setBounds(560, 450, 240, 150);
-
-        jScrollPane4.setViewportView(listaCompetenze);
-
-        GestioneAttività.getContentPane().add(jScrollPane4);
-        jScrollPane4.setBounds(810, 450, 240, 150);
 
         textAreaDescrizioneAttivitàVis.setEditable(false);
         textAreaDescrizioneAttivitàVis.setColumns(20);
@@ -409,12 +433,22 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         textAreaDescrizioneAttivitàVis.setSelectionColor(new java.awt.Color(153, 153, 153));
         jScrollPane5.setViewportView(textAreaDescrizioneAttivitàVis);
 
-        GestioneAttività.getContentPane().add(jScrollPane5);
+        jPanel1.add(jScrollPane5);
         jScrollPane5.setBounds(0, 450, 270, 150);
 
-        jPanel1.setBackground(new java.awt.Color(0, 102, 102));
-        jPanel1.setMinimumSize(new java.awt.Dimension(1400, 650));
-        jPanel1.setLayout(null);
+        jScrollPane4.setViewportView(listaCompetenze);
+
+        jPanel1.add(jScrollPane4);
+        jScrollPane4.setBounds(810, 450, 240, 150);
+
+        textAreaWorkspaceNotesVis.setEditable(false);
+        textAreaWorkspaceNotesVis.setColumns(20);
+        textAreaWorkspaceNotesVis.setRows(5);
+        textAreaWorkspaceNotesVis.setBorder(null);
+        jScrollPane7.setViewportView(textAreaWorkspaceNotesVis);
+
+        jPanel1.add(jScrollPane7);
+        jScrollPane7.setBounds(280, 450, 270, 150);
 
         buttonAssegna.setText("Assegna attività");
         buttonAssegna.addActionListener(new java.awt.event.ActionListener() {
@@ -423,7 +457,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         jPanel1.add(buttonAssegna);
-        buttonAssegna.setBounds(50, 290, 240, 40);
+        buttonAssegna.setBounds(10, 260, 240, 40);
 
         labelDE.setBackground(new java.awt.Color(153, 204, 255));
         labelDE.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
@@ -477,16 +511,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         jPanel1.add(buttonGestisciMateriali);
-        buttonGestisciMateriali.setBounds(50, 140, 240, 40);
-
-        buttonCancellaAttività.setText("Cancella attività");
-        buttonCancellaAttività.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCancellaAttivitàActionPerformed(evt);
-            }
-        });
-        jPanel1.add(buttonCancellaAttività);
-        buttonCancellaAttività.setBounds(50, 190, 240, 40);
+        buttonGestisciMateriali.setBounds(10, 110, 240, 40);
 
         buttonModificaAttività.setText("Modifica attività");
         buttonModificaAttività.addActionListener(new java.awt.event.ActionListener() {
@@ -495,7 +520,43 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         jPanel1.add(buttonModificaAttività);
-        buttonModificaAttività.setBounds(50, 240, 240, 40);
+        buttonModificaAttività.setBounds(10, 210, 240, 40);
+
+        buttonCreaAttività.setText("Crea attività");
+        buttonCreaAttività.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCreaAttivitàActionPerformed(evt);
+            }
+        });
+        jPanel1.add(buttonCreaAttività);
+        buttonCreaAttività.setBounds(10, 10, 240, 40);
+
+        buttonMostraAttività.setText("Mostra elenco attività");
+        buttonMostraAttività.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonMostraAttivitàActionPerformed(evt);
+            }
+        });
+        jPanel1.add(buttonMostraAttività);
+        buttonMostraAttività.setBounds(10, 60, 240, 40);
+
+        buttonShowEWOState.setText("Mostra stato EWO");
+        buttonShowEWOState.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonShowEWOStateActionPerformed(evt);
+            }
+        });
+        jPanel1.add(buttonShowEWOState);
+        buttonShowEWOState.setBounds(10, 160, 240, 40);
+
+        buttonCancellaAttività.setText("Cancella attività");
+        buttonCancellaAttività.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCancellaAttivitàActionPerformed(evt);
+            }
+        });
+        jPanel1.add(buttonCancellaAttività);
+        buttonCancellaAttività.setBounds(10, 310, 240, 40);
 
         GestioneAttività.getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 1230, 610);
@@ -589,11 +650,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelID.setBounds(50, 90, 90, 20);
 
         fieldID.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
-        fieldID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldIDActionPerformed(evt);
-            }
-        });
         panelSX.add(fieldID);
         fieldID.setBounds(180, 80, 90, 30);
 
@@ -603,11 +659,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jLabel3.setBounds(50, 130, 100, 20);
 
         fieldFactorySite.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
-        fieldFactorySite.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldFactorySiteActionPerformed(evt);
-            }
-        });
         panelSX.add(fieldFactorySite);
         fieldFactorySite.setBounds(180, 120, 90, 30);
 
@@ -641,18 +692,13 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jLabel7.setBounds(50, 250, 60, 20);
 
         fieldTime.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
-        fieldTime.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldTimeActionPerformed(evt);
-            }
-        });
         panelSX.add(fieldTime);
         fieldTime.setBounds(180, 240, 90, 30);
 
         labelWeek.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
         labelWeek.setText("Week");
         panelSX.add(labelWeek);
-        labelWeek.setBounds(50, 280, 60, 24);
+        labelWeek.setBounds(50, 280, 60, 32);
 
         fieldWeek.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
         panelSX.add(fieldWeek);
@@ -706,7 +752,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         panelSX.add(tendinaTipoAttività);
-        tendinaTipoAttività.setBounds(180, 40, 89, 25);
+        tendinaTipoAttività.setBounds(180, 40, 89, 30);
 
         jLabel1.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
         jLabel1.setText("Tipo di attività");
@@ -745,11 +791,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jLabel2.setBounds(40, 10, 80, 30);
 
         textWeekAssegnata.setEditable(false);
-        textWeekAssegnata.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textWeekAssegnataActionPerformed(evt);
-            }
-        });
         jPanel2.add(textWeekAssegnata);
         textWeekAssegnata.setBounds(130, 10, 54, 30);
 
@@ -763,11 +804,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jLabel13.setBounds(310, 10, 270, 40);
 
         textAttivitàDaAssegnare.setEditable(false);
-        textAttivitàDaAssegnare.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textAttivitàDaAssegnareActionPerformed(evt);
-            }
-        });
+        textAttivitàDaAssegnare.setFont(new java.awt.Font("Britannic Bold", 0, 14)); // NOI18N
         jPanel2.add(textAttivitàDaAssegnare);
         textAttivitàDaAssegnare.setBounds(590, 10, 420, 40);
 
@@ -789,6 +826,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jPanel2.add(jLabel16);
         jLabel16.setBounds(310, 90, 700, 30);
 
+        tabellaDisponibilità.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         tabellaDisponibilità.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -797,14 +835,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
             }
         ));
-        tabellaDisponibilità.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabellaDisponibilitàMouseClicked(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tabellaDisponibilitàMouseReleased(evt);
-            }
-        });
+        tabellaDisponibilità.setRowHeight(30);
         jScrollPane10.setViewportView(tabellaDisponibilità);
 
         jPanel2.add(jScrollPane10);
@@ -815,7 +846,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jPanel2.add(jScrollPane11);
         jScrollPane11.setBounds(10, 125, 229, 188);
 
-        jButtonAssegnaAttività2.setText("ASSEGNA");
+        jButtonAssegnaAttività2.setFont(new java.awt.Font("Britannic Bold", 0, 14)); // NOI18N
+        jButtonAssegnaAttività2.setText("ASSIGN");
         jButtonAssegnaAttività2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAssegnaAttività2ActionPerformed(evt);
@@ -877,6 +909,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jPanel3.add(jScrollPane9);
         jScrollPane9.setBounds(10, 150, 222, 90);
 
+        tabellaDisponibilità2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        tabellaDisponibilità2.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
         tabellaDisponibilità2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -885,6 +919,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
             }
         ));
+        tabellaDisponibilità2.setRowHeight(30);
         jScrollPane12.setViewportView(tabellaDisponibilità2);
 
         jPanel3.add(jScrollPane12);
@@ -1018,12 +1053,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jLabel22.setOpaque(true);
         jPanel5.add(jLabel22);
         jLabel22.setBounds(250, 250, 150, 30);
-
-        textFieldEstimatedtimeewo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldEstimatedtimeewoActionPerformed(evt);
-            }
-        });
         jPanel5.add(textFieldEstimatedtimeewo);
         textFieldEstimatedtimeewo.setBounds(410, 250, 50, 30);
 
@@ -1149,11 +1178,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         buttonModifyMaterial.setBounds(10, 150, 130, 30);
 
         fieldMaterialeSelezionato.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
-        fieldMaterialeSelezionato.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldMaterialeSelezionatoActionPerformed(evt);
-            }
-        });
         jPanel6.add(fieldMaterialeSelezionato);
         fieldMaterialeSelezionato.setBounds(150, 150, 120, 30);
 
@@ -1286,10 +1310,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         jPanel8.setBounds(0, 0, 500, 230);
 
         manageSite.setTitle("Site management");
-        manageSite.setMinimumSize(new java.awt.Dimension(570, 320));
+        manageSite.setMinimumSize(new java.awt.Dimension(676, 282));
+        manageSite.setResizable(false);
         manageSite.getContentPane().setLayout(null);
 
         jPanel9.setBackground(new java.awt.Color(255, 0, 51));
+        jPanel9.setLayout(null);
 
         buttonAddSite.setText("Add Site");
         buttonAddSite.addActionListener(new java.awt.event.ActionListener() {
@@ -1297,6 +1323,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 buttonAddSiteActionPerformed(evt);
             }
         });
+        jPanel9.add(buttonAddSite);
+        buttonAddSite.setBounds(30, 30, 121, 30);
 
         buttonRemoveSite.setText("Remove Site");
         buttonRemoveSite.addActionListener(new java.awt.event.ActionListener() {
@@ -1304,6 +1332,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 buttonRemoveSiteActionPerformed(evt);
             }
         });
+        jPanel9.add(buttonRemoveSite);
+        buttonRemoveSite.setBounds(30, 70, 121, 32);
 
         buttonModifySite.setText("Modify Site");
         buttonModifySite.addActionListener(new java.awt.event.ActionListener() {
@@ -1311,20 +1341,27 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 buttonModifySiteActionPerformed(evt);
             }
         });
+        jPanel9.add(buttonModifySite);
+        buttonModifySite.setBounds(30, 110, 121, 33);
+        jPanel9.add(fieldModifyFactorySite);
+        fieldModifyFactorySite.setBounds(180, 110, 110, 30);
+        jPanel9.add(fieldAddFactorySite);
+        fieldAddFactorySite.setBounds(180, 30, 110, 30);
 
-        fieldInserisciSite.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldInserisciSiteActionPerformed(evt);
-            }
-        });
-
-        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel26.setText("SITE (factory site - area)");
+        jLabel26.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
+        jLabel26.setText("FACTORY SITE");
+        jPanel9.add(jLabel26);
+        jLabel26.setBounds(190, 10, 90, 24);
 
         jLabel27.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel27.setText("SITE LIST");
+        jPanel9.add(jLabel27);
+        jLabel27.setBounds(530, 20, 71, 17);
 
-        jScrollPane19.setViewportView(siteList);
+        jScrollPane19.setViewportView(listSite);
+
+        jPanel9.add(jScrollPane19);
+        jScrollPane19.setBounds(480, 40, 170, 150);
 
         buttonConfirmModifySite.setText("Confirm");
         buttonConfirmModifySite.addActionListener(new java.awt.event.ActionListener() {
@@ -1332,63 +1369,113 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 buttonConfirmModifySiteActionPerformed(evt);
             }
         });
+        jPanel9.add(buttonConfirmModifySite);
+        buttonConfirmModifySite.setBounds(250, 150, 95, 23);
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(buttonAddSite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(buttonRemoveSite, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                    .addComponent(buttonModifySite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(fieldInserisciSite, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                .addComponent(fieldModifySite))
-                            .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addComponent(buttonConfirmModifySite, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(48, 48, 48)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane19, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel27)))
-                    .addComponent(jLabel26))
-                .addGap(0, 703, Short.MAX_VALUE))
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(buttonAddSite, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fieldInserisciSite, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(buttonRemoveSite, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(fieldModifySite, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonModifySite, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(buttonConfirmModifySite)
-                        .addGap(122, 122, 122))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel27)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(127, 127, 127))))
-        );
+        jLabel14.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
+        jLabel14.setText("AREA");
+        jPanel9.add(jLabel14);
+        jLabel14.setBounds(350, 10, 34, 24);
+        jPanel9.add(fieldAddArea);
+        fieldAddArea.setBounds(310, 30, 110, 30);
+        jPanel9.add(fieldModifyArea);
+        fieldModifyArea.setBounds(310, 110, 110, 30);
 
         manageSite.getContentPane().add(jPanel9);
-        jPanel9.setBounds(0, 0, 0, 0);
+        jPanel9.setBounds(0, 0, 680, 300);
+
+        EwoState.setMinimumSize(new java.awt.Dimension(799, 398));
+        EwoState.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                EwoStateWindowClosing(evt);
+            }
+        });
+        EwoState.getContentPane().setLayout(null);
+
+        jPanel10.setBackground(new java.awt.Color(255, 153, 51));
+        jPanel10.setLayout(null);
+
+        tableEWO.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        tableEWO.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
+        tableEWO.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        tableEWO.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tableEWO.setRowHeight(30);
+        tableEWO.setRowSelectionAllowed(false);
+        jScrollPane21.setViewportView(tableEWO);
+
+        jPanel10.add(jScrollPane21);
+        jScrollPane21.setBounds(0, 170, 510, 200);
+
+        tableStateEWO.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        tableStateEWO.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
+        tableStateEWO.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "DEPARTMENT","MAINTAINER","STATE"
+            }
+        ));
+        tableStateEWO.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tableStateEWO.setRowHeight(30);
+        tableStateEWO.setRowSelectionAllowed(false);
+        jScrollPane20.setViewportView(tableStateEWO);
+
+        jPanel10.add(jScrollPane20);
+        jScrollPane20.setBounds(510, 170, 270, 200);
+
+        labelDayState.setBackground(new java.awt.Color(255, 255, 102));
+        labelDayState.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
+        labelDayState.setText("DAY:");
+        labelDayState.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        labelDayState.setOpaque(true);
+        jPanel10.add(labelDayState);
+        labelDayState.setBounds(10, 50, 160, 40);
+
+        labelWeekState.setBackground(new java.awt.Color(255, 255, 102));
+        labelWeekState.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
+        labelWeekState.setText("WEEK: ");
+        labelWeekState.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        labelWeekState.setOpaque(true);
+        jPanel10.add(labelWeekState);
+        labelWeekState.setBounds(10, 10, 160, 40);
+
+        jLabel29.setBackground(new java.awt.Color(255, 51, 51));
+        jLabel29.setFont(new java.awt.Font("Dubai Medium", 0, 24)); // NOI18N
+        jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel29.setText("ASSIGNED TICKETS");
+        jLabel29.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jLabel29.setOpaque(true);
+        jPanel10.add(jLabel29);
+        jLabel29.setBounds(270, 10, 500, 80);
+
+        jLabel30.setBackground(new java.awt.Color(255, 255, 102));
+        jLabel30.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
+        jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel30.setText("EWO");
+        jLabel30.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jLabel30.setOpaque(true);
+        jPanel10.add(jLabel30);
+        jLabel30.setBounds(0, 140, 510, 30);
+
+        jLabel31.setBackground(new java.awt.Color(255, 255, 102));
+        jLabel31.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
+        jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel31.setText("STATE");
+        jLabel31.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jLabel31.setOpaque(true);
+        jPanel10.add(jLabel31);
+        jLabel31.setBounds(510, 140, 270, 30);
+
+        EwoState.getContentPane().add(jPanel10);
+        jPanel10.setBounds(0, 0, 810, 410);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MENU' PRINCIPALE");
@@ -1446,13 +1533,14 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(InterfacciaGrafica.class.getName()).log(Level.SEVERE, null, ex);
         }
-                for (String m : p.getAllMaterials()) {
+        for (String m : p.getAllMaterials()) {
             tendinaMateriali.addItem(m);
 
         }
         GestioneAttività.setVisible(true);
         buttonModificaAttività.setVisible(false);
         buttonAssegna.setVisible(false);
+        buttonCancellaAttività.setVisible(false);
         disattivaVis();
         fieldDay.setText(giorno);
 
@@ -1476,10 +1564,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         creazioneAttività.setTitle("Creazione Attività");
 
     }//GEN-LAST:event_buttonCreaAttivitàActionPerformed
-
-    private void fieldTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldTimeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fieldTimeActionPerformed
 
     private void buttonCreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreaActionPerformed
 
@@ -1535,14 +1619,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
     }//GEN-LAST:event_buttonAggiungiMaterialeActionPerformed
 
-    private void fieldFactorySiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldFactorySiteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fieldFactorySiteActionPerformed
-
     private void buttonCancellaAttivitàActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancellaAttivitàActionPerformed
 
         String s = JOptionPane.showInputDialog(null, "Inserisci l'ID da cancellare");
-        if (s.isBlank()) {
+        if (s == null) {
+        } else if (s.isBlank()) {
             JOptionPane.showMessageDialog(null, "Campo ID vuoto", "ERRORE", ERROR_MESSAGE);
         } else {
             try {
@@ -1564,18 +1645,16 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private void buttonMostraAttivitàActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMostraAttivitàActionPerformed
         panelCopertura.setVisible(false);
 
+        buttonCancellaAttività.setVisible(true);
         buttonModificaAttività.setVisible(true);
         buttonAssegna.setVisible(true);
+
         svuotaTabella(tb);
         riempiTabella();
         if (tb.getRowCount() == 0) {
             mostraErrore("ERRORE", "Nessuna attività trovata");
         }
     }//GEN-LAST:event_buttonMostraAttivitàActionPerformed
-
-    private void fieldIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fieldIDActionPerformed
 
     private void buttonRimuoviMaterialeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRimuoviMaterialeActionPerformed
         if (listaMateriali.getSelectedIndex() == -1) {
@@ -1635,8 +1714,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
             fieldID.setText(String.valueOf(a.getId()));
             labelAttivitàOra.setText(labelAttivitàOra.getText() + " " + tipo.toLowerCase() + ")");
-            fieldFactorySite.setText(a.getFactorySite());
-            fieldArea.setText(a.getArea());
+            fieldFactorySite.setText(a.getSite().getFactorySite());
+            fieldArea.setText(a.getSite().getArea());
             labelTipologiaOra.setText((labelTipologiaOra.getText()) + " " + a.getTypology().toLowerCase() + ")");
             fieldTime.setText(String.valueOf(a.getEstimatedTime()));
             fieldWeek.setText(String.valueOf(a.getWeek()));
@@ -1676,7 +1755,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         }
 
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_buttonSMPActionPerformed
 
     private void tabellaAttivitàMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabellaAttivitàMouseClicked
@@ -1711,7 +1790,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
 
         }
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_tabellaAttivitàMouseClicked
 
     private void buttonAssegnaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAssegnaActionPerformed
@@ -1733,19 +1812,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_buttonAssegnaActionPerformed
-
-    private void textWeekAssegnataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textWeekAssegnataActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textWeekAssegnataActionPerformed
-
-    private void textAttivitàDaAssegnareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textAttivitàDaAssegnareActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textAttivitàDaAssegnareActionPerformed
-
-    private void tabellaDisponibilitàMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabellaDisponibilitàMouseClicked
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tabellaDisponibilitàMouseClicked
 
     private void jButtonAssegnaAttività2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAssegnaAttività2ActionPerformed
         int indice = tabellaDisponibilità.getSelectedColumn();
@@ -1769,7 +1835,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             labelDayDisp.setText(labelDayDisp.getText() + " " + tabellaDisponibilità.getColumnName(colonna));
             labelDisponibilità.setText((labelDisponibilità.getText()) + " " + tabellaDisponibilità.getValueAt(riga, 0) + " "
                     + tabellaDisponibilità.getValueAt(riga, colonna));
-            jTextFieldActivityToAssign2.setText(id + " - " + a.getFactorySite() + " - " + a.getArea() + " - "
+            jTextFieldActivityToAssign2.setText(id + " - " + a.getSite().getFactorySite() + " - " + a.getSite().getArea() + " - "
                     + a.getTypology() + " - " + a.getEstimatedTime() + " mins");
 
             tabellaDisponibilità2.setCellSelectionEnabled(true);
@@ -1780,10 +1846,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jButtonAssegnaAttività2ActionPerformed
-
-    private void tabellaDisponibilitàMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabellaDisponibilitàMouseReleased
-
-    }//GEN-LAST:event_tabellaDisponibilitàMouseReleased
 
     private void buttonForwardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonForwardActionPerformed
 
@@ -1829,20 +1891,20 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonForwardActionPerformed
 
     private void GestioneAttivitàWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_GestioneAttivitàWindowClosing
-        svuotaTabella(tb);        // TODO add your handling code here:
+        svuotaTabella(tb);
     }//GEN-LAST:event_GestioneAttivitàWindowClosing
 
     private void assegnaAttività2WindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_assegnaAttività2WindowClosing
         tabellaDisponibilità.setEnabled(true);
         resetPostEWO();
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_assegnaAttività2WindowClosing
 
     private void buttonConfermaEwoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfermaEwoActionPerformed
 
         Activity a = p.getActivity(id);
         try {
-            EwoActivity b = new EwoActivity(a.getId(), a.getFactorySite(), a.getArea(), a.getTypology(), textAreaDescrizioneEWO.getText(),
+            EwoActivity b = new EwoActivity(a.getId(), a.getSite().getFactorySite(), a.getSite().getArea(), a.getTypology(), textAreaDescrizioneEWO.getText(),
                     Integer.parseInt(textFieldEstimatedtimeewo.getText()),
                     a.getWeek(), a.getMaterials(), a.isInterruptable(), textAreaWNEWO.getText(), a.getDay(), a.getProcedure());
             b.setSkills(skills);
@@ -1907,10 +1969,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private void attivitàEWOWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_attivitàEWOWindowClosing
         clearEwoFrame();
     }//GEN-LAST:event_attivitàEWOWindowClosing
-
-    private void textFieldEstimatedtimeewoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldEstimatedtimeewoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldEstimatedtimeewoActionPerformed
 
     private void buttonRemoveSkillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveSkillActionPerformed
 
@@ -1982,10 +2040,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_buttonModifyMaterialActionPerformed
 
-    private void fieldMaterialeSelezionatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldMaterialeSelezionatoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fieldMaterialeSelezionatoActionPerformed
-
     private void buttonConfermaMaterialeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfermaMaterialeActionPerformed
         if (p.modifyMaterial(materialList.getSelectedValue(), fieldMaterialeSelezionato.getText())) {
             mostraSuccesso("Materiale modificato!", "Materiale modificato con successo!");
@@ -2004,8 +2058,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonConfermaMaterialeActionPerformed
 
     private void buttonAdministratorAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAdministratorAreaActionPerformed
-     administrator.setVisible(true);
-      try {
+        administrator.setVisible(true);
+        try {
             a = new Admin("alessio", "12345");
         } catch (SQLException ex) {
             Logger.getLogger(InterfacciaGrafica.class.getName()).log(Level.SEVERE, null, ex);
@@ -2019,27 +2073,27 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private void buttonAddCompetenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddCompetenceActionPerformed
         textFieldModifyCompetence.setVisible(false);
         buttonConfirmModifyCompetence.setVisible(false);
-        if(fieldInserisciCompetence.getText().isBlank()){
-         mostraErrore("ERROR", "Nessuna competenza inserita");
-     }else{
-         String competenza = fieldInserisciCompetence.getText();
-         competence.add(competenza);
-         if(!listModelCompetence.contains(competenza)){
-             a.createCompetence(competenza);
-             listModelCompetence.addElement(competenza);
-             fieldInserisciCompetence.setText("");
-         } else{
-             mostraErrore("ERROR","Competenza già presente");
-         }
-     }   
+        if (fieldInserisciCompetence.getText().isBlank()) {
+            mostraErrore("ERROR", "Nessuna competenza inserita");
+        } else {
+            String competenza = fieldInserisciCompetence.getText();
+            competence.add(competenza);
+            if (!listModelCompetence.contains(competenza)) {
+                a.createCompetence(competenza);
+                listModelCompetence.addElement(competenza);
+                fieldInserisciCompetence.setText("");
+            } else {
+                mostraErrore("ERROR", "Competenza già presente");
+            }
+        }
     }//GEN-LAST:event_buttonAddCompetenceActionPerformed
 
     private void buttonRemoveCompetenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveCompetenceActionPerformed
         textFieldModifyCompetence.setVisible(false);
         buttonConfirmModifyCompetence.setVisible(false);
-        if(competenceList.getSelectedIndex() == -1){
-            mostraErrore("ERROR","Seleziona una competenza dalla lista!");
-        }else{
+        if (competenceList.getSelectedIndex() == -1) {
+            mostraErrore("ERROR", "Seleziona una competenza dalla lista!");
+        } else {
             competence.remove(competenceList.getSelectedValue());
             listModelCompetence.removeElement(competenceList.getSelectedValue());
             a.deleteCompetence(competenceList.getSelectedValue());
@@ -2047,29 +2101,29 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonRemoveCompetenceActionPerformed
 
     private void buttonModifyCompetenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModifyCompetenceActionPerformed
-        if(competenceList.getSelectedIndex() == -1) {
-            mostraErrore("ERRORE","Seleziona una competenza dalla lista!");
-        }else{
+        if (competenceList.getSelectedIndex() == -1) {
+            mostraErrore("ERRORE", "Seleziona una competenza dalla lista!");
+        } else {
             textFieldModifyCompetence.setVisible(true);
             buttonConfirmModifyCompetence.setVisible(true);
             textFieldModifyCompetence.setText(competenceList.getSelectedValue());
-            
+
         }
     }//GEN-LAST:event_buttonModifyCompetenceActionPerformed
 
     private void buttonConfirmModifyCompetenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmModifyCompetenceActionPerformed
-          if (a.modifyCompetence(competenceList.getSelectedValue(), textFieldModifyCompetence.getText())) {
+        if (a.modifyCompetence(competenceList.getSelectedValue(), textFieldModifyCompetence.getText())) {
             mostraSuccesso("Materiale modificato!", "Materiale modificato con successo!");
             textFieldModifyCompetence.setVisible(false);
             buttonConfirmModifyCompetence.setVisible(false);
             textFieldModifyCompetence.setText("");
             listModelCompetence.clear();
-            for(String c : a.getAllSkills()){
+            for (String c : a.getAllSkills()) {
                 listModelCompetence.addElement(c);
             }
         } else {
-            mostraErrore("ERRORE", "Competenza non modificata!");        
-          }
+            mostraErrore("ERRORE", "Competenza non modificata!");
+        }
 
     }//GEN-LAST:event_buttonConfirmModifyCompetenceActionPerformed
 
@@ -2086,28 +2140,139 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonGestisciCompetenzeActionPerformed
 
     private void buttonConfirmModifySiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmModifySiteActionPerformed
-        // TODO add your handling code here:
+        Site nuovo = new Site(fieldModifyFactorySite.getText(), fieldModifyArea.getText());
+        String[] x = listSite.getSelectedValue().split(", ");
+
+        Site vecchio = new Site(x[0], x[1]);
+        if (a.modifySite(vecchio, nuovo)) {
+            mostraSuccesso("Site modificato!", "Site modificato con successo!");
+            
+            listModelSite.clear();
+            for (Site s : a.getAllSites()) {
+                listModelSite.addElement(s.toString());
+            }
+            
+            listSite.setEnabled(true);
+            fieldModifyFactorySite.setText("");
+            fieldModifyArea.setText("");
+            
+            fieldModifyFactorySite.setVisible(false);
+            fieldModifyArea.setVisible(false);
+            buttonConfirmModifySite.setVisible(false);
+            
+
+        }else{
+            mostraErrore("ERRORE","Site non modificato!");
+        }
+
     }//GEN-LAST:event_buttonConfirmModifySiteActionPerformed
 
-    private void fieldInserisciSiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldInserisciSiteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fieldInserisciSiteActionPerformed
-
     private void buttonModifySiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModifySiteActionPerformed
-        // TODO add your handling code here:
+        if (listSite.getSelectedIndex() > -1) {
+            fieldModifyFactorySite.setVisible(true);
+            fieldModifyArea.setVisible(true);
+            buttonConfirmModifySite.setVisible(true);
+            listSite.setEnabled(false);
+            String[] s = listSite.getSelectedValue().split(", ");
+            fieldModifyFactorySite.setText(s[0]);
+            fieldModifyArea.setText(s[1]);
+
+        } else {
+            mostraErrore("ERRORE", "Nessun site selezionato dalla lista da modificare!");
+        }
     }//GEN-LAST:event_buttonModifySiteActionPerformed
 
     private void buttonRemoveSiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveSiteActionPerformed
-        // TODO add your handling code here:
+        if (listSite.getSelectedIndex() > -1) {
+            String[] site = listSite.getSelectedValue().split(", ");
+            Site s = new Site(site[0], site[1]);
+            if (a.deleteSite(s)) {
+                mostraSuccesso("Site eliminato", "Site eliminato con successo");
+                listModelSite.removeElement(listSite.getSelectedValue());
+            } else {
+                mostraErrore("ERRORE!", "Non è stato possibile eliminare il site");
+            }
+        }
+
+
     }//GEN-LAST:event_buttonRemoveSiteActionPerformed
 
     private void buttonAddSiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddSiteActionPerformed
-        // TODO add your handling code here:
+        if (fieldAddFactorySite.getText().isBlank() || fieldAddArea.getText().isBlank()) {
+            mostraErrore("ERRORE", "Riempi i campi per la creazione del site!");
+        } else {
+            Site s = new Site(fieldAddFactorySite.getText(), fieldAddArea.getText());
+            if (a.createSite(s)) {
+                mostraSuccesso("SITE CREATO", "Site creato con successo!");
+                fieldAddFactorySite.setText("");
+                fieldAddArea.setText("");
+                listModelSite.addElement(s.toString());
+            } else {
+                mostraErrore("ERRORE", "Site già presente!");
+            }
+
+        }
+
+
     }//GEN-LAST:event_buttonAddSiteActionPerformed
 
     private void buttonManageSideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonManageSideActionPerformed
-       manageSite.setVisible(true);
+        manageSite.setVisible(true);
+
+        listModelSite.clear();
+        for (Site s : a.getAllSites()) {
+            listModelSite.addElement(s.toString());
+        }
+        listSite.setModel(listModelSite);
+
+        fieldModifyFactorySite.setVisible(false);
+        fieldModifyArea.setVisible(false);
+        buttonConfirmModifySite.setVisible(false);
+
     }//GEN-LAST:event_buttonManageSideActionPerformed
+
+    private void buttonShowEWOStateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonShowEWOStateActionPerformed
+
+        EwoState.setVisible(true);
+        resetStateEWO();
+
+        labelWeekState.setText(labelWeekState.getText() + String.valueOf(52 - Calendar.WEEK_OF_YEAR));
+        labelDayState.setText(labelDayState.getText() + date.getDayOfMonth());
+
+        tableEWO.setModel(tbEWO);
+        tableStateEWO.setModel(tbStateEWO);
+
+        String[] nomiEWO = {"ID", "Area", "Type", "Estimated Time"};
+        tbEWO.setColumnIdentifiers(nomiEWO);
+        String[] nomiStateEWO = {"Department", "Area", "General State"};
+        tbStateEWO.setColumnIdentifiers(nomiStateEWO);
+
+        for (Activity a : p.getAllActivities()) {
+            if (a.getType() == 1) {
+
+                String[] ewo = {String.valueOf(a.getId()), a.getSite().getArea() + " - " + a.getSite().getFactorySite(), a.getTypology(), String.valueOf(a.getEstimatedTime())};
+                tbEWO.addRow(ewo);
+                String s = "";
+                if (a.getDay() != date.getDayOfMonth()) {
+                    s = "Closed";
+                } else if (p.getEwoState(id)) {
+                    s = "In progress";
+                } else {
+                    s = "Not Started";
+                }
+                String[] stato = {"-", "-", s};
+                tbStateEWO.addRow(stato);
+            }
+        }
+
+    }//GEN-LAST:event_buttonShowEWOStateActionPerformed
+
+    private void EwoStateWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_EwoStateWindowClosing
+
+        resetStateEWO();
+
+
+    }//GEN-LAST:event_EwoStateWindowClosing
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -2257,7 +2422,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 interrompibile = "No";
             }
 
-            String[] inserimento = {String.valueOf(x.getId()), x.getFactorySite(), x.getArea(), x.getTypology(),
+            String[] inserimento = {String.valueOf(x.getId()), x.getSite().getFactorySite(), x.getSite().getArea(), x.getTypology(),
                 String.valueOf(x.getEstimatedTime()), String.valueOf(x.getWeek()), tipo, interrompibile};
             tb.addRow(inserimento);
         }
@@ -2390,7 +2555,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         labelWeekEWO.setText(labelWeekEWO.getText() + " " + String.valueOf(a.getWeek()));
         labelDayEWO.setText(labelDay.getText() + " " + a.getDay());
-        textFieldActivityEWO.setText(id + " - " + a.getFactorySite() + " - " + a.getArea() + " - " + a.getTypology());
+        textFieldActivityEWO.setText(id + " - " + a.getSite().getFactorySite() + " - " + a.getSite().getArea() + " - " + a.getTypology());
         textAreaWNEWO.setText(String.valueOf(a.getWorkSpaceNote()));
         textAreaDescrizioneEWO.setText(String.valueOf(a.getActivityDescription()));
         textFieldEstimatedtimeewo.setText(String.valueOf(a.getEstimatedTime()));
@@ -2426,7 +2591,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         listaSkills.setModel(listModelSkills);
         textWeekAssegnata.setText(String.valueOf(a.getWeek()));
-        textAttivitàDaAssegnare.setText(id + " - " + a.getFactorySite() + " - " + a.getArea() + " - " + a.getTypology() + " - " + a.getEstimatedTime() + " mins");
+        textAttivitàDaAssegnare.setText(id + " - " + a.getSite().getFactorySite() + " - " + a.getSite().getArea() + " - " + a.getTypology() + " - " + a.getEstimatedTime() + " mins");
 
         aggiornaTabella2();
 
@@ -2447,7 +2612,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelDisponibilità.setText("MAINTAINERS AVAILABILITY");
         labelWeekDisp.setText(labelWeekDisp.getText() + " " + a.getWeek());
         labelDayDisp.setText((labelDayDisp.getText()) + " " + a.getDay());
-        jTextFieldActivityToAssign2.setText(id + " - " + a.getFactorySite() + " - " + a.getArea() + " - "
+        jTextFieldActivityToAssign2.setText(id + " - " + a.getSite().getFactorySite() + " - " + a.getSite().getArea() + " - "
                 + a.getTypology() + " - " + a.getEstimatedTime() + " mins");
         textAreaWorkspaceNotes2.setText(a.getWorkSpaceNote());
         if (a.getProcedure() != null) {
@@ -2496,7 +2661,15 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         labelDayDisp.setText("DAY: ");
         svuotaTabella(tb3);
     }
+
+    private void resetStateEWO() {
+        labelWeekState.setText(("WEEK: "));
+        labelDayState.setText("DAY: ");
+        svuotaTabella(tbEWO);
+        svuotaTabella(tbStateEWO);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFrame EwoState;
     private javax.swing.JFrame GestioneAttività;
     private javax.swing.JFrame GestioneMateriali;
     private javax.swing.JFrame administrator;
@@ -2533,17 +2706,20 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JButton buttonRemoveSkill;
     private javax.swing.JButton buttonRimuoviMateriale;
     private javax.swing.JButton buttonSMP;
+    private javax.swing.JButton buttonShowEWOState;
     private javax.swing.JList<String> competenceList;
     private javax.swing.JFrame creazioneAttività;
+    private javax.swing.JTextField fieldAddArea;
+    private javax.swing.JTextField fieldAddFactorySite;
     private javax.swing.JTextField fieldArea;
     private javax.swing.JTextField fieldDay;
     private javax.swing.JTextField fieldFactorySite;
     private javax.swing.JTextField fieldID;
     private javax.swing.JTextField fieldInserisciCompetence;
     private javax.swing.JTextField fieldInserisciMateriale;
-    private javax.swing.JTextField fieldInserisciSite;
     private javax.swing.JTextField fieldMaterialeSelezionato;
-    private javax.swing.JTextField fieldModifySite;
+    private javax.swing.JTextField fieldModifyArea;
+    private javax.swing.JTextField fieldModifyFactorySite;
     private javax.swing.JTextField fieldTime;
     private javax.swing.JTextField fieldWeek;
     private javax.swing.JButton jButtonAssegnaAttività2;
@@ -2552,6 +2728,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -2566,7 +2743,10 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -2574,6 +2754,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -2594,6 +2775,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane18;
     private javax.swing.JScrollPane jScrollPane19;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane20;
+    private javax.swing.JScrollPane jScrollPane21;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
@@ -2609,6 +2792,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JLabel labelDay;
     private javax.swing.JLabel labelDayDisp;
     private javax.swing.JLabel labelDayEWO;
+    private javax.swing.JLabel labelDayState;
     private javax.swing.JLabel labelDisponibilità;
     private javax.swing.JLabel labelID;
     private javax.swing.JLabel labelInterrompibileOra;
@@ -2620,6 +2804,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JLabel labelWeek;
     private javax.swing.JLabel labelWeekDisp;
     private javax.swing.JLabel labelWeekEWO;
+    private javax.swing.JLabel labelWeekState;
+    private javax.swing.JList<String> listSite;
     private javax.swing.JList<String> listSkillsEWO;
     private javax.swing.JList<String> listSkillsEWO2;
     private javax.swing.JList<String> listaCompetenze;
@@ -2633,10 +2819,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private javax.swing.JPanel panelCopertura2;
     private javax.swing.JPanel panelDX;
     private javax.swing.JPanel panelSX;
-    private javax.swing.JList<String> siteList;
     private javax.swing.JTable tabellaAttività;
     private javax.swing.JTable tabellaDisponibilità;
     private javax.swing.JTable tabellaDisponibilità2;
+    private javax.swing.JTable tableEWO;
+    private javax.swing.JTable tableStateEWO;
     private javax.swing.JComboBox<String> tendinaInterrompibile;
     private javax.swing.JComboBox<String> tendinaMateriali;
     private javax.swing.JComboBox<String> tendinaSkills;
