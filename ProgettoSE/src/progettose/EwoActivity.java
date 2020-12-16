@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Altro
  */
-public class EwoActivity extends UnPlannedActivity{
+public class EwoActivity extends Activity{
     private int day;
 
     public EwoActivity(int id, String factorySite, String area, String typology, String activityDescription, int estimatedTime, int week, List<String> materials,boolean interruptable, String workSpaceNote,int day,Procedure procedura) {

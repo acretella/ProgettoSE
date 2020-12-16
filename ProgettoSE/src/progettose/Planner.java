@@ -21,38 +21,31 @@ import java.util.Map;
 public class Planner extends User{
 
 
-    public Planner(String username, String password) throws SQLException {
-        
+    public Planner(String username, String password) throws SQLException {        
         super(username,password);
-
     }
 
+    /**
+     * Aggiunge un'attività nel database
+     * @param a  Attività da aggiungere
+     * @throws Exception Se esiste già un'attività con lo stesso id oppure l'input sulla settimana non è corretto. 
+     */
     public void createActivity(Activity a) throws Exception {
         try {
-            Statement stm = super.getConnection().createStatement();
             String query;
-            if (a.getProcedure() == null) {
-                if (a.getType() == 1) //se è una EWO activity allora devo aggiungere il giorno 
-                {
-                    query = "insert into Activity(id_,factorySite,area,typology,description,estimatedTime,week,interruptable,workSpaceNotes,activityType,procedura,giorno)"
-                            + " values(" + a.getId() + ",'" + a.getSite().getFactorySite() + "','" + a.getSite().getArea() + "','" + a.getTypology() + "','"
-                            + a.getActivityDescription() + "'," + a.getEstimatedTime() + "," + a.getWeek() + "," + a.isInterruptable() + ",'" + a.getWorkSpaceNote()
-                            + "'," + a.getType() + ",null" + "," + a.getDay() + ");";
-                } else {
-                    query = "insert into Activity(id_,factorySite,area,typology,description,estimatedTime,week,interruptable,workSpaceNotes,activityType,procedura)"
-                            + " values(" + a.getId() + ",'" + a.getSite().getFactorySite() + "','" + a.getSite().getArea() + "','" + a.getTypology() + "','"
-                            + a.getActivityDescription() + "'," + a.getEstimatedTime() + "," + a.getWeek() + "," + a.isInterruptable() + ",'" + a.getWorkSpaceNote()
-                            + "'," + a.getType() + ",null" + ");";
-                }
-            } else { // se all'attività è associata una procedura
+            if (a.getType() == 1) //se è una EWO activity allora devo aggiungere il giorno 
+                query = "insert into Activity(id_,factorySite,area,typology,description,estimatedTime,week,interruptable,workSpaceNotes,activityType,procedura,giorno)"
+                        + " values(" + a.getId() + ",'" + a.getSite().getFactorySite() + "','" + a.getSite().getArea() + "','" + a.getTypology() + "','"
+                        + a.getActivityDescription() + "'," + a.getEstimatedTime() + "," + a.getWeek() + "," + a.isInterruptable() + ",'" + a.getWorkSpaceNote()
+                        + "'," + a.getType() + ",null" + "," + a.getDay() + ");";
+            else 
                 query = "insert into Activity(id_,factorySite,area,typology,description,estimatedTime,week,interruptable,workSpaceNotes,activityType,procedura)"
                         + " values(" + a.getId() + ",'" + a.getSite().getFactorySite() + "','" + a.getSite().getArea() + "','" + a.getTypology() + "','"
                         + a.getActivityDescription() + "'," + a.getEstimatedTime() + "," + a.getWeek() + "," + a.isInterruptable() + ",'" + a.getWorkSpaceNote()
-                        + "'," + a.getType() + "," + a.getProcedure().getId() + ");";
-            }
-            stm.executeUpdate(query);
-
-            updateMaterials(a);
+                        + "'," + a.getType() + ",null" + ");";
+            
+            super.getConnection().createStatement().executeUpdate(query); //Creo l'attività nel DB
+            updateMaterials(a); //Inserisco i materiali necessari all'attività nel DB
 
         } catch (SQLException ex) {
             if (ex.getMessage().contains("check_id")) {
@@ -66,27 +59,26 @@ public class Planner extends User{
 
     }
 
-
+    /**
+     *
+     * @return Una lista di tutte le attività contenute nel database
+     */
     public List<Activity> getAllActivities() {
         try {
-            Statement stm = super.getConnection().createStatement();
-
             String query = "Select * from Activity order by week";
-
-            ResultSet rst = stm.executeQuery(query);
-
+            ResultSet rst = super.getConnection().createStatement().executeQuery(query); 
+           
             List<Activity> l = new ArrayList<>();
 
             while (rst.next()) {
-                List<String> materials = new ArrayList<>(); //creo la lista di materiali dell'attività
-                int id = rst.getInt("id_");
+                List<String> materials = new ArrayList<>(); //creo la lista di materiali di ogni attività
+                int id = rst.getInt("id_"); //id dell'attività
                 query = "Select * from Material_for_Activity where activity = " + id;
-                Statement stm2 = super.getConnection().createStatement();
-                ResultSet rst2 = stm2.executeQuery(query);
+                ResultSet rst2 = super.getConnection().createStatement().executeQuery(query);
                 while (rst2.next()) {
                     materials.add(rst2.getString("material"));
                 }
-                l.add(this.createActivity(rst, materials, id));
+                l.add(this.createActivity(rst, materials, id)); //Dopo aver ottenuto i materiali dell'attività creo l'oggetto attività e lo aggiungo alla lista di attività
             }
             return l;
 
@@ -96,17 +88,21 @@ public class Planner extends User{
 
     }
 
+    /**
+     * Crea la procedura associata ad un'attività
+     * @param id Identificativo della procedura
+     * @return Procedura associata all'attività
+     */
     protected Procedure createProcedure(int id) {
         try {
-            Statement stm = super.getConnection().createStatement();
             String query = "select * from procedura where id_ = " + id;
-            ResultSet rst = stm.executeQuery(query);
+            ResultSet rst = super.getConnection().createStatement().executeQuery(query);
             rst.next();
             String path = rst.getString("smp_path");
             query = "select * from competence_for_procedure where procedura = " + id;
-            rst = stm.executeQuery(query);
+            rst = super.getConnection().createStatement().executeQuery(query);
             List<String> competences = new ArrayList<>();
-            while (rst.next()) {
+            while (rst.next()) { //Aggiungo le competenze alla procedura
                 competences.add(rst.getString("competence"));
             }
             if (path != null) {
@@ -172,39 +168,41 @@ public class Planner extends User{
         return a;
     }
 
+    /**
+     * Cancella un'attività dal database
+     * @param id Identificativo dell'attività da cancellare
+     * @return True se l'attività è stata cancellata, False altrimenti
+     */
     public boolean deleteActivity(int id) {
         try {
             Statement stm = super.getConnection().createStatement();
-            String query = "delete from Activity where id_ =" + id;
             Activity a = this.getActivity(id);
-            if (a == null) //Se l'attività da cancellare non esiste
-            {
+            if (a == null) //Se l'attività da cancellare non esiste        
                 return false;
-            }
+            
             this.rebuildAvailability(a, false, null);//ripristino le disponibilità dei manutentori collegati all'attività
-            if (stm.executeUpdate(query) == 0) {
-                return false;
-            }
-
-            return true;
+            return stm.executeUpdate("delete from Activity where id_ =" + id) != 0;
         } catch (SQLException ex) {
             return false;
         }
     }
 
+    /**
+     *
+     * @param id Identificativo dell'attività
+     * @return L'attività presente nel Database con l'identificativo dato come parametro
+     */
     public Activity getActivity(int id) {
         try {
-            Statement stm = super.getConnection().createStatement();
             String query = "Select * from Activity where id_ = " + id;
-            ResultSet rst = stm.executeQuery(query);
+            ResultSet rst = super.getConnection().createStatement().executeQuery(query);
 
             query = "Select * from Material_for_Activity where activity = " + id;
-            Statement stm2 = super.getConnection().createStatement();
-            ResultSet rst2 = stm2.executeQuery(query);
+            ResultSet rst2 = super.getConnection().createStatement().executeQuery(query);
 
             List<String> materials = new ArrayList<>();
-            while (rst2.next()) {
-                materials.add(rst2.getString("material"));
+            while (rst2.next()) { //Aggiungo la lista di materiali all'attività
+                materials.add(rst2.getString("material")); //Dopo aver ottenuto i materiali dell'attività creo l'oggetto attività e lo aggiungo alla lista di attività
             }
             rst.next();
             return createActivity(rst, materials, id);
@@ -214,81 +212,81 @@ public class Planner extends User{
         }
     }
 
+    /**
+     * Modifica un'attività presente nel database
+     * @param a Attività da modificare
+     * @throws Exception Se non è stato possibile effettuare la modifica, la causa è contenuta nel messaggio dell'eccezione
+     */
     public void modifyActivity(Activity a) throws Exception {
         try {
-            Statement stm = super.getConnection().createStatement();
             String idproc;
-            if (a.getProcedure() != null) {
+            if (a.getProcedure() != null) 
                 idproc = String.valueOf(a.getProcedure().getId());
-            } else {
+            else 
                 idproc = null;
-            }
+            
             String query = "";
-            if (a.getDay() == -1) {
+            if (a.getType() != 1) 
                 query = "update Activity set factorySite='" + a.getSite().getFactorySite()
                         + "',area='" + a.getSite().getArea() + "',typology='" + a.getTypology() + "',description='" + a.getActivityDescription()
                         + "',estimatedTime=" + a.getEstimatedTime() + ",week=" + a.getWeek() + ",interruptable=" + a.isInterruptable()
                         + ",workSpaceNotes='" + a.getWorkSpaceNote() + "',activityType=" + a.getType()
                         + ",procedura=" + idproc + ",giorno= null" + " where id_=" + a.getId() + ";";
-            } else {
+            else 
                 query = "update Activity set factorySite='" + a.getSite().getFactorySite()
                         + "',area='" + a.getSite().getArea() + "',typology='" + a.getTypology() + "',description='" + a.getActivityDescription()
                         + "',estimatedTime=" + a.getEstimatedTime() + ",week=" + a.getWeek() + ",interruptable=" + a.isInterruptable()
                         + ",workSpaceNotes='" + a.getWorkSpaceNote() + "',activityType=" + a.getType()
                         + ",procedura=" + idproc + ",giorno=" + a.getDay() + " where id_=" + a.getId() + ";";
-            }
+            
 
-            if (stm.executeUpdate(query) == 0) {
+            if (super.getConnection().createStatement().executeUpdate(query) == 0) 
                 throw new Exception("Nessuna modifica effettuata");
-            }
 
             query = "delete from Material_for_Activity where activity= " + a.getId();
-            stm.executeUpdate(query);
+            super.getConnection().createStatement().executeUpdate(query);
 
             updateMaterials(a);
         } catch (SQLException ex) {
-            if (ex.getMessage().contains("check_week")) {
+            if (ex.getMessage().contains("check_week")) 
                 throw new Exception("La settimana deve essere compresa fra 1 e 52");
-            } else {
+            else 
                 throw new Exception("L'attività non può essere modificata");
-            }
+            
         }
     }
     
     private void updateMaterials(Activity a) throws SQLException{
-        String query=  " ";
-        Statement stm = super.getConnection().createStatement();
         if (!a.getMaterials().isEmpty()) {
             for (String material : a.getMaterials()) {
-
-                query = "insert into Material_for_Activity(activity,material) values("
+                String query = "insert into Material_for_Activity(activity,material) values("
                         + a.getId() + ",'" + material + "');";
-
-                stm.executeUpdate(query);
+                super.getConnection().createStatement().executeUpdate(query);
             }
         }
     }
 
+    /**
+     * 
+     * @return Una lista di tutti i Maintainer presenti nel DB
+     */
     public List<Maintainer> getAllMaintainers() {
         List<Maintainer> l = new ArrayList<>();
         int id;
         try {
-            Statement stm = super.getConnection().createStatement();
-            Statement stm2 = super.getConnection().createStatement();
             String query = "select * from Maintainer";
-            ResultSet rst = stm.executeQuery(query);
+            ResultSet rst = super.getConnection().createStatement().executeQuery(query);
             while (rst.next()) {
                 Map<Integer, int[][]> avaibilities = new HashMap<>();
                 List<String> competencies = new ArrayList<>();
                 String name = rst.getString("nome");
                 id = rst.getInt("ID_MAN");
-                ResultSet rst2 = stm2.executeQuery("select * from Competence_for_Maintainer where id_man = " + id);
-                while (rst2.next()) //Aggiungo le competenze al Maintainer
-                {
+                ResultSet rst2 = super.getConnection().createStatement().executeQuery("select * from Competence_for_Maintainer where id_man = " + id);
+                while (rst2.next()) //Aggiungo le competenze al Maintainer              
                     competencies.add(rst2.getString("NOMECOMPETENZA"));
-                }
+                
                 query = "select * from DISPONIBILITA_MANUTENTORE as dm,Availability as a where dm.ID_DISPONIBILITA = a.ID_DISPONIBILITA and dm.ID_MAN = " + id + " order by Settimana";
-                rst2 = stm2.executeQuery(query);
+                rst2 = super.getConnection().createStatement().executeQuery(query);
                 Integer key;
                 int value[][] = new int[7][7]; //matrice valore della entry
                 boolean flag = true;
@@ -308,7 +306,6 @@ public class Planner extends User{
                 }
                 avaibilities.put(temp, value); //per non perdere l'ultima settimana di disponibilità
                 l.add(new Maintainer(name, competencies, avaibilities));
-
             }
             return l;
         } catch (SQLException ex) {
