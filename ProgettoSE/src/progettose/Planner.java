@@ -495,34 +495,34 @@ public class Planner extends User{
     
 
     private void checkInterruptable(Maintainer m, Activity a, int giorno, int ore[]) throws SQLException {
-        //Acquisisco id del maintainer dal db
-        Statement stm = super.getConnection().createStatement();
-        ResultSet rst = stm.executeQuery("Select * from Maintainer where nome = '" + m.getName()+"'");
-        int id=0;
-        while(rst.next())
-            id = rst.getInt("id_man");
-        
+        int id = this.getIdMaintainer(m.getName()); //Acquisisco id del maintainer dal db
+        //Controllo se ci sono attività nel giorno e nelle ore del giorno date come parametro
         String query = "Select * from Maintainer_for_Activity,Activity where activity=id_ and  maintainer = " + id + " and day_of_week = " + giorno;
-        ResultSet rst2 = stm.executeQuery(query);
+        ResultSet rst2 = super.getConnection().createStatement().executeQuery(query);
         while (rst2.next()) {
             int et = rst2.getInt("estimatedTime");
             int start = rst2.getInt("hour_of_day"); //inizio attività
             int end; //fine attività
-            if (et % 60 == 0) {
+            if (et % 60 == 0) {  //Calcolo quante e in quali ore è svolta l'attività
                 end = ((et / 60) + start) - 1;
             } else {
                 end = (et / 60) + start;
             }
-            if ((end >= ore[0] && start <= ore[ore.length - 1]) || (start <= ore[ore.length - 1] && end >= ore[0])) {
+            if ((end >= ore[0] && start <= ore[ore.length - 1]) || (start <= ore[ore.length - 1] && end >= ore[0])) { 
                 if (rst2.getBoolean("interruptable")) {
-                    this.rebuildAvailability(this.getActivity(rst2.getInt("id_")), true, m);
-                    super.getConnection().createStatement().executeUpdate("delete from Maintainer_for_Activity where maintainer = " + id +" and activity = "+ a.getId());
+                    int ida =  rst2.getInt("id_");
+                    this.rebuildAvailability(this.getActivity(ida), true, m); //Ripristinare le disponibilità del manutentore 
+                    super.getConnection().createStatement().executeUpdate("delete from Maintainer_for_Activity where maintainer = " + id +" and activity = "+ ida); //Interruzione dell'attività
                 }
             }
         }
-
     }
    
+    private int getIdMaintainer(String name) throws SQLException{
+        ResultSet rst = super.getConnection().createStatement().executeQuery("Select * from Maintainer where nome = '" + name + "'");
+        rst.next();
+        return rst.getInt("id_man");
+    }
     /**
      * Ritorna un'array di stringhe dove l'indice rappresenta l'ora del giorno e l'elemento indica se il Maintainer in
      * quella data ora è impegnato con un'attività
@@ -535,9 +535,7 @@ public class Planner extends User{
         try {
             String busy[] = new String[]{" "," "," "," "," "," "," "};
             ResultSet rst = super.getConnection().createStatement().executeQuery("Select * from Maintainer where nome = '" + m.getName()+"'");
-            int id=0;
-            while(rst.next())
-                id = rst.getInt("id_man");
+            int id= this.getIdMaintainer(m.getName());
             String query="Select * from Maintainer_for_Activity,Activity where activity = id_ and maintainer = " + id + " and week = " + week + " and day_of_week = " + dayofweek ;
             ResultSet rst2 = super.getConnection().createStatement().executeQuery(query);
             while(rst2.next()){
@@ -559,7 +557,6 @@ public class Planner extends User{
             }
             return busy;
         } catch (SQLException ex) {
-            System.out.println(ex);
             return null;
         }
 
