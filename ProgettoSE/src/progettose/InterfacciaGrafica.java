@@ -6,7 +6,6 @@
 package progettose;
 
 import java.awt.Color;
-import static java.awt.Color.black;
 import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.event.WindowEvent;
@@ -16,7 +15,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JOptionPane;
@@ -27,9 +25,6 @@ import java.util.Calendar;
 import java.time.LocalDate;
 import java.util.Locale;
 import javax.swing.ListSelectionModel;
-import static javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION;
-import static javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION;
-import static javax.swing.ListSelectionModel.SINGLE_SELECTION;
 import javax.swing.table.TableCellRenderer;
 
 /**
@@ -90,8 +85,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     List<String> materiali = new ArrayList<>();
     int id;
     List<String> skills = new ArrayList<>();
-    List<String> materiali2 = new ArrayList<>();
-    List<String> competence = new ArrayList<>();
     Calendar cal = Calendar.getInstance(Locale.ITALY);
 
     /**
@@ -417,7 +410,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         );
 
         jPanel1.add(panelCopertura2);
-        panelCopertura2.setBounds(0, 360, 1070, 240);
+        panelCopertura2.setBounds(0, 360, 0, 0);
 
         jScrollPane8.setViewportView(listaMaterialiVis);
 
@@ -1238,7 +1231,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         );
 
         manageCompetence.setTitle("Competence management");
-        manageCompetence.setMinimumSize(new java.awt.Dimension(499, 227));
+        manageCompetence.setMinimumSize(new java.awt.Dimension(499, 251));
         manageCompetence.getContentPane().setLayout(null);
 
         jPanel8.setBackground(new java.awt.Color(255, 0, 51));
@@ -1253,7 +1246,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         jPanel8.add(buttonAddCompetence);
-        buttonAddCompetence.setBounds(10, 32, 133, 30);
+        buttonAddCompetence.setBounds(10, 32, 150, 30);
 
         buttonRemoveCompetence.setText("Remove competence");
         buttonRemoveCompetence.addActionListener(new java.awt.event.ActionListener() {
@@ -1262,7 +1255,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         jPanel8.add(buttonRemoveCompetence);
-        buttonRemoveCompetence.setBounds(10, 79, 133, 32);
+        buttonRemoveCompetence.setBounds(10, 79, 150, 32);
 
         buttonModifyCompetence.setText("Modify competence");
         buttonModifyCompetence.addActionListener(new java.awt.event.ActionListener() {
@@ -1271,7 +1264,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
         });
         jPanel8.add(buttonModifyCompetence);
-        buttonModifyCompetence.setBounds(10, 129, 133, 33);
+        buttonModifyCompetence.setBounds(10, 129, 150, 33);
         jPanel8.add(textFieldModifyCompetence);
         textFieldModifyCompetence.setBounds(176, 129, 95, 33);
         jPanel8.add(fieldInserisciCompetence);
@@ -1662,12 +1655,13 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             if (!tabellaAttività.getValueAt(tabellaAttività.getSelectedRow(), 6).equals("EWO")) {
                 disabilitaDay();
                 fieldWeek.setEnabled(true);
+
             } else {
                 fieldWeek.setEnabled(false);
                 fieldDay.setVisible(true);
                 labelDay.setVisible(true);
             }
-            caseModifyActivity();//rendo visibili le giuse caselle
+            caseModifyActivity();//rendo visibili le giuste caselle
             id = Integer.parseInt(tb.getValueAt(tabellaAttività.getSelectedRow(), 0).toString());
             Activity a = p.getActivity(id);
             materiali = a.getMaterials();
@@ -1685,6 +1679,19 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             }
 
             setLabelModifyActivity();//riempio le text field con i dati attuali dell'attività
+
+            if (tendinaTipoAttività.getSelectedItem().equals("EWO")) {
+                fieldWeek.setEnabled(false);
+                fieldWeek.setText(String.valueOf(cal.get(Calendar.WEEK_OF_YEAR) - 1));
+                fieldDay.setText((date.getDayOfWeek().toString()));
+                fieldDay.setVisible(true);
+                fieldDay.setEnabled(false);
+                labelDay.setVisible(true);
+            } else {
+                fieldWeek.setEnabled(true);
+                fieldWeek.setText(String.valueOf(a.getWeek()));
+
+            }
 
             for (String m : a.getMaterials()) {
                 listModel.addElement(m);
@@ -1884,7 +1891,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             fieldDay.setVisible(true);
             labelDay.setVisible(true);
             fieldDay.setText(giorno);
-            fieldWeek.setText(String.valueOf(cal.get(Calendar.WEEK_OF_YEAR))); 
+            fieldWeek.setText(String.valueOf(cal.get(Calendar.WEEK_OF_YEAR) - 1));
 
         } else {
             if (!buttonCrea.getText().equals(("MODIFY ACTIVITY"))) {
@@ -1912,7 +1919,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_attivitàEWOWindowClosing
 
     private void buttonRemoveSkillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveSkillActionPerformed
-
         if (listSkillsEWO.getSelectedIndex() == -1) {
             mostraErrore("ERROR", "Seleziona una skill dalla lista delle skills da rimuovere");
         } else {
@@ -1923,12 +1929,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonRemoveSkillActionPerformed
 
     private void buttonGestisciMaterialiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGestisciMaterialiActionPerformed
-        listModelMaterial.clear();
         GestioneMateriali.setVisible(true);
-        materiali2 = p.getAllMaterials();
-        for (String m : materiali2) {
-            listModelMaterial.addElement(m);
-        }
+        addMaterialsToList();
         materialList.setModel(listModelMaterial);
         fieldMaterialeSelezionato.setVisible(false);
         buttonConfermaMateriale.setVisible(false);
@@ -1941,7 +1943,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             mostraErrore("ERRORE", "Nessun materiale inserito");
         } else {
             String materiale = fieldInserisciMateriale.getText();
-            materiali2.add(materiale);
             if (!listModelMaterial.contains(materiale)) {
                 p.createMaterial(materiale);
                 listModelMaterial.addElement(materiale);
@@ -1949,9 +1950,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             } else {
                 mostraErrore("ERRORE", "Materiale già presente");
             }
-
         }
-
     }//GEN-LAST:event_buttonAddMaterialActionPerformed
 
     private void buttonRemoveMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveMaterialActionPerformed
@@ -1960,7 +1959,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         if (materialList.getSelectedIndex() == -1) {
             mostraErrore("ERROR", "Seleziona un materiale dalla lista dei materiali da rimuovere");
         } else {
-            materiali2.remove(materialList.getSelectedValue());
             listModelMaterial.removeElement(materialList.getSelectedValue());
             if (p.deleteMaterial(materialList.getSelectedValue())) {
                 mostraSuccesso("Materiale rimosso", "Materiale rimosso con successo");
@@ -1985,14 +1983,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             fieldMaterialeSelezionato.setVisible(false);
             buttonConfermaMateriale.setVisible(false);
             fieldMaterialeSelezionato.setText("");
-            listModelMaterial.clear();
-            for (String s : p.getAllMaterials()) {
-                listModelMaterial.addElement(s);
-            }
+            addMaterialsToList();
         } else {
             mostraErrore("ERRORE", "Materiale non modificato!");
         }
-    
+
     }//GEN-LAST:event_buttonConfermaMaterialeActionPerformed
 
     private void buttonAdministratorAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAdministratorAreaActionPerformed
@@ -2011,7 +2006,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             mostraErrore("ERROR", "Nessuna competenza inserita");
         } else {
             String competenza = fieldInserisciCompetence.getText();
-            competence.add(competenza);
             if (!listModelCompetence.contains(competenza)) {
                 a.createCompetence(competenza);
                 listModelCompetence.addElement(competenza);
@@ -2028,7 +2022,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         if (competenceList.getSelectedIndex() == -1) {
             mostraErrore("ERROR", "Seleziona una competenza dalla lista!");
         } else {
-            competence.remove(competenceList.getSelectedValue());
             listModelCompetence.removeElement(competenceList.getSelectedValue());
             a.deleteCompetence(competenceList.getSelectedValue());
         }
@@ -2038,9 +2031,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         if (competenceList.getSelectedIndex() == -1) {
             mostraErrore("ERRORE", "Seleziona una competenza dalla lista!");
         } else {
+            stateButtonCompetence(false);
             textFieldModifyCompetence.setVisible(true);
             buttonConfirmModifyCompetence.setVisible(true);
             textFieldModifyCompetence.setText(competenceList.getSelectedValue());
+            competenceList.setEnabled(false);
 
         }
     }//GEN-LAST:event_buttonModifyCompetenceActionPerformed
@@ -2048,13 +2043,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private void buttonConfirmModifyCompetenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmModifyCompetenceActionPerformed
         if (a.modifyCompetence(competenceList.getSelectedValue(), textFieldModifyCompetence.getText())) {
             mostraSuccesso("Materiale modificato!", "Materiale modificato con successo!");
+            competenceList.setEnabled(true);
+            stateButtonCompetence(true);
             textFieldModifyCompetence.setVisible(false);
             buttonConfirmModifyCompetence.setVisible(false);
             textFieldModifyCompetence.setText("");
-            listModelCompetence.clear();
-            for (String c : a.getAllSkills()) {
-                listModelCompetence.addElement(c);
-            }
+            addSkillsToList();
         } else {
             mostraErrore("ERRORE", "Competenza non modificata!");
         }
@@ -2062,12 +2056,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonConfirmModifyCompetenceActionPerformed
 
     private void buttonGestisciCompetenzeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGestisciCompetenzeActionPerformed
-        listModelCompetence.clear();
+
         manageCompetence.setVisible(true);
-        competence = a.getAllSkills();
-        for (String c : competence) {
-            listModelCompetence.addElement(c);
-        }
+        addSkillsToList();
         competenceList.setModel(listModelCompetence);
         textFieldModifyCompetence.setVisible(false);
         buttonConfirmModifyCompetence.setVisible(false);
@@ -2080,16 +2071,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         Site vecchio = new Site(x[0], x[1]);
         if (a.modifySite(vecchio, nuovo)) {
             mostraSuccesso("Site modificato!", "Site modificato con successo!");
-
-            listModelSite.clear();
-            for (Site s : a.getAllSites()) {
-                listModelSite.addElement(s.toString());
-            }
-
+            stateButtonSite(true);
+            addSitesToList();
             listSite.setEnabled(true);
             fieldModifyFactorySite.setText("");
             fieldModifyArea.setText("");
-
             stateModifySiteComp(false);
 
         } else {
@@ -2105,6 +2091,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             String[] s = listSite.getSelectedValue().split(", ");
             fieldModifyFactorySite.setText(s[0]);
             fieldModifyArea.setText(s[1]);
+            stateButtonSite(false);
 
         } else {
             mostraErrore("ERRORE", "Nessun site selezionato dalla lista da modificare!");
@@ -2147,10 +2134,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     private void buttonManageSideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonManageSideActionPerformed
         manageSite.setVisible(true);
 
-        listModelSite.clear();
-        for (Site s : a.getAllSites()) {
-            listModelSite.addElement(s.toString());
-        }
+        addSitesToList();
         listSite.setModel(listModelSite);
 
         stateModifySiteComp(false);
@@ -2161,7 +2145,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         resetStateEWO();
 
-        labelWeekState.setText(labelWeekState.getText() + String.valueOf(cal.get(Calendar.WEEK_OF_YEAR)));
+        labelWeekState.setText(labelWeekState.getText() + String.valueOf(cal.get(Calendar.WEEK_OF_YEAR) - 1));
         labelDayState.setText(labelDayState.getText() + date.getDayOfMonth());
 
         tableEWO.setModel(tbEWO);
@@ -2419,12 +2403,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             if (matrice != null) {
                 String competenze = getComp(a, m);
                 String[] percentuali = calcolaPercentuale(matrice);
-                String[] inserimento = 
-                    {m.getName(), competenze, 
-                    percentuali[0], percentuali[1],
-                    percentuali[2], percentuali[3], 
-                    percentuali[4], percentuali[5], 
-                    percentuali[6]};
+                String[] inserimento
+                        = {m.getName(), competenze,
+                            percentuali[0], percentuali[1],
+                            percentuali[2], percentuali[3],
+                            percentuali[4], percentuali[5],
+                            percentuali[6]};
                 tb2.addRow(inserimento);
             }
         }
@@ -2641,6 +2625,37 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         tabellaDisponibilità2.setCellSelectionEnabled(true);
         svuotaTabella(tb3);
         aggiornaTabella3(); //aggiorno la tabella delle disponibilità diverse per minuti
+    }
+
+    private void stateButtonCompetence(boolean state) {
+        buttonRemoveCompetence.setEnabled(state);
+        buttonAddCompetence.setEnabled(state);
+    }
+
+    private void stateButtonSite(boolean state) {
+        buttonAddSite.setEnabled(state);
+        buttonRemoveSite.setEnabled(state);
+    }
+
+    private void addSkillsToList() {
+        listModelCompetence.clear();
+        for (String c : a.getAllSkills()) {
+            listModelCompetence.addElement(c);
+        }
+    }
+
+    private void addSitesToList() {
+        listModelSite.clear();
+        for (Site s : a.getAllSites()) {
+            listModelSite.addElement(s.toString());
+        }
+    }
+
+    private void addMaterialsToList() {
+        listModelMaterial.clear();
+        for (String s : p.getAllMaterials()) {
+            listModelMaterial.addElement(s);
+        }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFrame EwoState;

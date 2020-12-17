@@ -2118,7 +2118,7 @@
       <Properties>
         <Property name="title" type="java.lang.String" value="Competence management"/>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[499, 227]"/>
+          <Dimension value="[499, 251]"/>
         </Property>
       </Properties>
 
@@ -2155,7 +2155,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="10" y="32" width="133" height="30"/>
+                  <AbsoluteConstraints x="10" y="32" width="150" height="30"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -2168,7 +2168,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="10" y="79" width="-1" height="32"/>
+                  <AbsoluteConstraints x="10" y="79" width="150" height="32"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -2181,7 +2181,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="10" y="129" width="133" height="33"/>
+                  <AbsoluteConstraints x="10" y="129" width="150" height="33"/>
                 </Constraint>
               </Constraints>
             </Component>
