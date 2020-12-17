@@ -1018,7 +1018,6 @@
         <Property name="resizable" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="windowClosed" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="assegnaAttivit&#xe0;WindowClosed"/>
         <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="assegnaAttivit&#xe0;WindowClosing"/>
         <EventHandler event="windowOpened" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="assegnaAttivit&#xe0;WindowOpened"/>
       </Events>
@@ -1240,7 +1239,6 @@
         <Property name="resizable" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="windowClosed" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="assegnaAttivit&#xe0;2WindowClosed"/>
         <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="assegnaAttivit&#xe0;2WindowClosing"/>
         <EventHandler event="windowOpened" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="assegnaAttivit&#xe0;2WindowOpened"/>
       </Events>

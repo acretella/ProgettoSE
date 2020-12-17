@@ -768,9 +768,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         assegnaAttività.setMinimumSize(new java.awt.Dimension(1058, 350));
         assegnaAttività.setResizable(false);
         assegnaAttività.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                assegnaAttivitàWindowClosed(evt);
-            }
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 assegnaAttivitàWindowClosing(evt);
             }
@@ -865,9 +862,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         assegnaAttività2.setMinimumSize(new java.awt.Dimension(1233, 428));
         assegnaAttività2.setResizable(false);
         assegnaAttività2.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                assegnaAttività2WindowClosed(evt);
-            }
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 assegnaAttività2WindowClosing(evt);
             }
@@ -2229,15 +2223,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         tabellaAttività.setEnabled(false);
 
     }//GEN-LAST:event_attivitàEWOWindowOpened
-
-    private void assegnaAttività2WindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_assegnaAttività2WindowClosed
-
-// TODO add your handling code here:
-    }//GEN-LAST:event_assegnaAttività2WindowClosed
-
-    private void assegnaAttivitàWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_assegnaAttivitàWindowClosed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_assegnaAttivitàWindowClosed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
