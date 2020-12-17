@@ -218,26 +218,20 @@ public class Planner extends User{
      * @throws Exception Se non è stato possibile effettuare la modifica, la causa è contenuta nel messaggio dell'eccezione
      */
     public void modifyActivity(Activity a) throws Exception {
-        try {
-            String idproc;
-            if (a.getProcedure() != null) 
-                idproc = String.valueOf(a.getProcedure().getId());
-            else 
-                idproc = null;
-            
+        try {            
             String query = "";
             if (a.getType() != 1) 
                 query = "update Activity set factorySite='" + a.getSite().getFactorySite()
                         + "',area='" + a.getSite().getArea() + "',typology='" + a.getTypology() + "',description='" + a.getActivityDescription()
                         + "',estimatedTime=" + a.getEstimatedTime() + ",week=" + a.getWeek() + ",interruptable=" + a.isInterruptable()
                         + ",workSpaceNotes='" + a.getWorkSpaceNote() + "',activityType=" + a.getType()
-                        + ",procedura=" + idproc + ",giorno= null" + " where id_=" + a.getId() + ";";
+                        + ",giorno= null" + " where id_=" + a.getId() + ";";
             else 
                 query = "update Activity set factorySite='" + a.getSite().getFactorySite()
                         + "',area='" + a.getSite().getArea() + "',typology='" + a.getTypology() + "',description='" + a.getActivityDescription()
                         + "',estimatedTime=" + a.getEstimatedTime() + ",week=" + a.getWeek() + ",interruptable=" + a.isInterruptable()
                         + ",workSpaceNotes='" + a.getWorkSpaceNote() + "',activityType=" + a.getType()
-                        + ",procedura=" + idproc + ",giorno=" + a.getDay() + " where id_=" + a.getId() + ";";
+                        + ",giorno=" + a.getDay() + " where id_=" + a.getId() + ";";
             
 
             if (super.getConnection().createStatement().executeUpdate(query) == 0) 
