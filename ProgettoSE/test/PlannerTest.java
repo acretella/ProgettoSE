@@ -302,25 +302,12 @@ public class PlannerTest {
     
     @Test
     public void isThereAFile() throws Exception{
-        //Questo test può essere eseguito soltanto se il database contiente già una procedura con id=1
-        Procedure proc= new Procedure(1,null,null);
-        Activity activity = new PlannedActivity(46,
-                "branch office",
-                "departement",
-                "electrical",
-                "aaaaaaaa",
-                100,
-                1,
-                new ArrayList<>(),
-                true,
-                "lllllll",
-                proc);
-        p.createActivity(activity);
-        activity = p.getActivity(46);
+        //Questo test può essere eseguito soltanto se il database contiente già un' attività con id=1 che ha una procedura associata
+        Activity activity = p.getActivity(1);
         assertNotNull(activity.getProcedure());  
         //assertNull(activity.getProcedure());
         try {
-            Desktop.getDesktop().open(activity.getProcedure().getSmp());
+            Desktop.getDesktop().open(activity.getProcedure().getSmp()); //Se il path è giusto apre il file
         } catch (Exception ex) {}
         p.deleteActivity(46);
     }
