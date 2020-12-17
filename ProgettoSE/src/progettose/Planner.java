@@ -325,15 +325,8 @@ public class Planner extends User{
     public void assignedActivityToMaintainer(Maintainer m, Activity a, int giorno, int ore[]) throws Exception{
         super.getConnection().setAutoCommit(false);
         super.getConnection().setSavepoint();
-        if(a.getType() == 1){ //Se l'attività è una EWO devo verificare se il planner vuole assegnarla al posto di un'altra interrompibile
-            this.checkInterruptable(m, a, giorno, ore); //Controllo se il manutentore sta svolgendo un'attività da interrompere
-            for (Maintainer man : this.getAllMaintainers()) {
-                if (man.getName().equals(m.getName())) {
-                    m = man;
-                    break;
-                }
-            }
-        }
+        if(a.getType() == 1) //Se l'attività è una EWO devo verificare se il planner vuole assegnarla al posto di un'altra interrompibile
+            m = this.checkInterruptable(m, a, giorno, ore); //Controllo se il manutentore sta svolgendo un'attività da interrompere
 
         int avaibility[][] = m.getAvailability().get(a.getWeek());
         int daily[] = avaibility[giorno];
@@ -435,7 +428,7 @@ public class Planner extends User{
     
     //Metodo di utilità per ripristinare la disponibilità dei manutentori quando un'attività viene cancellata o
     //quando un'attività viene annullata per un manutentore a causa di una attività EWO
-    private void rebuildAvailability(Activity a, boolean onemaintainer, Maintainer ma) throws SQLException {
+    private Maintainer rebuildAvailability(Activity a, boolean onemaintainer, Maintainer ma) throws SQLException {
         List<Maintainer> m = this.getAllMaintainers();
         List<Maintainer> maintainers = this.getAllMaintainers();
         List<String> idm = new ArrayList<>();
@@ -463,9 +456,9 @@ public class Planner extends User{
                 m.remove(man);
             }
         }
-
+        Maintainer man = null;
         for (int i = 0; i < starts.size(); i++) { //Aggiornare le disponibilità
-            Maintainer man = m.get(i);
+            man = m.get(i);
             int[] availability = man.getAvailability().get(a.getWeek())[days.get(i)];
             int k = starts.get(i);
             int temp = a.getEstimatedTime();
@@ -499,11 +492,12 @@ public class Planner extends User{
                 }
             }
         }
+        return man;
     }
     
     //Metodo di utilità per l'assegnazione di un' attività EWO
     //che controlla se ci sono attività interrompibili nell'arco di tempo dato come parametro
-    private void checkInterruptable(Maintainer m, Activity a, int giorno, int ore[]) throws SQLException {
+    private Maintainer checkInterruptable(Maintainer m, Activity a, int giorno, int ore[]) throws SQLException {
         int id = this.getIdMaintainer(m.getName()); //Acquisisco id del maintainer dal db
         //Controllo se ci sono attività nel giorno e nelle ore del giorno date come parametro
         String query = "Select * from Maintainer_for_Activity,Activity where activity=id_ and  maintainer = " + id + " and day_of_week = " + giorno;
@@ -520,11 +514,12 @@ public class Planner extends User{
             if ((end >= ore[0] && start <= ore[ore.length - 1]) || (start <= ore[ore.length - 1] && end >= ore[0])) { 
                 if (rst2.getBoolean("interruptable")) {
                     int ida =  rst2.getInt("id_");
-                    this.rebuildAvailability(this.getActivity(ida), true, m); //Ripristinare le disponibilità del manutentore 
+                    m = this.rebuildAvailability(this.getActivity(ida), true, m); //Ripristinare le disponibilità del manutentore 
                     super.getConnection().createStatement().executeUpdate("delete from Maintainer_for_Activity where maintainer = " + id +" and activity = "+ ida); //Interruzione dell'attività
                 }
             }
         }
+        return m;
     }
    
     private int getIdMaintainer(String name) throws SQLException{
