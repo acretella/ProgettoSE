@@ -67,7 +67,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     };
 
 //INIZIALIZZAZIONI DI VARIE VARIABILI GLOBALI E INIZIALIZZAZIONE DEI LIST MODEL UTILI
-
     String interrompibile = "";
     DefaultListModel listModel = new DefaultListModel();
     DefaultListModel listModelVis = new DefaultListModel();
@@ -1975,9 +1974,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         if (materialList.getSelectedIndex() == -1) {
             mostraErrore("ERROR", "Seleziona un materiale dalla lista dei materiali da rimuovere");
         } else {
-            listModelMaterial.removeElement(materialList.getSelectedValue());
+
             if (p.deleteMaterial(materialList.getSelectedValue())) {
+                listModelMaterial.removeElement(materialList.getSelectedValue());
                 mostraSuccesso("Materiale rimosso", "Materiale rimosso con successo");
+            } else {
+                mostraErrore("ERRORE", "Non è stato possibile cancellare il materiale!");
             }
         }
     }//GEN-LAST:event_buttonRemoveMaterialActionPerformed
@@ -2038,8 +2040,12 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         if (competenceList.getSelectedIndex() == -1) {
             mostraErrore("ERROR", "Seleziona una competenza dalla lista!");
         } else {
-            listModelCompetence.removeElement(competenceList.getSelectedValue());
-            a.deleteCompetence(competenceList.getSelectedValue());
+            if (a.deleteCompetence(competenceList.getSelectedValue())) {
+                listModelCompetence.removeElement(competenceList.getSelectedValue());
+            } else {
+                mostraErrore("ERRORE", "Non è stato possibile rimuovere la competenza");
+            }
+
         }
     }//GEN-LAST:event_buttonRemoveCompetenceActionPerformed
 
@@ -2327,7 +2333,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         List<Activity> a;
         a = p.getAllActivities();
         for (Activity x : a) {
-            String tipo=getType(x.getType());
+            String tipo = getType(x.getType());
             if (x.isInterruptable() == true) {
                 interrompibile = "Si";
             } else {
