@@ -120,7 +120,7 @@ public class Planner extends User{
     protected Activity createActivity(ResultSet rst, List<String> materials, int id) throws SQLException {
         Activity a = null;
         Procedure p = null;
-        switch (rst.getInt("activityType")) {
+        switch (rst.getInt("activityType")) { //Crea un'attività a seconda del tipo
             case 0:
                 a = new PlannedActivity(id,
                         rst.getString("factorySite"),
@@ -387,6 +387,12 @@ public class Planner extends User{
             super.getConnection().setAutoCommit(true);
         }
     }
+    
+    /**
+     * Permette di aggiungere informazioni aggiuntive ad un' attività EWO
+     * @param a Attività EWO
+     * @return True se sono state fatte modifiche, False se c'è stato un errore
+     */
     public boolean setEwoActivity(EwoActivity a) {
         try {
             Statement stm = super.getConnection().createStatement();
@@ -426,7 +432,9 @@ public class Planner extends User{
             return false;
         }
     }
-
+    
+    //Metodo di utilità per ripristinare la disponibilità dei manutentori quando un'attività viene cancellata o
+    //quando un'attività viene annullata per un manutentore a causa di una attività EWO
     private void rebuildAvailability(Activity a, boolean onemaintainer, Maintainer ma) throws SQLException {
         List<Maintainer> m = this.getAllMaintainers();
         List<Maintainer> maintainers = this.getAllMaintainers();
@@ -493,7 +501,8 @@ public class Planner extends User{
         }
     }
     
-
+    //Metodo di utilità per l'assegnazione di un' attività EWO
+    //che controlla se ci sono attività interrompibili nell'arco di tempo dato come parametro
     private void checkInterruptable(Maintainer m, Activity a, int giorno, int ore[]) throws SQLException {
         int id = this.getIdMaintainer(m.getName()); //Acquisisco id del maintainer dal db
         //Controllo se ci sono attività nel giorno e nelle ore del giorno date come parametro
