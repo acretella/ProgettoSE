@@ -458,7 +458,7 @@ public class Planner extends User{
             int temp = a.getEstimatedTime();
 
             if (minutes.get(i) < 60) {
-                availability[k] += minutes.get(i);
+                availability[k] = minutes.get(i);
                 temp -= minutes.get(i);
                 k++;
             }
