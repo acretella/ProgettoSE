@@ -1722,20 +1722,16 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             } else {
                 try {
                     Desktop.getDesktop().open(a.getProcedure().getSmp());
-                } catch (IOException ex) {
+                } catch (IOException | NullPointerException e ) {
                     mostraErrore("ERRORE", "L'attività non ha associato nessuna SMP");
                 } catch (IllegalArgumentException ex) {
                     mostraErrore("ERRORE", "Path del PDF non esistente");
                 }
-
             }
         }
-
-
     }//GEN-LAST:event_buttonSMPActionPerformed
 
     private void tabellaAttivitàMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabellaAttivitàMouseClicked
-
         listModelVis.clear();
         listModelComp.clear();
 
