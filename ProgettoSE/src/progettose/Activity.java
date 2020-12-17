@@ -22,7 +22,7 @@ public abstract class Activity {
     private boolean interruptable;
     private String workSpaceNote;
     Procedure procedure;
-    private int type = 0;
+    private int type;
 
 
     public Activity(int id, String factorySite, String area, String typology, String activityDescription, int estimatedTime, 
