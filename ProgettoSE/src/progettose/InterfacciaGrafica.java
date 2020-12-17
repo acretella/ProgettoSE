@@ -67,7 +67,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     };
 
 //INIZIALIZZAZIONI DI VARIE VARIABILI GLOBALI E INIZIALIZZAZIONE DEI LIST MODEL UTILI
-    String tipo = "";
+
     String interrompibile = "";
     DefaultListModel listModel = new DefaultListModel();
     DefaultListModel listModelVis = new DefaultListModel();
@@ -768,6 +768,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         assegnaAttività.setMinimumSize(new java.awt.Dimension(1058, 350));
         assegnaAttività.setResizable(false);
         assegnaAttività.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                assegnaAttivitàWindowClosed(evt);
+            }
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 assegnaAttivitàWindowClosing(evt);
             }
@@ -862,6 +865,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         assegnaAttività2.setMinimumSize(new java.awt.Dimension(1233, 428));
         assegnaAttività2.setResizable(false);
         assegnaAttività2.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                assegnaAttività2WindowClosed(evt);
+            }
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 assegnaAttività2WindowClosing(evt);
             }
@@ -1679,18 +1685,6 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
             id = Integer.parseInt(tb.getValueAt(tabellaAttività.getSelectedRow(), 0).toString());
             Activity a = p.getActivity(id);
             materiali = a.getMaterials();
-            String tipo = "";
-            switch (a.getType()) {//setto il tipo in base al type che ricevo
-                case 0:
-                    tipo = "Planned";
-                    break;
-                case 1:
-                    tipo = "EWO";
-                    break;
-                default:
-                    tipo = "Extra";
-                    break;
-            }
 
             setLabelModifyActivity();//riempio le text field con i dati attuali dell'attività
 
@@ -1727,19 +1721,21 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_creazioneAttivitàWindowClosing
 
     private void buttonSMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSMPActionPerformed
-        id = Integer.parseInt(tb.getValueAt(tabellaAttività.getSelectedRow(), 0).toString());
-        Activity a = p.getActivity(id);
-        if (a.getProcedure() == null) {
-            mostraErrore("ERRORE", "Nessun SMP associato alla procedura");
-        } else {
-            try {
-                Desktop.getDesktop().open(a.getProcedure().getSmp());
-            } catch (IOException ex) {
-                mostraErrore("ERRORE", "L'attività non ha associato nessuna SMP");
-            } catch (IllegalArgumentException ex) {
-                mostraErrore("ERRORE", "Path del PDF non esistente");
-            }
+        if (tabellaAttività.getSelectedRow() > -1) {
+            id = Integer.parseInt(tb.getValueAt(tabellaAttività.getSelectedRow(), 0).toString());
+            Activity a = p.getActivity(id);
+            if (a.getProcedure() == null) {
+                mostraErrore("ERRORE", "Nessun SMP associato alla procedura");
+            } else {
+                try {
+                    Desktop.getDesktop().open(a.getProcedure().getSmp());
+                } catch (IOException ex) {
+                    mostraErrore("ERRORE", "L'attività non ha associato nessuna SMP");
+                } catch (IllegalArgumentException ex) {
+                    mostraErrore("ERRORE", "Path del PDF non esistente");
+                }
 
+            }
         }
 
 
@@ -1773,6 +1769,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         if (indice == -1) {
             mostraErrore("ERRORE", "Seleziona un'attività dalla tabella!");
         } else {
+            tabellaDisponibilità.setEnabled(true);
+            tabellaAttività.setEnabled(false);
             if (p.getActivity(id).getType() != 1) {//caso in cui l'attività da assegnare non è una EWO
                 tabellaDisponibilità.setCellSelectionEnabled(true);
                 tabellaDisponibilità.setRowSelectionAllowed(true);
@@ -1786,6 +1784,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                     labelOccupato.setVisible(true);
                     tabellaDisponibilità.setEnabled(false);
                 } else {
+                    tabellaDisponibilità.setEnabled(false);
+                    tabellaAttività.setEnabled(true);
                     mostraErrore("ERRORE", "EWO Scaduto!");
                 }
 
@@ -1843,6 +1843,8 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 resetPostEWO(); // resetto il frame dopo aver assegnato la ewo
                 assegnaAttività2.setVisible(false);
                 tabellaDisponibilità.setEnabled(true);
+                tabellaAttività.setEnabled(true);
+                assegnaAttività.setVisible(false);
             }
         } catch (Exception ex) {
 
@@ -1858,8 +1860,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
     private void assegnaAttività2WindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_assegnaAttività2WindowClosing
         tabellaDisponibilità.setEnabled(true); //sblocco la tabella delle disponibilità dopo aver assegnato l'attività
-        tabellaAttività.setEnabled(true);
         resetPostEWO();
+        if (p.getActivity(id).getType() == 1) {
+            tabellaAttività.setEnabled(true);
+        }
+
 
     }//GEN-LAST:event_assegnaAttività2WindowClosing
 
@@ -2211,19 +2216,28 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
     private void assegnaAttività2WindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_assegnaAttività2WindowOpened
         tabellaAttività.setEnabled(false);
-        
 
 
     }//GEN-LAST:event_assegnaAttività2WindowOpened
 
     private void assegnaAttivitàWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_assegnaAttivitàWindowClosing
-tabellaAttività.setEnabled(true);
+        tabellaAttività.setEnabled(true);
+
     }//GEN-LAST:event_assegnaAttivitàWindowClosing
 
     private void attivitàEWOWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_attivitàEWOWindowOpened
-tabellaAttività.setEnabled(false);
+        tabellaAttività.setEnabled(false);
 
     }//GEN-LAST:event_attivitàEWOWindowOpened
+
+    private void assegnaAttività2WindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_assegnaAttività2WindowClosed
+
+// TODO add your handling code here:
+    }//GEN-LAST:event_assegnaAttività2WindowClosed
+
+    private void assegnaAttivitàWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_assegnaAttivitàWindowClosed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_assegnaAttivitàWindowClosed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -2328,17 +2342,7 @@ tabellaAttività.setEnabled(false);
         List<Activity> a;
         a = p.getAllActivities();
         for (Activity x : a) {
-            switch (x.getType()) {
-                case 0:
-                    tipo = "Planned";
-                    break;
-                case 1:
-                    tipo = "EWO";
-                    break;
-                default:
-                    tipo = "Extra";
-                    break;
-            }
+            String tipo=getType(x.getType());
             if (x.isInterruptable() == true) {
                 interrompibile = "Si";
             } else {
@@ -2615,7 +2619,7 @@ tabellaAttività.setEnabled(false);
     private void setLabelModifyActivity() {
         Activity a = p.getActivity(id);
         fieldID.setText(String.valueOf(a.getId()));
-        labelAttivitàOra.setText(labelAttivitàOra.getText() + " " + tipo.toLowerCase() + ")");
+        labelAttivitàOra.setText(labelAttivitàOra.getText() + " " + getType(a.getType()).toLowerCase() + ")");
         labelSiteOra.setText(labelSiteOra.getText() + a.getSite().toString() + ")");
         labelTipologiaOra.setText((labelTipologiaOra.getText()) + " " + a.getTypology().toLowerCase() + ")");
         fieldTime.setText(String.valueOf(a.getEstimatedTime()));
@@ -2694,6 +2698,20 @@ tabellaAttività.setEnabled(false);
         listModelMaterial.clear();
         for (String s : p.getAllMaterials()) {
             listModelMaterial.addElement(s);
+        }
+    }
+
+    private String getType(int type) {
+        switch (type) {
+            case 0:
+                return "Planned";
+
+            case 1:
+                return "EWO";
+
+            default:
+                return "Extra";
+
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
