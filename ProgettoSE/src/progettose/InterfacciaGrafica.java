@@ -410,7 +410,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         );
 
         jPanel1.add(panelCopertura2);
-        panelCopertura2.setBounds(0, 360, 0, 0);
+        panelCopertura2.setBounds(0, 360, 1070, 240);
 
         jScrollPane8.setViewportView(listaMaterialiVis);
 
@@ -767,6 +767,14 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         assegnaAttività.setMinimumSize(new java.awt.Dimension(1058, 350));
         assegnaAttività.setResizable(false);
+        assegnaAttività.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                assegnaAttivitàWindowClosing(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                assegnaAttivitàWindowOpened(evt);
+            }
+        });
         assegnaAttività.getContentPane().setLayout(null);
 
         jPanel2.setBackground(new java.awt.Color(204, 102, 0));
@@ -856,6 +864,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         assegnaAttività2.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 assegnaAttività2WindowClosing(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                assegnaAttività2WindowOpened(evt);
             }
         });
         assegnaAttività2.getContentPane().setLayout(null);
@@ -974,6 +985,9 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
         attivitàEWO.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 attivitàEWOWindowClosing(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                attivitàEWOWindowOpened(evt);
             }
         });
         attivitàEWO.getContentPane().setLayout(null);
@@ -1766,10 +1780,11 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
                 labelOccupato.setVisible(false);
                 casoNotEWO(); //qui gestisco il caso in cui non sia una EWO
             } else {
-                tabellaDisponibilità.setEnabled(false);
+
                 if (date.getDayOfMonth() == p.getActivity(id).getDay()) {//GESTIONE DEL GIORNO DI ASSEGNAZIONE, LE EWO VANNO ASSEGNATE IL GIORNO IN CUI VENGONO CREATE
                     gestioneEWO();//caso in cui gestisco la EWO da assegnare
                     labelOccupato.setVisible(true);
+                    tabellaDisponibilità.setEnabled(false);
                 } else {
                     mostraErrore("ERRORE", "EWO Scaduto!");
                 }
@@ -1843,6 +1858,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
     private void assegnaAttività2WindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_assegnaAttività2WindowClosing
         tabellaDisponibilità.setEnabled(true); //sblocco la tabella delle disponibilità dopo aver assegnato l'attività
+        tabellaAttività.setEnabled(true);
         resetPostEWO();
 
     }//GEN-LAST:event_assegnaAttività2WindowClosing
@@ -1916,6 +1932,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
     private void attivitàEWOWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_attivitàEWOWindowClosing
         clearEwoFrame();
+        tabellaAttività.setEnabled(true);
     }//GEN-LAST:event_attivitàEWOWindowClosing
 
     private void buttonRemoveSkillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveSkillActionPerformed
@@ -2185,6 +2202,28 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         resetStateEWO();
     }//GEN-LAST:event_EwoStateWindowClosing
+
+    private void assegnaAttivitàWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_assegnaAttivitàWindowOpened
+
+        tabellaAttività.setEnabled(false);
+
+    }//GEN-LAST:event_assegnaAttivitàWindowOpened
+
+    private void assegnaAttività2WindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_assegnaAttività2WindowOpened
+        tabellaAttività.setEnabled(false);
+        
+
+
+    }//GEN-LAST:event_assegnaAttività2WindowOpened
+
+    private void assegnaAttivitàWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_assegnaAttivitàWindowClosing
+tabellaAttività.setEnabled(true);
+    }//GEN-LAST:event_assegnaAttivitàWindowClosing
+
+    private void attivitàEWOWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_attivitàEWOWindowOpened
+tabellaAttività.setEnabled(false);
+
+    }//GEN-LAST:event_attivitàEWOWindowOpened
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
