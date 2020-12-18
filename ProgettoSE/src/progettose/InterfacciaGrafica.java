@@ -2171,7 +2171,7 @@ public class InterfacciaGrafica extends javax.swing.JFrame {
 
         String[] nomiEWO = {"ID", "Area", "Type", "Estimated Time"};
         tbEWO.setColumnIdentifiers(nomiEWO);
-        String[] nomiStateEWO = {"Department", "Area", "General State"};
+        String[] nomiStateEWO = {"Department", "Maintainer", "General State"};
         tbStateEWO.setColumnIdentifiers(nomiStateEWO);
 
         for (Activity a : p.getAllActivities()) {
